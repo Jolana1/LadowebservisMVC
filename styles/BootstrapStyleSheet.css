@@ -1,0 +1,599 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Langar&display=swap');*/
+
+
+p, h1, h2, h3, h4 {
+    color: black;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    /*font-family: 'Langar', cursive;*/
+    font-size: 18px;
+}
+
+.form-item {
+    color: white;
+    text-decoration: none;
+}
+
+
+
+
+.navbar-default {
+    border: none;
+}
+
+.navbar-default .navbar-header
+    img {
+        max-height: 25px;
+        background-color: #7db9ff;
+        float: left;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 3px 10px 0 0;
+        transition: all .3s ease;
+    }
+
+.page-body {
+    padding-top: 60px;
+    background-color: #4aacf4;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-size: cover;
+}
+
+
+.contact-items .glyphicon {
+    padding-right: 10px;
+    color: white;
+    font-size: 15px;
+}
+
+.tlacitko-moje {
+    display: inline-block;
+    color: white;
+    border: 2px solid black;
+    padding: .5em 1.7em;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+
+    .tlacitko-moje:hover {
+        color: black;
+        text-decoration: none;
+    }
+
+        .tlacitko-moje:hover:after {
+            left: 0;
+            opacity: 1;
+        }
+
+    .tlacitko-moje:after {
+        content: "";
+        position: absolute;
+        left: -100%;
+        top: 0;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        opacity: 0;
+        transition: all .3s ease;
+        z-index: -1;
+    }
+
+
+/*povodne .tlacitko-moje {
+    padding: 10px;
+    color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: inline-block;
+}*/
+
+.tlacitko-moje:hover {
+    color: white;
+    background-color: black;
+    text-decoration: none;
+}
+
+.moj-formular .row {
+    padding: 10px 0 10px 0px;
+    color: white;
+}
+
+.field-validation-error {
+    color: #ff0000;
+}
+
+.validation-summary-errors {
+    color: #ff0000;
+}
+
+.img-responsive img {
+    max-width: 100%;
+    float: left;
+    width: 100px;
+    height: 195px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 10px 10px 0;
+    transition: all .3s ease;
+}
+/*toto sa skryje a zaroven neotravuje a ochrani formular pred robotmi*/
+.api-password-group {
+    display: none;
+}
+
+Photo gallery2
+.gallery-list .gallery-folder {
+    margin-bottom: 50px;
+}
+
+.gallery-list .gallery-img {
+    padding: 10px 0;
+}
+
+.gallery-list .photo-gallery-item {
+    position: relative;
+}
+
+    .gallery-list .photo-gallery-item img {
+        width: 100%;
+    }
+
+    .gallery-list .photo-gallery-item .photo-gallery-item-hover {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(120, 120, 120, 0.5);
+        display: none;
+        top: 0;
+        left: 0;
+        text-align: center;
+    }
+
+    .gallery-list .photo-gallery-item:hover .photo-gallery-item-hover {
+        display: block;
+        cursor: pointer;
+    }
+
+    .gallery-list .photo-gallery-item .photo-gallery-item-hover i {
+        color: #FFFFFF;
+        margin: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        display: block;
+    }
+
+Photo gallery1
+.photo-slider {
+    padding: 20px 20px 50px 20px;
+}
+
+@media(max-width: 768px) {
+    .photo-slider {
+        padding: 20px 10px 50px 10px;
+    }
+}
+
+.photo-slider .photo-slider-toolbar {
+    position: relative;
+    height: 50px;
+}
+
+    .photo-slider .photo-slider-toolbar .photo-slider-count {
+        padding-left: 15px;
+        color: #000000;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .photo-slider .photo-slider-toolbar .photo-slider-close {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        color: #000000;
+        font-weight: bold;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+.photo-slider .lightSlider {
+    text-align: center;
+}
+
+    .photo-slider .lightSlider img.img-ls-responsive {
+        margin: auto;
+        max-height: 70vh;
+        max-width: 100%;
+    }
+
+.photo-slider-link {
+    cursor: pointer;
+}
+
+.slider-wrapper {
+    display: none;
+}
+
+.slider-wrapper-template {
+    display: none;
+}
+
+.slider-wrapper .slider-content .photo-slider {
+    padding-top: 0;
+}
+
+Course video
+.course-video {
+    margin: 0 20px 50px 20px;
+}
+
+.course-video {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+}
+
+    .course-video iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .course-video video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+
+
+
+
+/* Add a background color and some padding to the footer */
+footer {
+    background-color: #726539;
+    padding: 2px;
+    text-align: center;
+    color: white;
+}
+
+
+.carousel-inner img {
+    width: 100%;
+    height: max-content;
+}
+
+q {
+    quotes: "“""”""‘""’";
+}
+
+nav,
+em,
+li,
+a,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Montserrat", sans-serif
+}
+
+.navbar {
+    margin-bottom: 0;
+    background-color: #726539;
+    z-index: 9999;
+    border: 0;
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+}
+
+    /* Add a gray color to all navbar links */
+    .navbar li a,
+    .navbar .navbar-brand {
+        color: #fff !important;
+        position: relative;
+    }
+
+/* On hover, the links will turn white */
+.navbar-nav li a:hover,
+.navbar-nav li.active a {
+    color: #5d33fb !important;
+    background-color: #fff !important;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff !important;
+}
+
+    /* Remove border color from the collapsible button */
+    .navbar-default .navbar-toggle:hover,
+    .navbar-default .navbar-toggle:focus {
+        background-color: #fff !important;
+    }
+
+    .navbar-default .navbar-toggle .icon-bar {
+        background-color: #fff !important;
+    }
+
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+    border-color: #e7e7e7;
+}
+
+.container-fluid-right {
+    float: right;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+    .container-fluid-right .navbar-toggle {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+
+
+
+/* On small screens, set height to 'auto' for sidenav and grid*/
+
+.sidenav {
+    height: auto;
+    padding: 15px;
+}
+
+.grid {
+    height: auto;
+    padding: 0;
+}
+
+.row.content {
+    height: auto;
+}
+
+
+
+.card {
+    box-sizing: border-box;
+    box-shadow: 0 4px 0px 0 rgba(0, 0, 0, 0.2);
+    max-width: 993px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+}
+
+    .card button {
+        border: none;
+        outline: 0;
+        padding: 12px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 50%;
+        font-size: 12px;
+    }
+
+        .card button:hover {
+            opacity: 0.5;
+        }
+
+.row {
+    display: -ms-flexbox;
+    /* IE10 */
+    display: flex;
+    -ms-flex-wrap: wrap;
+    /* IE10 */
+    flex-wrap: wrap;
+    margin: 0 -16px;
+}
+
+.col-25 {
+    -ms-flex: 25%;
+    /* IE10 */
+    flex: 25%;
+}
+
+.col-50 {
+    -ms-flex: 50%;
+    /* IE10 */
+    flex: 50%;
+}
+
+.col-75 {
+    -ms-flex: 75%;
+    /* IE10 */
+    flex: 75%;
+}
+
+.col-25,
+.col-50,
+.col-75 {
+    padding: 0 16px;
+}
+
+.container {
+    background-color: #726539;
+    padding: 5px 20px 15px 20px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+}
+
+input[type=text] {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+label {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.icon-container {
+    margin-bottom: 20px;
+    padding: 7px 0;
+    font-size: 24px;
+}
+
+.remove .increase .decrease {
+    color: white;
+    padding: 5px;
+    margin: 5px;
+    border: none;
+    width: 5%;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    text-align: center;
+}
+
+.remove:hover {
+    background-color: #5d33fb;
+}
+
+.increase:hover {
+    background-color: #5d33fb;
+}
+
+.decrease:hover {
+    background-color: #5d33fb;
+}
+
+.add-to-cart {
+    /*float: calc(100% - 10px);*/
+    color: white;
+    background-color: black;
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 3px;
+}
+
+/* Add this CSS to your existing CSS */
+
+.product {
+    border: 1px solid black;
+    padding: 1px;
+    margin: 1px;
+}
+
+/*.add-to-cart {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 0px;
+            cursor: pointer;
+        }*/
+ /*.cart-items {
+            position: relative;
+            top: 0;
+            right:0;
+            color: black;
+            padding: 5px 10px;
+            background-color: turquoise;
+
+            padding: 1px;
+            margin: 1px;
+        }*/
+
+.cart-items nav .cart-icon  {
+            list-style-type: none;
+            padding: 5px;
+            color: white;
+
+        }
+.navbar-brand.image-container img {
+    width: 152px;
+    height: 42px;
+    position: relative;
+    left: 12px;
+    top: 0px;
+}
+
+nav .cart-icon img {
+    width: 30px;
+    height: 28px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    color: white;
+}
+
+nav .cart-icon span .cart-items {
+    position: relative;
+    top: -20px;
+    left: -10px;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 50%;
+    font-size: 14px;
+}
+
+
+
+
+#card-element {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 3px;
+    margin: 10px 0;
+}
+
+#card-errors {
+    color: red;
+    margin: 10px 0;
+}
+
+.buy-button-click {
+    background-color: wheat;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+    .buy-button-click:hover {
+        background-color: #5d33fb;
+    }
+
+
+
+
+
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
+
+.row {
+    flex-direction: column;
+}
+
+.col-25 {
+    margin-bottom: 10px;
+}
+

@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3PFBTR5XXW"></script>
+<script>
+    window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-3PFBTR5XXW');
+</script>
+@*<btn onclick="consentGrantedAdStorage()"class="btn btn-primary btn-lg tlacitko-moje">Yes cookies</btn>*@
+
+<script>
+    function consentGrantedAdStorage() {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('consent', 'default', {
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'ad_storage': 'denied',
+            'analytics_storage': 'denied',
+            'wait_for_update': 500,
+        });
+        dataLayer.push({ 'gtm.start': new Date().getTime(), 'event': 'gtm.js' });
+        grantButton.addEventListener("click", function () {
+            localStorage.setItem("consentGranted", "true");
+            function gtag() { dataLayer.push(arguments); }
+
+            gtag('consent', 'update', {
+                ad_user_data: 'granted' | 'denied',
+                ad_personalization: 'granted' | 'denied',
+                ad_storage: 'granted',
+                analytics_storage: 'granted'
+            });
+        });
+
+    };
+</script>
+<script>
+    // Load Tag Manager script.
+    var gtmScript = document.createElement('script');
+    gtmScript.async = true;
+    gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-T46FXNQ';
+
+    var firstScript = document.getElementsByTagName('script')[0];
+    firstScript.parentNode.insertBefore(gtmScript, firstScript);
+</script>
+

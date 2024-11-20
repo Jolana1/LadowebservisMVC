@@ -1,0 +1,99 @@
+﻿<!-- Products -->
+@using LadowebservisMVC.Models
+@model OrderModel
+
+
+
+
+@{
+    ViewBag.Title = "Produkty";
+}
+
+<meta name="viewport" content="width=device-width" />
+
+
+<section class="products">
+
+    <div class="card w3-center pt-4 w3-text-grey">
+        <div class="product" id="" data-product-name="BalanceOil">
+            <h2>BalanceOil Orange</h2>
+            <p1 class="w3-button w3-blue w3-padding-large">BalanceOil Orange 54 €/ks</p1>
+            <!--button onclick="addItemToCart('BalanceOil', 54.00, './Image/BalanceOil.webp')">Pridať do košíka</button-->
+            <button class="add-to-cart" title="Pre pridanie do košíka kliknite">Pridať do <span class="glyphicon glyphicon-shopping-cart"></span></button>
+
+
+
+
+            <a data-fancybox="gallery" href="~/Image/BalanceOil.png"><img class="rounded" src="~/Image/BalanceOil.png" alt="BalanceOil" style="width:100%" title="Lepšie zdravie sa začína lepšou rovnováhou.SPRAVTE TRI KROKY K ROVNOVÁHE,REGENERÁCII A POSILNENIU ZDRAVIA "></a>
+
+            <br>
+            <details>
+                <p style="font-size:10px;color:#000;text-shadow:1px 1px 4px #fff;">
+                    Prispieva k normálnej funkcii mozgu, pretože denná dávka obsahuje 700 mg DHA
+                    Prispieva k normálnemu imunitnému systému, pretože denná dávka obsahuje 20 µg vitamínu D3
+                    Pomáha udržiavať dostatočné hladiny EPA a DHA vo vašom tele
+                    Pomáha udržiavať optimálnu hladinu omega 6:3 mastných kyselín vo vašom tele
+                    Pomáha udržiavať hladinu polyfenolov v tele na ochranu krvných lipidov pred oxidačným stresom
+                    Podporuje zdravú a normálnu funkciu očí, pretože obsahuje 700 mg DHA
+                    Prispieva k normálnym kostiam, funkcii svalov, normálnym zubom a deleniu buniek, pretože denná dávka obsahuje 20 µg vitamínu D3
+                    Podporuje normálne hladiny triglyceridov v krvi, normálny krvný tlak a normálne hladiny vápnika v krvi
+                </p>
+            </details>
+        </div>
+    </div>
+</section>
+
+<br>
+<br>
+
+
+<section class="products">
+    <div class="card w3-center pt-4 w3-text-grey">
+        <div class="product" id="" data-product-name="Zinobiotic">
+            <h2>Zinobiotic</h2>
+            <p1 class="w3-button w3-blue w3-padding-large w3-hover-red">Zinobiotic teraz v akcii zo 64€ na 32 €/ks </p1>
+            <button class="add-to-cart" title="Neváhajte a pridajte si Zinobiotic do košíka">Pridať do <span class="glyphicon glyphicon-shopping-cart"></span></button>
+            <a data-fancybox="gallery" href="~/Image/Zinobiotic.jpg"><img class="rounded" src="~/Image/Zinobiotic.jpg" alt="Zinobiotic" style="width:100%" title="Črevá sa už dlho označujú za druhý mozog..."></a>
+
+            <details>
+                <p style="font-size:10px;color:#000;text-shadow:1px 1px 4px #fff;">
+                    Črevá sa už dlho označujú za druhý mozog,ale
+                    až v posledných rokoch si začíname uvedomovať, aké dôležité sú črevá pre naše zdravie a duševnú pohodu
+                    Črevá obsahujú 500 miliónov neurónov, ktoré sú s mozgom spojené prostredníctvom nervového systému
+                    Pomáha udržiavať optimálnu hladinu cholesterolu vo vašom tele
+                    Musíme uznať dôležitosť tohto nevyhnutného systému, pretože je neoddeliteľnou súčasťou dosiahnutia rovnováhy organizmu (a života)
+
+                </p>
+            </details>
+        </div>
+    </div>
+</section>
+<br>
+<br>
+
+<section class="products">
+    <div class="card w3-center pt-4 w3-text-grey">
+        <div class="product" id="" data-product-name="ZinzinoXtend">
+            <h2>Zinzino Xtend</h2>
+            <p1 class="w3-button w3-blue w3-padding-large">Zinzino Xtend 44 €/ks</p1>
+            <button class="add-to-cart" title="Pre pridanie do košíka kliknite">Pridať do <span class="glyphicon glyphicon-shopping-cart"></span></button>
+
+
+
+
+            <a data-fancybox="gallery" href="~/Image/ZinzinoXtend.jpg"><img class="rounded" src="~/Image/ZinzinoXtend.jpg" alt="ZinzinoXtend" style="width:100%" title="prírodný výživový doplnok na podporu imunity"></a>
+            <details>
+                <p style="font-size:10px;color:#000;text-shadow:1px 1px 4px #fff;">ZinzinoXtend je pokrokový vegánsky, výlučne prírodný výživový doplnok na podporu imunity, ktorý dokonale dopĺňa produkty BalanceOil a ZinoBiotic. Vyvinuli sme ho na podporu prirodzeného imunitného systému a obsahuje micro- a fytonutrienty vrátane 22 základných vitamínov a minerálov, ako aj purifikované 1-3, 1-6 beta glukány z pekárskeho droždia.</p>
+            </details>
+        </div>
+    </div>
+</section>
+<br>
+<br>
+
+<h2 class="section-heading text-uppercase w3-text-white">
+    Táto sekcia sa momentálne ešte rozširuje o nové produkty a služby,Ďakujeme za pochopenie.
+</h2>
+
+
+

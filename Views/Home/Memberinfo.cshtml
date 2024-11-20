@@ -1,0 +1,41 @@
+﻿
+@model LadowebservisMVC.Models.MemberInfoModel
+
+@{
+    ViewBag.Title = "Memberinfo";
+}
+
+
+
+
+
+<a class="active btn-primary glyphicon glyphicon-shopping-cart btn-lg tlacitko-moje" href="@Url.Action("Kontakt", "Home")" title="Kontakt"> Kontaktný formulár</a>
+<a class="active btn-primary glyphicon glyphicon-shopping-music btn-lg tlacitko-moje" href="@Url.Action("Hudba", "Home")" title="Webinár a Youtube Hudba">Webinar</a>
+<a class="active btn-primary glyphicon glyphicon-shopping-user btn-lg tlacitko-moje" href="@Url.Action("Registracia", "Home")" title="Registrácia nového užívatela"> Registrácia</a>
+<a class="active btn-primary glyphicon glyphicon-shopping-cart btn-lg tlacitko-moje" href="@Url.Action("About", "Home")" title="WebSlužby"> PC a webové služby</a>
+<a class="active btn-primary glyphicon glyphicon-shopping-cart btn-lg tlacitko-moje" href="@Url.Action("Objednavky", "Home")" title="Objednávky"> Objednávky</a>
+@*<a class="active btn-primary glyphicon glyphicon-shopping-cart btn-lg tlacitko-moje" href="@Url.Action("Kosik", "Home")" title="Košík"> Košík</a>*@
+
+
+
+
+
+<h2 class="w3-text-black pt-4">
+    Táto sekcia o profile užívatela sa momentálne pripravuje, ďakujeme za pochopenie.
+</h2>
+
+<br>
+<a class="active btn btn-primary glyphicon glyphicon-star btn-lg tlacitko-moje" href="https://www.zinzino.tv/videos/4d9ed8b71c1debc8c4/balance-concept-video-sk" target="_blank" title="BalanceOil+">
+    Krátke video o BalanceOil
+</a>
+
+@using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "form-horizontal moj-formular" }))
+{
+    <div class="row submit">
+        <div class="col-md-12">
+            <a href="" onclick="document.getElementById('submitButton').click(); return false;" class="btn btn-primary btn-lg tlacitko-moje"> Odhlásiť</a>
+            <input type="submit" id="submitButton" class="hidden" />
+        </div>
+    </div>
+}
+
