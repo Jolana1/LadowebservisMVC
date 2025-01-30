@@ -22,7 +22,7 @@ namespace LadowebservisMVC.Controllers
 
             if (ModelState.IsValid)
             {
-                if (model.Email == "UserName" && model.Heslo == "Heslo")
+                if (model.Email == "UserName" && model.Heslo == "Password")
                 {
                     return RedirectToAction("Member", "Home");
                 }
@@ -34,7 +34,7 @@ namespace LadowebservisMVC.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("Registracia", "Home");
+                return RedirectToAction("Registration", "Home");
 
             }
             //else

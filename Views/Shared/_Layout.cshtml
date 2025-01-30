@@ -1,12 +1,15 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <script type="text/javascript" data-cmp-ab="1" src="https://cdn.consentmanager.net/delivery/autoblocking/caeb3e4a518ce.js" data-cmp-host="b.delivery.consentmanager.net" data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="0"></script>
+    <script async custom-element="amp-consent" src="https://cdn.ampproject.org/v0/amp-consent-0.1.js"></script>
+    <meta name="amp-consent-blocking" content="amp-ad">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
 
     <title>@ViewBag.PageTitle</title>
 
-    <link href="@Url.Content("~/styles/BootstrapStyleSheet.css?v6")" rel="stylesheet">
+    <link href="@Url.Content("~/styles/BootstrapStyleSheet.css?v8")" rel="stylesheet">
     <link href="@Url.Content("~/styles/w31.css")" rel="stylesheet">
 
     <!-- Google tag (gtag.js) -->
@@ -32,7 +35,7 @@
     <!-- End Google Tag Manager -->
 
 
- 
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
@@ -72,7 +75,7 @@
     <meta name="robots" content="index, follow" />
     <meta name="author" content="Ladowebservis" />
     <meta name="keywords" content="Webové služby,webové stránky,pc služby,zdravá výživa" />
-   
+
     <script src="https://js.stripe.com/v3/fingerprinted/js/8433-72e9ba6fe5d4f9d3d8ee8d05b6d8ad97.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
@@ -88,7 +91,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="icon" href="~/Image/pagePiling-plugin.png" type="image/x-icon">
+    <link rel="icon" href="~/Image/LWSlogo.jpg" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -105,6 +108,20 @@
 </head>
 
 <body>
+    <amp-consent id="ConsentManager" layout="nodisplay" type="ConsentManager">
+        <script type="application/json">
+            {
+              "postPromptUI": "postPromptUI",
+              "clientConfig": {
+                "cdid": "caeb3e4a518ce",
+                "params": ""
+              }
+            }
+        </script>
+        <div id="postPromptUI">
+            <button on="tap:ConsentManager.prompt()" role="button">Manage privacy settings</button>
+        </div>
+    </amp-consent>
     <!-- Google Tag Manager (noscript) -->
     <noscript>
         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T46FXNQ"
@@ -113,7 +130,7 @@
     <!-- End Google Tag Manager (noscript) -->
 
 
-    <nav class="navbar navbar-expand-lg navbar-toggleable-sm navbar-light navbar-fixed-top">
+    <nav class="navbar navbar-expand-md navbar-toggleable-sm navbar-light navbar-fixed-top">
 
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -128,25 +145,22 @@
                     <a class="nav-link text-dark glyphicon glyphicon-home" href="@Url.Action("Index", "Home")" title="Domov">Home</a>
                 </li>
 
-                <li class="nav-item">
+                @*<li class="nav-item">
                     <a class="nav-link text-dark glyphicon glyphicon-user" href="@Url.Action("Login", "Home")" title="Prihlásenie">Login</a>
-                </li>
+                </li>*@
 
-               <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link text-dark glyphicon glyphicon-shopping-cart" href="@Url.Action("Produkty", "Home")" title="Produkty">Products</a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link text-dark glyphicon glyphicon-shopping-cart" href="@Url.Action("About", "Home")" title="Webové a PC Služby">PC-web services</a>
+                </li>
 
 
                 <li class="nav-item">
                     <a class="nav-link text-dark glyphicon glyphicon-envelope" href="@Url.Action("Kontakt", "Home")" title="Kontakt">Contact</a>
                 </li>
 
-
-
-                @*<li class="nav-item">
-                    <a class="nav-link text-dark glyphicon glyphicon-music" href="@Url.Action("Hudba", "Home")" title="Webinár a Youtube Hudba">Webinar</a>
-                </li>*@
 
 
 
@@ -157,6 +171,10 @@
         <div class="cart-icon w3-text-white">
             <img src="~/Image/shopping-cart.png" title="Košík výprázdnite obnovením tejto stránky" alt="Cart-Basket">
             <span id="cart-items" title="Počet kliknutí na pridať do košíka">0</span>
+            <div class="total-amount">
+                <br />
+                Spolu s DPH: €<span id="total-amount" title="Celková suma" class="price">0</span>
+            </div>
         </div>
 
 
@@ -169,19 +187,67 @@
                 <div id="cart-items-list">
                     <!-- Cart items will be added here-->
                 </div>
-                <div class="total-amount">
-                    <br>
-                    Spolu s DPH: €<span id="total-amount" class="price">0</span>
-                </div>
-                <script async
-                        src="https://js.stripe.com/v3/buy-button.js">
+                
+            </div>
+            <script>
+                document.querySelector('nav .cart-icon img').addEventListener('click', function () {
+                    $('#cartModal').modal('show');
+                });
+            </script>
+            <div class="modal-footer" id="cart-items-list">
+
+            </div>
+           
+
+        </div>
+
+        <script async
+                src="https://js.stripe.com/v3/buy-button.js">
+        </script>
+
+        <stripe-buy-button buy-button-id="buy_btn_1QYziHHrPMzQ1ua8VRBZXyJH"
+                           publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
+        </stripe-buy-button>
+
+
+        
+
+        @*<div id="tnb-google-search-container" class="w3-bar-item">
+            <div id="tnb-google-search-inner-container">
+                <label for="tnb-google-search-input" class="tnb-soft-hide">
+                    Search item
+                </label>
+                <script>
+                    document.getElementById('tnb-google-search-submit-btn').addEventListener('click', function () {
+                        var searchTerm = document.getElementById('tnb-google-search-input').value.toLowerCase();
+                        var items = document.querySelectorAll('.item'); // Predpokladáme, že položky majú triedu 'item'
+
+                        items.forEach(function (item) {
+                            if (item.textContent.toLowerCase().includes(searchTerm)) {
+                                item.style.display = 'block';
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        });
+                    });
                 </script>
 
-                <stripe-buy-button buy-button-id="buy_btn_1OjKxZFdjXAPBwqYuwTUnBef"
-                                   publishable-key="pk_live_51OgVgeFdjXAPBwqY1wpvlVjw8LskEgLPAgDphJi1iYve7NghcBAXxzrMUKfHnWv1MLbq1uXHLljIy1EZc6TwZlL600D3u3WbQJ">
-                </stripe-buy-button>
-            </div>
-        </div>
+                <input id="tnb-google-search-input" type="text" placeholder="Search..." autocomplete="off" onkeydown="TopNavBar.googleSearchAttachKeyPressHandler(event)" aria-label="Search field" oninput="TopNavBar.searchWithSuggestions(this)" onfocus="TopNavBar.searchWithSuggestions(this)" onblur="TopNavBar.searchFieldLostFocus(event)">
+
+                <div id="tnb-google-search-submit-btn" class="tnb-button-light" role="button" aria-label="Button to search" onclick="TopNavBar.googleSearchSubmit()">
+
+                </div>*@
+
+
+                @*<path d="M11.8153 10.3439C12.6061 9.2673 13.0732 7.9382 13.0732 6.5C13.0732 2.91015 10.163 0 6.57318 0C2.98333 0 0.0731812 2.91015 0.0731812 6.5C0.0731812 10.0899 2.98333 13 6.57318 13C8.01176 13 9.3412 12.5327 10.4179 11.7415L10.4171 11.7422C10.4466 11.7822 10.4794 11.8204 10.5156 11.8566L14.3661 15.7071C14.7566 16.0976 15.3898 16.0976 15.7803 15.7071C16.1708 15.3166 16.1708 14.6834 15.7803 14.2929L11.9298 10.4424C11.8936 10.4062 11.8553 10.3734 11.8153 10.3439ZM12.0732 6.5C12.0732 9.53757 9.61075 12 6.57318 12C3.53561 12 1.07318 9.53757 1.07318 6.5C1.07318 3.46243 3.53561 1 6.57318 1C9.61075 1 12.0732 3.46243 12.0732 6.5Z" fill="black"></path>
+                </svg>*@
+    <div />
+
+
+
+
+
+
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
 
@@ -193,7 +259,7 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#Partners" title="Naši partnery-Oriflame"><span class="glyphicon glyphicon-briefcase"></span>Partners</a>
                     <ul class="dropdown-menu">
                         <!--li>
-                        </li-->
+                    </li-->
                         <li class="active"><a class="w3-hover-white" href="https://www.ashampoo.com/de-de" target="_blank" title="Ashampoo antivirus and best safety software Deals • Poradíme správny postup &amp;  doporučíme softvér  vo  vašej oblasti •Mame nahradu za drahý a komplikovaný  MS Office ©LWS - Partner spoločnosti Ashampoo"><img src="~/Image/ashampoo.com-AshampooSoftwareDeals.png" style="width:58px;height:15px" alt="AshampooSoftwareDeals"> Ashampoo Software</a></li>
                         <li>
                         </li>
@@ -206,7 +272,7 @@
                         <li class="active">
                             <a class="w3-hover-white" href="https://sk.oriflame.com/products/digital-catalogue-current?store=SK-vladimirksenic&PageNumber=1" target="_blank" title="•Oriflame aktuálny katalóg">
                                 <img src="~/Image/sk-oriflame-katalog.png" style="width:58px;height:15px" alt="Oriflame aktuálny katalóg">
-                                Oriflame katalóg 16/2024
+                                Oriflame katalóg 2/2025
                             </a>
                         </li>
                         <li class="active">
@@ -223,25 +289,30 @@
 
 
 
+
+
                             <!--li class="active"><a class=" w3-text-white w3-hover-yellow " href="https://mobil.bazos.sk/inzerat/113680396/apple-se-64-gb.php" target="_blank" title="• Inzerát na predaj telefon"><img src="./Image/LWSlogo.jpg" style="width:58px;height:15px" alt="Me"> Apple SE 64 GB </a></li-->
                             <!--li-->
                             <!-- li>
-                                <li class="active"><a href="https://jolana1.github.io/ladoweb/#Domov" class="w3-padding-xsmall  w3-text-light-blue w3-hover-yellow" target="_blank" title="Ukážka môjho webu V.K • Vytvorenie funkčnej webovej stránky"><img src="./Image/jolana1.github.io-%C2%A9ladoweb.png" style="width:58px;height:15px" alt="Me"> Ukážka webu V.K.</a></li>
-                            <li class="active"><a href="" target="_blank" title="Tanzanite-Gems-Cultural-Tourism • Walking cultural tourism • Your all welcome to make a dreams • We do hiking mountain Kilimanjaro  ">
-                                    <img src="../WebServis/Image/tanzania/IMG_4116.JPG" style="width:58px;height:15px" class="w3-padding-xsmall  w3-text-light-blue w3-hover-yellow img-rounded" alt=""> Tanzanite-Gems-CT</a></li -->
+                            <li class="active"><a href="https://jolana1.github.io/ladoweb/#Domov" class="w3-padding-xsmall  w3-text-light-blue w3-hover-yellow" target="_blank" title="Ukážka môjho webu V.K • Vytvorenie funkčnej webovej stránky"><img src="./Image/jolana1.github.io-%C2%A9ladoweb.png" style="width:58px;height:15px" alt="Me"> Ukážka webu V.K.</a></li>
+                        <li class="active"><a href="" target="_blank" title="Tanzanite-Gems-Cultural-Tourism • Walking cultural tourism • Your all welcome to make a dreams • We do hiking mountain Kilimanjaro  ">
+                                <img src="../WebServis/Image/tanzania/IMG_4116.JPG" style="width:58px;height:15px" class="w3-padding-xsmall  w3-text-light-blue w3-hover-yellow img-rounded" alt=""> Tanzanite-Gems-CT</a></li -->
 
 
                     </ul>
                 </li>
                 @*<li class="nav-item">
-                        <a class="nav-link text-dark glyphicon glyphicon-user" href="@Url.Action("Memberinfo", "Home")" title="Profil registrovaného člena">UserName</a>
-                    </li>*@
+                    <a class="nav-link text-dark glyphicon glyphicon-user" href="@Url.Action("Memberinfo", "Home")" title="Profil registrovaného člena">UserName</a>
+                </li>*@
                 @*<li class="nav-item">
-                        <a class="nav-link text-dark glyphicon glyphicon-envelope" href="@Url.Action("Kontakt", "Home")" title="formulár">Contact</a>
-                    </li>*@
+                    <a class="nav-link text-dark glyphicon glyphicon-envelope" href="@Url.Action("Kontakt", "Home")" title="formulár">Contact</a>
+                </li>*@
+
                 <li class="nav-item">
-                    <a class="nav-link text-dark glyphicon glyphicon-earphone" href="#footer" title="Volajte +421917952432 alebo 0907151293 only Slovakia">Phone</a>
+                    <a class="nav-link text-dark glyphicon glyphicon-user" href="@Url.Action("Login", "Home")" title="Prihlásenie">Login</a>
                 </li>
+                @*<a class="nav-link text-dark glyphicon glyphicon-earphone" href="#footer" title="Volajte +421917952432 alebo 0907151293 only Slovakia">Phone</a>*@
+
             </ul>
 
 
@@ -257,8 +328,8 @@
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
 
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+            <li data-target="#myCarousel" data-slide-to="0" class=""></li>
+            <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="2" class=""></li>
             <li data-target="#myCarousel" data-slide-to="3" class=""></li>
             <li data-target="#myCarousel" data-slide-to="4" class=""></li>
@@ -272,7 +343,7 @@
             <div class="item active">
 
 
-                <img src="~/Image/bg2.jpg" alt="intro" style="width:2560px;height:539px;" title="•Vitajte na stránke spoločnosti ©LadoWebServis•">
+                <img src="~/Image/skusenosti.jpg" alt="intro" style="width:2560px;height:539px;" title="•Vitajte na stránke spoločnosti ©LadoWebServis•">
                 <div class="carousel-caption">
 
                     <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">
@@ -298,7 +369,7 @@
             <div class="item">
                 <img src="~/Image/skusenosti.jpg" alt="" style="width:2560px;height:539px" title="webtechnologie">
                 <div class="carousel-caption">
-                    <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Volajte +421917952432 alebo 0907151293 only Slovakia alebo nám napíšte na e-mail<br>Neváhajte!</p>
+                    <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Volajte 0907151293 only Slovakia alebo ak nedvíhame tak nám napíšte na e-mail<br>Neváhajte!</p>
 
                 </div>
             </div>
@@ -306,7 +377,7 @@
             <div class="item">
                 <img src="~/Image/photo-1461722936851-13a79b294a5d.jpeg" alt="max" style="width:2560px;height:539px" title="">
                 <div class="carousel-caption">
-                    <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Máme pre Vás nový eshop a pripravujeme členskú sekciu!</p>
+                    <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Máme pre Vás nový eshop a členskú sekciu!</p>
 
                 </div>
             </div>
@@ -316,7 +387,7 @@
                  </div>
             </div-->
             <div class="item">
-                <img src="~/Image/nature-4176575_1920.jpg" alt="" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkay nižšie a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu,nakolko sme partnerom spol. Zinzino.
+                <img src="~/Image/bg2.jpg" alt="" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkay nižšie a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu,nakolko sme partnerom spol. Zinzino.
      •Srdečne ďakujeme za váš záujem,Vaša spokojnosť je našou prioritou.">
                 <div class="carousel-caption">
                     <p style="font-size:18px;color:#fff;text-shadow:1px 1px 4px #000000;padding-bottom:.25em;text-decoration: underline; ">
@@ -354,7 +425,7 @@
         @RenderBody()
         <hr />
         <footer>
-
+            <a href="?cmpscreen" class="cmpfooterlink cmpfooterlinkcmp">Privacy settings</a>
             <br>
             <div class="w3-center pt-4 w3-text-white cner-fluid" id="footer">
 
@@ -362,11 +433,11 @@
 
                 <i class='fa fa-heart'>"Your satisfaction is our priority."</i><br>
                 @*<div class="fb-like" data-href="https://ladowebservis.sk/" data-width="" data-layout="standard" data-action="like" data-size="medium" data-share="true">https://ladowebservis.sk/</div>
-                    <div id="fb-root"></div>*@
+            <div id="fb-root"></div>*@
                 @*<script async defer crossorigin="anonymous" src="https://connect.facebook.net/sk_SK/sdk.js#xfbml=1&version=v15.0&appId=455914461524971&autoLogAppEvents=1" nonce="siSYyuX8"></script>*@
                 @*<a href="https://twitter.com/ladow11" target="_blank">
-                        <i class="fa fa-instagram w3-hover-text-white w3-large"></i>
-                    </a>*@
+                <i class="fa fa-instagram w3-hover-text-white w3-large"></i>
+            </a>*@
                 <a href="https://www.linkedin.com/in/vladim%C3%ADr-kseni%C4%8D/" target="_blank">
                     <i class="fa fa-linkedin w3-hover-text-white w3-large"></i>&nbsp;&nbsp;
                 </a>
@@ -387,16 +458,16 @@
 
                 <img src="~/Image/sk.png" alt="sk" style="width:22px;height:20px; padding: .1em;">
                 <p style="font-size: 18px;color:white;">
-                    Postupimska ulica 31<br />
+                    Postupimska ulica<br />
                     Košice,&nbsp;SVK<br />
                     040 22<br />
             </address>
-            <abbr title="Telefón"><strong>Phone:</strong> +421917952432</abbr><br />
+            <abbr title="Telefón"><strong>Phone:</strong> +421907151293</abbr><br />
 
 
 
             <strong>Support:</strong>   <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a><br />
-            <strong>Marketing:</strong> <a href="mailto:info@ladowebservis.sk">info@ladowebservis.sk</a>
+            <strong>Marketing and Info:</strong> <a href="mailto:info@ladowebservis.sk">info@ladowebservis.sk</a>
 
 
 

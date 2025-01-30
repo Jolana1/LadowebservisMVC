@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     productPrices.set('BalanceOil', 54);
     productPrices.set('Zinobiotic', 32);
     productPrices.set('ZinzinoXtend', 44);
+    
 
 
 
