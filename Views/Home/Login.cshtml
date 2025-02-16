@@ -8,7 +8,7 @@
 
 <div class="form-horizontal w3-text-black pt-4">
     <h2 class="section-heading text-uppercase">Pre vstup do členskej sekcie musíte zadať email a heslo alebo sa zaregistrovať ako nový člen!</h2>
-
+    <p>"Neváhajte sa u nás zaregistrovať a získať 10% zlavu z vašej prvej objednávky."</p>
     @using (Html.BeginForm("Member", "Home", FormMethod.Post, new { @class = "form-horizontal moj-formular" }))
     {
         <div class="form-item">
@@ -34,6 +34,6 @@
 
 <div class="form-horizontal w3-text-white">
     <h2 class="pull-right">
-        <a href="@Url.Action("Registracia", "Home")" class="btn btn-primary btn-lg tlacitko-moje">Registrovať ako nový člen</a>
+        <a href="@Url.Action("Registracia", "Home")" class="btn btn-primary btn-lg tlacitko-moje">Registrovať či zabudnuté heslo?</a>
     </h2>
 </div>

@@ -37,13 +37,9 @@ namespace LadowebservisMVC.Controllers
                 return RedirectToAction("Registration", "Home");
 
             }
-            //else
-            //{
-                
-            //    ModelState.AddModelError("", "Nesprávne meno alebo heslo");
-            //    return RedirectToAction("Member", "Home");
+            return View(model);
 
-            //}
+
 
 
 

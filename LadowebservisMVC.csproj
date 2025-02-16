@@ -977,7 +977,7 @@
     <Content Include="Views\Home\Registracia.cshtml" />
     <Content Include="Views\Home\Memberinfo.cshtml" />
     <Content Include="Views\Home\ZberUdajov.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Objednavky.cshtml" />
     <Content Include="Views\Home\Produkty.cshtml" />

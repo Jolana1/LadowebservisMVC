@@ -9,28 +9,26 @@
 
 
 
-<a class="active btn-primary glyphicon glyphicon-shopping-cart btn-lg tlacitko-moje" href="@Url.Action("Kontakt", "Home")" title="Kontakt"> Kontaktný formulár</a>
+<a class="nav-link text-white glyphicon glyphicon-user btn-lg tlacitko-moje" href="@Url.Action("Produkty", "Home")" title="Produkty">Products</a>
 
-<a class="active btn-primary glyphicon glyphicon-shopping-user btn-lg tlacitko-moje" href="@Url.Action("Registracia", "Home")" title="Registrácia nového užívatela"> Registrácia</a>
+<a class="nav-link text-white glyphicon glyphicon-user btn-lg tlacitko-moje" href="@Url.Action("Registracia", "Home")" title="Registrácia alebo zabudnuté heslo"> Zabudnuté heslo</a>
 
-<a class="active btn-primary glyphicon glyphicon-shopping-cart btn-lg tlacitko-moje" href="@Url.Action("Objednavky", "Home")" title="Objednávky"> Objednávky</a>
-<a class="active btn-primary glyphicon glyphicon-shopping-cart btn-lg tlacitko-moje" href="@Url.Action("Kosik", "Home")" title="Košík"> Košík</a>
+<a class="nav-link text-white glyphicon glyphicon-shopping-cart btn-lg tlacitko-moje" href="@Url.Action("Objednavky", "Home")" title="Objednávky"> Objednávky</a>
+<a class="nav-link text-white glyphicon glyphicon-shopping-cart btn-lg tlacitko-moje" href="@Url.Action("Kosik", "Home")" title="Košík"> Košík</a>
 
 
 
 
 
 <h3 class="w3-text-black pt-4">
-    Táto sekcia o profile užívatela sa momentálne pripravuje a bude iba pre registrovaných užívatelov, ďakujeme za pochopenie.
+    
+    <p1 class="w3-padding-small">Nezabudnite akcia je predĺžená ak pri Vašej 1.objednávke použite kód Friends25 máte 10% zĺavu z nákupu!!!</p1>
 </h3>
 
-<br> <p>
-    <a href="@Url.Action("MemberInfo","Home")" class="btn btn-primary btn-lg tlacitko-moje">Späť do členskej sekcie</a>
-</p>
-@*<a class="active btn btn-primary glyphicon glyphicon-star btn-lg tlacitko-moje" href="https://www.zinzino.tv/videos/4d9ed8b71c1debc8c4/balance-concept-video-sk" target="_blank" title="BalanceOil+">
-    Krátke video o BalanceOil</a>*@
+<br> 
 
-<a class="active btn-primary glyphicon glyphicon-shopping-music btn-lg tlacitko-moje" href="@Url.Action("Hudba", "Home")" title="Webinár a Youtube Hudba">Zatancujte si s nami</a>
+
+<a class="active btn-primary glyphicon glyphicon-music btn-lg tlacitko-moje" href="@Url.Action("Hudba", "Home")" title="Webinár a Youtube Hudba"> Balanceolej video</a>
 @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "form-horizontal moj-formular" }))
 {
     <div class="row submit">

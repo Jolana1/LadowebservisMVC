@@ -2,44 +2,42 @@
 @model MemberModel
 
 @{
-    ViewBag.Title = "Member";
+    ViewBag.Title = "member";
 }
 
 <div class="form-horizontal w3-text-black pt-4">
-    <h2 class="section-heading text-uppercase">
-        DOBRÝ DEŇ VÁŽENÝ STE PRIHLÁSENÝ!
-        <br>Avšak ako zaregistrovaný zákazník okrem iného ešte získate následovné výhody:
-    </h2>
-    <p class="section-subheading w3-text-blue">
+
+    <h1 class="section-subheading w3-text-green">VITAJTE STE PRIHLÁSENÝ!</h1>
+    
+    <p class="section-heading text-uppercase">
+        Pri 1.objednávke a novej registrácii použite kupón FRIENDS25 a máte 10% zľavu z nákupu!!!<br />
+        Ako zaregistrovaný zákazník okrem iného ešte získavate následovné výhody:
+
+    </p>
+    <p class="section-subheading w3-text-green">
 
         <br />Rýchlejší nákup vďaka vlastnému zoznamu obľúbených položiek.
         <br />Možnosť byť informovaný o novinkách a akciách.
         <br />Prístup do pripravovaného vernostného a zľavového programu.
-    <p>"Neváhajte sa u nás zaregistrovať a získať 10% zlavu z vašej prvej objednávky."</p>
-    <a class="active btn-primary glyphicon glyphicon-user btn-lg tlacitko-moje" href="@Url.Action("Memberinfo", "Home")" title="Profil užívatela"> UserName profile</a>
-    <a class="active btn-primary glyphicon glyphicon-user btn-lg tlacitko-moje" href="@Url.Action("Registracia", "Home")" title="Registrácia nového užívatela"> Registrácia</a>
-    
-    <a class="active btn-primary glyphicon glyphicon-shopping-star btn-lg tlacitko-moje" href="@Url.Action("Kosik", "Home")" title="Košík"> Košík</a>
-    <a class="active btn-primary glyphicon glyphicon-shopping-star btn-lg tlacitko-moje" href="@Url.Action("Kontakt", "Home")" title="Kontakt"> Kontakt</a>
+        <br />Možnosť sledovať históriu objednávok a zľavových kódov.
+        <br />
+
+        <a class="active btn-primary glyphicon glyphicon-user btn-lg tlacitko-moje" href="@Url.Action("Memberinfo", "Home")" title="Profil užívatela"> Uživatelský Profil</a>
+        <a class="active btn-primary glyphicon glyphicon-user btn-lg tlacitko-moje" href="@Url.Action("Registracia", "Home")" title="Registrácia nového užívatela"> Nová registrácia</a>
+        
+        
 
 
 
 
 
-
-
-
-
-
-
-
-    @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "form-horizontal moj-formular" }))
-    {
-        <div class="row submit">
-            <div class="col-md-12">
-                <a href="" onclick="document.getElementById('submitButton').click(); return false;" class="btn btn-primary btn-lg tlacitko-moje"> Odhlásiť</a>
-                <input type="submit" id="submitButton" class="hidden" />
+        @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "form-horizontal moj-formular" }))
+        {
+            <div class="row submit">
+                <div class="col-md-12">
+                    <a href="" onclick="document.getElementById('submitButton').click(); return false;" class="btn btn-primary btn-lg tlacitko-moje"> Odhlásiť</a>
+                    <input type="submit" id="submitButton" class="hidden" />
+                </div>
             </div>
-        </div>
-    }
+        }
 </div>

@@ -12,7 +12,7 @@ namespace LadowebservisMVC.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            ViewBag.PageTitle = "Ladowebservis";
+            ViewBag.PageTitle = "Index";
             return View();
         }
 
@@ -27,7 +27,7 @@ namespace LadowebservisMVC.Controllers
         {
             if (!ModelState.IsValid)
             {
-                if (model.Email == "Name" && model.Password == "Heslo")
+                if (model.Email == "Name" && model.Password == "Password")
                 {
                     return RedirectToAction("Member", "Home");
                 }
@@ -56,7 +56,7 @@ namespace LadowebservisMVC.Controllers
 
         public ActionResult MemberInfo()
         {
-            ViewBag.PageTitle = "MemberInfo";
+            ViewBag.PageTitle = "Member";
             return View();
         }
 
@@ -133,9 +133,11 @@ namespace LadowebservisMVC.Controllers
 
 
     }
-
-
 }
+
+
+
+
 
 
 

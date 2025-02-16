@@ -8,7 +8,7 @@ namespace LadowebservisMVC.lib.Repositories
 {
     public class LadowebservisMVCMemberRepository 
     {
-        public const string UmbracoEshopMemberTypeAlias = "EshopMember";
+        public const string UmbracoEshopMemberTypeAlias = "";
         public const string UmbracoEshopMemberAdminRole = "EshopAdmin";
         public const string UmbracoEshopMemberCustomerRole = "EshopZakaznik";
     }
