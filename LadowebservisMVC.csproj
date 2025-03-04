@@ -556,20 +556,14 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="ILLink\ILLink.Descriptors.LibraryBuild.xml" />
-    <Content Include="Image\0fa0e361160d052e079735eee2f8f136 2.jpg" />
     <Content Include="Image\0fa0e361160d052e079735eee2f8f136.jpg" />
-    <Content Include="Image\1%281%29.mp4" />
-    <Content Include="Image\1700883930182 2.jpeg" />
     <Content Include="Image\1700883930182.jpeg" />
     <Content Include="Image\2018-05-02 2.png" />
     <Content Include="Image\2018-05-02 3.png" />
     <Content Include="Image\2018-05-02 4.png" />
     <Content Include="Image\2018-05-02.png" />
-    <Content Include="Image\374gti 2.jpg" />
     <Content Include="Image\374gti.jpg" />
-    <Content Include="Image\3kroky 2.png" />
-    <Content Include="Image\3kroky.png" />
-    <Content Include="Image\3steps.png" />
+    <Content Include="Image\3kroky.jpg" />
     <Content Include="Image\404%281%29.css" />
     <Content Include="Image\6882bf43-3619-4df0-b65d-5a3d09a87efd 2.jpg" />
     <Content Include="Image\6882bf43-3619-4df0-b65d-5a3d09a87efd.jpg" />
@@ -714,6 +708,7 @@
     <Content Include="Image\nature-4176575_1920 6.jpg" />
     <Content Include="Image\nature-4176575_1920.jpg" />
     <Content Include="Image\objects.js" />
+    <Content Include="Image\Orange.jpg" />
     <Content Include="Image\ovb.sk-OVBAllfinanzSlovenskoa.s. 2.png" />
     <Content Include="Image\ovb.sk-OVBAllfinanzSlovenskoa.s..png" />
     <Content Include="Image\owl.carousel%281%29.css" />
@@ -761,8 +756,6 @@
     <Content Include="Image\skusenosti – kópia.jpg" />
     <Content Include="Image\skusenosti.jpg" />
     <Content Include="Image\Snímka obrazovky 2023-06-10 161035.png" />
-    <Content Include="Image\spsdke.edupage.org-OT+í++şkoleStredn++şpriemyseln++ş++şkoladopravn++ş-Hlavn++ş113-Ko++şice 2.png" />
-    <Content Include="Image\spsdke.edupage.org-OT+í++şkoleStredn++şpriemyseln++ş++şkoladopravn++ş-Hlavn++ş113-Ko++şice.png" />
     <Content Include="Image\style%281%29.css" />
     <Content Include="Image\style.min%281%29.css" />
     <Content Include="Image\tall ship under sails 2.jpg" />
@@ -771,6 +764,7 @@
     <Content Include="Image\tall ship under sails 5.jpg" />
     <Content Include="Image\tall ship under sails 6.jpg" />
     <Content Include="Image\tall ship under sails.jpg" />
+    <Content Include="Image\TestZinzino 2.jpg" />
     <Content Include="Image\thong-vo-2482-unsplash 2.jpg" />
     <Content Include="Image\thong-vo-2482-unsplash 3.jpg" />
     <Content Include="Image\thong-vo-2482-unsplash 4.jpg" />
@@ -919,7 +913,6 @@
     <Content Include="Image\Zinobiotic 2.webp" />
     <Content Include="Image\Zinobiotic+PortionPack.webp" />
     <Content Include="Image\Zinobiotic.webp" />
-    <Content Include="Image\ZinzinoXtend 2.webp" />
     <Content Include="Image\ZinzinoXtend.png.webp" />
     <Content Include="Image\ZinzinoXtend .webp" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />

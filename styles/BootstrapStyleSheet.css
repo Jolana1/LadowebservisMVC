@@ -1,6 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
-/*@import url('https://fonts.googleapis.com/css2?family=Langar&display=swap');*/
-
+﻿/**/
 
 p, h1, h2, h3, h4 {
     color: black;
@@ -22,7 +20,7 @@ p, h1, h2, h3, h4 {
     border: none;
 }
 
-.navbar-default .navbar-header
+    .navbar-default .navbar-header
     img {
         max-height: 25px;
         background-color: #7db9ff;
@@ -87,7 +85,7 @@ p, h1, h2, h3, h4 {
     }
 
 
-/*povodne .tlacitko-moje {
+    /*povodne .tlacitko-moje {
     padding: 10px;
     color: white;
     border: 1px solid black;
@@ -95,11 +93,11 @@ p, h1, h2, h3, h4 {
     display: inline-block;
 }*/
 
-.tlacitko-moje:hover {
-    color: white;
-    background-color: black;
-    text-decoration: none;
-}
+    .tlacitko-moje:hover {
+        color: white;
+        background-color: black;
+        text-decoration: none;
+    }
 
 .moj-formular .row {
     padding: 10px 0 10px 0px;

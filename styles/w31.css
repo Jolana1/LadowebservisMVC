@@ -1,3 +1,4 @@
+
 /* w31.css-vksenic */
 /* Add a gray background color and some padding to the footer */
 footer {
@@ -575,7 +576,7 @@ fieldset {
     box-shadow: 0px 3px 15px rgba(93, 51, 251, 0.25);
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
-   /* -ms-border-radius: 50%;*/
+    /* -ms-border-radius: 50%;*/
     border-radius: 50%;
     -moz-transform: translateY(20px);
     transform: translateY(20px);
@@ -682,7 +683,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     box-shadow: 0px 3px 15px rgba(93, 51, 251, 0.25);
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
-   /* -ms-border-radius: 50%;*/
+    /* -ms-border-radius: 50%;*/
     border-radius: 50%;
     -moz-transform: translateY(20px);
     -o-transform: translateY(20px);
