@@ -1,41 +1,14 @@
-﻿﻿<!DOCTYPE html>
- <html lang="en">
- 
+﻿﻿
+<!DOCTYPE html>
+ <html>
  <head>
-     <title>@ViewBag.PageTitle</title>
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1">
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-     <script type="text/javascript" src="@Url.Content("~/Scripts/cart.js")"></script>
-     <script type="text/javascript" src="@Url.Content("~/Scripts/checkout.js")"></script>
-
-     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-3.4.1.min.js")"></script>
-     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
-     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
-     <script type="text/javascript" src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
-
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-     <!-- 1. Add latest jQuery and fancybox files -->
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
-     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-
-
-
-
-
      @Scripts.Render("~/bundles/modernizr")
 
      <meta name="robots" content="index, follow" />
-     <meta name="author" content="Ladowebservis" />
-     <meta name="keywords" content="Webové služby,webové stránky,pc služby,zdravá výživa" />
+     <meta name="author" content="Ladowebservis-Vladimír Ksenič" />
+     <meta name="keywords" content="Ladowebservis-Zdravá výživa,webové služby,webové stránky,pc služby.." />
      <meta name="copyright" content="©LWS - Ladowebservis" />
      <meta name="description" content="V rámci webových služieb ponúkame dizajn webov,návrh až po vytvorenie plne funkčnej webovej stránky,mesačný hosting vášho webu na mesiac zdarma potom za mesačný poplatok, ponúkame zostavenie a opravy pc-komponentov,výpočtovej techniky,odporučenie softvérov a celkové vyladenie vašich pc zostáv..">
      <meta name="content-language" content="sk" />
@@ -44,27 +17,31 @@
      <meta property="og:image:height" content="300">
      <meta property="og:title" content="Ladowebservis">
 
-     @*<link rel="icon" href="https://lh3.googleusercontent.com/a-/AOh14GhU3YnT6BWyzFkB_lpJTYadC4KnMPS1VUMr3wmPmw=s96-c" type="image/x-icon">*@
 
-
-
+     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-3.4.1.min.js")"></script>
+     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+     <script type="text/javascript" src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+     <script type="text/javascript" src="@Url.Content("~/Scripts/cart.js")"></script>
+     <script type="text/javascript" src="@Url.Content("~/Scripts/checkout.js")"></script>
 
      <script src="https://js.stripe.com/v3/fingerprinted/js/8433-72e9ba6fe5d4f9d3d8ee8d05b6d8ad97.js"></script>
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
+     <link href="@Url.Content("~/styles/BootstrapStyleSheet.css")" rel="stylesheet">
      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-     <!-- CSS -->
-     <link rel="stylesheet" type="text/css" href="~/styles/w31.css">
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+     <!-- Css -->
+
+     <link rel="stylesheet" type="text/css" href="~/styles/w31.css">
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-     <link rel="icon" href="/Image/LWSlogo.jpg" type="image/x-icon" data-cmp-info="10">
+     <link rel="icon" href="~/Image/pagePiling-plugin.gif" type="image/x-icon" data-cmp-info="10">
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -74,16 +51,6 @@
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
      <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
-
-
-
-
-
-     <script type="text/javascript" data-cmp-ab="1" src="https://cdn.consentmanager.net/delivery/autoblocking/caeb3e4a518ce.js" data-cmp-host="b.delivery.consentmanager.net" data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="0"></script>
-     <script async custom-element="amp-consent" src="https://cdn.ampproject.org/v0/amp-consent-0.1.js"></script>
      <meta name="amp-consent-blocking" content="amp-ad">
      <style>
          /* Make the image fully responsive */
@@ -91,13 +58,29 @@
              width: 100%;
              height: 100%;
          }
+
+         #myBtn {
+             display: none;
+             position: fixed;
+             bottom: 20px;
+             right: 30px;
+             z-index: 99;
+             font-size: 18px;
+             border: none;
+             outline: none;
+             background-color: #5d33fb;
+             color: white;
+             cursor: pointer;
+             padding: 15px;
+             border-radius: 4px;
+         }
+
+             #myBtn:hover {
+                 background-color: #555;
+             }
      </style>
 
-
-
-     <link href="@Url.Content("~/styles/BootstrapStyleSheet.css?v8")" rel="stylesheet">
-     <link href="@Url.Content("~/styles/w31.css?v1")" rel="stylesheet">
-
+     <title>@ViewBag.PageTitle</title>
 
      <!-- Google tag (gtag.js) -->
      <script async src="https://www.googletagmanager.com/gtag/js?id=G-3PFBTR5XXW"></script>
@@ -123,12 +106,12 @@
      <!-- End Google Tag Manager -->
 
 
-
  </head>
 
 
  <body>
-
+     <button onclick="topFunction()" id="myBtn" class="fa fa-arrow-up" data-toggle="tooltip" title="Naspäť"></button>
+     @*<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>*@
      <!-- Google Tag Manager (noscript) -->
      <noscript>
          <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T46FXNQ"
@@ -143,7 +126,20 @@
                  aria-expanded="false" aria-label="Toggle navigation">
              <span class="navbar-toggler-icon"></span>
          </button>
-         <a class="navbar-brand image-container" href="@Url.Action("Index","Home")"><img src="~/Image/LWSlogo.jpg" class="img-rounded" alt="logo" title=""></a>
+         <a class="navbar-brand image-container" href="@Url.Action("Index","Home")"><img src="~/Image/pagePiling-plugin 2.gif" class="img-rounded" alt="logo" title=""></a>
+         <div class="cart-icon w3-text-white">
+             <img src="~/Image/shopping-cart.png" title="Košík výprázdnite obnovením tejto stránky" alt="Cart-Basket">
+             <span id="cart-items" title="Počet kliknutí na pridať do košíka">0</span>
+             <div class="total-amount">
+                 <br />
+                 Spolu s DPH: €<span id="total-amount" title="Celková suma" class="price">0</span>
+             </div>
+         </div>
+
+
+         <div id="cart-items-list">
+             <!-- Cart items will be added here-->
+         </div>
          <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
              <ul class="navbar-nav flex-grow-1">
 
@@ -164,26 +160,6 @@
              </ul>
          </div>
 
-
-
-         <div class="cart-icon w3-text-white">
-             <img src="~/Image/shopping-cart.png" title="Košík výprázdnite obnovením tejto stránky" alt="Cart-Basket">
-             <span id="cart-items" title="Počet kliknutí na pridať do košíka">0</span>
-             <div class="total-amount">
-                 <br />
-                 Spolu s DPH: €<span id="total-amount" title="Celková suma" class="price">0</span>
-             </div>
-         </div>
-
-
-         <div id="cart-items-list">
-             <!-- Cart items will be added here-->
-         </div>
-
-
-
-
-
          <script async
                  src="https://js.stripe.com/v3/buy-button.js">
          </script>
@@ -191,6 +167,9 @@
          <stripe-buy-button buy-button-id="buy_btn_1Qr3pPHrPMzQ1ua8bEe7WMIU"
                             publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
          </stripe-buy-button>
+         
+
+
 
 
 
@@ -200,11 +179,6 @@
 
          <div class="collapse navbar-collapse" id="myNavbar">
              <ul class="nav navbar-nav">
-
-
-
-
-
                  <li class="dropdown">
                      <a class="dropdown-toggle" data-toggle="dropdown" href="#Partners" title="Naši partnery"><span class="glyphicon glyphicon-briefcase"></span> Partners</a>
                      <ul class="dropdown-menu">
@@ -226,10 +200,17 @@
                          </li>
                      </ul>
                  </li>
+
+
+
+
+
              </ul>
          </div>
-     </nav>
 
+
+     </nav>
+    
      <!-- Carousel -->
      <div class="container-fluid-right">
          <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -277,33 +258,30 @@
                      </div>
                  </div>
                  <div class="item">
-                     <img src="~/Image/skusenosti.jpg" alt="" style="width:2560px;height:539px" title="webtechnologie">
+                     <img src="~/Image/INK.jpg" alt="" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
                      <div class="carousel-caption">
-                         <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Volajte +421917952432 only Slovakia alebo ak nedvíhame tak nám napíšte na e-mail<br>Neváhajte!</p>
+
+                         <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Volajte +421917952432 only Slovakia alebo ak nedvíhame tak nám napíšte na kontaktný formulár<br>Neváhajte!</p>
 
                      </div>
                  </div>
 
                  <div class="item">
-                     <img src="~/Image/photo-1461722936851-13a79b294a5d.jpeg" alt="max" style="width:2560px;height:539px" title="">
+                     <img src="~/Image/photo-1461722936851-13a79b294a5d.jpeg" alt="max" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
                      <div class="carousel-caption">
-                         <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Máme pre Vás nový eshop a členskú sekciu!</p>
-
+                         <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Pri 1.objednávke a novej registrácii použite kupón FRIENDS25 a máte 10% zľavu z nákupu!!!</p>
                      </div>
                  </div>
-                 <!--div class="item">
-                <img src="./Image/pagePiling-plugin-1.webp" alt="" style="width:2560px;height:539px" title="Vitajte na stránke spoločnosti ©LadoWebServis, ponúkame Vám webové služby v oblasti dizajnu webov,návrhov až po vytvorenie plne funkčnej webovej stránky ako aj zostavenie pc-komponentov,opravy výpočtovej techniky,doporučenie softvérov na vyladenie pc zostáv.Ak vás tento web zaujíma alebo sa zaujímate o naše služby, kontaktujte nás formulárom. Ďakujeme za váš záujem, Vaša spokojnosť je našou prioritou.">
-                <div class="carousel-caption">
-                 </div>
-            </div-->
+
                  <div class="item">
-                     <img src="~/Image/bg2.jpg" alt="" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkay nižšie a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu,nakolko sme partnerom spol. Zinzino.
-                     •Srdečne ďakujeme za váš záujem,Vaša spokojnosť je našou prioritou.">
+                     <img src="~/Image/thong-vo-2482-unsplash 2.jpg" alt="" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
                      <div class="carousel-caption">
-                         <p style="font-size:18px;color:#fff;text-shadow:1px 1px 4px #000000;padding-bottom:.25em;text-decoration: underline; ">
+
+                         <p style="font-size:18px;color:#fff;text-shadow:1px 1px 4px #000000;padding-bottom:.25em;">
                              <img src="~/Image/LWSlogo.jpg" alt="logoLWS" style="width:125px;height:42px ; padding: .2em; " title="©LadoWebServis,ponúkame Vám webové služby v oblasti dizajnu webov,návrhov až po vytvorenie plne funkčnej webovej stránky ako aj zostavenie pc-komponentov,opravy výpočtovej techniky,doporučenie softvérov na vyladenie pc zostáv.Ak vás tento web zaujíma alebo sa zaujímate o naše produkty a služby, kontaktujte nás prostredníctvom formulára alebo telefónu iba zo Slovenska. Srdečne ďakujeme za váš záujem,Vaša spokojnosť je našou prioritou."><br>
-                             Ďakujeme za váš záujem.
+                             Ďakujeme za nákup a váš záujem.
                          </p>
+
                          <!--p style="color:#fff;text-shadow:1px 1px 4px #000000;padding-bottom: .55em;"><em><i class='fa fa-phone' style='font-size:13px'> +421556711924 or +421907151293 </i></em></p-->
 
                      </div>
@@ -322,11 +300,6 @@
              </a>
          </div>
      </div>
-
-
-
-
-
      <!-- End of carousel -->
 
 
@@ -341,12 +314,8 @@
 
 
                  <i class='fa fa-heart'>"Your satisfaction is our priority."</i><br>
-                 @*<div class="fb-like" data-href="https://ladowebservis.sk/" data-width="" data-layout="standard" data-action="like" data-size="medium" data-share="true">https://ladowebservis.sk/</div>
-                    <div id="fb-root"></div>*@
-                 @*<script async defer crossorigin="anonymous" src="https://connect.facebook.net/sk_SK/sdk.js#xfbml=1&version=v15.0&appId=455914461524971&autoLogAppEvents=1" nonce="siSYyuX8"></script>*@
-                 @*<a href="https://twitter.com/ladow11" target="_blank">
-                        <i class="fa fa-instagram w3-hover-text-white w3-large"></i>
-                    </a>*@
+
+
                  <a href="https://www.linkedin.com/in/vladim%C3%ADr-kseni%C4%8D/" target="_blank">
                      <i class="fa fa-linkedin w3-hover-text-white w3-large"></i>&nbsp;&nbsp;
                  </a>
@@ -361,9 +330,10 @@
              </div>
 
 
-             <!--End footer section-->
-             <!--a href="#" class="scrollToTop show"><i class="fa fa-arrow-up" data-toggle="tooltip" title="Presunúť sa hore"></i></a-->
+
+
              <address>
+                 <hr />
 
                  <img src="~/Image/sk.png" alt="sk" style="width:22px;height:20px; padding: .1em;">
                  <p style="font-size: 18px;color:white;">
@@ -383,17 +353,44 @@
 
 
              <p>
-                 <img alt="logo" src="~/Image/LWSlogo.jpg" style="width:105px;height:42px; padding: .1em;">@*&nbsp;&nbsp;&copy;Allrights reserved @DateTime.Now.Year</p><hr />*@
+                 <img alt="logo" src="~/Image/LWSlogo.jpg" style="width:105px;height:42px; padding: .1em;">
                  <hr />
-                 <div class="text-center">
-                     <a href="#" class="w3-button w3-white w3-padding-large w3-hover-blue"><i class="fa fa-arrow-up" data-toggle="tooltip" title="Presunúť sa hore"></i>Späť hore</a>
-                 </div>
-                 <hr />
-                 Copyright &#169; Ladowebservis @DateTime.Today.Year Allrights reserved.
+
+                 @*<div class="text-center">
+
+                        <a href="#" class="w3-button w3-white w3-padding-large w3-hover-blue"><i class="fa fa-arrow-up" data-toggle="tooltip" title="Presunúť sa hore"></i>Späť hore</a>
+                    </div>*@
+
+                 Copyright &#169; Ladowebservis @DateTime.Today.Year.
          </footer>
+
+         <script>
+             // Get the Top Button
+             let mybutton = document.getElementById("myBtn");
+
+             // When the user scrolls down 20px from the top of the document, show the button
+             window.onscroll = function () { scrollFunction() };
+
+             function scrollFunction() {
+                 if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                     mybutton.style.display = "block";
+                 } else {
+                     mybutton.style.display = "none";
+                 }
+             }
+
+             // When the user clicks on the button, scroll to the top of the document
+             function topFunction() {
+                 document.body.scrollTop = 0;
+                 document.documentElement.scrollTop = 0;
+             }
+         </script>
+         <!--End footer section-->
+
+
      </div>
 
  </body>
- </html>
+</html>
 
 
