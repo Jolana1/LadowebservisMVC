@@ -25,7 +25,7 @@ namespace LadowebservisMVC.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("Skontrolujte zadané údaje", "");
+                    ModelState.AddModelError("Skontrolujte zadane udaje", "");
                     return RedirectToAction("Login", "Controller");
                 }
             }
@@ -47,9 +47,9 @@ namespace LadowebservisMVC.Controllers
             }
             return View();
         }
-        public ActionResult About()
+        public ActionResult Ponukasluzby()
         {
-            ViewBag.PageTitle = "O nás";
+            ViewBag.PageTitle = "ponuka-služby";
             return View();
         }
 

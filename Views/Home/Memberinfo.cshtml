@@ -1,41 +1,27 @@
-﻿
-@model LadowebservisMVC.Models.MemberInfoModel
+﻿@model LadowebservisMVC.Models.MemberInfoModel
 
 @{
     ViewBag.Title = "Memberinfo";
 }
 
+<div class="container card pt-4">
+    @*<div class="row">*@
+        @*<div class="col-12">*@
+            <div class="text-center mb-3">
+                <a class="btn btn-primary btn-block mb-2" href='@Url.Action("Hudba", "Home")' title="Video Zinzino a Youtube Musicmix">Pozrite si toto video: byť zdravý a plný energie</a>
+                <a class="btn btn-primary btn-block mb-2" href='@Url.Action("Objednavky", "Home")' title="Objednávky">Moje objednávky</a>
+                <a class="btn btn-primary btn-block mb-2" href='@Url.Action("Kosik", "Home")' title="Košík">Obľúbené</a>
+            </div>
 
+            <p class="section-heading text-uppercase text-center">Nezabudnite: ak pri 1. objednávke použijete kód <strong>FRIENDS25</strong>, získate 10% zľavu z celého nákupu!</p>
 
-
-
-<a class="nav-link text-white glyphicon glyphicon-user btn-lg tlacitko-moje" href="@Url.Action("Produkty", "Home")" title="Produkty">Products</a>
-
-<a class="nav-link text-white glyphicon glyphicon-user btn-lg tlacitko-moje" href="@Url.Action("Registracia", "Home")" title="Registrácia alebo zabudnuté heslo"> Zabudnuté heslo</a>
-
-<a class="nav-link text-white glyphicon glyphicon-shopping-cart btn-lg tlacitko-moje" href="@Url.Action("Objednavky", "Home")" title="Objednávky"> Objednávky</a>
-<a class="nav-link text-white glyphicon glyphicon-shopping-cart btn-lg tlacitko-moje" href="@Url.Action("Kosik", "Home")" title="Košík"> Košík</a>
-
-
-
-
-
-<p class="section-heading text-uppercase">
-
-Nezabudnite akcia je predĺžená ak pri Vašej 1.objednávke použijete kód Friends25 máte 10% zľavu z nákupu!!!</p>
-
-
-<br>
-
-
-<a class="active btn-primary glyphicon glyphicon-music btn-lg tlacitko-moje" href="@Url.Action("Hudba", "Home")" title="Webinár a Youtube Hudba"> Balanceolej video</a>
-@using (Html.BeginForm("Member", "Home", FormMethod.Post, new { @class = "form-horizontal moj-formular" }))
-{
-    <div class="row submit">
-        <div class="col-md-12">
-            <a href="" onclick="document.getElementById('submitButton').click(); return false;" class="btn btn-primary btn-lg tlacitko-moje">Späť</a>
-            <input type="submit" id="submitButton" class="hidden" />
+            <div class="text-center mt-4">
+                @using (Html.BeginForm("Member", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    <button type="submit" class="btn btn-secondary btn-md">Späť</button>
+                }
+            </div>
         </div>
-    </div>
-}
+    @*</div>*@
+@*</div>*@
 

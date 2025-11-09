@@ -10,15 +10,15 @@ namespace LadowebservisMVC.Controllers
     public class HomeController : Controller
     {
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Zdravie()
         {
-            ViewBag.PageTitle = "Index";
+            ViewBag.PageTitle = "zdravie";
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult ITservis()
         {
-            ViewBag.PageTitle = "O nás";
+            ViewBag.PageTitle = "itservis";
             return View();
         }
 
@@ -33,7 +33,7 @@ namespace LadowebservisMVC.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Nesprávne meno alebo heslo");
+                    ModelState.AddModelError("", "");
                 }
             }
             return View(model);

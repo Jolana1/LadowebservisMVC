@@ -1,4 +1,8 @@
 ﻿using LadowebservisMVC.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 using System.Web.Mvc;
 
@@ -26,10 +30,10 @@ namespace LadowebservisMVC.Controllers
                 {
                     return RedirectToAction("Member", "Home");
                 }
-                
+
             }
             return View(model);
-                }
+        }
         public ActionResult Register(RegisterModel model)
         {
             if (!ModelState.IsValid)
@@ -38,11 +42,6 @@ namespace LadowebservisMVC.Controllers
 
             }
             return View(model);
-
-
-
-
-
         }
     }
 }

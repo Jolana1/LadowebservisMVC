@@ -1,396 +1,544 @@
 ﻿﻿
 <!DOCTYPE html>
- <html>
- <head>
-     <meta charset="utf-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1">
-     @Scripts.Render("~/bundles/modernizr")
+<html>
+<head>
+    <!-- Cookie Consent by TermsFeed https://www.TermsFeed.com -->
+    <script type="text/javascript" src="//www.termsfeed.com/public/cookie-consent/4.2.0/cookie-consent.js" charset="UTF-8"></script>
+    <script type="text/javascript" charset="UTF-8">
+        document.addEventListener('DOMContentLoaded', function () {
+            cookieconsent.run({ "notice_banner_type": "headline", "consent_type": "express", "palette": "light", "language": "sk", "page_load_consent_levels": ["strictly-necessary"], "notice_banner_reject_button_hide": false, "preferences_center_close_button_hide": false, "page_refresh_confirmation_buttons": false, "website_name": "https://ladowebservis.sk/index" });
+        });
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    @Scripts.Render("~/bundles/modernizr")
 
-     <meta name="robots" content="index, follow" />
-     <meta name="author" content="Ladowebservis-Vladimír Ksenič" />
-     <meta name="keywords" content="Ladowebservis-Zdravá výživa,webové služby,webové stránky,pc služby.." />
-     <meta name="copyright" content="©LWS - Ladowebservis" />
-     <meta name="description" content="V rámci webových služieb ponúkame dizajn webov,návrh až po vytvorenie plne funkčnej webovej stránky,mesačný hosting vášho webu na mesiac zdarma potom za mesačný poplatok, ponúkame zostavenie a opravy pc-komponentov,výpočtovej techniky,odporučenie softvérov a celkové vyladenie vašich pc zostáv..">
-     <meta name="content-language" content="sk" />
-     <meta property="og:image" content="~/Image/LWSlogo.jpg">
-     <meta property="og:image:width" content="300">
-     <meta property="og:image:height" content="300">
-     <meta property="og:title" content="Ladowebservis">
-
-
-     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-3.4.1.min.js")"></script>
-     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
-     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
-     <script type="text/javascript" src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
-     <script type="text/javascript" src="@Url.Content("~/Scripts/cart.js")"></script>
-     <script type="text/javascript" src="@Url.Content("~/Scripts/checkout.js")"></script>
-
-     <script src="https://js.stripe.com/v3/fingerprinted/js/8433-72e9ba6fe5d4f9d3d8ee8d05b6d8ad97.js"></script>
-     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-     <link href="@Url.Content("~/styles/BootstrapStyleSheet.css")" rel="stylesheet">
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-     <!-- Css -->
-
-     <link rel="stylesheet" type="text/css" href="~/styles/w31.css">
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-     <link rel="icon" href="~/Image/pagePiling-plugin.gif" type="image/x-icon" data-cmp-info="10">
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-     <!-- 1. Add latest jQuery and fancybox files -->
-
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
-     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-
-     <meta name="amp-consent-blocking" content="amp-ad">
-     <style>
-         /* Make the image fully responsive */
-         .carousel-inner img {
-             width: 100%;
-             height: 100%;
-         }
-
-         #myBtn {
-             display: none;
-             position: fixed;
-             bottom: 20px;
-             right: 30px;
-             z-index: 99;
-             font-size: 18px;
-             border: none;
-             outline: none;
-             background-color: #5d33fb;
-             color: white;
-             cursor: pointer;
-             padding: 15px;
-             border-radius: 4px;
-         }
-
-             #myBtn:hover {
-                 background-color: #555;
-             }
-     </style>
-
-     <title>@ViewBag.PageTitle</title>
-
-     <!-- Google tag (gtag.js) -->
-     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3PFBTR5XXW"></script>
-     <script>
-         window.dataLayer = window.dataLayer || [];
-         function gtag() { dataLayer.push(arguments); }
-         gtag('js', new Date());
-
-         gtag('config', 'G-3PFBTR5XXW');
-     </script>
-     <script type="text/javascript" data-cmp-ab="1" src="https://cdn.consentmanager.net/delivery/autoblocking/caeb3e4a518ce.js" data-cmp-host="b.delivery.consentmanager.net" data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="0"></script>
-
-     <!-- Google Tag Manager -->
-     <script>
-         (function (w, d, s, l, i) {
-             w[l] = w[l] || []; w[l].push({
-                 'gtm.start':
-                     new Date().getTime(), event: 'gtm.js'
-             }); var f = d.getElementsByTagName(s)[0],
-                 j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                     'https://www.googletagmanager.com/gtm.js?id=GTM-T46FXNQ' + i + dl; f.parentNode.insertBefore(j, f);
-         })(window, document, 'script', 'dataLayer', 'GTM-T46FXNQ');</script>
-     <!-- End Google Tag Manager -->
-
-
- </head>
-
-
- <body>
-     <button onclick="topFunction()" id="myBtn" class="fa fa-arrow-up" data-toggle="tooltip" title="Naspäť"></button>
-     @*<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>*@
-     <!-- Google Tag Manager (noscript) -->
-     <noscript>
-         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T46FXNQ"
-                 height="0" width="0" style="display:none;visibility:hidden"></iframe>
-     </noscript>
-     <!-- End Google Tag Manager (noscript) -->
-
-
-     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light navbar-fixed-top">
-
-         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                 aria-expanded="false" aria-label="Toggle navigation">
-             <span class="navbar-toggler-icon"></span>
-         </button>
-         <a class="navbar-brand image-container" href="@Url.Action("Index","Home")"><img src="~/Image/pagePiling-plugin 2.gif" class="img-rounded" alt="logo" title=""></a>
-         <div class="cart-icon w3-text-white">
-             <img src="~/Image/shopping-cart.png" title="Košík výprázdnite obnovením tejto stránky" alt="Cart-Basket">
-             <span id="cart-items" title="Počet kliknutí na pridať do košíka">0</span>
-             <div class="total-amount">
-                 <br />
-                 Spolu s DPH: €<span id="total-amount" title="Celková suma" class="price">0</span>
-             </div>
-         </div>
-
-
-         <div id="cart-items-list">
-             <!-- Cart items will be added here-->
-         </div>
-         <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-             <ul class="navbar-nav flex-grow-1">
-
-
-                 <li class="nav-item">
-                     <a class="nav-link text-dark glyphicon glyphicon-home" href="@Url.Action("Index", "Home")" title="Úvod">Home</a>
-                 </li>
-
-                 <li class="nav-item">
-                     <a class="nav-link text-dark glyphicon glyphicon-user" href="@Url.Action("Login", "Home")" title="Prihlásenie">Login</a>
-                 </li>
-                 <li class="nav-item">
-                     <a class="nav-link text-dark glyphicon glyphicon-shopping-cart" href="@Url.Action("About", "Home")" title="Webové a PC Služby">PC-web services</a>
-                 </li>
-                 <li class="nav-item">
-                     <a class="nav-link text-dark glyphicon glyphicon-envelope" href="@Url.Action("Kontakt", "Home")" title="Kontakt">Contact</a>
-                 </li>
-             </ul>
-         </div>
-
-         <script async
-                 src="https://js.stripe.com/v3/buy-button.js">
-         </script>
-
-         <stripe-buy-button buy-button-id="buy_btn_1Qr3pPHrPMzQ1ua8bEe7WMIU"
-                            publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
-         </stripe-buy-button>
-         
-
-
-
-
-
-
-
-
-
-         <div class="collapse navbar-collapse" id="myNavbar">
-             <ul class="nav navbar-nav">
-                 <li class="dropdown">
-                     <a class="dropdown-toggle" data-toggle="dropdown" href="#Partners" title="Naši partnery"><span class="glyphicon glyphicon-briefcase"></span> Partners</a>
-                     <ul class="dropdown-menu">
-
-                         <li class="active"><a class="w3-hover-white" href="https://www.ashampoo.com/de-de" target="_blank" title="Ashampoo antivirus and best safety software Deals • Poradíme správny postup &amp;  doporučíme softvér  vo  vašej oblasti •Mame nahradu za drahý a komplikovaný  MS Office ©LWS - Partner spoločnosti Ashampoo"><img src="~/Image/ashampoo.com-AshampooSoftwareDeals.png" style="width:58px;height:15px" alt="AshampooSoftwareDeals"> Ashampoo Software</a></li>
-                         <li>
-                         </li>
-                         <li class="active">
-                             <a class="w3-hover-white" href="https://www.pikatec.cz/" target="_blank" title="Pikatec • Pikatek • Nanotechnology • Energy • Meníme svet-poriadku, umytia a čistenia">
-                                 <img src="~/Image/Pikatec.png" style="width:58px;height:15px" alt="Pikatec • Pikatek • Nanotechnology • Energy • Meníme svet-poriadku, umytia a čistenia">
-                                 Pikatec
-                             </a>
-                         </li>
-                         <li class="active">
-                             <a class="w3-hover-white" href="https://sk.oriflame.com/products/digital-catalogue-current?store=SK-vladimirksenic&PageNumber=1" target="_blank" title="•Oriflame aktuálny katalóg">
-                                 <img src="~/Image/sk-oriflame-katalog.png" style="width:58px;height:15px" alt="Oriflame aktuálny katalóg">
-                                 Oriflame katalóg 4/2025
-                             </a>
-                         </li>
-                     </ul>
-                 </li>
-
-
-
-
-
-             </ul>
-         </div>
-
-
-     </nav>
+    <meta name="robots" content="zdravie, follow" />
+    <meta name="author" content="Ladowebservis-Vladimír Ksenič" />
+    <meta name="keywords" content="Ladowebservis-„Zinzino test“, „omega 3 doplnky“, „ako zvýšiť imunitu“, „únava doplnky“" />
+    <meta name="copyright" content="©LWS - Ladowebservis" />
+    <meta name="description" content="V rámci webových služieb ponúkame dizajn webov,návrh až po vytvorenie plne funkčnej webovej stránky,mesačný hosting vášho webu na mesiac zdarma potom za mesačný poplatok, ponúkame zostavenie a opravy pc-komponentov,výpočtovej techniky,odporučenie softvérov a celkové vyladenie vašich pc zostáv..">
+    <meta name="content-language" content="sk" />
+    <meta property="og:image" content="~/Image/pagePiling-plugin.gif">
+    <meta property="og:image:width" content="300">
+    <meta property="og:image:height" content="300">
+    <meta property="og:title" content="Ladowebservis">
     
-     <!-- Carousel -->
-     <div class="container-fluid-right">
-         <div id="myCarousel" class="carousel slide" data-ride="carousel">
-             <!-- Indicators -->
-             <ol class="carousel-indicators">
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-3.4.1.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/cart.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/checkout.js")"></script>
+
+    <script src="https://js.stripe.com/v3/fingerprinted/js/8433-72e9ba6fe5d4f9d3d8ee8d05b6d8ad97.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="@Url.Content("~/styles/BootstrapStyleSheet.css?v3")" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 
+    <!-- Css -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/w31.css">
 
-                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                 <li data-target="#myCarousel" data-slide-to="1" class=""></li>
-                 <li data-target="#myCarousel" data-slide-to="2" class=""></li>
-                 <li data-target="#myCarousel" data-slide-to="3" class=""></li>
-                 <li data-target="#myCarousel" data-slide-to="4" class=""></li>
-                 <li data-target="#myCarousel" data-slide-to="5" class=""></li>
-
-
-             </ol>
-             <!-- Wrapper for slides -->
-             <div class="carousel-inner">
-
-                 <div class="item active">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="icon" href="~/Image/pagePiling-plugin.gif" type="image/x-icon" data-cmp-info="10">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-                     <img src="~/Image/skusenosti.jpg" alt="intro" style="width:2560px;height:539px;" title="•Vitajte na stránke spoločnosti ©LadoWebServis•">
-                     <div class="carousel-caption">
+    <!-- 1. Add latest jQuery and fancybox files -->
 
-                         <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">
-                             Vitajte na našej stránke spoločnosti ©LadoWebServis.
-                         </p>
-                     </div>
-
-                 </div>
-
-                 <div class="item">
-                     <img src="~/Image/bg1.jpg" alt="" style="width:2560px;height:539px" title="•Vitajte na stránke spoločnosti ©LadoWebServis, ponúkame Vám webové služby v oblasti dizajnu webov,návrhov až po vytvorenie plne funkčnej webovej stránky ako aj zostavenie pc-komponentov,opravy výpočtovej techniky,doporučenie softvérov na vyladenie pc zostáv.Ak vás tento web zaujíma alebo sa zaujímate o naše služby, kontaktujte nás formulárom alebo prostredníctvom e-mailu. Ďakujeme za váš záujem, Vaša spokojnosť je našou prioritou">
-                     <div class="carousel-caption">
-                         <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Ponúkame Vám webové,pc služby&amp;kvalitné výživové produkty od švédskej spoločnosti Zinzino<br>Nenechajte si ujsť túto ponuku!</p>
-
-                     </div>
-                 </div>
-                 <div class="item">
-                     <img src="~/Image/Zinzino.jpg" alt="" style="width:2560px;height:539px" title="Vitajte na stránke spoločnosti ©LadoWebServis.V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz nižšie a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu,nakolko sme partnerom spol. Zinzino. Srdečne ďakujeme za váš záujem,Vaša spokojnosť je našou prioritou.">
-                     <div class="carousel-caption">
-                         <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Začnite svoju cestu za zdravím už dnes.</p>
-                     </div>
-                 </div>
-                 <div class="item">
-                     <img src="~/Image/INK.jpg" alt="" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
-                     <div class="carousel-caption">
-
-                         <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Volajte +421917952432 only Slovakia alebo ak nedvíhame tak nám napíšte na kontaktný formulár<br>Neváhajte!</p>
-
-                     </div>
-                 </div>
-
-                 <div class="item">
-                     <img src="~/Image/photo-1461722936851-13a79b294a5d.jpeg" alt="max" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
-                     <div class="carousel-caption">
-                         <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Pri 1.objednávke a novej registrácii použite kupón FRIENDS25 a máte 10% zľavu z nákupu!!!</p>
-                     </div>
-                 </div>
-
-                 <div class="item">
-                     <img src="~/Image/thong-vo-2482-unsplash 2.jpg" alt="" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
-                     <div class="carousel-caption">
-
-                         <p style="font-size:18px;color:#fff;text-shadow:1px 1px 4px #000000;padding-bottom:.25em;">
-                             <img src="~/Image/LWSlogo.jpg" alt="logoLWS" style="width:125px;height:42px ; padding: .2em; " title="©LadoWebServis,ponúkame Vám webové služby v oblasti dizajnu webov,návrhov až po vytvorenie plne funkčnej webovej stránky ako aj zostavenie pc-komponentov,opravy výpočtovej techniky,doporučenie softvérov na vyladenie pc zostáv.Ak vás tento web zaujíma alebo sa zaujímate o naše produkty a služby, kontaktujte nás prostredníctvom formulára alebo telefónu iba zo Slovenska. Srdečne ďakujeme za váš záujem,Vaša spokojnosť je našou prioritou."><br>
-                             Ďakujeme za nákup a váš záujem.
-                         </p>
-
-                         <!--p style="color:#fff;text-shadow:1px 1px 4px #000000;padding-bottom: .55em;"><em><i class='fa fa-phone' style='font-size:13px'> +421556711924 or +421907151293 </i></em></p-->
-
-                     </div>
-                 </div>
-
-             </div>
-
-             <!-- Left and right controls -->
-             <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                 <span class="glyphicon glyphicon-chevron-left"></span>
-                 <span class="sr-only">Previous</span>
-             </a>
-             <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                 <span class="glyphicon glyphicon-chevron-right"></span>
-                 <span class="sr-only">Next</span>
-             </a>
-         </div>
-     </div>
-     <!-- End of carousel -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
 
-     <div class="container body-content">
-         @RenderBody()
-         <hr />
-         <footer>
-             <a href="?cmpscreen" class="cmpfooterlink cmpfooterlinkcmp">Privacy settings</a>
-             <br>
-             <div class="w3-center pt-4 w3-text-white cner-fluid" id="footer">
+    <style>
+        /* Make the image fully responsive */
+        .carousel-inner img {
+            width: 100%;
+            height: 100%;
+        }
 
+        #myBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            font-size: 18px;
+            border: none;
+            outline: none;
+            background-color: #5d33fb;
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 4px;
+        }
 
-
-                 <i class='fa fa-heart'>"Your satisfaction is our priority."</i><br>
-
-
-                 <a href="https://www.linkedin.com/in/vladim%C3%ADr-kseni%C4%8D/" target="_blank">
-                     <i class="fa fa-linkedin w3-hover-text-white w3-large"></i>&nbsp;&nbsp;
-                 </a>
-
-                 <a href="https://www.youtube.com/" target="_blank">
-                     <i class="fa fa-youtube w3-hover-text-white w3-large"></i>&nbsp;&nbsp;
-                 </a>
-                 <a href="https://soundcloud.com/lado-8" target="_blank">
-                     <i class="fa fa-soundcloud w3-hover-text-white w3-large"></i>&nbsp;&nbsp;
-                 </a>
-                 <a class="fa fa-facebook-official w3-hover-text-white w3-large" href="https://www.facebook.com/vladimir.ksenic" target="_blank"></a>&nbsp;&nbsp;
-             </div>
+            #myBtn:hover {
+                background-color: #555;
+            }
 
 
 
 
-             <address>
-                 <hr />
+        .collapse a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 14px;
+        }
 
-                 <img src="~/Image/sk.png" alt="sk" style="width:22px;height:20px; padding: .1em;">
-                 <p style="font-size: 18px;color:white;">
-                     Postupimska ulica 29<br />
-                     Košice,&nbsp;SVK<br />
-                     040 22<br />
-             </address>
-             <abbr title="Telefón"><strong>Phone:</strong> +421917952432</abbr><br />
+            .collapse a:hover {
+                background-color: #ddd;
+                color: black;
+            }
 
+            .collapse a.active {
+                background-color: #04AA6D;
+                color: white;
+            }
 
-
-             <strong>Support:</strong>   <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a><br />
-             <strong>Marketing and Info:</strong> <a href="mailto:info@ladowebservis.sk">info@ladowebservis.sk</a>
-
-
-
-
-
-             <p>
-                 <img alt="logo" src="~/Image/LWSlogo.jpg" style="width:105px;height:42px; padding: .1em;">
-                 <hr />
-
-                 @*<div class="text-center">
-
-                        <a href="#" class="w3-button w3-white w3-padding-large w3-hover-blue"><i class="fa fa-arrow-up" data-toggle="tooltip" title="Presunúť sa hore"></i>Späť hore</a>
-                    </div>*@
-
-                 Copyright &#169; Ladowebservis @DateTime.Today.Year.
-         </footer>
-
-         <script>
-             // Get the Top Button
-             let mybutton = document.getElementById("myBtn");
-
-             // When the user scrolls down 20px from the top of the document, show the button
-             window.onscroll = function () { scrollFunction() };
-
-             function scrollFunction() {
-                 if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                     mybutton.style.display = "block";
-                 } else {
-                     mybutton.style.display = "none";
-                 }
-             }
-
-             // When the user clicks on the button, scroll to the top of the document
-             function topFunction() {
-                 document.body.scrollTop = 0;
-                 document.documentElement.scrollTop = 0;
-             }
-         </script>
-         <!--End footer section-->
+        .collapse .icon {
+            display: none;
+        }
 
 
-     </div>
+        .collapse a.icon {
+            float: right;
+            display: block;
+        }
 
- </body>
+
+
+        .collapse.responsive .icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .collapse.responsive a {
+            float: none;
+            display: block;
+            text-align: left;
+        }
+
+        /* Style the search box */
+        #mySearch {
+            width: 40%;
+            font-size: 15px;
+            padding: 7px;
+            border: 1px solid #ddd;
+        }
+
+        /* Style the navigation menu */
+        #myMenu {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            /* Style the navigation links */
+            #myMenu li a {
+                padding: 12px;
+                text-decoration: none;
+                color: black;
+                display: block
+            }
+
+                #myMenu li a:hover {
+                    background-color: #eee;
+                }
+    </style>
+
+    <title>Ladowebservis</title>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3PFBTR5XXW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-3PFBTR5XXW');
+    </script>
+
+
+
+
+</head>
+
+
+<body>
+    <button onclick="topFunction()" id="myBtn" class="fa fa-arrow-up" data-toggle="tooltip" title="Go to top"></button>
+
+
+
+
+
+
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light navbar-fixed-top">
+
+
+
+
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="cart-fluid" style="padding: 0.0em; background: #f8f9fa; border-radius: 4px; margin-bottom: 0.0em;">
+            <p>
+                <i class="fa fa-shopping-cart"></i>Nákupný košík
+                <span id="cart-items" class="badge badge-danger">0</span>
+            </p>
+            <ul id="cart-items-list" class="list-group mb-2">
+            </ul>
+            <!--<ul id="cart-list" class="list-group mb-2">-->
+            <!-- Cart items will be added here-->
+            <!--</ul>-->
+            <div>
+                <strong>Celková suma: €<span id="total-amount">0.00</span></strong>
+            </div>
+
+            <script async
+                    src="https://js.stripe.com/v3/buy-button.js">
+            </script>
+
+            <stripe-buy-button buy-button-id="buy_btn_1Qr3pPHrPMzQ1ua8bEe7WMIU"
+                               publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
+            </stripe-buy-button>
+            @*<button id="checkout-btn" class="btn btn-success mt-2" disabled>Pay with Card</button>*@
+        </div>
+        @*<div class="cart-icon w3-text-white">
+
+            <img src="/Image/shopping-cart.png" title="Košík výprázdnite obnovením tejto stránky" alt="Cart-Basket">
+            <span id="cart-items" title="Počet kliknutí na pridať do košíka">0</span>
+            <div class="total-amount">
+                <br />
+                Spolu s DPH: €<span id="total-amount" title="Celková suma" class="price">0</span>
+            </div>*@
+
+
+
+
+
+
+        <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+
+            <a class="navbar-brand image-container img-rounded glyphicon glyphicon-heart" href="/Home/Zdravie" title="Zdravie">Zdravie@*<img src="/Image/pagePiling-plugin.gif" />*@</a>
+
+            <ul class="navbar-nav flex-grow-0">
+            </ul>
+            <ul class="nav navbar-nav">
+
+
+
+
+
+
+                <li class="nav-item">
+                    <a class="image-container img-rounded glyphicon glyphicon-shopping-cart" href="/Home/Produkty" title="Produkty Zinzino to je omega,imunita a zdravie">Doplnky-Akcia</a>
+                </li>
+                <li class="nav-item">
+                    <a class="image-container img-rounded glyphicon glyphicon-briefcase" href="/Home/itservis" title="Webové a IT Služby">ITservis</a>
+                </li>
+                <li class="nav-item">
+                    <a class="image-container img-rounded glyphicon glyphicon-user" href="/Home/Login" title="Prihlásenie,zabudnuté heslo a registrácia">Prihlásenie</a>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle img-rounded" data-toggle="dropdown" href="#Partners" title="Naši partneri"><span class="glyphicon glyphicon-briefcase"></span>Partnery</a>
+
+                    <ul class="dropdown-menu">
+
+                        <li class="active"><a class="w3-hover-white" href="https://www.ashampoo.com/de-de" target="_blank" title="•Ashampoo antivirus and best safety software Deals • Poradíme správny postup &amp;  doporučíme softvér  vo  vašej oblasti •Mame nahradu za drahý a komplikovaný  MS Office ©LWS - Partner spoločnosti Ashampoo"><img src="/Image/ashampoo.com-AshampooSoftwareDeals.png" style="width:58px;height:15px" alt="AshampooSoftwareDeals"> Ashampoo Software</a></li>
+                        <li>
+                        </li>
+                        <li class="active">
+                            <a class="w3-hover-white" href="https://www.pikatec.cz/" target="_blank" title="•Pikatec • Pikatek • Nanotechnology • Energy • Meníme svet-poriadku, umytia a čistenia">
+                                <img src="/Image/Pikatec.png" style="width:58px;height:15px" alt="Pikatec • Pikatek • Nanotechnology • Energy • Meníme svet-poriadku, umytia a čistenia">
+                                Pikatec
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a class="w3-hover-white" href="https://sk.oriflame.com/products/digital-catalogue-current?store=SK-vladimirksenic&PageNumber=1" target="_blank" title="•Oriflame aktuálny katalóg">
+                                <img src="/Image/sk-oriflame-katalog.png" style="width:58px;height:15px" alt="Oriflame aktuálny katalóg">
+                                Oriflame katalóg 16/2025
+                            </a>
+
+                        </li>
+
+
+                    </ul>
+                </li>
+
+
+
+
+                <li class="nav-item">
+                    <a class="image-container img-rounded glyphicon glyphicon-envelope" href="/odoslanie-spravy" title="Kontakt">Formulár</a>
+                </li>
+                @*<li class="nav-item">
+                    <a class="image-container img-rounded fa fa-search" href="~/Controllers/Product.cs" role="checkbox" aria-label="Search" onclick="var s=document.getElementById('mySearch'); if(s){ s.focus(); } return false;">
+                        <i class="" aria-hidden="true"></i>
+                        <span class="sr-only">Hladat</span>
+                    </a>
+                </li>*@
+            </ul>
+
+
+        </div>
+
+
+    </nav>
+
+
+
+
+
+
+    <!-- Carousel -->
+    <div class="container-fluid-right">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+
+
+
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+                <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+                <li data-target="#myCarousel" data-slide-to="3" class=""></li>
+                <li data-target="#myCarousel" data-slide-to="4" class=""></li>
+                <li data-target="#myCarousel" data-slide-to="5" class=""></li>
+
+
+            </ol>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+
+                <div class="item active">
+
+
+                    <img src="~/Image/pagePiling-plugin.gif" alt="LogoLWS" style="width:2560px;height:539px;" title="•Vitajte na stránke spoločnosti ©LadoWebServis•">
+                    <div class="carousel-caption">
+
+                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">
+                            Vitajte na našej stránke spoločnosti ©LadoWebServis.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="item">
+                    <img src="~/Image/INK.jpg" alt="" style="width:2560px;height:539px" title="•Vitajte na stránke spoločnosti ©LadoWebServis, ponúkame Vám webové služby v oblasti dizajnu webov,návrhov až po vytvorenie plne funkčnej webovej stránky ako aj zostavenie pc-komponentov,opravy výpočtovej techniky,doporučenie softvérov na vyladenie pc zostáv.Ak vás tento web zaujíma alebo sa zaujímate o naše služby, kontaktujte nás formulárom alebo prostredníctvom e-mailu. Ďakujeme za váš záujem, Vaša spokojnosť je našou prioritou">
+                    <div class="carousel-caption">
+                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Ponúkame Vám webové,pc služby&amp;kvalitné výživové produkty od švédskej spoločnosti Zinzino<br>Nenechajte si ujsť túto ponuku!</p>
+
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="~/Image/Zinzino.jpg" alt="" style="width:2560px;height:539px" title="Vitajte na stránke spoločnosti ©LadoWebServis.V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz nižšie a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu,nakolko sme partnerom spol. Zinzino. Srdečne ďakujeme za váš záujem,Vaša spokojnosť je našou prioritou.">
+                    <div class="carousel-caption">
+                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Začnite svoju cestu za zdravím už dnes.</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="~/Image/skusenosti.jpg" alt="" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
+                    <div class="carousel-caption">
+
+                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Volajte +421917952432 only Slovakia alebo ak nedvíhame tak nám napíšte na kontaktný formulár<br>Neváhajte!</p>
+
+                    </div>
+                </div>
+
+                <div class="item">
+                    <img src="~/Image/photo-1461722936851-13a79b294a5d.jpeg" alt="max" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
+                    <div class="carousel-caption">
+                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Pri 1.objednávke a novej registrácii použite kupón FRIENDS25 a máte 10% zľavu z nákupu!!!</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <img src="~/Image/thong-vo-2482-unsplash 2.jpg" alt="" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
+                    <div class="carousel-caption">
+
+                        <p style="font-size:18px;color:#fff;text-shadow:1px 1px 4px #000000;padding-bottom:.25em;">
+
+                            <img src="~/Image/pagePiling-plugin.gif" alt="smalLogo" style="width:125px;height:42px ; padding: .2em; " title="©LadoWebServis,ponúkame Vám webové služby v oblasti dizajnu webov,návrhov až po vytvorenie plne funkčnej webovej stránky ako aj zostavenie pc-komponentov,opravy výpočtovej techniky,doporučenie softvérov na vyladenie pc zostáv.Ak vás tento web zaujíma alebo sa zaujímate o naše produkty a služby, kontaktujte nás prostredníctvom formulára alebo telefónu iba zo Slovenska. Srdečne ďakujeme za váš záujem,Vaša spokojnosť je našou prioritou."><br>
+                            Ďakujeme za nákup a váš záujem.
+                        </p>
+
+                        <!--p style="color:#fff;text-shadow:1px 1px 4px #000000;padding-bottom: .55em;"><em><i class='fa fa-phone' style='font-size:13px'> +421556711924 or +421907151293 </i></em></p-->
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+
+        </div>
+    </div>
+
+
+
+    <!-- End of carousel -->
+
+
+    <div class="container body-content">
+
+        @RenderBody()
+        <hr />
+        <footer>
+            <br>
+
+
+            <div class="w3-center pt-4 w3-text-white cner-fluid" id="footer">
+
+
+
+
+
+
+                <address>
+                    <hr />
+
+                    <img src="~/Image/Me.jpg" class="img-thumbnail" alt="sk" style="width:55px;height:60px;padding: .1em;">
+                    <p style="font-size: 15px;color:white;">
+                        <br /><a href="@Url.Action("Zdravie","Home",new {area = "Ladowebservis"})" style="font-size: 15px;color:white;">
+                            <strong>🌐 Web: www.ladowebservis.sk/zdravie</strong>
+                        </a><br />
+                    </p>
+                    @*Postupimská ulica 29<br />
+                        Košice,&nbsp;SVK<br />
+                        040 22<br />*@
+                </address>
+                <abbr title="Telefón"><strong>📞 Telefón: +421917952432</strong></abbr><br />
+                <abbr title="Napíšte nám na technickú podporu">
+                    <strong>📧 E-mail:</strong><a href="mailto:podpora@ladowebservis.sk" style="font-size: 15px;color:white;"> podpora@ladowebservis.sk</a><br />
+                </abbr>
+
+
+                <strong>INFO:</strong><a href="mailto:info@ladowebservis.sk" style="font-size: 15px;color:white;"> info@ladowebservis.sk</a>
+
+
+
+
+
+                <p>
+                    <img src="~/Image/pagePiling-plugin.gif" class="img-rounded" alt="logo" title="Ladowebservis" style="width:105px;height:42px; padding: .1em;">
+                    <hr />
+
+
+                    Copyright &#169; LadoWebServis – oficiálny partner Zinzino @DateTime.Today.Year.
+                </p>
+            </div>
+
+
+            <i class='fa fa-heart'>"Your satisfaction is our priority."</i><br>
+
+
+            <a href="https://www.linkedin.com/in/vladim%C3%ADr-kseni%C4%8D/" target="_blank">
+                <i class="fa fa-linkedin w3-hover-text-white w3-large"></i>&nbsp;&nbsp;
+            </a>
+
+            @*<a href="https://www.youtube.com/" target="_blank">
+                    <i class="fa fa-youtube w3-hover-text-white w3-large"></i>&nbsp;&nbsp;
+                </a>*@
+            <a href="https://soundcloud.com/lado-8" target="_blank">
+                <i class="fa fa-soundcloud w3-hover-text-white w3-large"></i>&nbsp;&nbsp;
+            </a>
+            <a class="fa fa-facebook-official w3-hover-text-white w3-large" href="https://www.facebook.com/vladimir.ksenic" target="_blank"></a>&nbsp;&nbsp;
+    
+    </footer>
+
+
+
+
+    <script>
+        // Get the Top Button
+        let mybutton = document.getElementById("myBtn");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+    <!--End footer section-->
+    </div>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "collapse") {
+                x.className += " responsive";
+            } else {
+                x.className = "collapse";
+            }
+        }
+
+
+
+    </script>
+    <script>
+        function myFunction() {
+            // Declare variables
+            var input, filter, ul, li, a, i;
+            input = document.getElementById("mySearch");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myTopnav");
+            li = ul.getElementsByTagName("li");
+
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+
+</body>
 </html>
 
 

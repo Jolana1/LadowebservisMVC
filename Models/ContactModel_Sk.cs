@@ -1,14 +1,7 @@
-﻿using System;
+﻿using LadowebservisMVC.Util;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Net.NetworkInformation;
 using System.Web;
-using LadowebservisMVC.Controllers.Models;
-using LadowebservisMVC.Util;
-using System.Web.Mvc;
-using System.Web.Helpers;
-using System.Net.Mail;
 
 
 
@@ -24,14 +17,20 @@ namespace LadowebservisMVC.Controllers.Models
         [Required(ErrorMessage = ModelUtil.requiredErrMessage_Sk)]
         [DataType(DataType.EmailAddress)]
         [EmailAddress(ErrorMessage = "Neplatný formát emailu.")]
-        [Display(Name = "Email")]
+        [Display(Name = "Email")] 
         public string Email { get; set; }
 
-        [Required(ErrorMessage = ModelUtil.invalidPhoneErrMessage_Sk)]
-        [RegularExpression(ModelUtil.phoneRegex)]
-        [DataType(DataType.PhoneNumber)]
-        [Display(Name = "Phone")]
-        public string Phone { get; set; }
+        //[Required(ErrorMessage = ModelUtil.invalidPhoneErrMessage_Sk)]
+        //[RegularExpression(ModelUtil.phoneRegex)]
+        //[DataType(DataType.PhoneNumber)]
+        //[Display(Name = "Phone")]
+        //public string Phone { get; set; }
+
+        [DataType(DataType.Upload)]
+        [Display(Name = "File")]
+        public HttpPostedFileBase File { get; set; }
+
+
 
 
         [Required(ErrorMessage = ModelUtil.requiredErrMessage_Sk)]
@@ -50,12 +49,13 @@ namespace LadowebservisMVC.Controllers.Models
                     new TextTemplateParam("NAME", this.Name),
                     new TextTemplateParam("EMAIL", this.Email),
                     new TextTemplateParam("TEXT", this.Text),
-                    new TextTemplateParam("PHONE", this.Phone),
+                   // new TextTemplateParam("PHONE", this.Phone),
                     new TextTemplateParam("PASSWORD", this.Password)
                 };
 
             Mailer mailer = new Mailer();
-            mailer.OdoslanieSpravy(this);
+            // pass null to ensure Mailer still attaches the App_Data/MailAttachment.pdf
+            mailer.OdoslanieSpravy(this, null);
 
             return true;
         }
