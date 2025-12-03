@@ -1,15 +1,16 @@
 (function () {
-    //'use strict';
+    'use strict';
 
-    //// Simple product price list (fallback only)
-    //const productPrices = new Map([
-    //    ['BalanceTest', 195.00],
-    //    ['BalanceOil', 55.00],
-    //    ['Zinobiotic', 33.00],
-    //    ['ZinzinoXtend', 34.00]
-    //]);
+    // Simple product price list (fallback only)
+    const productPrices = new Map([
+        ['BalanceTest', 195.00],
+        ['BalanceOil', 55.00],
+        ['Zinobiotic', 33.00],
+        ['ZinzinoXtend', 34.00]
+    ]);
 
     const STORAGE_KEY = 'lws_cart_v1';
+    const FAV_KEY = 'lws_fav_v1';
 
     function loadCart() {
         try {
@@ -26,6 +27,63 @@
         } catch (e) {
             // ignore storage errors
         }
+    }
+
+    function loadFavorites() {
+        try {
+            const j = localStorage.getItem(FAV_KEY);
+            return j ? JSON.parse(j) : [];
+        } catch (e) { return []; }
+    }
+
+    function saveFavorites(arr) {
+        try { localStorage.setItem(FAV_KEY, JSON.stringify(arr || [])); } catch (e) { }
+    }
+
+    function isFavorite(id) {
+        if (!id) return false;
+        const fav = loadFavorites();
+        return fav.indexOf(id) !== -1;
+    }
+
+    function toggleFavorite(id) {
+        if (!id) return;
+        const fav = loadFavorites();
+        const idx = fav.indexOf(id);
+        if (idx === -1) fav.push(id); else fav.splice(idx, 1);
+        saveFavorites(fav);
+        renderFavoriteButtons();
+        // also update favorites page if open
+        if (window.lwsRenderFavorites) window.lwsRenderFavorites();
+    }
+
+    function renderFavoriteButtons() {
+        // buttons in product cards
+        document.querySelectorAll('.product-heart').forEach(function (btn) {
+            try {
+                const id = btn.getAttribute('data-id') || btn.dataset.id;
+                if (isFavorite(id)) {
+                    btn.classList.add('favorited');
+                    btn.innerHTML = '<i class="fa fa-heart" aria-hidden="true"></i>';
+                } else {
+                    btn.classList.remove('favorited');
+                    btn.innerHTML = '<i class="fa fa-heart-o" aria-hidden="true"></i>';
+                }
+            } catch (e) { }
+        });
+        // buttons in mini-cart
+        document.querySelectorAll('.product-heart-mini').forEach(function (btn) {
+            try {
+                const id = btn.getAttribute('data-id') || btn.dataset.id;
+                if (isFavorite(id)) {
+                    btn.classList.add('favorited');
+                    btn.innerHTML = '<i class="fa fa-heart" aria-hidden="true"></i>';
+                } else {
+                    btn.classList.remove('favorited');
+                    btn.innerHTML = '<i class="fa fa-heart-o" aria-hidden="true"></i>';
+                }
+            } catch (e) { }
+        });
     }
 
     function getCatalog() {
@@ -55,7 +113,7 @@
                     if (val && val.Name === key && val.Price) { price = parseFloat(val.Price) || 0; break; }
                 }
             }
-            if (!price) price = productPrices.get(key) || 0;
+            if (!price) price = (productPrices && productPrices.get) ? productPrices.get(key) || 0 : 0;
             subtotal += price * q;
         });
 
@@ -100,7 +158,7 @@
             // unit price and discounted unit price
             var unitPrice = 0;
             if (catalog && catalog[key] && catalog[key].Price) unitPrice = parseFloat(catalog[key].Price) || 0;
-            else unitPrice = productPrices.get(key) || 0;
+            else unitPrice = (productPrices && productPrices.get) ? productPrices.get(key) || 0 : 0;
             var discountedUnit = unitPrice * 0.9;
 
             const nameSpan = document.createElement('span');
@@ -117,6 +175,18 @@
             // show discounted line total, and optionally show original struck-through
             const lineTotal = (discountedUnit * (item.quantity || 0)).toFixed(2);
             priceSpan.innerHTML = '<span style="text-decoration:line-through;color:#999;margin-right:.4rem;">€' + ((unitPrice * (item.quantity || 0)).toFixed(2)) + '</span><span> €' + lineTotal + '</span>';
+
+            // favorite button for header mini-cart
+            const favBtn = document.createElement('button');
+            favBtn.type = 'button';
+            favBtn.className = 'product-heart-mini btn btn-link';
+            favBtn.style.marginLeft = '8px';
+            favBtn.setAttribute('data-id', key);
+            favBtn.title = 'Pridať do obľúbených';
+            favBtn.addEventListener('click', function (ev) {
+                ev.stopPropagation(); ev.preventDefault();
+                toggleFavorite(key);
+            });
 
             // delete button for header mini-cart
             const delBtn = document.createElement('button');
@@ -139,6 +209,7 @@
             li.appendChild(nameSpan);
             li.appendChild(qtySpan);
             li.appendChild(priceSpan);
+            li.appendChild(favBtn);
             li.appendChild(delBtn);
 
             // clicking on the item navigates to the cart page for full checkout
@@ -158,6 +229,10 @@
             if (totals.discount > 0) totalDiscountEl.textContent = '(Zľava 10%: -€' + totals.discount.toFixed(2) + ')';
             else totalDiscountEl.textContent = '';
         }
+
+        // ensure favorite icons reflect current state
+        renderFavoriteButtons();
+        renderHeaderPaymentButton();
     }
 
     function animateFlyToCart(imgSrc, startRect) {
@@ -232,8 +307,113 @@
         if (window.lwsRenderCartPage) window.lwsRenderCartPage();
     }
 
+    function renderFavorites() {
+        const listEl = document.querySelector('#favoritesList');
+        if (!listEl) return;
+
+        // clear existing content
+        listEl.innerHTML = '';
+
+        const favIds = loadFavorites();
+        const catalog = getCatalog();
+
+        favIds.forEach(id => {
+            const item = catalog[id];
+            if (!item) return; // skip if not found in catalog
+
+            const li = document.createElement('li');
+            li.className = 'list-group-item d-flex align-items-center ' + id;
+            li.style.cursor = 'pointer';
+
+            const img = document.createElement('img');
+            img.src = item.Image || ('/Image/' + id + '.png');
+            img.alt = id;
+            img.width = 48;
+            img.height = 34;
+            img.style.marginRight = '10px';
+
+            const nameSpan = document.createElement('span');
+            nameSpan.innerHTML = item.Name + ' ';
+
+            const priceSpan = document.createElement('span');
+            priceSpan.style.marginLeft = 'auto';
+            priceSpan.style.fontWeight = '600';
+            // assume price is always available in catalog for favorites
+            const price = parseFloat(item.Price) || 0;
+            const discountedPrice = (price * 0.9).toFixed(2);
+            priceSpan.innerHTML = '<span style="text-decoration:line-through;color:#999;margin-right:.4rem;">€' + (price.toFixed(2)) + '</span><span> €' + discountedPrice + '</span>';
+
+            const addBtn = document.createElement('button');
+            addBtn.type = 'button';
+            addBtn.className = 'btn btn-sm btn-primary';
+            addBtn.style.marginLeft = '8px';
+            addBtn.textContent = 'Pridať do košíka';
+            addBtn.addEventListener('click', function (ev) {
+                ev.stopPropagation(); ev.preventDefault();
+                addToCartById(id);
+            });
+
+            const delBtn = document.createElement('button');
+            delBtn.type = 'button';
+            delBtn.className = 'btn btn-sm btn-danger';
+            delBtn.style.marginLeft = '4px';
+            delBtn.textContent = 'Odstrániť';
+            delBtn.addEventListener('click', function (ev) {
+                ev.stopPropagation();
+                ev.preventDefault();
+                toggleFavorite(id);
+                renderFavorites(); // re-render favorites list
+            });
+
+            li.appendChild(img);
+            li.appendChild(nameSpan);
+            li.appendChild(priceSpan);
+            li.appendChild(addBtn);
+            li.appendChild(delBtn);
+
+            listEl.appendChild(li);
+        });
+    }
+
+    function renderHeaderPaymentButton() {
+        var headerWrap = document.querySelector('.cart-fluid');
+        if (!headerWrap) return;
+
+        var btnId = 'header-pay-btn';
+        var existingBtn = document.getElementById(btnId);
+        if (existingBtn) {
+            // If button already exists, just return (avoid duplicates)
+            return;
+        }
+
+        // Create new button element
+        var payBtn = document.createElement('a');
+        payBtn.id = btnId;
+        payBtn.className = 'btn btn-danger btn-sm';
+        payBtn.style.marginLeft = '16px';
+        payBtn.textContent = 'Chodte na Prejsť k platbe';
+        payBtn.href = '/Home/Kosik?checkout=1'; // point to Kosik with checkout=1
+        payBtn.role = 'button';
+
+        // Disable button if cart is empty
+        const cart = loadCart();
+        const isEmptyCart = !cart || Object.keys(cart).length === 0;
+        if (isEmptyCart) {
+            payBtn.classList.add('disabled');
+            payBtn.setAttribute('aria-disabled', 'true');
+        } else {
+            payBtn.classList.remove('disabled');
+            payBtn.removeAttribute('aria-disabled');
+        }
+
+        headerWrap.appendChild(payBtn);
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         renderCart();
+        renderFavoriteButtons();
+        renderFavorites(); // also render favorites on load
+        renderHeaderPaymentButton(); // ensure header payment button is rendered
 
         document.querySelectorAll('.add-to-cart').forEach(function (btn) {
             btn.addEventListener('click', function (ev) {
@@ -280,13 +460,268 @@
                 if (window.lwsRenderCartPage) window.lwsRenderCartPage();
             });
         }
+
+        // Attach handler for favorite heart buttons
+        document.querySelectorAll('.product-heart').forEach(function (btn) {
+            btn.addEventListener('click', function (ev) {
+                ev.preventDefault();
+                const productId = btn.getAttribute('data-id');
+                toggleFavorite(productId);
+            });
+        });
+        // Re-attach handlers for mini-cart favorite buttons
+        document.querySelectorAll('.product-heart-mini').forEach(function (btn) {
+            btn.addEventListener('click', function (ev) {
+                ev.preventDefault();
+                const productId = btn.getAttribute('data-id');
+                toggleFavorite(productId);
+            });
+        });
+
+        // Auto-trigger Stripe payment if URL contains ?checkout=1
+        if (window.location.search.includes('checkout=1')) {
+            setTimeout(function () {
+                // Try to find and click the Stripe buy button
+                var stripeButton = document.querySelector('stripe-buy-button');
+                if (stripeButton) {
+                    stripeButton.click();
+                } else {
+                    // Fallback: try to find a button with class 'stripe-buy-button' or 'stripe-button'
+                    var fallbackButton = document.querySelector('button.stripe-buy-button, button.stripe-button');
+                    if (fallbackButton) {
+                        fallbackButton.click();
+                    }
+                }
+            }, 700); // delay to ensure buttons are rendered
+        }
     });
 
     // Expose render function for header and ensure cart page can set its own renderer
     window.lwsRenderCartHeader = renderCart;
+    window.lwsRenderFavorites = renderFavorites;
     if (!window.lwsRenderCartPage) window.lwsRenderCartPage = null;
 
 })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
