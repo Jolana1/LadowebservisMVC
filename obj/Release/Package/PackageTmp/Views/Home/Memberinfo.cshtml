@@ -8,9 +8,9 @@
     @*<div class="row">*@
         @*<div class="col-12">*@
             <div class="text-center mb-3">
-                <a class="btn btn-primary btn-block btn-lg mb-2" href='@Url.Action("Hudba", "Home")' title="Video Zinzino a Youtube Musicmix">Pozrite si toto video: byť zdravý a plný energie</a>
+                <a class="btn btn-primary btn-block mb-2" href='@Url.Action("Hudba", "Home")' title="Video Zinzino a Youtube Musicmix">Pozrite si toto video:ako byť zdravý a plný energie</a>
                 <a class="btn btn-primary btn-block mb-2" href='@Url.Action("Objednavky", "Home")' title="Objednávky">Moje objednávky</a>
-                <a class="btn btn-primary btn-block mb-2" href='@Url.Action("Kosik", "Home")' title="Košík">Obľúbené</a>
+                <a class="btn btn-primary btn-block mb-2" href='@Url.Action("Kosik", "Home")' title="Košík">Obľúbené produkty</a>
             </div>
 
             <p class="section-heading text-uppercase text-center">Nezabudnite: ak pri 1. objednávke použijete kód <strong>FRIENDS25</strong>, získate 10% zľavu z celého nákupu!</p>
@@ -18,7 +18,7 @@
             <div class="text-center mt-4">
                 @using (Html.BeginForm("Member", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
                 {
-                    <button type="submit" class="btn btn-secondary btn-lg">Späť</button>
+                    <button type="submit" class="btn btn-secondary btn-md">Späť</button>
                 }
             </div>
         </div>

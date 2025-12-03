@@ -1,12 +1,17 @@
 ﻿using LadowebservisMVC.Controllers.Models;
 using LadowebservisMVC.Models;
 using LadowebservisMVC.Util;
+using System;
+using System.Net.Mail;
 using System.Web.Mvc;
-
+using System.Net;
+using System.IO;
+using System.Web.Script.Serialization;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace LadowebservisMVC.Controllers
 {
-
     public class HomeController : Controller
     {
         // GET: Home
@@ -25,7 +30,8 @@ namespace LadowebservisMVC.Controllers
         
         public ActionResult Login(LoginModel model)
         {
-            if (!ModelState.IsValid)
+            // Only attempt login when model is valid
+            if (ModelState.IsValid && model != null)
             {
                 if (model.Email == "Name" && model.Password == "Password")
                 {
@@ -33,7 +39,7 @@ namespace LadowebservisMVC.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "");
+                    ModelState.AddModelError("", "Neplatné prihlasovacie údaje.");
                 }
             }
             return View(model);
@@ -43,13 +49,16 @@ namespace LadowebservisMVC.Controllers
         public ActionResult Member(MemberModel model)
         {
             ViewBag.PageTitle = "Member";
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && model != null)
             {
                 if (model.Meno == "Name" && model.Heslo == "Heslo")
                 {
                     return RedirectToAction("Member", "Home");
                 }
-
+                else
+                {
+                    ModelState.AddModelError("", "Neplatné údaje člena.");
+                }
             }
             return View(model);
         }
@@ -108,8 +117,6 @@ namespace LadowebservisMVC.Controllers
             return View();
         }
 
-       
-
         public ActionResult Objednavky()
         {
             ViewBag.PageTitle = "Objednavky";
@@ -131,7 +138,154 @@ namespace LadowebservisMVC.Controllers
             return View();
         }
 
+        // Place order (bank transfer)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PlaceOrder(PlaceOrderModel model)
+        {
+            if (model == null)
+            {
+                return RedirectToAction("Produkty");
+            }
 
+            // parse cart JSON into Items
+            if (string.IsNullOrWhiteSpace(model.CartJson))
+            {
+                ModelState.AddModelError("CartJson", "Nákupný košík je prázdny.");
+            }
+            else
+            {
+                try
+                {
+                    var js = new JavaScriptSerializer();
+                    // expect CartJson to be an array of items matching OrderItem
+                    model.Items = js.Deserialize<List<OrderItem>>(model.CartJson) ?? new List<OrderItem>();
+                }
+                catch
+                {
+                    model.Items = new List<OrderItem>();
+                    ModelState.AddModelError("CartJson", "Chyba pri spracovaní košíka.");
+                }
+            }
+
+            // Server-side validation: compare prices and stock with ProductCatalog
+            var catalogErrors = new List<string>();
+            foreach (var item in model.Items)
+            {
+                if (ProductCatalog.TryGetById(item.Id, out var info))
+                {
+                    // check stock
+                    if (item.Quantity <= 0 || item.Quantity > info.Stock)
+                    {
+                        catalogErrors.Add($"Nesprávne množstvo pre produkt {info.Name}.");
+                    }
+
+                    // check price - if client-supplied UnitPrice differs, replace with catalog price and note discrepancy
+                    if (item.UnitPrice != info.Price)
+                    {
+                        // replace client price with trusted price
+                        item.UnitPrice = info.Price;
+                        catalogErrors.Add($"Cena produktu {info.Name} bola upravená podľa katalógu.");
+                    }
+                }
+                else
+                {
+                    catalogErrors.Add($"Produkt s ID '{item.Id}' neexistuje.");
+                }
+            }
+
+            if (catalogErrors.Any())
+            {
+                foreach (var e in catalogErrors) ModelState.AddModelError("CartJson", e);
+            }
+
+            // compute total
+            var total = model.Items?.Sum(i => i.LineTotal) ?? 0m;
+
+            if (!ModelState.IsValid)
+            {
+                // return to cart view with errors (keep simple: redirect to Kosik)
+                return RedirectToAction("Kosik");
+            }
+
+            // Here you could persist the order, reduce stock, send confirmation email, etc.
+
+            ViewBag.Items = model.Items;
+            ViewBag.Total = total;
+            ViewBag.PaymentMethod = "bank";
+
+            return View("OrderPlaced");
+        }
+
+        // Start Stripe checkout - parse cart and forward to payment gateway integration
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult StartStripeCheckout(PlaceOrderModel model)
+        {
+            if (model == null)
+            {
+                return RedirectToAction("Produkty");
+            }
+
+            try
+            {
+                var js = new JavaScriptSerializer();
+                model.Items = js.Deserialize<List<OrderItem>>(model.CartJson) ?? new List<OrderItem>();
+            }
+            catch
+            {
+                model.Items = new List<OrderItem>();
+            }
+
+            var total = model.Items?.Sum(i => i.LineTotal) ?? 0m;
+
+            if (model.Items == null || model.Items.Count == 0)
+            {
+                return RedirectToAction("Kosik");
+            }
+
+            // TODO: integrate with Stripe API. For now show OrderPlaced summary with payment method stripe
+            ViewBag.Items = model.Items;
+            ViewBag.Total = total;
+            ViewBag.PaymentMethod = "stripe";
+
+            return View("OrderPlaced");
+        }
+
+        // Start PayPal checkout - parse cart and forward to PayPal integration
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult StartPayPalCheckout(PlaceOrderModel model)
+        {
+            if (model == null)
+            {
+                return RedirectToAction("Produkty");
+            }
+
+            try
+            {
+                var js = new JavaScriptSerializer();
+                model.Items = js.Deserialize<List<OrderItem>>(model.CartJson) ?? new List<OrderItem>();
+            }
+            catch
+            {
+                model.Items = new List<OrderItem>();
+            }
+
+            var total = model.Items?.Sum(i => i.LineTotal) ?? 0m;
+
+            if (model.Items == null || model.Items.Count == 0)
+            {
+                return RedirectToAction("Kosik");
+            }
+
+            // TODO: integrate with PayPal API. For now show OrderPlaced summary with payment method paypal
+            ViewBag.Items = model.Items;
+            ViewBag.Total = total;
+            ViewBag.PaymentMethod = "paypal";
+
+            return View("OrderPlaced");
+        }
     }
 }
 

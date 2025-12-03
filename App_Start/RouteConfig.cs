@@ -24,8 +24,10 @@ namespace LadowebservisMVC
             routes.MapRoute("memberinfo", "memberinfo", new { controller = "Home", action = "MemberInfo" });
             routes.MapRoute("registracia-uzivatela", "registracia-uzivatela", new { controller = "Home", action = "Registracia" });
             routes.MapRoute("kosik", "kosik", new { controller = "Home", action = "Kosik" });
-            routes.MapRoute("objednavka", "objednavka", new { controller = "Home", action = "Objednavka" });
+            routes.MapRoute("objednavka", "objednavka", new { controller = "Home", action = "PlacedOrder" });
             routes.MapRoute("hudba", "hudba", new { controller = "Home", action = "Hudba" });
+            //routes.MapRoute("ebook", "ebook", new { controller = "Home", action = "DownloadEbook" });
+
 
 
 

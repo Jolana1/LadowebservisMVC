@@ -1,0 +1,67 @@
+﻿@using LadowebservisMVC.Controllers.OdoslanieSpravyModel
+@model OdoslanieSpravyModel
+
+
+@{
+    ViewBag.Title = "Kontakt";
+}
+
+
+
+<p class="contact-items">
+    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><span>info@ladowebservis.sk</span><br />
+    <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span><span>+421917952432</span>
+</p>
+
+@*<div class="col-md-8">*@
+<h2>Neváhajte odoslať vašu správu cez tento kontaktný formulár:</h2>
+@using (Html.BeginForm("OdoslanieSpravy", "Home", FormMethod.Post, new { @class = "form-horizontal moj-formular" }))
+{
+    @Html.ValidationSummary(true, "Udaje boli neúspešné. Prosím opravte chyby a skúste to znovu.")
+    <div class="row">
+        <div class="col-md-12">
+            @Html.AntiForgeryToken()
+            <div class="form-item">
+                <div class="form-item">
+                    @Html.LabelFor(m => m.Name)
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Name)
+                </div>
+                <div class="form-item">
+                    @Html.LabelFor(m => m.Sprava)
+                    @Html.TextAreaFor(m => m.Sprava, new { @class = "form-control", style = "height:150px" })
+                    @Html.ValidationMessageFor(m => m.Sprava)
+                </div>
+                <div class="form-item">
+                    @Html.LabelFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
+                <div class="form-item">
+                    @Html.LabelFor(m => m.Captcha)
+                    @Html.TextBoxFor(m => m.Captcha, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Captcha)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row submit">
+        <div class="col-md-12">
+            <a href="#" onclick="document.getElementById('submitButton').click(); return false;" class="btn btn-default btn-lg">Odoslať správu</a>
+            <input type="submit" id="submitButton" class="hidden" />
+        </div>
+    </div>
+}
+
+@*<div class="api-password-group">
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Password)
+    </div>
+    <div class="api-password-group">
+        @Html.LabelFor(m => m.ConfirmPassword)
+        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ConfirmPassword)
+    </div>*@
+
+

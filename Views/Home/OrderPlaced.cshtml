@@ -1,0 +1,109 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container card py-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 text-center">
+            <h2 class="mb-3" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">œakujeme za objedn·vku</h2>
+
+            <p class="lead mb-4" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb; font-size:18px;">Vaöa objedn·vka bola prijat·. Niûöie n·jdete s˙hrn objedn·vky a Ôalöie kroky.</p>
+
+            <ul class="list-group text-left mb-3">
+                @if (ViewBag.Items != null)
+                {
+                    foreach (var it in ViewBag.Items)
+                    {
+                        <li class="list-group-item d-flex align-items-center">
+                            <img src="@it.Image" alt="@it.Name" style="width:60px;margin-right:10px;" />
+                            <div>
+                                <strong>@it.Name</strong><br />
+                                Mnoûstvo: @it.Quantity<br />
+                                Cena/kus: Ä@it.UnitPrice<br />
+                            </div>
+                            <div class="ml-auto">Ä@String.Format("{0:0.00}", it.LineTotal)</div>
+                        </li>
+                    }
+                }
+            </ul>
+
+            <h3>Celkov· suma: Ä@String.Format("{0:0.00}", ViewBag.Total)</h3>
+
+            <p class="mt-3">Posledn˝ krok: zvoæte spÙsob platby. MÙûete platiù bankov˝m prevodom, cez Stripe (kartu) alebo PayPal.</p>
+
+            <div class="card p-3 mb-3">
+                <h4>Bankov˝ prevod (offline)</h4>
+                <p>IBAN: SK0000000000000000000000<br />BIC: DEMOBANK</p>
+                <p>Poölite platbu a po prijatÌ platby v·s obozn·mime o odoslanÌ tovaru.</p>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4 mb-2">
+                    @using (Html.BeginForm("PlaceOrder", "Home", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="CartJson" value="" id="cartJsonInputPlace" />
+                        <input type="hidden" name="PaymentMethod" value="bank" />
+                        <div class="form-group text-center">
+                            <label for="name_place">Meno</label>
+                            <input id="name_place" name="Name" type="text" class="form-control" required />
+                        </div>
+                        <div class="form-group text-left">
+                            <label for="email_place">Email</label>
+                            <input id="email_place" name="Email" type="email" class="form-control" required />
+                        </div>
+                        <button id="submit-order" type="submit" class="btn btn-primary btn-lg">Bankov˝ prevod - Potvrdiù objedn·vku</button>
+                    }
+                </div>
+                @* Stripe/PayPal buttons intentionally commented out for now *@
+            </div>
+
+            <p class="mt-3">
+                <a href="@Url.Action("Produkty","Home")" class="btn btn-secondary">Sp‰ù na produkty</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        // populate hidden cartJson fields from localStorage
+        document.addEventListener('DOMContentLoaded', function () {
+            var cart = localStorage.getItem('lws_cart_v1') || '{}';
+
+            var elPlace = document.getElementById('cartJsonInputPlace');
+            if (elPlace) elPlace['value'] = cart;
+
+            var elStripe = document.getElementById('cartJsonInputStripe');
+            if (elStripe) elStripe['value'] = cart;
+
+            var elPay = document.getElementById('cartJsonInputPayPal');
+            if (elPay) elPay['value'] = cart;
+
+            // copy user-entered name/email to hidden fields for Stripe/PayPal when present
+            var namePlace = document.getElementById('name_place');
+            var emailPlace = document.getElementById('email_place');
+
+            function syncCustomer() {
+                var nameVal = (namePlace && namePlace['value']) ? namePlace['value'] : '';
+                var emailVal = (emailPlace && emailPlace['value']) ? emailPlace['value'] : '';
+
+                var ns = document.getElementById('name_stripe');
+                var es = document.getElementById('email_stripe');
+                if (ns) ns['value'] = nameVal;
+                if (es) es['value'] = emailVal;
+
+                var np = document.getElementById('name_paypal');
+                var ep = document.getElementById('email_paypal');
+                if (np) np['value'] = nameVal;
+                if (ep) ep['value'] = emailVal;
+            }
+
+            if (namePlace) namePlace.addEventListener('input', syncCustomer);
+            if (emailPlace) emailPlace.addEventListener('input', syncCustomer);
+
+            // initial sync
+            syncCustomer();
+        });
+    </script>
+}

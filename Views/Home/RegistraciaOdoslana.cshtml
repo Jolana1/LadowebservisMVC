@@ -1,14 +1,28 @@
 ﻿@{
     ViewBag.Title = "RegistraciaOdoslana";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3 class="w3-text-green">
-    <br />Ďakujeme,že ste sa u nás zaregistrovali a kontaktovali nás.
-    
-        Your message has been sent successfully.<br />
-        Thank you for your registration.<br />
-    
-</h3>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-center">
+            <div class="well" style="background:transparent;border:none;padding-top:1.5rem;">
+                <div class="alert alert-success" role="alert" style="background:rgba(93,51,251,0.06);border-color:rgba(93,51,251,0.25);color:#fff;text-shadow:1px 1px 4px #5d33fb;">
+                    <h3 class="w3-text-green" style="color:#ffffff;">Ďakujeme, že ste sa zaregistrovali</h3>
+                    <p style="color:#ffffff;margin-top:0.5rem;">Vaša registrácia a správa boli úspešne odoslané.</p>
+                    <p style="color:#ffffff;margin-bottom:0.25rem;">Your message has been sent successfully. Thank you for your registration.</p>
+                </div>
+
+                <div class="btn-group" role="group" aria-label="Akcie po registracii" style="margin-top:1rem;">
+                    <a href="@Url.Action("Zdravie","Home")" class="btn btn-primary" role="button">Späť na úvod</a>
+                    <a href="@Url.Action("MemberInfo","Home")" class="btn btn-default" role="button">Prejsť do členskej sekcie</a>
+                </div>
+
+                <p class="small" style="color:#ddd;margin-top:1rem;">Ak máte otázky, kontaktujte nás prostredníctvom kontaktného formulára alebo e‑mailu.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

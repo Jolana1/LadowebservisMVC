@@ -276,3 +276,5 @@ C:\Users\kseni\source\repos\LadowebservisMVC\LadowebservisMVC\bin\EntityFramewor
 C:\Users\kseni\source\repos\LadowebservisMVC\LadowebservisMVC\bin\EntityFramework.SqlServer.dll
 C:\Users\kseni\source\repos\LadowebservisMVC\LadowebservisMVC\bin\EntityFramework.xml
 C:\Users\kseni\source\repos\LadowebservisMVC\LadowebservisMVC\bin\EntityFramework.SqlServer.xml
+c:\Users\kseni\OneDrive\Desktop\LadowebservisMVC-master\obj\Debug\LadowebservisMVC.dll
+c:\Users\kseni\OneDrive\Desktop\LadowebservisMVC-master\obj\Debug\LadowebservisMVC.pdb

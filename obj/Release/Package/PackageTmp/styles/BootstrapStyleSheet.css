@@ -6,15 +6,14 @@ p, h1, h2, h3, h4 {
     /*font-family: 'Langar', cursive;*/
     font-size: 18px;
 }
-/*.badge-badge-danger {
+
+/* .badge-badge-danger {
     background-color: #5d33fb;
     color: white;
     font-size: 12px;
     padding: 5px 10px;
     border-radius: 3px;
-}*/
-
-
+} */
 
 .form-item {
     color: white;
@@ -24,18 +23,17 @@ p, h1, h2, h3, h4 {
     border: none;
 }
 
-    .navbar-default .navbar-header
-    img {
-        max-height: 25px;
-        background-color: #7db9ff;
-        float: left;
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        overflow: hidden;
-        margin: 3px 10px 0 0;
-        transition: all .3s ease;
-    }
+.navbar-default .navbar-header img {
+    max-height: 25px;
+    background-color: #7db9ff;
+    float: left;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 3px 10px 0 0;
+    transition: all .3s ease;
+}
 
 .page-body {
     padding-top: 60px;
@@ -88,7 +86,6 @@ p, h1, h2, h3, h4 {
         z-index: -1;
     }
 
-
     /*povodne .tlacitko-moje {
     padding: 10px;
     color: white;
@@ -126,12 +123,12 @@ p, h1, h2, h3, h4 {
     margin: 0 10px 10px 0;
     transition: all .3s ease;
 }
-/*toto sa skryje a zaroven neotravuje a ochrani formular pred robotmi*/
+/* toto sa skryje a zaroven neotravuje a ochrani formular pred robotmi */
 .api-password-group {
     display: none;
 }
 
-Photo gallery2
+/* Photo gallery styles */
 .gallery-list .gallery-folder {
     margin-bottom: 50px;
 }
@@ -174,7 +171,7 @@ Photo gallery2
         display: block;
     }
 
-Photo gallery1
+/* Photo slider styles */
 .photo-slider {
     padding: 20px 20px 50px 20px;
 }
@@ -233,7 +230,7 @@ Photo gallery1
     padding-top: 0;
 }
 
-Course video
+/* Course video */
 .course-video {
     margin: 0 20px 50px 20px;
 }
@@ -275,7 +272,7 @@ footer {
 }
 
 q {
-    quotes: "“""”""‘""’";
+    quotes: "“" "”" "‘" "’";
 }
 
 nav,
@@ -347,8 +344,6 @@ h6 {
         margin-right: 0;
         margin-left: 0;
     }
-
-
 
 
 /* On small screens, set height to 'auto' for sidenav and grid*/
@@ -496,12 +491,6 @@ label {
     margin: 1px;
 }
 
-
-
-
-
-
-
 /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
 @media (max-width: 600px) {
     .col-25,
@@ -512,10 +501,6 @@ label {
         margin-top: 0;
     }
 }
-
-
-
-
 
 /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
 @media (max-width:800px) {

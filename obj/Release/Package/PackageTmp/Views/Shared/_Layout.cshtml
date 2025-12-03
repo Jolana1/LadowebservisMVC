@@ -1,4 +1,4 @@
-﻿﻿
+﻿@using LadowebservisMVC.Util
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,7 +6,10 @@
     <script type="text/javascript" src="//www.termsfeed.com/public/cookie-consent/4.2.0/cookie-consent.js" charset="UTF-8"></script>
     <script type="text/javascript" charset="UTF-8">
         document.addEventListener('DOMContentLoaded', function () {
-            cookieconsent.run({ "notice_banner_type": "headline", "consent_type": "express", "palette": "light", "language": "sk", "page_load_consent_levels": ["strictly-necessary"], "notice_banner_reject_button_hide": false, "preferences_center_close_button_hide": false, "page_refresh_confirmation_buttons": false, "website_name": "https://ladowebservis.sk/index" });
+            var cc = window['cookieconsent'];
+            if (cc && typeof cc.run === 'function') {
+                cc.run({ "notice_banner_type": "headline", "consent_type": "express", "palette": "light", "language": "sk", "page_load_consent_levels": ["strictly-necessary"], "notice_banner_reject_button_hide": false, "preferences_center_close_button_hide": false, "page_refresh_confirmation_buttons": false, "website_name": "https://ladowebservis.sk/index" });
+            }
         });
     </script>
     <meta charset="utf-8">
@@ -18,7 +21,7 @@
 
     <meta name="robots" content="zdravie, follow" />
     <meta name="author" content="Ladowebservis-Vladimír Ksenič" />
-    <meta name="keywords" content="Ladowebservis-„Zinzino test“, „omega 3 doplnky“, „ako zvýšiť imunitu“, „únava doplnky“" />
+    <meta name="keywords" content="Ladowebservis-„Zinzino test“, „omega 3 doplnky“, „ako zvýšiť imunitu", „únava doplnky", „zdravotné poradenstvo", „zdravie Košice", „online zdravie konzultácia" />
     <meta name="copyright" content="©LWS - Ladowebservis" />
     <meta name="description" content="V rámci webových služieb ponúkame dizajn webov,návrh až po vytvorenie plne funkčnej webovej stránky,mesačný hosting vášho webu na mesiac zdarma potom za mesačný poplatok, ponúkame zostavenie a opravy pc-komponentov,výpočtovej techniky,odporučenie softvérov a celkové vyladenie vašich pc zostáv..">
     <meta name="content-language" content="sk" />
@@ -26,12 +29,27 @@
     <meta property="og:image:width" content="300">
     <meta property="og:image:height" content="300">
     <meta property="og:title" content="Ladowebservis">
-    
+
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-3.4.1.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+
+    <!-- embed product catalog for client scripts (used by cart.js and header mini-cart) -->
+    <script>
+        window.__lws_products = @Html.Raw(System.Web.Helpers.Json.Encode(ProductCatalog.GetAll()));
+        (function () {
+            var arr = window.__lws_products || [];
+            var map = {};
+            for (var i = 0; i < arr.length; i++) {
+                var it = arr[i];
+                if (it && it.Id) map[it.Id] = it;
+            }
+            window.__lws_products = map;
+        })();
+    </script>
+
     <script type="text/javascript" src="@Url.Content("~/Scripts/cart.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/checkout.js")"></script>
 
@@ -161,6 +179,18 @@
                 #myMenu li a:hover {
                     background-color: #eee;
                 }
+
+        /* Footer improvements */
+        .site-footer {
+            background: #222;
+            color: #ddd;
+            padding: 40px 0;
+            margin-top: 40px;
+        }
+        .site-footer a { color: #fff; }
+        .site-footer .footer-title { color: #fff; font-weight:700; margin-bottom:12px; }
+        .site-footer .social a { color: #fff; margin-right: 10px; font-size:1.2em; }
+        .site-footer .small { color:#bbb; }
     </style>
 
     <title>Ladowebservis</title>
@@ -169,26 +199,18 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3PFBTR5XXW"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+        window['dataLayer'] = window['dataLayer'] || [];
+        window['gtag'] = function () { window['dataLayer'].push(arguments); };
+        window['gtag']('js', new Date());
 
-        gtag('config', 'G-3PFBTR5XXW');
+        window['gtag']('config', 'G-3PFBTR5XXW');
     </script>
 
-
-
-
-</head>
+  </head>
 
 
 <body>
     <button onclick="topFunction()" id="myBtn" class="fa fa-arrow-up" data-toggle="tooltip" title="Go to top"></button>
-
-
-
-
-
 
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light navbar-fixed-top">
 
@@ -202,7 +224,7 @@
         <div class="cart-fluid" style="padding: 0.0em; background: #f8f9fa; border-radius: 4px; margin-bottom: 0.0em;">
             <p>
                 <i class="fa fa-shopping-cart"></i>Nákupný košík
-                <span id="cart-items" class="badge badge-danger">0</span>
+                <span id="cart-items" class="badge badge-red">0</span>
             </p>
             <ul id="cart-items-list" class="list-group mb-2">
             </ul>
@@ -210,21 +232,22 @@
             <!-- Cart items will be added here-->
             <!--</ul>-->
             <div>
-                <strong>Celková suma: €<span id="total-amount">0.00</span></strong>
+                <strong>Celková suma s 10% zľavou: €<span id="total-amount">0.00</span></strong>
+                <div id="total-discount" style="font-size:0.9em;color:#d9534f;margin-top:6px;"></div>
             </div>
 
             <script async
                     src="https://js.stripe.com/v3/buy-button.js">
             </script>
 
-            <stripe-buy-button buy-button-id="buy_btn_1Qr3pPHrPMzQ1ua8bEe7WMIU"
+            @*<stripe-buy-button buy-button-id="buy_btn_1Qr3pPHrPMzQ1ua8bEe7WMIU"
                                publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
-            </stripe-buy-button>
+            </stripe-buy-button>*@
             @*<button id="checkout-btn" class="btn btn-success mt-2" disabled>Pay with Card</button>*@
         </div>
         @*<div class="cart-icon w3-text-white">
 
-            <img src="/Image/shopping-cart.png" title="Košík výprázdnite obnovením tejto stránky" alt="Cart-Basket">
+            <img src="/Image/shopping-cart.png" title="Košík výprázdniť obnovením tejto stránky" alt="Cart-Basket">
             <span id="cart-items" title="Počet kliknutí na pridať do košíka">0</span>
             <div class="total-amount">
                 <br />
@@ -234,14 +257,24 @@
 
 
 
-
-
         <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
 
-            <a class="navbar-brand image-container img-rounded glyphicon glyphicon-heart" href="/Home/Zdravie" title="Zdravie">Zdravie@*<img src="/Image/pagePiling-plugin.gif" />*@</a>
+            <a class="navbar-brand image-container img-rounded glyphicon glyphicon-heart" href="/Home/Zdravie" title="Zdravie">Úvod@*<img src="/Image/pagePiling-plugin.gif" />*@</a>
 
-            <ul class="navbar-nav flex-grow-0">
-            </ul>
+            <!-- Product search form in navbar -->
+            <form id="productSearchForm" class="navbar-form navbar-left" role="search" onsubmit="return submitProductSearch(this);" style="margin-left:10px;">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input id="productSearchInput" name="q" type="text" class="form-control" placeholder="Hľadať produkty..." aria-label="Hľadať produkty" />
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default" title="Hľadať produkty" aria-label="Hľadať produkty">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+
             <ul class="nav navbar-nav">
 
 
@@ -249,12 +282,13 @@
 
 
 
+
                 <li class="nav-item">
-                    <a class="image-container img-rounded glyphicon glyphicon-shopping-cart" href="/Home/Produkty" title="Produkty Zinzino to je omega,imunita a zdravie">Doplnky-Akcia</a>
+                    <a class="image-container img-rounded fa fa-balance-scale" href="/Home/Produkty" title="Naše Zinzino Top produkty pre vaše zdravie">Topponuka</a>
                 </li>
-                <li class="nav-item">
-                    <a class="image-container img-rounded glyphicon glyphicon-briefcase" href="/Home/itservis" title="Webové a IT Služby">ITservis</a>
-                </li>
+                
+
+
                 <li class="nav-item">
                     <a class="image-container img-rounded glyphicon glyphicon-user" href="/Home/Login" title="Prihlásenie,zabudnuté heslo a registrácia">Prihlásenie</a>
                 </li>
@@ -262,7 +296,9 @@
                     <a class="dropdown-toggle img-rounded" data-toggle="dropdown" href="#Partners" title="Naši partneri"><span class="glyphicon glyphicon-briefcase"></span>Partnery</a>
 
                     <ul class="dropdown-menu">
-
+                        <li class="active">
+                            <a class="w3-hover-white" href="/Home/itservis" title="IT služby - podstránka"><span class="glyphicon glyphicon-wrench"></span> IT Služby</a>
+                        </li>
                         <li class="active"><a class="w3-hover-white" href="https://www.ashampoo.com/de-de" target="_blank" title="•Ashampoo antivirus and best safety software Deals • Poradíme správny postup &amp;  doporučíme softvér  vo  vašej oblasti •Mame nahradu za drahý a komplikovaný  MS Office ©LWS - Partner spoločnosti Ashampoo"><img src="/Image/ashampoo.com-AshampooSoftwareDeals.png" style="width:58px;height:15px" alt="AshampooSoftwareDeals"> Ashampoo Software</a></li>
                         <li>
                         </li>
@@ -275,27 +311,32 @@
                         <li class="active">
                             <a class="w3-hover-white" href="https://sk.oriflame.com/products/digital-catalogue-current?store=SK-vladimirksenic&PageNumber=1" target="_blank" title="•Oriflame aktuálny katalóg">
                                 <img src="/Image/sk-oriflame-katalog.png" style="width:58px;height:15px" alt="Oriflame aktuálny katalóg">
-                                Oriflame katalóg 15/2025
+                                Oriflame katalóg 16/2025
                             </a>
 
                         </li>
 
 
+
                     </ul>
                 </li>
-
-
+                <li class="nav-item">
+                    <a class="image-container img-rounded fa fa-shopping-cart" href="/Home/Kosik" title="Košík">Košík</a>
+                </li>
 
 
                 <li class="nav-item">
                     <a class="image-container img-rounded glyphicon glyphicon-envelope" href="/odoslanie-spravy" title="Kontakt">Formulár</a>
                 </li>
                 @*<li class="nav-item">
-                    <a class="image-container img-rounded fa fa-search" href="~/Controllers/Product.cs" role="checkbox" aria-label="Search" onclick="var s=document.getElementById('mySearch'); if(s){ s.focus(); } return false;">
-                        <i class="" aria-hidden="true"></i>
-                        <span class="sr-only">Hladat</span>
-                    </a>
-                </li>*@
+            <a class="image-container img-rounded fa fa-search" href="~/Controllers/Product.cs" role="checkbox" aria-label="Search" onclick="var s=document.getElementById('mySearch'); if(s){ s.focus(); } return false;">
+                <i class="" aria-hidden="true"></i>
+                <span class="sr-only">Hladat</span>
+            </a>
+        </li>*@
+
+
+
             </ul>
 
 
@@ -332,20 +373,20 @@
                 <div class="item active">
 
 
-                    <img src="~/Image/pagePiling-plugin.gif" alt="LogoLWS" style="width:2560px;height:539px;" title="•Vitajte na stránke spoločnosti ©LadoWebServis•">
-                    <div class="carousel-caption">
+                    <img src="~/Image/pagePiling-plugin.gif" alt="LogoLWS" style="width:2560px;height:539px;" title="•Vitajte na našej stránke spoločnosti ©LadoWebServis•">
+                    @*<div class="carousel-caption>
 
                         <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">
                             Vitajte na našej stránke spoločnosti ©LadoWebServis.
                         </p>
-                    </div>
+                    </div>*@
 
                 </div>
 
                 <div class="item">
                     <img src="~/Image/INK.jpg" alt="" style="width:2560px;height:539px" title="•Vitajte na stránke spoločnosti ©LadoWebServis, ponúkame Vám webové služby v oblasti dizajnu webov,návrhov až po vytvorenie plne funkčnej webovej stránky ako aj zostavenie pc-komponentov,opravy výpočtovej techniky,doporučenie softvérov na vyladenie pc zostáv.Ak vás tento web zaujíma alebo sa zaujímate o naše služby, kontaktujte nás formulárom alebo prostredníctvom e-mailu. Ďakujeme za váš záujem, Vaša spokojnosť je našou prioritou">
                     <div class="carousel-caption">
-                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Ponúkame Vám webové,pc služby&amp;kvalitné výživové produkty od švédskej spoločnosti Zinzino<br>Nenechajte si ujsť túto ponuku!</p>
+                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Ponúkame Vám pc služby&amp;kvalitné výživové produkty od švédskej spoločnosti Zinzino<br>Nenechajte si ujsť túto ponuku!</p>
 
                     </div>
                 </div>
@@ -359,7 +400,7 @@
                     <img src="~/Image/skusenosti.jpg" alt="" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
                     <div class="carousel-caption">
 
-                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Volajte +421917952432 only Slovakia alebo ak nedvíhame tak nám napíšte na kontaktný formulár<br>Neváhajte!</p>
+                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Volajte +421907151293 only Slovakia alebo ak nedvíhame tak nám napíšte na kontaktný formulár<br>Neváhajte!</p>
 
                     </div>
                 </div>
@@ -392,7 +433,6 @@
 
 
 
-
             <!-- Left and right controls -->
             <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
@@ -405,6 +445,7 @@
 
         </div>
     </div>
+
 
 
 
@@ -423,13 +464,10 @@
 
 
 
-
-
-
                 <address>
                     <hr />
 
-                    <img src="~/Image/Me.jpg" class="img-thumbnail" alt="sk" style="width:55px;height:60px;padding: .1em;">
+                    <img src="~/Image/sk 2.png" class="img-thumbnail" alt="sk" style="width:65px;height:50px;padding: .1em;">
                     <p style="font-size: 15px;color:white;">
                         <br /><a href="@Url.Action("Zdravie","Home",new {area = "Ladowebservis"})" style="font-size: 15px;color:white;">
                             <strong>🌐 Web: www.ladowebservis.sk/zdravie</strong>
@@ -439,7 +477,7 @@
                         Košice,&nbsp;SVK<br />
                         040 22<br />*@
                 </address>
-                <abbr title="Telefón"><strong>📞 Telefón: +421917952432</strong></abbr><br />
+                <abbr title="Telefón"><strong>📞 Telefón: +421907151293</strong></abbr><br />
                 <abbr title="Napíšte nám na technickú podporu">
                     <strong>📧 E-mail:</strong><a href="mailto:podpora@ladowebservis.sk" style="font-size: 15px;color:white;"> podpora@ladowebservis.sk</a><br />
                 </abbr>
@@ -483,12 +521,13 @@
 
     <script>
         // Get the Top Button
-        let mybutton = document.getElementById("myBtn");
+        var mybutton = document.getElementById("myBtn");
 
         // When the user scrolls down 20px from the top of the document, show the button
         window.onscroll = function () { scrollFunction() };
 
         function scrollFunction() {
+            if (!mybutton) return;
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
                 mybutton.style.display = "block";
             } else {
@@ -505,8 +544,9 @@
     <!--End footer section-->
     </div>
     <script>
-        function myFunction() {
+        function toggleTopnav() {
             var x = document.getElementById("myTopnav");
+            if (!x) return;
             if (x.className === "collapse") {
                 x.className += " responsive";
             } else {
@@ -518,18 +558,20 @@
 
     </script>
     <script>
-        function myFunction() {
+        function filterMenu() {
             // Declare variables
             var input, filter, ul, li, a, i;
             input = document.getElementById("mySearch");
+            if (!input) return;
             filter = input.value.toUpperCase();
             ul = document.getElementById("myTopnav");
+            if (!ul) return;
             li = ul.getElementsByTagName("li");
 
             // Loop through all list items, and hide those who don't match the search query
             for (i = 0; i < li.length; i++) {
                 a = li[i].getElementsByTagName("a")[0];
-                if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                if (a && a.innerHTML.toUpperCase().indexOf(filter) > -1) {
                     li[i].style.display = "";
                 } else {
                     li[i].style.display = "none";
@@ -537,6 +579,20 @@
             }
         }
     </script>
+    <script>
+        function submitProductSearch(form) {
+            try {
+                var q = (document.getElementById('productSearchInput') || {}).value || '';
+                q = q.trim();
+                if (!q) return false; // don't submit empty
+                // Redirect to Produkty page with query param
+                window.location.href = '/Home/Produkty?q=' + encodeURIComponent(q);
+            } catch (e) { }
+            return false;
+        }
+    </script>
+
+    @RenderSection("scripts", required: false)
 
 </body>
 </html>

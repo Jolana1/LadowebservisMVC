@@ -578,6 +578,7 @@
     <Compile Include="Models\MemberModel.cs" />
     <Compile Include="Models\ModelUtil.cs" />
     <Compile Include="Models\OdoslanieRegModel.cs" />
+    <Compile Include="Models\PlaceOrderModel.cs" />
     <Compile Include="Models\QuoteModel.cs" />
     <Compile Include="Models\TextTemplateModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
@@ -591,6 +592,7 @@
     <Compile Include="Util\MailAttachement.cs" />
     <Compile Include="Util\Mailer.cs" />
     <Compile Include="Util\PriceUtil.cs" />
+    <Compile Include="Util\ProductCatalog.cs" />
     <Compile Include="Util\TextTemplate.cs" />
     <Compile Include="Util\TextTemplateParam.cs" />
   </ItemGroup>
@@ -663,6 +665,7 @@
     <Content Include="Image\b0ec08912e35316eb093bf286f6c1096 8.jpg" />
     <Content Include="Image\b0ec08912e35316eb093bf286f6c1096 9.jpg" />
     <Content Include="Image\b0ec08912e35316eb093bf286f6c1096.jpg" />
+    <Content Include="Image\BalanceOil orange 100ml.png" />
     <Content Include="Image\BalanceOil.jpg" />
     <Content Include="Image\Balance oil orange.jpg" />
     <Content Include="Image\BalanceOil.png" />
@@ -846,6 +849,7 @@
     <Content Include="Image\vianocne blahoželanie 5.jpg" />
     <Content Include="Image\vianocne blahoželanie 6.jpg" />
     <Content Include="Image\vianocne blahoželanie.jpg" />
+    <Content Include="Image\VitaminDTest.png" />
     <Content Include="Image\Výmena grafickej karty 2.JPG" />
     <Content Include="Image\Výmena grafickej karty 3.JPG" />
     <Content Include="Image\Výmena grafickej karty 4.JPG" />
@@ -1045,6 +1049,7 @@
     <Content Include="Views\Home\Kosik.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Home\OrderPlaced.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Image\corepack\dist\lib\" />

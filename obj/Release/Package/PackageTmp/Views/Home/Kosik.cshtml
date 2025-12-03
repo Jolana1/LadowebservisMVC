@@ -1,27 +1,338 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@using LadowebservisMVC.Util
+
+@{
+    // Track IDs to avoid rendering duplicate entries
+    var seenIds = new System.Collections.Generic.HashSet<string>(System.StringComparer.OrdinalIgnoreCase);
 }
 
 <div class="container card py-4">
     <div class="row justify-content-center">
-        <div class="col-12 col-md-8 text-center">
-            <h2 class="mb-3" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">Zdravý a spokojný klient je pre nás najväčšia odmena. Pocíťte to sami na sebe.</h2>
+        <div class="col-12 col-md-10">
+            <h2 class="mb-3 text-center" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">Váš nákupný košík</h2>
 
-            <p class="lead mb-4" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb; font-size:20px;">Pracujeme na dokončení nákupného košíka. Funkcia bude čoskoro k dispozícii.</p>
+            <div id="cartReview" class="card p-3 mb-3">
+                <ul id="cartReviewList" class="list-group mb-2">
+                    <!-- items rendered by JS -->
+                </ul>
+                <div class="d-flex justify-content-between align-items-center">
 
-            <div class="mb-4">
-                <button class="btn btn-lg btn-primary" disabled aria-disabled="true">Pripravujeme</button>
+                    <div>
+                        Celková suma: €<span id="cartReviewTotal">0.00</span>
+                        <button id="clear-cart-btn" class="btn btn-sm btn-danger">Vyprázdniť košík</button>
+                    </div>
+                </div> <p class="mb-3 text-center" style="color:#5d33fb;text-shadow:1px 1px 4px #5d33fb">
+                       <p>
+                           Po kliknutí tlačidla Chcem to kúpiť v našej platobnej bráne Stripe<br />
+                           napíšte kód👉 FRIENDS25 👉a máte 10% zľavu z celého nákupu vrátane DPH.
+                       </p>
+    <stripe-buy-button buy-button-id="buy_btn_1Qr3pPHrPMzQ1ua8bEe7WMIU"
+                       publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
+    </stripe-buy-button>
+</div>
+
+            <!-- Available products: show catalog and allow adding to cart -->
+            <div id="availableProducts" class="card p-3 mb-3">
+                <h3 class="mb-3">Dostupné produkty</h3>
+                <div class="row">
+                    @foreach (var p in ProductCatalog.GetAll())
+                    {
+                        @* skip duplicates by Id only *@
+                        if (p == null) { continue; }
+                        var id = (p.Id ?? string.Empty).Trim();
+                        if (string.IsNullOrEmpty(id)) { continue; }
+
+                        // If we've already rendered the same id, skip to avoid duplicates
+                        if (seenIds.Contains(id)) { continue; }
+
+                        // mark as seen
+                        seenIds.Add(id);
+
+                        <div class="col-sm-6 col-md-4 mb-3 products" data-product-name="@p.Name" data-product-image="@p.Image">
+                            <div class="card p-2 text-center">
+                                <img src="@p.Image" alt="@p.Name" style="max-width:100%;height:100px;object-fit:contain;" />
+                                <h4 class="mt-2">@p.Name</h4>
+                                <p>€@String.Format("{0:0.00}", p.Price)</p>
+                                <button type="button" class="btn btn-sm btn-dark add-to-cart" data-id="@p.Id">Pridať do košíka</button>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
 
-            @* If you want to enable Stripe later keep the snippet below and move JS to a safe place *@
-            @*<script async src="https://js.stripe.com/v3/buy-button.js"></script>
-            <stripe-buy-button buy-button-id="buy_btn_..." publishable-key="pk_live_..."></stripe-buy-button>*@
+            <!-- Order form: bank transfer (posts to PlaceOrder) -->
+            @*<div class="card p-3 mb-3">
+            <h4>Objednať - bankový prevod</h4>
+            <p>Vyplňte Vaše kontaktné údaje a potvrďte objednávku. V potvrdení obdržíte inštrukcie na prevod.</p>*@
 
-            <p>
-                <a href="@Url.Action("MemberInfo","Home")" class="btn btn-secondary">Späť do členskej sekcie</a>
-            </p>
+            @*<div class="row">
+                <div class="col-md-8 offset-md-2">
+                    @using (Html.BeginForm("PlaceOrder", "Home", FormMethod.Post, new { id = "bankForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="CartJson" value="" id="cartJsonBank" />
+                        <input type="hidden" name="PaymentMethod" value="bank" />
+
+                        <div class="form-group text-left">
+                            <label for="name_bank">Meno</label>
+                            <input id="name_bank" name="Name" class="form-control" required />
+                        </div>
+                        <div class="form-group text-left">
+                            <label for="email_bank">Email</label>
+                            <input id="email_bank" name="Email" type="email" class="form-control" required />
+                        </div>
+
+                        <div class="form-group text-left">
+                            <label for="note">Poznámka k objednávke (voliteľné)</label>
+                            <textarea id="note" name="Note" class="form-control" rows="3" placeholder="Špecifické požiadavky, dodacia adresa..."></textarea>
+                        </div>
+
+                        <div class="mb-2">
+                            <strong>Bankové údaje pre platbu (uvedené aj v potvrdení):</strong>
+                            <div>IBAN: SK0000000000000000000000</div>
+                            <div>BIC/SWIFT: DEMOBANK</div>
+                            <div>Variabilný symbol: bude zaslaný v potvrdení objednávky</div>
+                        </div>
+
+                        <button id="bank-button" type="submit" class="btn btn-primary btn-block">Potvrdiť objednávku a prejsť k platbe</button>
+                    }
+                </div>
+            </div>*@
+        </div>
+
+        <p class="text-center">
+            <a href='@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })' class="btn btn-primary btn-md tlacitko-moje">Späť na úvod</a>
+       </p>
+        
+
         </div>
     </div>
-</div>
+    
+
+    <style>
+        /* Fly-to-cart image animation */
+        .lws-fly-img {
+            position: absolute !important;
+            pointer-events: none;
+            z-index: 9999;
+            border-radius: 6px;
+            transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+            opacity: 1;
+            will-change: transform, opacity;
+        }
+    </style>
+
+@section scripts {
+    <script>
+        (function () {
+            var STORAGE_KEY = 'lws_cart_v1';
+
+            function loadCart() {
+                try {
+                    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+                } catch (e) {
+                    return {};
+                }
+            }
+
+            function saveCart(cart) {
+                try { localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); } catch (e) { }
+            }
+
+            function getProductPrice(key) {
+                var catalog = window.__lws_products || {};
+                // try id-based lookup
+                if (catalog && catalog[key] && catalog[key].Price) return parseFloat(catalog[key].Price) || 0;
+                // try match by Name
+                if (catalog) {
+                    for (var id in catalog) {
+                        if (!catalog.hasOwnProperty(id)) continue;
+                        var it = catalog[id];
+                        if (it && it.Name === key && it.Price) return parseFloat(it.Price) || 0;
+                    }
+                }
+                // fallback hardcoded prices
+                return ({ 'BalanceTest': 195.00, 'BalanceOil': 55.00, 'Zinobiotic': 33.00, 'ZinzinoXtend': 34.00 }[key] || 0);
+            }
+
+            function getCartTotals(cart) {
+                var subtotal = 0, totalQty = 0;
+                Object.keys(cart).forEach(function (k) {
+                    var item = cart[k];
+                    if (!item || (item.quantity || 0) <= 0) return;
+                    var q = item.quantity || 0;
+                    totalQty += q;
+                    subtotal += (getProductPrice(k) * q);
+                });
+                // Apply 10% discount to whole cart
+                var discount = subtotal * 0.10;
+                var total = subtotal - discount;
+                return { subtotal: subtotal, total: total, discount: discount, totalQty: totalQty };
+            }
+
+            function render() {
+                var cart = loadCart();
+                var list = document.getElementById('cartReviewList');
+                var totalEl = document.getElementById('cartReviewTotal');
+                if (!list || !totalEl) return;
+                var listEl = list; // cache for analyzer
+                listEl.innerHTML = '';
+
+                var hasItems = false;
+                var catalog = window.__lws_products || {};
+
+                Object.keys(cart).forEach(function (k) {
+                    var item = cart[k];
+                    if (!item || (item.quantity || 0) <= 0) return;
+                    hasItems = true;
+
+                    var productInfo = null;
+                    if (catalog && catalog[k]) productInfo = catalog[k];
+
+                    var displayName = productInfo && productInfo.Name ? productInfo.Name : k;
+                    var imgSrc = item.image || (productInfo && productInfo.Image) || ('/Image/' + k + '.png');
+                    var unitPrice = getProductPrice(k);
+
+                    var qtyVal = item.quantity || 0;
+                    var discountedUnit = unitPrice * 0.9;
+                    var lineTotal = (discountedUnit * qtyVal).toFixed(2);
+
+                    var li = document.createElement('li');
+                    li.className = 'list-group-item d-flex align-items-center';
+
+                    var img = document.createElement('img');
+                    img.src = imgSrc;
+                    img.alt = displayName;
+                    img.style.width = '120px';
+                    img.style.marginRight = '20px';
+
+                    var name = document.createElement('div');
+                    name.innerHTML = '<strong>' + displayName + '</strong><br/>ID: ' + k + '<br/>Cena za ks: <span style="text-decoration:line-through;color:#999;">€' + unitPrice.toFixed(2) + '</span> <strong>€' + discountedUnit.toFixed(2) + '</strong><br/>Počet: ' + qtyVal + ' &nbsp; Suma: €' + lineTotal + '<br/>';
+
+                    var controls = document.createElement('div');
+                    controls.style.marginLeft = 'auto';
+
+                    var qty = document.createElement('span');
+                    qty.textContent = 'Ks: ' + qtyVal;
+                    qty.style.marginRight = '12px';
+
+                    // delete button
+                    var del = document.createElement('button');
+                    del.type = 'button';
+                    del.className = 'btn btn-sm btn-danger';
+                    del.textContent = 'X';
+                    (function (key) {
+                        del.addEventListener('click', function (e) {
+                            e.preventDefault(); e.stopPropagation();
+                            var cartNow = loadCart();
+                            if (cartNow && cartNow[key]) { delete cartNow[key]; saveCart(cartNow); }
+                            render();
+                            // notify header to re-render
+                            if (window.lwsRenderCartHeader) window.lwsRenderCartHeader();
+                        });
+                    })(k);
+
+                    controls.appendChild(qty);
+                    controls.appendChild(del);
+
+                    li.appendChild(img);
+                    li.appendChild(name);
+                    li.appendChild(controls);
+
+                    listEl.appendChild(li);
+                });
+
+                var totals = getCartTotals(cart);
+
+                // remove previous summary rows if any
+                var parent = listEl.parentNode;
+                var prevSubtotal = document.getElementById('cartSubtotalRow'); if (prevSubtotal) prevSubtotal.parentNode.removeChild(prevSubtotal);
+                var prevDiscount = document.getElementById('cartDiscountRow'); if (prevDiscount) prevDiscount.parentNode.removeChild(prevDiscount);
+                var prevTotal = document.getElementById('cartTotalRow'); if (prevTotal) prevTotal.parentNode.removeChild(prevTotal);
+
+                // Add subtotal row
+                var subtotalRow = document.createElement('div');
+                subtotalRow.className = 'row';
+                subtotalRow.id = 'cartSubtotalRow';
+                subtotalRow.innerHTML = '<div class="col text-end">Medzisúčet:</div><div class="col-auto"><strong>€' + totals.subtotal.toFixed(2) + '</strong></div>';
+                parent.appendChild(subtotalRow);
+
+                if (totals.discount > 0) {
+                    var discountRow = document.createElement('div');
+                    discountRow.className = 'row';
+                    discountRow.id = 'cartDiscountRow';
+                    discountRow.innerHTML = '<div class="col text-end" style="color:#d9534f;">Zľava 10%:</div><div class="col-auto" style="color:#d9534f;"><strong>-€' + (totals.discount).toFixed(2) + '</strong></div>';
+                    parent.appendChild(discountRow);
+                }
+
+                var totalRow = document.createElement('div');
+                totalRow.className = 'row';
+                totalRow.id = 'cartTotalRow';
+                totalRow.innerHTML = '<div class="col text-end"><strong>Celková suma:</strong></div><div class="col-auto"><strong style="font-size:1.1em;">€' + totals.total.toFixed(2) + '</strong></div>';
+                parent.appendChild(totalRow);
+
+                totalEl.textContent = totals.total.toFixed(2);
+
+                // populate hidden input for bank form only
+                var cartJson = JSON.stringify(cart || {});
+                var elBank = document.getElementById('cartJsonBank'); if (elBank && elBank instanceof HTMLInputElement) elBank.value = cartJson;
+
+                // enable/disable bank button
+                var bankBtn = document.getElementById('bank-button'); if (bankBtn && bankBtn instanceof HTMLButtonElement) bankBtn.disabled = !hasItems;
+            }
+
+            function addToCartById(id) {
+                if (!id) return;
+                var cart = loadCart();
+                var products = window.__lws_products || {};
+                var p = products[id];
+                if (!p) return;
+                var item = cart[id] || { quantity: 0, image: p.Image };
+                // always set quantity to 1 (only sell single piece per product)
+                item.quantity = 1;
+                cart[id] = item;
+                saveCart(cart);
+                render();
+                if (window.lwsRenderCartHeader) window.lwsRenderCartHeader();
+            }
+
+            // attach add-to-cart handlers for product buttons rendered server-side
+            document.addEventListener('click', function (e) {
+                var btn = e.target;
+                // walk up to button if inner element clicked
+                while (btn && !btn.classList && btn.parentNode) btn = btn.parentNode;
+                if (btn && btn.classList && btn.classList.contains('add-to-cart')) {
+                    var id = btn.getAttribute('data-id');
+                    if (id) { addToCartById(id); return; }
+                    // fallback: resolve id from enclosing .products data attributes
+                    var section = btn.closest && btn.closest('.products');
+                    if (section) {
+                        var dataId = section.getAttribute('data-product-id') || section.getAttribute('data-id');
+                        if (dataId) { addToCartById(dataId); return; }
+                        var name = section.getAttribute('data-product-name');
+                        if (name) {
+                            // resolve name to id via catalog
+                            var catalog = window.__lws_products || {};
+                            for (var k in catalog) {
+                                if (!catalog.hasOwnProperty(k)) continue;
+                                if (catalog[k] && catalog[k].Name === name) { addToCartById(k); return; }
+                            }
+                        }
+                    }
+                }
+            });
+
+            var clearBtn = document.getElementById('clear-cart-btn');
+            if (clearBtn) {
+                clearBtn.addEventListener('click', function (e) { e.preventDefault(); localStorage.removeItem(STORAGE_KEY); render(); if (window.lwsRenderCartHeader) window.lwsRenderCartHeader(); });
+            }
+
+            // expose hook for header script to call when it changes the cart
+            window.lwsRenderCartPage = render;
+
+            // init
+            render();
+        })();
+    </script>
+}
 
 

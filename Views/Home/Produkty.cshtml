@@ -7,24 +7,15 @@
 }
 <div class="w3-center card pt-4">
     <h1 style="font-size:26px;color:#ffffff;text-shadow:1px 1px 4px #5d33fb">ZAČNITE DNES-VAŠE TELO SA VÁM POĎAKUJE.<br>KED IDE O ZDRAVIE,NEKOMPROMISUJTE S CENAMI!</h1>
-    <section class="products" Id="0" data-product-name="BalanceTest">
-        <h4 class="w3-green">🩸 BalanceTest + BalanceOilOrange+ = najlepšia voľba pre začiatočníkov!</h4>
+    <section class="products" id="0" data-product-name="BalanceTest" data-product-image='@Url.Content("~/Image/BalanceTest.png")'>
+        <h2>🎓 BalanceTest – prémiový produkt 195 €/ks</h2>
         <p class="w3-green">
             Pri 1.objednávke:<br>
             napíšte po kliknutí tlačidla v našej platobnej bráne Stripe kód👉 FRIENDS25 a máte👉 10% zľavu z celého nákupu vrátane DPH.
         </p>
 
-
-
-        @*<button class="btn btn-primary btn-sm buy-item" data-id="${item.Id}">Buy</button>
-        <button onclick="addItemToCart('BalanceOil', 54.00, '~/Image/BalanceOil.jpg')">Buy</button>*@
-    <stripe-buy-button buy-button-id="buy_btn_1Qr3pPHrPMzQ1ua8bEe7WMIU"title="Momentálne najlacnešie na trhu aj s dopravou v rámci SR!!!!"
-                       publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
-        
-
-    </stripe-buy-button>
-        @*<button class="add-to-cart w3-hover-deep-purple" title="Pre pridanie do košíka kliknite">ÁNO,chcem začať teraz a zistiť svoj stav zdravia <span class="fa fa-shopping-cart"></span></button>*@
-        <a data-fancybox="gallery" href="~/Image/BalanceTest.png"><img class="rounded" src="~/Image/BalanceTest.png" alt="TestZinzino" style="width:100%" title="Lepšie zdravie sa začína lepšou rovnováhou.SPRAVTE TRI KROKY K ROVNOVÁHE,REGENERÁCII A POSILNENIU ZDRAVIA "></a>
+        <button type="button" class="add-to-cart w3-hover-deep-purple" data-id="0" title="Pre pridanie BalanceTest do košíka" aria-label="Pridať BalanceTest do košíka">ÁNO, chcem začať teraz a zistiť svoj stav zdravia <span class="fa fa-shopping-cart" aria-hidden="true"></span></button>
+        <a data-fancybox="gallery" href='@Url.Content("~/Image/BalanceTest.png")'><img class="rounded" src='@Url.Content("~/Image/BalanceTest.png")' alt="TestZinzino" style="width:100%" title="Lepšie zdravie sa začína lepšou rovnováhou.SPRAVTE TRI KROKY K ROVNOVÁHE,REGENERÁCII A POSILNENIU ZDRAVIA "></a>
 
         <br>
         <details>
@@ -33,21 +24,19 @@
                 <br>🧩 1. Otestujte sa doma – jednoduchý krvný test (1 kvapka) odošlete do laboratória.
                 <br>📊 2. Získajte výsledky online – detailná správa s pomerom Omega-3 a Omega-6.
                 <br>💊 3. Upravte výživu – doplnky Zinzino pomáhajú dostať telo do rovnováhy.
-                <br>🎓 4. BalanceTest – je prémiový produkt ale ak si nie ste istí, čo potrebujete skôr napište nám vo formulári.
+                <br>🎓 4. BalanceTest – náš prémiový produkt.
             </p>
         </details>
     </section>
 </div>
 <div class="w3-center card pt-4">
 
-    <section class="products" Id="1" data-product-name="BalanceOil">
+    <section class="products" id="1" data-product-name="BalanceOil" data-product-image='@Url.Content("~/Image/BalanceOil.png")'>
         <h2>💊 BalanceOilOrange+ 300ml – hlavný produkt 55 €/ks</h2>
 
-        <p class="w3-green">Ak ešte nechcete BalanceTest začnite s👉BalanceOil v akcii s 10% zľavou</p>
-        @*<button class="btn btn-primary btn-sm buy-item" data-id="${item.Id}">Buy</button>
-            <button onclick="addItemToCart('BalanceOil', 55.00, '~/Image/BalanceOil.png')">Buy</button>*@
-        <button class="add-to-cart w3-hover-deep-purple" title="Momentálne najlacnešie na trhu aj s dopravou v rámci SR!!!!">Pridať do <span class="fa fa-shopping-cart"></span></button>
-        <a data-fancybox="gallery" href="~/Image/BalanceOil.png"><img class="rounded" src="~/Image/BalanceOil.png" alt="BalanceOil" style="width:100%" title="Momentálne najlacnešie na trhu aj s dopravou v rámci SR!!!!"></a>
+        <p class="w3-green">Ak nechcete BalanceTest začnite potom s👉BalanceOil+ teraz v akcii s 10% zľavou</p>
+        <button type="button" class="add-to-cart w3-hover-deep-purple" data-id="1" title="Pridať BalanceOil do košíka" aria-label="Pridať BalanceOil do košíka">Pridať do <span class="fa fa-shopping-cart" aria-hidden="true"></span></button>
+        <a data-fancybox="gallery" href='@Url.Content("~/Image/BalanceOil.png")'><img class="rounded" src='@Url.Content("~/Image/BalanceOil.png")' alt="BalanceOil" style="width:100%" title="Momentálne najlacnejšie na trhu aj s dopravou v rámci SR!!!!"></a>
 
         <br>
         <details>
@@ -60,25 +49,20 @@
                 Pomáha udržiavať hladinu polyfenolov v tele na ochranu krvných lipidov pred oxidačným stresom
                 Podporuje zdravú a normálnu funkciu očí, pretože obsahuje 700 mg DHA
                 Prispieva k normálnym kostiam, funkcii svalov, normálnym zubom a deleniu buniek, pretože denná dávka obsahuje 20 µg vitamínu D3
-
-
             </p>
         </details>
     </section>
 </div>
 
-
-
 <br>
 
 <div class="w3-center card pt-4">
 
-
-    <section class="products" Id="2" data-product-name="Zinobiotic">
+    <section class="products" id="2" data-product-name="Zinobiotic" data-product-image='@Url.Content("~/Image/Zinobiotic2025.png")'>
         <h2>Zinobiotic+ 33€/ks</h2>
         <p class="w3-green">Nie je to len doplnok – je to systém pre vaše zdravie.</p>
-        <button class="add-to-cart w3-hover-deep-purple" title="Neváhajte a pridajte si Zinobiotic do košíka">Pridať do <span class="glyphicon glyphicon-shopping-cart"></span></button>
-        <a data-fancybox="gallery" href="~/Image/Zinobiotic2025.png"><img class="rounded" src="~/Image/Zinobiotic2025.png" alt="Zinobiotic" style="width:100%" title="Črevá sa už dlho označujú za druhý mozog..."></a>
+        <button type="button" class="add-to-cart w3-hover-deep-purple" data-id="2" title="Pridať Zinobiotic do košíka" aria-label="Pridať Zinobiotic do košíka">Pridať do <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></button>
+        <a data-fancybox="gallery" href='@Url.Content("~/Image/Zinobiotic2025.png")'><img class="rounded" src='@Url.Content("~/Image/Zinobiotic2025.png")' alt="Zinobiotic" style="width:100%" title="Črevá sa už dlho označujú za druhý mozog..."></a>
 
         <details>
             <p class="font-size:10px;color:#000;text-shadow:1px 1px 4px #fff;">
@@ -95,113 +79,52 @@
 
 <br>
 
-
-
 <div class="w3-center card pt-4">
-    <section class="products" Id="3" data-product-name="ZinzinoXtend">
+    <section class="products" id="3" data-product-name="ZinzinoXtend" data-product-image='@Url.Content("~/Image/ZinzinoXtend.png")'>
         <h2>Zinzino Xtend 34 €/ks</h2>
         <p class="w3-green">Nie je to len doplnok – je to systém pre vaše zdravie.</p>
-        <button class="add-to-cart w3-hover-deep-purple" title="Pre pridanie do košíka kliknite">Pridať do <span class="glyphicon glyphicon-shopping-cart"></span></button>
+        <button type="button" class="add-to-cart w3-hover-deep-purple" data-id="3" title="Pridať ZinzinoXtend do košíka" aria-label="Pridať ZinzinoXtend do košíka">Pridať do <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></button>
 
-
-
-
-        <a data-fancybox="gallery" href="~/Image/ZinzinoXtend.png"><img class="rounded" src="~/Image/ZinzinoXtend.png" alt="ZinzinoXtend" style="width:100%" title="prírodný výživový doplnok na podporu imunity"></a>
+        <a data-fancybox="gallery" href='@Url.Content("~/Image/ZinzinoXtend.png")'><img class="rounded" src='@Url.Content("~/Image/ZinzinoXtend.png")' alt="ZinzinoXtend" style="width:100%" title="prírodný výživový doplnok na podporu imunity"></a>
         <details>
-            <p class="font-size:10px;color:#000;text-shadow:1px 1px 4px #fff;">Xtend, náš najpokročilejší imunitný a výživový doplnok, je vynikajúcim zdrojom mikro- a fytonutrientov, ktorý obsahuje 23 základných vitamínov a minerálov, ako aj čistených 1-3, 1-6 beta glukánov získaných z pekárskych kvasníc, ktoré chránia a obnovujú bunky a tkanivá. Xtend je ideálnym doplnkom k prípravkom BalanceOil a ZinoBiotic na doplnenie vášho protokolu o zdraví.ZinzinoXtend je pokrokový vegánsky, výlučne prírodný výživový doplnok na podporu imunity, ktorý dokonale dopĺňa produkty BalanceOil a ZinoBiotic. Vyvinuli sme ho na podporu prirodzeného imunitného systému a obsahuje micro- a fytonutrienty vrátane 22 základných vitamínov a minerálov, ako aj purifikované 1-3, 1-6 beta glukány z pekárskeho droždia.</p>
+            <p class="font-size:10px;color:#000;text-shadow:1px 1px 4px #fff;">Xtend, náš najpokročalejší imunitný a výživový doplnok, je vynikajúcim zdrojom mikro- a fytonutrientov, ktorý obsahuje 23 základných vitamínov a minerálov, ako aj čistených 1-3, 1-6 beta glukánov získaných z pekárskych kvasníc, ktoré chránia a obnovujú bunky a tkanivá. Xtend je ideálnym doplnkom k prípravkom BalanceOil a ZinoBiotic na doplnenie vášho protokolu o zdraví.ZinzinoXtend je pokrokový vegánsky, výlučne prírodný výživový doplnok na podporu imunity, ktorý dokonale dopĺňa produkty BalanceOil a ZinoBiotic. Vyvinuli sme ho na podporu prirodzeného imunitného systému a obsahuje micro- a fytonutrienty vrátane 22 základných vitamínov a minerálov, ako aj purifikované 1-3, 1-6 beta glukány z pekárskeho droždia.</p>
+        </details>
+    </section>
+</div>
+
+<br>
+<div class="w3-center card pt-4">
+    <section class="products" id="4" data-product-name="BalanceOil orange 100ml" data-product-image='@Url.Content("~/Image/BalanceOil orange 100ml.png")'>
+        <h2>BalanceOil orange 100ml 25 €/ks</h2>
+        <p class="w3-green">Nie je to len doplnok – je to systém pre vaše zdravie.</p>
+        <button type="button" class="add-to-cart w3-hover-deep-purple" data-id="4" title="Pridať BalanceOil orange 100ml do košíka" aria-label="Pridať BalanceOil orange 100ml do košíka">Pridať do <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></button>
+
+        <a data-fancybox="gallery" href='@Url.Content("~/Image/BalanceOil orange 100ml.png")'><img class="rounded" src='@Url.Content("~/Image/BalanceOil orange 100ml.png")' alt="BalanceOil orange 100ml" style="width:100%" title="prírodný výživový doplnok na podporu imunity"></a>
+        <details>
+            <p class="font-size:10px;color:#000;text-shadow:1px 1px 4px #fff;">BalanceOil+ je náš jedinečný rad čisto prírodných potravinových doplnkov Polyphenol Omega Balance. Na základe nášho jedinečného vedeckého zloženia poskytuje táto prémiová inovatívna zmes olejov získaných z malých voľne žijúcich rýb a extra panenského olivového oleja získaného pred zberom veľké množstvo polyfenolov na účinnú a efektívnu absorpciu a ochranu krvných lipidov pred oxidačným stresom. Bezpečne zvyšuje a udržiava hladiny omega-3 mastných kyselín, pričom upravuje pomer omega-6:3 mastných kyselín a vytvára prospešné hladiny pre váš cholesterol, srdce2 a mozog1.</p>
+        </details>
+    </section>
+</div>
+<br>
+<div class="w3-center card pt-4">
+    <section class="products" id="5" data-product-name="Vitamin D Test" data-product-image='@Url.Content("~/Image/VitaminDTest.png")'>
+        <h2>Vitamin D Test 65 €/ks</h2>
+        <p class="w3-green">Nie je to len doplnok – je to systém pre vaše zdravie.</p>
+        <button type="button" class="add-to-cart w3-hover-deep-purple" data-id="5" title="Pridať Vitamin D Test do košíka" aria-label="Pridať Vitamin D Test do košíka">Pridať do <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></button>
+
+        <a data-fancybox="gallery" href='@Url.Content("~/Image/VitaminDTest.png")'><img class="rounded" src='@Url.Content("~/Image/VitaminDTest.png")' alt="VitaminDTest" style="width:100%" title="VitaminD Test je dôverný, laboratórne analyzovaný test suchej kvapky krvi, ktorý odhalí aktuálny stav a pomôže prispôsobiť nutričné potreby vitamínu D. Je rýchly a jednoduchý a výsledok stavu vitamínu D je zosumarizovaný v ľahko pochopiteľnej grafike."></a>
+        <details>
+            <p class="font-size:10px;color:#000;text-shadow:1px 1px 4px #fff;">Vykonaním testu získate prehľad o svojich hladinách vitamínu D a dostanete prispôsobené odporúčania o tom, ako sa dá dostať do rúk alebo zlepšiť svoje hladiny. Test sa odporúča vykonať každých 120 dní, aby ste mohli sledovať svoj stav a prispôsobiť svoj príjem a životný štýl podľa sezónnych variácií. .</p>
         </details>
     </section>
 </div>
 
 <br>
 
-
-
-
-<!--<section class="products">
-
-    <div class="card w3-center pt-4 w3-text-grey">
-        <div class="product" id="prod_RRpqKCyPjs96wi" data-product-name="BalanceOil">
-            <h2>BalanceOil Orange</h2>
-            <p1 class="w3-button w3-blue w3-padding-large w3-hover-red">BalanceOil Orange+ 54 €/ks</p1>
-            <!--button onclick="addItemToCart('BalanceOil', 54.00, './Image/BalanceOil.webp')">Pridať do košíka</button-->
-
-<!--@*<button class="add-to-cart" title="Pre pridanie do košíka kliknite">Pridať do<span class="glyphicon glyphicon-shopping-cart"></span></button>*@
-
-
-
-
-            <!--<a data-fancybox="gallery" href="~/Image/BalanceOil.png"><img class="rounded" src="~/Image/BalanceOil.png" alt="BalanceOil" style="width:100%" title="Lepšie zdravie sa začína lepšou rovnováhou.SPRAVTE TRI KROKY K ROVNOVÁHE,REGENERÁCII A POSILNENIU ZDRAVIA "></a>
-
-            <br>
-            <details>
-                <p style="font-size:10px;color:#000;text-shadow:1px 1px 4px #fff;">
-                    Prispieva k normálnej funkcii mozgu, pretože denná dávka obsahuje 700 mg DHA
-                    Prispieva k normálnemu imunitnému systému, pretože denná dávka obsahuje 20 µg vitamínu D3
-                    Pomáha udržiavať dostatočné hladiny EPA a DHA vo vašom tele
-                    Pomáha udržiavať optimálnu hladinu omega 6:3 mastných kyselín vo vašom tele
-                    Pomáha udržiavať hladinu polyfenolov v tele na ochranu krvných lipidov pred oxidačným stresom
-                    Podporuje zdravú a normálnu funkciu očí, pretože obsahuje 700 mg DHA
-                    Prispieva k normálnym kostiam, funkcii svalov, normálnym zubom a deleniu buniek, pretože denná dávka obsahuje 20 µg vitamínu D3
-                    Podporuje normálne hladiny triglyceridov v krvi, normálny krvný tlak a normálne hladiny vápnika v krvi
-                </p>
-            </details>
-        </div>
-    </div>
-</section>
-
+<h3 class="section-heading text-uppercase w3-text-white">
+    Táto sekcia sa ešte stále rozširuje o nové produkty<br>Ďakujeme za pochopenie.
+</h3>
 <br>
-<br>
-
-
-<section class="products">
-    <div class="card w3-center pt-4 w3-text-grey">
-        <div class="product" id="prod_RRq2ftDWFtGEtP" data-product-name="Zinobiotic">
-            <h2>Zinobiotic+</h2>
-            <p1 class="w3-button w3-blue w3-padding-large w3-hover-red">Zinobiotic+ teraz v akcii zo 64€ na 32 €/ks </p1>-->
-@*<button class="add-to-cart" title="Neváhajte a pridajte si Zinobiotic do košíka">Pridať do<span class="glyphicon glyphicon-shopping-cart"></span></button>*@
-<!--<a data-fancybox="gallery" href="~/Image/Zinobiotic2025.png"><img class="rounded" src="~/Image/Zinobiotic2025.png" alt="Zinobiotic" style="width:100%" title="Črevá sa už dlho označujú za druhý mozog..."></a>
-
-            <details>
-                <p style="font-size:10px;color:#000;text-shadow:1px 1px 4px #fff;">
-                    Črevá sa už dlho označujú za druhý mozog,ale
-                    až v posledných rokoch si začíname uvedomovať, aké dôležité sú črevá pre naše zdravie a duševnú pohodu
-                    Črevá obsahujú 500 miliónov neurónov, ktoré sú s mozgom spojené prostredníctvom nervového systému
-                    Pomáha udržiavať optimálnu hladinu cholesterolu vo vašom tele
-                    Musíme uznať dôležitosť tohto nevyhnutného systému, pretože je neoddeliteľnou súčasťou dosiahnutia rovnováhy organizmu (a života)
-
-                </p>
-            </details>
-        </div>
-    </div>
-</section>
-<br>
-<br>
-
-<section class="products">
-    <div class="card w3-center pt-4 w3-text-grey">
-        <div class="product" id="prod_RRq7G2UL49m5mb" data-product-name="ZinzinoXtend">
-            <h2>Zinzino Xtend</h2>
-            <p1 class="w3-button w3-blue w3-padding-large w3-hover-red">Zinzino Xtend 44 €/ks</p1>-->
-@*<button class="add-to-cart" title="Pre pridanie do košíka kliknite">Pridať do <span class="glyphicon glyphicon-shopping-cart"></span></button>*@
-
-
-
-
-@*<a data-fancybox="gallery" href="~/Image/ZinzinoXtend.jpg"><img class="rounded" src="~/Image/ZinzinoXtend.jpg" alt="ZinzinoXtend" style="width:100%" title="prírodný výživový doplnok na podporu imunity"></a>
-                <details>
-                    <p style="font-size:10px;color:#000;text-shadow:1px 1px 4px #fff;">ZinzinoXtend je pokrokový vegánsky, výlučne prírodný výživový doplnok na podporu imunity, ktorý dokonale dopĺňa produkty BalanceOil a ZinoBiotic. Vyvinuli sme ho na podporu prirodzeného imunitného systému a obsahuje micro- a fytonutrienty vrátane 22 základných vitamínov a minerálov, ako aj purifikované 1-3, 1-6 beta glukány z pekárskeho droždia.</p>
-                </details>
-            </div>
-        </div>
-    </section>
-    <br>*@
-    <br>
-
-    <h3 class="section-heading text-uppercase w3-text-white">
-        Táto sekcia sa ešte stále rozširuje o nové produkty<br>Ďakujeme za pochopenie.
-    </h3>
-    <br>
 <p>
     <a href="@Url.Action("Zdravie","Home",new {area = "Ladowebservis"})" class="btn btn-primary btn-md tlacitko-moje">Späť na úvod</a>
 

@@ -5,27 +5,21 @@
 <div class="container card pt-4">
     <div class="row justify-content-center">
         <div class="col-12 col-sm-10 col-md-8 col-lg-6">
-            @*<div class="card text-center p-4">*@
+            <div class="card text-center p-4">
                 <h2 class="mb-3">
                     Správa bola odoslaná. Ďakujeme za váš e‑mail.
                     <br />
                     <small class="text-muted">Your message has been successfully sent.</small>
                 </h2>
 
-                <p class="mb-3">
-                    E‑book bol priložený k zaslanému e‑mailu.<br />
-                    <span class="text-muted">The e‑book was attached to the sent e‑mail. Thank you for your email.</span>
-                </p>
-
-                <p class="mb-3">
-                    @* Provide a direct download link for convenience. If App_Data is not public, move the file to a public folder or implement a download action. *@
-                    @*<a href='@Url.Content("~/App_Data/MailAttachment.pdf")' class="btn btn-secondary btn-sm mb-2" download>Stiahnuť e‑book (PDF)</a>*@
-                </p>
+                @*<p class="mb-3">
+                    <a href='@Url.Action("DownloadEbook", "Home")' class="btn btn-secondary btn-sm mb-2">Stiahnuť e‑book (PDF)</a>
+                </p>*@
 
                 <p>
-                    <a href='@Url.Action("Zdravie","Home",new {area = "Ladowebservis"})' class="btn btn-secondary">Späť na úvod</a>
+                    <a href='@Url.Action("Zdravie","Home",new {area = "Ladowebservis"})' class="btn btn-primary btn-md tlacitko-moje">Späť na úvod</a>
                 </p>
             </div>
         </div>
     </div>
-@*</div>*@
+</div>

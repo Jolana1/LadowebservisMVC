@@ -9,6 +9,29 @@
             @*<div class="w3-center card text-center">*@
                 <h1 class="h3" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">ZINZINO – zdravie v rovnováhe!</h1>
 
+                <style>
+                    /* Local CTA highlight styles */
+                    .highlight-cta {
+                        background: linear-gradient(90deg,#28a745 0%,#5cb85c 100%);
+                        color: #ffffff !important;
+                        padding: .65rem 1.25rem;
+                        border-radius: .375rem;
+                        box-shadow: 0 8px 20px rgba(44, 62, 80, 0.22);
+                        transition: transform .12s ease, box-shadow .12s ease;
+                        display: inline-block;
+                        text-decoration: none !important;
+                    }
+                    .highlight-cta:hover, .highlight-cta:focus {
+                        transform: translateY(-3px);
+                        box-shadow: 0 14px 30px rgba(44, 62, 80, 0.28);
+                        color: #ffffff !important;
+                        text-decoration: none !important;
+                    }
+                    @@media (max-width: 576px) {
+                        .highlight-cta { font-size: 0.95rem; padding: .6rem 1rem; }
+                    }
+                </style>
+
                 <p class="lead text-black" style="text-shadow:1px 1px 4px #fff;">
                     „Zistite, čo vášmu telu chýba a obnovte rovnováhu vďaka Zinzino BalanceTest a výživovému doplnku BalanceOilOrange+."
                 </p>
@@ -18,7 +41,7 @@
                 </div>
 
                 <p>
-                    <a class="w3-button w3-green centered-content w3-padding-xlarge" href='@Url.Action("Kontakt","Home")' title="Formulár">Áno, chcem zistiť svoj stav zdravia!</a>
+                    <a id="discover-health-btn" class="btn btn-primary btn-lg highlight-cta" href='@Url.Action("Kontakt","Home")' title="Formulár" role="button" aria-label="Zistiť stav zdravia">Áno, chcem zistiť svoj stav zdravia!</a>
                 </p>
 
                 <p class="text-black" style="text-shadow:1px 1px 4px #fff;">
