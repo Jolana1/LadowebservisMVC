@@ -1,73 +1,54 @@
-﻿@* Services *@
+﻿@{
+    ViewBag.Title = "IT služby";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<div class="container card pt-4">
-    <div class="row">
-        <div class="col-12 text-center">
-            <h1 class="h3" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">PONUKA IT SLUŽIEB</h1>
-            <p class="lead text-muted">
-                V rámci webových služieb ponúkame dizajn webov, zostavenie a opravy PC komponentov, odporúčanie softvérov a celkové vyladenie vašich PC zostáv.
-                <br />Teší nás váš záujem a budeme radi, ak využijete naše služby.
-            </p>
-        </div>
-    </div>
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-7">
+            <div class="card p-3">
+                <h2 class="mb-3 text-center">IT služby</h2>
 
-    <div class="row">
-        <div class="col-12 col-md-6 mb-3">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <h4 class="card-title">Basic ponuka servisných PC služieb</h4>
-                    <ul class="list-unstyled text-left mt-3">
-                        <li class="mb-2">Opravy, poradenstvo a zostavenie IT zariadení</li>
-                        <li class="mb-2">Výmena poškodených displejov, batérií a kompletné rozobratie</li>
-                        <li class="mb-2">Konfigurácie smart home zariadení a ich párovanie</li>
-                        <li class="mb-2">Nanášanie novej kvalitnej teplovodivej pasty</li>
-                        <li class="mb-2">Prečistenie komponentov, nastavenie sietí a Wi‑Fi</li>
-                        <li class="mb-2">Záloha starého HDD na SSD</li>
-                        <li class="mb-2">Inštalácie a funkčné zálohy OS (Windows, Mac, Linux)</li>
-                    </ul>
+                <p class="lead">Ponúkame široké spektrum IT služieb: opravy počítačov, zostavenie zostáv, inštalácie softvéru, zabezpečenie dát a poradenstvo.</p>
 
-                    <div class="mt-3">
-                        <h2 class="mb-1">30 €</h2>
-                        <small class="text-muted">Za jednotlivé služby v uvedenom balíku</small>
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3">
+                        <h4>Servis a opravy</h4>
+                        <p>Diagnostika hardvéru, výmena komponentov, oprava chybových stavov a optimalizácia výkonu vašich zariadení.</p>
                     </div>
-
-                    <div class="mt-3">
-                        <a class="btn btn-outline-primary" href="mailto:podpora@ladowebservis.sk" title="Tu nás kontaktujte mailom a uveďte názov služby">Kontaktovať podporu</a>
+                    <div class="col-12 col-md-6 mb-3">
+                        <h4>Zostavy na mieru</h4>
+                        <p>Pomôžeme vám zostaviť počítač podľa vášho rozpočtu a požiadaviek, vrátane odporúčania kompatibilných komponentov.</p>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="col-12 col-md-6 mb-3">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <h4 class="card-title">Prémiová ponuka webových služieb</h4>
-                    <ul class="list-unstyled text-left mt-3">
-                        <li class="mb-2">Web dizajn a vypracovanie konceptu</li>
-                        <li class="mb-2">2,99 €/mesačný hosting za správu vášho webu</li>
-                        <li class="mb-2">Fotogalérie, videá, e‑shop menu, členská sekcia, e‑mailová podpora</li>
-                        <li class="mb-2">Vytvorenie funkčnej webovej stránky bez potreby programovania z vašej strany</li>
-                        <li class="mb-2">Užívateľský profil na editáciu obsahu</li>
-                        <li class="mb-2">Registrácia domény a prenos webu</li>
-                        <li class="mb-2">Viacjazyčný web, ochrana pred robotmi a publikovanie na internet</li>
-                    </ul>
-
-                    <div class="mt-3">
-                        <h2 class="mb-1">399 €</h2>
-                        <small class="text-muted">Za celý balík Premium + bonus: Spybot S&D</small>
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3">
+                        <h4>Softvér a bezpečnosť</h4>
+                        <p>Inštalácia a nastavenie operačných systémov, antivírusových riešení a softvéru pre prácu aj zábavu.</p>
                     </div>
-
-                    <div class="mt-3">
-                        <a class="btn btn-outline-primary" href="mailto:info@ladowebservis.sk" title="Pre túto službu nás kontaktujte">Kontaktovať info@ladowebservis.sk</a>
+                    <div class="col-12 col-md-6 mb-3">
+                        <h4>Poradenstvo</h4>
+                        <p>Konzultácie pri výbere služieb, optimalizácia siete a zálohovacie stratégie.</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-12 text-center mt-3">
-            <a href='@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })' class="btn btn-secondary">Späť na úvod</a>
+                <div class="text-center mt-3">
+                    <a href='@Url.Action("Kontakt","Home")' class="btn btn-primary btn-sm mb-2 mb-sm-0 me-2">Kontaktujte nás</a>
+                    <a href='@Url.Action("Produkty","Home")' class="btn btn-outline-secondary btn-sm">Zobraziť produkty</a>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
+
+<style>
+    /* Small responsive tweaks for ITservis page */
+    .card p.lead { color: #333; }
+
+    @@media (max-width: 576px) {
+        .card h2 { font-size: 1.4rem; }
+        .me-2 { margin-right: .5rem; }
+    }
+</style>

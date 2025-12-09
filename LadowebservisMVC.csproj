@@ -792,6 +792,7 @@
     <Content Include="Image\Pikatec 4.png" />
     <Content Include="Image\Pikatec.png" />
     <Content Include="Image\polyfill.min.js" />
+    <Content Include="Image\Postup platby.png" />
     <Content Include="Image\profile-pic 2.jpg" />
     <Content Include="Image\profile-pic.jpg" />
     <Content Include="Image\puzzle-3223941_1920 2.jpg" />
@@ -1050,6 +1051,7 @@
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\OrderPlaced.cshtml" />
+    <Content Include="Views\Home\Favorites.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Image\corepack\dist\lib\" />

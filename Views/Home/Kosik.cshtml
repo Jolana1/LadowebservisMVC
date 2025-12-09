@@ -5,30 +5,43 @@
     var seenIds = new System.Collections.Generic.HashSet<string>(System.StringComparer.OrdinalIgnoreCase);
 }
 
-<div class="container card py-4">
+<div class="container-fluid card py-4">
     <div class="row justify-content-center">
         <div class="col-12 col-md-10">
             <h2 class="mb-3 text-center" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">Váš nákupný košík</h2>
-
+            <div class="text-center mt-4">
+                <a href="@Url.Action("MemberInfo","Home")" class="btn btn-secondary me-2">Späť do členskej sekcie</a>
+                <a href='@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })' class="btn btn-primary btn-md tlacitko-moje">Späť na úvod</a>
+            </div>
             <div id="cartReview" class="card p-3 mb-3">
                 <ul id="cartReviewList" class="list-group mb-2">
                     <!-- items rendered by JS -->
                 </ul>
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center">
 
-                    <div>
+                    <div class="mb-2 mb-sm-0">
                         Celková suma: €<span id="cartReviewTotal">0.00</span>
-                        <button id="clear-cart-btn" class="btn btn-sm btn-danger">Vyprázdniť košík</button>
+                        <button id="clear-cart-btn" class="btn btn-sm btn-danger ms-2">Vyprázdniť košík</button>
                     </div>
-                </div> <p class="mb-3 text-center" style="color:#5d33fb;text-shadow:1px 1px 4px #5d33fb">
-                       <p>
-                           Po kliknutí tlačidla Prejsť k platbe si na zabezpečenej stránke Stripe opäť upravte a nastavte produkty aby platba prebehla v poriadku <br />kvôli vašej bezpečnosti a správnosti objednávky. <br />
-                           Nezabudnite na propagačný kód👉 FRIENDS25 👉a máte 10% zľavu z celého nákupu vrátane DPH. Ďakujeme!<br />
-                       </p>
-    <stripe-buy-button buy-button-id="buy_btn_1Qr3pPHrPMzQ1ua8bEe7WMIU"
-                       publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
-    </stripe-buy-button>
-</div>
+                </div>
+
+                <p class="mb-3 text-center" style="color:#5d33fb;text-shadow:1px 1px 4px #5d33fb">
+                    Po kliknutí tlačidla 👉Prejsť k platbe<br />si na zabezpečenej stránke Stripe opäť upravte alebo pridajte produkty o ktoré máte záujem,<br />nakoniec vyberte spôsob platby,vašu dodaciu adresu a zaplaťte. <br />
+                    Nezabudnite vložiť propagačný kód👉 FRIENDS25 👉aby ste mali 10% zľavu z celého nákupu vrátane DPH.<br /> Ďakujeme Vám za nákup a želáme pevné zdravie!
+                </p>
+
+                <!-- Payment procedure help thumbnail: clicking opens enlarged image via Fancybox (included in layout) -->
+                <div class="text-center mb-3">
+                    <p class="small text-muted">Potrebujete pomoc s platbou? Kliknite na obrázok pre návod.</p>
+                    <a data-fancybox="payment-help" data-caption="Payment procedure" href="@Url.Content("~/Image/Postup platby.png")" aria-label="Open payment procedure image">
+                        <img src="@Url.Content("~/Image/Postup platby.png")" alt="Payment procedure" class="img-thumbnail" style="max-width:100px;cursor:pointer;" />
+                    </a>
+                </div>
+
+                <stripe-buy-button buy-button-id="buy_btn_1Qr3pPHrPMzQ1ua8bEe7WMIU"
+                                   publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
+                </stripe-buy-button>
+            </div>
 
             <!-- Available products: show catalog and allow adding to cart -->
             <div id="availableProducts" class="card p-3 mb-3">
@@ -47,15 +60,17 @@
                         // mark as seen
                         seenIds.Add(id);
 
-                        <div class="col-sm-6 col-md-4 mb-3 products" data-product-name="@p.Name" data-product-image="@p.Image">
-                            <div class="card p-2 text-center product-card">
-                                <img src="@p.Image" alt="@p.Name" style="max-width:100%;height:100px;object-fit:contain;" />
+                        <div class="col-12 col-sm-6 col-md-4 mb-3 products" data-product-id="@p.Id" data-product-name="@p.Name" data-product-image="@p.Image">
+                            <div class="card p-2 text-center product-card h-100 d-flex flex-column">
+                                <img src="@p.Image" alt="@p.Name" class="img-fluid mx-auto" style="max-height:100px;object-fit:contain;" />
                                 <h4 class="mt-2">@p.Name</h4>
                                 <p>€@String.Format("{0:0.00}", p.Price)</p>
-                                <button type="button" class="btn btn-sm btn-dark add-to-cart" data-id="@p.Id">Pridať do košíka</button>
-                                <button type="button" class="product-heart btn btn-link" data-id="@p.Id" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">
-                                    <i class="fa fa-heart" aria-hidden="true"></i>
-                                </button>
+                                <div class="mt-auto d-flex gap-2 justify-content-center align-items-center">
+                                    <button type="button" class="btn btn-sm btn-dark add-to-cart btn-block" data-id="@p.Id">Pridať do košíka</button>
+                                    <button type="button" class="product-heart btn btn-link" data-id="@p.Id" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     }
@@ -64,19 +79,12 @@
 
             <!-- Order form: bank transfer (posts to PlaceOrder) -->
             @*<div class="card p-3 mb-3">
-            <h4>Objednať - bankový prevod</h4>
-            <p>Vyplňte Vaše kontaktné údaje a potvrďte objednávku. V potvrdení obdržíte inštrukcie na prevod.</p>*@
+        <h4>Objednať - bankový prevod</h4>
+        <p>Vyplňte Vaše kontaktné údaje a potvrďte objednávku. V potvrdení obdržíte inštrukcie na prevod.</p>*@
 
         </div>
 
-        <p class="text-center">
-            <a href='@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })' class="btn btn-primary btn-md tlacitko-moje">Späť na úvod</a>
-       </p>
-        @*<p class="mt-4">
-            <a href="@Url.Action("MemberInfo","Home")" class="btn btn-secondary">Späť do členskej sekcie</a>
-        </p>*@
-
-        </div>
+    </div>
     </div>
     
 
@@ -95,14 +103,30 @@
         .product-card { position: relative; }
         .product-card .product-heart {
             position: absolute;
-            bottom: 8px;
-            right: 8px;
-            font-size: 14px;
-            color: #e25555;
-            padding: 4px 6px;
+            bottom: 6px;
+            right: 6px;
+            /* minimize footprint */
+            padding: 2px;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: 0;
             line-height: 1;
         }
-        .product-card .product-heart .fa-heart { font-size: 14px; }
+        /* smaller heart glyph */
+        .product-card .product-heart .fa-heart { font-size: 12px; color: #e25555; }
+
+        /* reduce focus outline to subtle ring for accessibility */
+        .product-card .product-heart:focus { outline: none; box-shadow: 0 0 0 3px rgba(94,33,255,0.15); border-radius: 4px; }
+
+        /* Responsive adjustments */
+        @@media (max-width: 576px) {
+            .product-card .product-heart { bottom: 12px; right: 12px; }
+            .add-to-cart.btn-block { display: block; width: 100%; }
+        }
     </style>
 
 @section scripts {
@@ -318,5 +342,7 @@
         })();
     </script>
 }
+
+
 
 

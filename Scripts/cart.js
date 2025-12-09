@@ -375,38 +375,32 @@
         });
     }
 
+    // ensure header payment button exists and update its enabled state
     function renderHeaderPaymentButton() {
-        var headerWrap = document.querySelector('.cart-fluid');
-        if (!headerWrap) return;
+        try {
+            var btn = document.getElementById('header-pay-btn');
+            if (!btn) return; // button is injected in layout; nothing to do
 
-        var btnId = 'header-pay-btn';
-        var existingBtn = document.getElementById(btnId);
-        if (existingBtn) {
-            // If button already exists, just return (avoid duplicates)
-            return;
+            var cart = loadCart();
+            var isEmpty = !cart || Object.keys(cart).length === 0;
+
+            if (isEmpty) {
+                btn.classList.add('disabled');
+                btn.setAttribute('aria-disabled', 'true');
+                // prevent accidental navigation
+                btn.addEventListener('click', preventWhenEmpty, { once: true });
+            } else {
+                btn.classList.remove('disabled');
+                btn.removeAttribute('aria-disabled');
+            }
+        } catch (e) {
+            // ignore
         }
 
-        // Create new button element
-        var payBtn = document.createElement('a');
-        payBtn.id = btnId;
-        payBtn.className = 'btn btn-danger btn-sm';
-        payBtn.style.marginLeft = '16px';
-        payBtn.textContent = 'Chodte na Prejsť k platbe';
-        payBtn.href = '/Home/Kosik?checkout=1'; // point to Kosik with checkout=1
-        payBtn.role = 'button';
-
-        // Disable button if cart is empty
-        const cart = loadCart();
-        const isEmptyCart = !cart || Object.keys(cart).length === 0;
-        if (isEmptyCart) {
-            payBtn.classList.add('disabled');
-            payBtn.setAttribute('aria-disabled', 'true');
-        } else {
-            payBtn.classList.remove('disabled');
-            payBtn.removeAttribute('aria-disabled');
+        function preventWhenEmpty(e) {
+            e.preventDefault();
+            e.stopPropagation();
         }
-
-        headerWrap.appendChild(payBtn);
     }
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -502,6 +496,445 @@
     if (!window.lwsRenderCartPage) window.lwsRenderCartPage = null;
 
 })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

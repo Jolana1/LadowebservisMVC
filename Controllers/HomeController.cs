@@ -6,7 +6,7 @@ using System.Net.Mail;
 using System.Web.Mvc;
 using System.Net;
 using System.IO;
-using System.Web.Script.Serialization;
+using System.Web.Script.Serialization; // fixed using
 using System.Linq;
 using System.Collections.Generic;
 
@@ -27,7 +27,6 @@ namespace LadowebservisMVC.Controllers
             return View();
         }
 
-        
         public ActionResult Login(LoginModel model)
         {
             // Only attempt login when model is valid
@@ -35,7 +34,30 @@ namespace LadowebservisMVC.Controllers
             {
                 if (model.Email == "Name" && model.Password == "Password")
                 {
-                    return RedirectToAction("Member", "Home");
+                    // create MemberInfoModel from LoginModel values (map by property name) and save to session
+                    try
+                    {
+                        var memberInfo = new MemberInfoModel();
+                        var fromType = model.GetType();
+                        var toType = memberInfo.GetType();
+                        foreach (var p in fromType.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
+                        {
+                            try
+                            {
+                                var dest = toType.GetProperty(p.Name, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+                                if (dest != null && dest.CanWrite)
+                                {
+                                    dest.SetValue(memberInfo, p.GetValue(model, null));
+                                }
+                            }
+                            catch { }
+                        }
+                        Session["MemberInfo"] = memberInfo;
+                    }
+                    catch { }
+
+                    // redirect to member information page on successful login
+                    return RedirectToAction("MemberInfo", "Home");
                 }
                 else
                 {
@@ -43,6 +65,13 @@ namespace LadowebservisMVC.Controllers
                 }
             }
             return View(model);
+        }
+
+        // GET: Member (show member form)
+        public ActionResult Member()
+        {
+            ViewBag.PageTitle = "Member";
+            return View(new MemberModel());
         }
 
         [HttpPost]
@@ -53,7 +82,8 @@ namespace LadowebservisMVC.Controllers
             {
                 if (model.Meno == "Name" && model.Heslo == "Heslo")
                 {
-                    return RedirectToAction("Member", "Home");
+                    // redirect to member info on success
+                    return RedirectToAction("MemberInfo", "Home");
                 }
                 else
                 {
@@ -66,7 +96,10 @@ namespace LadowebservisMVC.Controllers
         public ActionResult MemberInfo()
         {
             ViewBag.PageTitle = "Member";
-            return View();
+            // Read MemberInfoModel from session if available
+            var mi = Session["MemberInfo"] as MemberInfoModel;
+            if (mi == null) mi = new MemberInfoModel();
+            return View(mi);
         }
 
         public ActionResult Kontakt()
@@ -120,7 +153,7 @@ namespace LadowebservisMVC.Controllers
         public ActionResult Objednavky()
         {
             ViewBag.PageTitle = "Objednavky";
-            
+
             return View();
         }
 
@@ -129,12 +162,18 @@ namespace LadowebservisMVC.Controllers
             ViewBag.PageTitle = "Produkty";
             OrderModel model = new OrderModel();
             return View(model);
-           
+
         }
 
         public ActionResult Kosik()
         {
             ViewBag.PageTitle = "Kosik";
+            return View();
+        }
+
+        public ActionResult Favorites()
+        {
+            ViewBag.PageTitle = "Obľúbené produkty";
             return View();
         }
 
@@ -288,6 +327,53 @@ namespace LadowebservisMVC.Controllers
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

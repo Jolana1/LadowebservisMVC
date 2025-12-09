@@ -1,0 +1,47 @@
+@{
+    ViewBag.Title = "Ob¾úbené produkty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container card py-4">
+    <div class="row justify-content-center">
+        <div class="col-xs-12 col-sm-10 col-md-8">
+            <h2 class="mb-3 text-center" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">Tvoj zoznam ob¾úbenıch produktov</h2>
+            <p class="text-center" style="color: #5d33fb; margin-bottom: 1rem;">Tu nájdete produkty, ktoré ste si oznaèili ako ob¾úbené. Môete ich prida do košíka alebo odstráni zo zoznamu.</p>
+
+            <ul id="favoritesList" class="list-group mb-3">
+                <!-- Favorites populated by cart.js -> window.lwsRenderFavorites() -->
+            </ul>
+
+            <div class="text-center">
+                <a href='@Url.Action("Produkty","Home")' class="btn btn-primary">Zobrazi Top produkty</a>
+                <a href='@Url.Action("Kosik","Home")' class="btn btn-default" style="margin-left:.5rem;">Prejs do košíka</a>
+                <a href='@Url.Action("Memberinfo","Home")' class="btn btn-info" style="margin-left:.5rem;">Spä</a>
+            </div>
+
+            <p class="small text-center" style="color: #5d33fb; margin-top: 1rem;">Tip: kliknite na "Prida do košíka" pri produkte a pokraèujte k platbe.</p>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                if (window.lwsRenderFavorites) {
+                    window.lwsRenderFavorites();
+                    // if render produced no items, show placeholder
+                    setTimeout(function () {
+                        var el = document.getElementById('favoritesList');
+                        if (el && el.children.length === 0) {
+                            el.innerHTML = '<li class="list-group-item">iadne ob¾úbené produkty.</li>';
+                        }
+                    }, 150);
+                } else {
+                    var el = document.getElementById('favoritesList');
+                    if (el) el.innerHTML = '<li class="list-group-item">iadne ob¾úbené produkty.</li>';
+                }
+            } catch (e) { }
+        });
+    </script>
+}

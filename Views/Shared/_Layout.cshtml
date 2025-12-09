@@ -106,9 +106,6 @@
                 background-color: #555;
             }
 
-
-
-
         .collapse a {
             float: left;
             display: block;
@@ -191,6 +188,57 @@
         .site-footer .footer-title { color: #fff; font-weight:700; margin-bottom:12px; }
         .site-footer .social a { color: #fff; margin-right: 10px; font-size:1.2em; }
         .site-footer .small { color:#bbb; }
+
+        /* Side cart panel */
+        #side-cart {
+            position: fixed;
+            right: -360px;
+            top: 60px;
+            width: 340px;
+            max-width: 90%;
+            height: calc(100% - 80px);
+            background: #fff;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+            z-index: 1050;
+            transition: right 0.25s ease-in-out;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        #side-cart.open { right: 10px; }
+
+        #cart-overlay {
+            display: none;
+            position: fixed;
+            left: 0; top: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 1040;
+        }
+
+        #cart-overlay.open { display: block; }
+
+        .cart-toggle-btn { margin-left: .5rem; }
+
+        .cart-badge { background: #d9534f; color: #fff; padding: 3px 7px; border-radius: 12px; }
+
+        @@media (max-width: 576px) {
+            #side-cart { top: 56px; width: 100%; right: -100%; }
+            #side-cart.open { right: 0; }
+        }
+
+        /* Sad face subtle bounce animation */
+        @@keyframes sadBounce {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            25% { transform: translateY(-6px) scale(1.02); opacity: 1; }
+            60% { transform: translateY(2px) scale(0.995); }
+            100% { transform: translateY(0) scale(1); }
+        }
+
+        .sad-face { display: inline-block; will-change: transform, opacity; }
+
+        .sad-bounce {
+            animation: sadBounce 800ms cubic-bezier(.22,1,.36,1) 0s 1 both;
+        }
     </style>
 
     <title>Ladowebservis</title>
@@ -214,48 +262,18 @@
 
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light navbar-fixed-top">
 
-
-
-
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="cart-fluid" style="padding: 0.0em; background: #f8f9fa; border-radius: 4px; margin-bottom: 0.0em;">
-            <p>
-                <i class="fa fa-shopping-cart"></i>Nákupný košík
-                <span id="cart-items" class="badge badge-red">0</span>
-            </p>
-            <ul id="cart-items-list" class="list-group mb-2">
-            </ul>
-            <!--<ul id="cart-list" class="list-group mb-2">-->
-            <!-- Cart items will be added here-->
-            <!--</ul>-->
-            <div>
-                <strong>Celkovo 10% zľava do konca decembra s kódom👉 FRIENDS25 👉: €<span id="total-amount">0.00</span></strong>
-                <div id="total-discount" style="font-size:0.9em;color:#d9534f;margin-top:6px;"></div>
-            </div>
 
-            <script async
-                    src="https://js.stripe.com/v3/buy-button.js">
-            </script>
-
-            @*<stripe-buy-button buy-button-id="buy_btn_1Qr3pPHrPMzQ1ua8bEe7WMIU"
-                               publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
-            </stripe-buy-button>*@
-            @*<button id="checkout-btn" class="btn btn-success mt-2" disabled>Pay with Card</button>*@
+        <!-- Cart toggle button moved to navbar for quick access (badge kept here) -->
+        <div class="navbar-right">
+            <button id="cartToggle" class="btn btn-outline-secondary cart-toggle-btn" onclick="toggleCart()" aria-label="Open cart">
+                <i class="fa fa-shopping-cart"></i>
+                <span id="cart-items" class="cart-badge">0</span>
+            </button>
         </div>
-        @*<div class="cart-icon w3-text-white">
-
-            <img src="/Image/shopping-cart.png" title="Košík výprázdniť obnovením tejto stránky" alt="Cart-Basket">
-            <span id="cart-items" title="Počet kliknutí na pridať do košíka">0</span>
-            <div class="total-amount">
-                <br />
-                Spolu s DPH: €<span id="total-amount" title="Celková suma" class="price">0</span>
-            </div>*@
-
-
-
 
         <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
 
@@ -276,30 +294,19 @@
             </form>
 
             <ul class="nav navbar-nav">
-
-
-
-
-
-
-
                 <li class="nav-item">
-                    <a class="image-container img-rounded fa fa-balance-scale" href="/Home/Produkty" title="Naše Zinzino Top produkty pre vaše zdravie">Topprodukty</a>
+                    <a class="image-container img-rounded fa fa-balance-scale" href="/Home/Produkty" title="Naše Zinzino Topprodukty pre vaše zdravie">Produkty</a>
                 </li>
-                
-
-
                 <li class="nav-item">
                     <a class="image-container img-rounded glyphicon glyphicon-user" href="/Home/Login" title="Prihlásenie,zabudnuté heslo a registrácia">Prihlásenie</a>
                 </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle img-rounded" data-toggle="dropdown" href="#Partners" title="Naši partneri"><span class="glyphicon glyphicon-briefcase"></span>Partnery</a>
-
                     <ul class="dropdown-menu">
                         <li class="active">
-                            <a class="w3-hover-white" href="/Home/itservis" title="IT služby - podstránka"><span class="glyphicon glyphicon-wrench"></span> IT Služby</a>
+                            <a class="w3-hover-white" href="/Home/ITservis" title="IT služby - podstránka"><span class="glyphicon glyphicon-wrench"></span> IT Služby</a>
                         </li>
-                        <li class="active"><a class="w3-hover-white" href="https://www.ashampoo.com/de-de" target="_blank" title="•Ashampoo antivirus and best safety software Deals • Poradíme správny postup &amp;  doporučíme softvér  vo  vašej oblasti •Mame nahradu za drahý a komplikovaný  MS Office ©LWS - Partner spoločnosti Ashampoo"><img src="/Image/ashampoo.com-AshampooSoftwareDeals.png" style="width:58px;height:15px" alt="AshampooSoftwareDeals"> Ashampoo Software</a></li>
+                        @*<li class="active"><a class="w3-hover-white" href="https://www.ashampoo.com/de-de" target="_blank" title="•Ashampoo antivirus and best safety software Deals • Poradíme správny postup &amp;  doporučíme softvér  vo  vašej oblasti •Mame nahradu za drahý a komplikovaný  MS Office ©LWS - Partner spoločnosti Ashampoo"><img src="/Image/ashampoo.com-AshampooSoftwareDeals.png" style="width:58px;height:15px" alt="AshampooSoftwareDeals"> Ashampoo Software</a></li>
                         <li>
                         </li>
                         <li class="active">
@@ -307,7 +314,7 @@
                                 <img src="/Image/Pikatec.png" style="width:58px;height:15px" alt="Pikatec • Pikatek • Nanotechnology • Energy • Meníme svet-poriadku, umytia a čistenia">
                                 Pikatec
                             </a>
-                        </li>
+                        </li>*@
                         <li class="active">
                             <a class="w3-hover-white" href="https://sk.oriflame.com/products/digital-catalogue-current?store=SK-vladimirksenic&PageNumber=1" target="_blank" title="•Oriflame aktuálny katalóg">
                                 <img src="/Image/sk-oriflame-katalog.png" style="width:58px;height:15px" alt="Oriflame aktuálny katalóg">
@@ -316,39 +323,50 @@
 
                         </li>
 
-
-
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a class="image-container img-rounded fa fa-shopping-cart" href="/Home/Kosik" title="Košík">Košík</a>
                 </li>
 
-
                 <li class="nav-item">
                     <a class="image-container img-rounded glyphicon glyphicon-envelope" href="/odoslanie-spravy" title="Kontakt">Formulár</a>
                 </li>
-                @*<li class="nav-item">
-            <a class="image-container img-rounded fa fa-search" href="~/Controllers/Product.cs" role="checkbox" aria-label="Search" onclick="var s=document.getElementById('mySearch'); if(s){ s.focus(); } return false;">
-                <i class="" aria-hidden="true"></i>
-                <span class="sr-only">Hladat</span>
-            </a>
-        </li>*@
-
-
-
             </ul>
-
 
         </div>
 
-
     </nav>
 
+    <!-- Side cart panel (moved out of nav) -->
+    <div id="cart-overlay" onclick="closeCart()"></div>
+    <aside id="side-cart" aria-hidden="true" aria-label="Shopping cart">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4>Košík</h4>
+            <button type="button" class="btn btn-sm btn-link" onclick="closeCart()" aria-label="Close cart"><i class="fa fa-times"></i></button>
+        </div>
 
+        <p class="small">Tu uvidíte položky vo vašom košíku.</p>
+        <span id="cart-items-badge" style="display:none"></span>
 
+        <ul id="cart-items-list" class="list-group mb-2">
+        </ul>
 
+        <div>
+            <strong>Celkovo 10% zľava do konca decembra s kódom👉 FRIENDS25 👉: €<span id="total-amount">0.00</span></strong>
+            <div id="total-discount" style="font-size:0.9em;color:#d9534f;margin-top:6px;"></div>
+        </div>
 
+        <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+
+        <stripe-buy-button buy-button-id="buy_btn_1Qr3pPHrPMzQ1ua8bEe7WMIU"
+                           publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
+        </stripe-buy-button>
+
+        <br />
+
+        <a id="header-pay-btn" class="btn btn-success mt-sm-0" href="/Home/Kosik?checkout=1" role="button" title="Skontrolovať  čo sa nachádza v mojom košíku">Zobraziť položky košíka</a>
+    </aside>
 
     <!-- Carousel -->
     <div class="container-fluid-right">
@@ -373,18 +391,18 @@
                 <div class="item active">
 
 
-                    <img src="~/Image/pagePiling-plugin.gif" alt="LogoLWS" style="width:2560px;height:539px;" title="•Vitajte na našej stránke spoločnosti ©LadoWebServis•">
-                    @*<div class="carousel-caption>
+                    <img src="~/Image/merry_christmas.jpg" alt="xmas" style="width:2560px;height:539px;" title="•Vitajte na našej stránke spoločnosti ©LadoWebServis•">
+                    <div class="carousel-caption">
 
                         <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">
-                            Vitajte na našej stránke spoločnosti ©LadoWebServis.
+                            Vitajte na našej stránke spoločnosti.Začnite sviatočné obdobie so zdravými návykmi.
                         </p>
-                    </div>*@
+                    </div>
 
                 </div>
 
                 <div class="item">
-                    <img src="~/Image/INK.jpg" alt="" style="width:2560px;height:539px" title="•Vitajte na stránke spoločnosti ©LadoWebServis, ponúkame Vám webové služby v oblasti dizajnu webov,návrhov až po vytvorenie plne funkčnej webovej stránky ako aj zostavenie pc-komponentov,opravy výpočtovej techniky,doporučenie softvérov na vyladenie pc zostáv.Ak vás tento web zaujíma alebo sa zaujímate o naše služby, kontaktujte nás formulárom alebo prostredníctvom e-mailu. Ďakujeme za váš záujem, Vaša spokojnosť je našou prioritou">
+                    <img src="~/Image/pagePiling-plugin.gif" alt="LogoLWS" style="width:2560px;height:539px" title="•Vitajte na stránke spoločnosti ©LadoWebServis, ponúkame Vám webové služby v oblasti dizajnu webov,návrhov až po vytvorenie plne funkčnej webovej stránky ako aj zostavenie pc-komponentov,opravy výpočtovej techniky,doporučenie softvérov na vyladenie pc zostáv.Ak vás tento web zaujíma alebo sa zaujímate o naše služby, kontaktujte nás formulárom alebo prostredníctvom e-mailu. Ďakujeme za váš záujem, Vaša spokojnosť je našou prioritou">
                     <div class="carousel-caption">
                         <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Ponúkame Vám pc služby&amp;kvalitné výživové produkty od švédskej spoločnosti Zinzino<br>Nenechajte si ujsť túto ponuku!</p>
 
@@ -552,6 +570,32 @@
             } else {
                 x.className = "collapse";
             }
+        }
+
+        function toggleCart() {
+            var cart = document.getElementById('side-cart');
+            var overlay = document.getElementById('cart-overlay');
+            if (!cart || !overlay) return;
+            var open = cart.classList.toggle('open');
+            overlay.classList.toggle('open', open);
+            cart.setAttribute('aria-hidden', !open);
+            overlay.setAttribute('aria-hidden', !open);
+            // Focus trap: move focus to cart when opened
+            if (open) {
+                cart.focus();
+            }
+        }
+
+        function closeCart() {
+            var cart = document.getElementById('side-cart');
+            var overlay = document.getElementById('cart-overlay');
+            if (!cart || !overlay) return;
+            cart.classList.remove('open');
+            overlay.classList.remove('open');
+            cart.setAttribute('aria-hidden', 'true');
+            overlay.setAttribute('aria-hidden', 'true');
+            // Return focus to the cart toggle button when closed
+            document.getElementById('cartToggle').focus();
         }
 
 

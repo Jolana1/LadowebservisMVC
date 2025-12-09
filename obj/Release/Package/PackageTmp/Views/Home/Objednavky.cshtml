@@ -1,26 +1,76 @@
-﻿<!-- Orders -->
+﻿@using System.Diagnostics
+<!-- Orders -->
 @{
     ViewBag.Title = "Objednavky";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // Start measuring view render time and memory
+    var _viewTimer = Stopwatch.StartNew();
+    var _memBefore = GC.GetTotalMemory(false);
+
+    var isAuthenticated = User?.Identity?.IsAuthenticated == true;
 }
 
-<div class="container card py-4">
+<div class="container-fluid card py-4" aria-busy="false">
     <div class="row justify-content-center">
-        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6 text-center">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 text-center">
             <h2 class="mb-3" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">Sekcia objednávok</h2>
 
-            <p class="lead" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">Táto sekcia sa momentálne pripravuje. Aktuálny katalóg Oriflame si môžete pozrieť u našich partnerov alebo priamo na stránke:</p>
+            @if (isAuthenticated)
+            {
+                <p class="lead" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">Tu nájdete prehľad svojich objednávok a stav spracovania. Sekcia sa postupne rozširuje — ak tu momentálne nevidíte žiadne objednávky, skúste obnoviť stránku alebo skontrolovať históriu v profile.</p>
 
-            <p>
-                <a href="https://sk.oriflame.com/" target="_blank" rel="noopener noreferrer" class="btn btn-default" role="button" aria-label="Otvoriť Oriflame">Otvoriť Oriflame</a>
-            </p>
+                <!-- Placeholder / future orders table -->
+                <div class="mt-3">
+                    <p style="color:#ffffff">Momentálne je sekcia objednávok vo vývoji. V blízkej dobe sem pribudne prehľad vašich objednávok.</p>
 
-            <p class="mt-4">
-                <a href="@Url.Action("MemberInfo","Home")" class="btn btn-secondary">Späť do členskej sekcie</a>
-            </p>
+                    <p>
+                        <a href="https://sk.oriflame.com/" target="_blank" rel="noopener noreferrer" class="btn btn-outline-light" role="button" aria-label="Otvoriť Oriflame">Otvoriť Oriflame</a>
+                    </p>
+
+                    <p class="mt-4">
+                        <a href="@Url.Action("MemberInfo","Home")" class="btn btn-secondary">Späť do členskej sekcie</a>
+                    </p>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning" role="alert">
+                    <strong>Prístup obmedzený:</strong> Sekcia objednávok je dostupná len pre registrovaných a prihlásených používateľov.
+                </div>
+
+                <p class="mb-3">
+                    Prihláste sa, aby ste videli svoje objednávky a históriu.
+                </p>
+
+                <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
+                    <a class="btn btn-primary mb-2 mb-sm-0" href="@Url.Action("Login","Home")">Prihlásiť sa</a>
+                    <a class="btn btn-outline-primary mb-2 mb-sm-0" href="@Url.Action("Registracia","Home")">Registrovať sa</a>
+                    <a class="btn btn-secondary" href="@Url.Action("MemberInfo","Home")">Späť do členskej sekcie</a>
+                </div>
+            }
         </div>
     </div>
 </div>
 
+@{
+    // Stop timer and measure memory after view rendered
+    _viewTimer.Stop();
+    var _memAfter = GC.GetTotalMemory(false);
+    var _memDelta = _memAfter - _memBefore;
+
+    // Log server-side render time and memory delta for diagnostics
+    try
+    {
+        Trace.TraceInformation($"[Objednavky.cshtml] View render time: {_viewTimer.ElapsedMilliseconds} ms; Memory delta: {_memDelta} bytes");
+    }
+    catch
+    {
+        // Intentionally swallow logging exceptions to avoid affecting response
+    }
+
+    // Emit a hidden HTML comment with timing so client-side tools can pick it up if needed
+}
+<!-- Server-side view render: @(_viewTimer.ElapsedMilliseconds) ms; memory delta: @(_memDelta) bytes -->
 
 
