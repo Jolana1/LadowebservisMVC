@@ -1,20 +1,81 @@
 ﻿@model LadowebservisMVC.Models.MemberInfoModel
+@using System.Diagnostics
+@using LadowebservisMVC.Models
 
 @{
     ViewBag.Title = "Memberinfo";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // Diagnostics initialization
+    var _viewTimer = Stopwatch.StartNew();
+    var _memBefore = GC.GetTotalMemory(false);
+
+    // Access gating flags
+    var isAuthenticated = User?.Identity?.IsAuthenticated == true;
+    var canOrder = (TempData["CanOrder"] as bool?) == true || (ViewBag.CanOrder as bool?) == true;
+
+    // Registered user info (prefer model, fallback to session)
+    var memberInfo = Model ?? (Session != null ? Session["MemberInfo"] as MemberInfoModel : null);
 }
 
 <div class="container-fluid card pt-4">
     <div class="row justify-content-center">
         <div class="col-12 col-sm-10 col-md-8 col-lg-6 text-center">
-            <div class="mb-3">
-                <div class="d-grid gap-2 d-sm-flex justify-content-center">
-                    <a class="btn btn-primary w-100 mb-2 mb-sm-0 flex-fill" href='@Url.Action("Hudba", "Home")' title="Video Youtube" role="button" aria-label="Pozrite si video">Pozrite si tento silný príbeh: Zinzino zázrak alebo veda?</a>
-                    <a class="btn btn-primary w-100 mb-2 mb-sm-0 flex-fill" href='@Url.Action("Objednavky", "Home")' title="Objednávky" role="button" aria-label="Moje objednávky">Moje objednávky</a>
-                    <a class="btn btn-primary w-100 mb-2 mb-sm-0 flex-fill" href='@Url.Action("Favorites", "Home")' title="Obľúbené produkty" role="button" aria-label="Obľúbené produkty">Obľúbené produkty</a>
-                </div>
+            <div class="d-grid gap-2 d-sm-flex justify-content-center mb-3">
+                <a class="btn btn-outline-success w-100 mb-2 mb-sm-0 flex-fill" href='@Url.Action("Kosik", "Home")' title="Kosik" aria-label="Produkty">Späť na môj Košík</a>
+                <a class="btn btn-primary w-100 mb-2 mb-sm-0 flex-fill" href='@Url.Action("Objednavky", "Home")' title="Objednávky" role="button" aria-label="Moje objednávky">Moje objednávky</a>
+                <a class="btn btn-outline-primary w-100 mb-2 mb-sm-0 flex-fill" href='@Url.Action("Favorites", "Home")' title="Obľúbené produkty" aria-label="Obľúbené produkty">Obľúbené produkty</a>
+                <a class="btn btn-outline-success w-100 mb-2 mb-sm-0 flex-fill" href='@Url.Action("Produkty", "Home")' title="Produkty" aria-label="Produkty">Dostupné produkty</a>
             </div>
+
+            <h2 class="mb-3" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">Sekcia člena</h2>
+
+            @if (isAuthenticated || canOrder)
+            {
+                <p class="lead" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">Váš profil a rýchly prístup k objednávkam, obľúbeným a akciám.</p>
+
+                <div class="mt-3">
+                    <div class="row g-2">
+                        <div class="col-12 col-sm-6">
+                            <a href="@Url.Action("Objednavky","Home")" class="btn btn-outline-primary w-100" aria-label="Moje objednávky">Objednávky</a>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <a href="@Url.Action("Hudba","Home")" class="btn btn-outline-info w-100" aria-label="Novinky a informácie">Novinky a informácie</a>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <a href="@Url.Action("MemberInfo","Home")" class="btn btn-outline-secondary w-100" aria-label="História a profil">História a profil</a>
+                        </div>
+                    </div>
+
+                    <div class="mt-3" style="color:#ffffff">
+                        <h4 class="h5">Zľavy a akcie</h4>
+                        <p>Použite kupón <strong>FRIENDS25</strong> pri 1. objednávke po registrácii pre 10% zľavu.</p>
+                        <p>Priebežné akcie a promo kódy nájdete v členskej sekcii.</p>
+                    </div>
+
+                    @if (memberInfo != null)
+                    {
+                        <div class="well text-left mt-3" style="background: rgba(255,255,255,0.06); padding: 1rem; color: #5d33fb;">
+                            <h4>Informácie o registrovanom používateľovi</h4>
+                            <dl class="dl-horizontal">
+                                @foreach (var prop in memberInfo.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
+                                {
+                                    <dt>@prop.Name:</dt>
+                                    <dd>@Html.Encode((prop.GetValue(memberInfo, null) ?? "").ToString())</dd>
+                                }
+                            </dl>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="mb-3">Registrujte sa, aby ste videli svoje objednávky, novinky a pod.</p>
+                <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
+                    
+                    <a class="btn btn-outline-primary mb-2 mb-sm-0" href="@Url.Action("Registracia","Home")">Registrovať sa</a>
+                </div>
+            }
 
             <div class="text-center mt-4">
                 <a href='@Url.Action("Member","Home")' class="btn btn-info" style="margin-left:.5rem;" role="button">Späť</a>
@@ -22,4 +83,19 @@
         </div>
     </div>
 </div>
+
+@{
+    // Stop timer and measure memory after view rendered
+    _viewTimer.Stop();
+    var _memAfter = GC.GetTotalMemory(false);
+    var _memDelta = _memAfter - _memBefore;
+
+    try
+    {
+        Trace.TraceInformation($"[Memberinfo.cshtml] View render time: {_viewTimer.ElapsedMilliseconds} ms; Memory delta: {_memDelta} bytes");
+    }
+    catch { }
+}
+<!-- Server-side view render: @(_viewTimer.ElapsedMilliseconds) ms; memory delta: @(_memDelta) bytes -->
+
 

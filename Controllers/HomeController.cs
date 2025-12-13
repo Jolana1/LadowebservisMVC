@@ -130,17 +130,31 @@ namespace LadowebservisMVC.Controllers
             return View(model);
         }
 
+        // Show registration confirmation page
+        [HttpGet]
+        public ActionResult OdoslanieReg()
+        {
+            ViewBag.PageTitle = "OdoslanieReg";
+            return View();
+        }
+
         [HttpPost]
         public ActionResult OdoslanieReg(RegisterModel model)
         {
             ViewBag.PageTitle = "OdoslanieReg";
             if (ModelState.IsValid)
             {
-                Mailer mailer = new Mailer();
+                var mailer = new Mailer();
                 mailer.OdoslanieEmailu(model);
 
-                return View();
+                // allow access to ordering after successful registration
+                TempData["CanOrder"] = true;
+
+                // Redirect to the registration confirmation page
+                return RedirectToAction("OdoslanieReg", "Home");
             }
+
+            // On validation errors, re-render registration with validation messages
             return View("Registracia", model);
         }
 
@@ -325,8 +339,206 @@ namespace LadowebservisMVC.Controllers
 
             return View("OrderPlaced");
         }
+
+        public ActionResult ReturnPolicy()
+        {
+            ViewBag.PageTitle = "ReturnPolicy";
+            return View();
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

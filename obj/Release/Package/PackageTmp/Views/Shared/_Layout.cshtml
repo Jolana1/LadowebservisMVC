@@ -239,6 +239,15 @@
         .sad-bounce {
             animation: sadBounce 800ms cubic-bezier(.22,1,.36,1) 0s 1 both;
         }
+
+        /* QR payment info block */
+        .qr-pay {
+            border-top: 1px solid #eee;
+            margin-top: 12px;
+            padding-top: 12px;
+        }
+        .qr-pay img { max-width: 100%; height: auto; }
+        .qr-pay ol { padding-left: 18px; }
     </style>
 
     <title>Ladowebservis</title>
@@ -306,18 +315,9 @@
                         <li class="active">
                             <a class="w3-hover-white" href="/Home/ITservis" title="IT služby - podstránka"><span class="glyphicon glyphicon-wrench"></span> IT Služby</a>
                         </li>
-                        @*<li class="active"><a class="w3-hover-white" href="https://www.ashampoo.com/de-de" target="_blank" title="•Ashampoo antivirus and best safety software Deals • Poradíme správny postup &amp;  doporučíme softvér  vo  vašej oblasti •Mame nahradu za drahý a komplikovaný  MS Office ©LWS - Partner spoločnosti Ashampoo"><img src="/Image/ashampoo.com-AshampooSoftwareDeals.png" style="width:58px;height:15px" alt="AshampooSoftwareDeals"> Ashampoo Software</a></li>
-                        <li>
-                        </li>
-                        <li class="active">
-                            <a class="w3-hover-white" href="https://www.pikatec.cz/" target="_blank" title="•Pikatec • Pikatek • Nanotechnology • Energy • Meníme svet-poriadku, umytia a čistenia">
-                                <img src="/Image/Pikatec.png" style="width:58px;height:15px" alt="Pikatec • Pikatek • Nanotechnology • Energy • Meníme svet-poriadku, umytia a čistenia">
-                                Pikatec
-                            </a>
-                        </li>*@
                         <li class="active">
                             <a class="w3-hover-white" href="https://sk.oriflame.com/products/digital-catalogue-current?store=SK-vladimirksenic&PageNumber=1" target="_blank" title="•Oriflame aktuálny katalóg">
-                                <img src="/Image/sk-oriflame-katalog.png" style="width:58px;height:15px" alt="Oriflame aktuálny katalóg">
+                                <img src="~/Image/sk-oriflame-katalog.png" style="width:58px;height:15px" alt="Oriflame aktuálny katalóg">
                                 Oriflame katalóg 17/2025
                             </a>
 
@@ -366,6 +366,20 @@
         <br />
 
         <a id="header-pay-btn" class="btn btn-success mt-sm-0" href="/Home/Kosik?checkout=1" role="button" title="Skontrolovať  čo sa nachádza v mojom košíku">Zobraziť položky košíka</a>
+
+        <!-- QR payment options and instructions -->
+        <div class="qr-pay">
+            <h5>Platobné možnosti s QR kódom</h5>
+            <p class="small">Zaplaťte rýchlo pomocou skenovania QR kódu vo vašej bankovej aplikácii.</p>
+            <img src="~/Image/qr_7sI6qmgiGaAS9CU8wz.png" alt="Platba pomocou QR kódu" title="Platba pomocou QR kódu" />
+            <ol class="small">
+                <li>Otvorte bankovú alebo platobnú aplikáciu vo vašom telefóne.</li>
+                <li>Zvoľte možnosť skenovania QR kódu.</li>
+                <li>Naskenujte QR kód uvedený vyššie.</li>
+                <li>Skontrolujte údaje o platbe a potvrďte platbu.</li>
+            </ol>
+            <p class="small">Alternatívne môžete pokračovať do košíka a zaplatiť bežným spôsobom.</p>
+        </div>
     </aside>
 
     <!-- Carousel -->
@@ -390,12 +404,11 @@
 
                 <div class="item active">
 
-
                     <img src="~/Image/merry_christmas.jpg" alt="xmas" style="width:2560px;height:539px;" title="•Vitajte na našej stránke spoločnosti ©LadoWebServis•">
                     <div class="carousel-caption">
 
                         <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">
-                            Vitajte na našej stránke spoločnosti.Začnite sviatočné obdobie so zdravými návykmi.
+                            Vitajte na našej stránke.Začnite sviatočné obdobie so zdravými návykmi.
                         </p>
                     </div>
 
@@ -404,7 +417,7 @@
                 <div class="item">
                     <img src="~/Image/pagePiling-plugin.gif" alt="LogoLWS" style="width:2560px;height:539px" title="•Vitajte na stránke spoločnosti ©LadoWebServis, ponúkame Vám webové služby v oblasti dizajnu webov,návrhov až po vytvorenie plne funkčnej webovej stránky ako aj zostavenie pc-komponentov,opravy výpočtovej techniky,doporučenie softvérov na vyladenie pc zostáv.Ak vás tento web zaujíma alebo sa zaujímate o naše služby, kontaktujte nás formulárom alebo prostredníctvom e-mailu. Ďakujeme za váš záujem, Vaša spokojnosť je našou prioritou">
                     <div class="carousel-caption">
-                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Ponúkame Vám pc služby&amp;kvalitné výživové produkty od švédskej spoločnosti Zinzino<br>Nenechajte si ujsť túto ponuku!</p>
+                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Ponúkame Vám it služby&amp;kvalitné výživové produkty od švédskej spoločnosti Zinzino<br>Nenechajte si ujsť túto ponuku!</p>
 
                     </div>
                 </div>
@@ -491,9 +504,7 @@
                             <strong>🌐 Web: www.ladowebservis.sk/zdravie</strong>
                         </a><br />
                     </p>
-                    @*Postupimská ulica 29<br />
-                        Košice,&nbsp;SVK<br />
-                        040 22<br />*@
+                    
                 </address>
                 <abbr title="Telefón"><strong>📞 Telefón: +421907151293</strong></abbr><br />
                 <abbr title="Napíšte nám na technickú podporu">
@@ -512,27 +523,27 @@
                     <hr />
 
 
-                    Copyright &#169; LadoWebServis – oficiálny partner Zinzino @DateTime.Today.Year.
-                </p>
             </div>
-
+            <!-- Add this link in the footer section near other links -->
+            <p>
+                <a href="@Url.Action("ReturnPolicy","Home")" class="w3-text-white" title="Zásady vrátenia tovaru">Zásady vrátenia tovaru</a>
+            </p>
 
             <i class='fa fa-heart'>"Your satisfaction is our priority."</i><br>
-
+            <hr />
+            <p class="text-white">© LadoWebServis @DateTime.Today.Year– oficiálny partner Zinzino</p>
 
             <a href="https://www.linkedin.com/in/vladim%C3%ADr-kseni%C4%8D/" target="_blank">
                 <i class="fa fa-linkedin w3-hover-text-white w3-large"></i>&nbsp;&nbsp;
             </a>
 
-            @*<a href="https://www.youtube.com/" target="_blank">
-                    <i class="fa fa-youtube w3-hover-text-white w3-large"></i>&nbsp;&nbsp;
-                </a>*@
+            
             <a href="https://soundcloud.com/lado-8" target="_blank">
                 <i class="fa fa-soundcloud w3-hover-text-white w3-large"></i>&nbsp;&nbsp;
             </a>
             <a class="fa fa-facebook-official w3-hover-text-white w3-large" href="https://www.facebook.com/vladimir.ksenic" target="_blank"></a>&nbsp;&nbsp;
-    
-    </footer>
+
+        </footer>
 
 
 

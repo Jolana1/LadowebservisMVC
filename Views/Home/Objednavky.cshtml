@@ -1,54 +1,41 @@
 ﻿@using System.Diagnostics
-<!-- Orders -->
+@using LadowebservisMVC.Models
 @{
     ViewBag.Title = "Objednavky";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    // Start measuring view render time and memory
+    // Diagnostics init
     var _viewTimer = Stopwatch.StartNew();
     var _memBefore = GC.GetTotalMemory(false);
 
+    // Access gating flags
     var isAuthenticated = User?.Identity?.IsAuthenticated == true;
+    var canOrder = (TempData["CanOrder"] as bool?) == true || (ViewBag.CanOrder as bool?) == true;
+
+    // Registered user info
+    var memberInfo = Session != null ? (Session["MemberInfo"] as MemberInfoModel) : null;
 }
 
-<div class="container-fluid card py-4" aria-busy="false">
+<div class="container-fluid card pt-4">
     <div class="row justify-content-center">
         <div class="col-12 col-sm-10 col-md-8 col-lg-6 text-center">
-            <h2 class="mb-3" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">Sekcia objednávok</h2>
+            <div class="mb-3">
+                <div class="d-grid gap-2 d-sm-flex justify-content-center">
+                    <div class="well text-left mt-3" style="background: rgba(255,255,255,0.06); padding: 1rem; color: #5d33fb;">
+                        <h4>Informácie a objednávky</h4>
 
-            @if (isAuthenticated)
-            {
-                <p class="lead" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">Tu nájdete prehľad svojich objednávok a stav spracovania. Sekcia sa postupne rozširuje — ak tu momentálne nevidíte žiadne objednávky, skúste obnoviť stránku alebo skontrolovať históriu v profile.</p>
+                        <div class="mt-3">
+                            <p style="color:#5d33fb">Momentálne je sekcia objednávok vo vývoji. V blízkej dobe sem pribudne prehľad vašich objednávok. Tu nájdete prehľad svojich objednávok a stav spracovania. Sekcia sa postupne rozširuje — ak tu momentálne nevidíte žiadne objednávky, skúste sa zaregistrovať ako nový člen.</p>
+                        </div>
 
-                <!-- Placeholder / future orders table -->
-                <div class="mt-3">
-                    <p style="color:#ffffff">Momentálne je sekcia objednávok vo vývoji. V blízkej dobe sem pribudne prehľad vašich objednávok.</p>
-
-                    <p>
-                        <a href="https://sk.oriflame.com/" target="_blank" rel="noopener noreferrer" class="btn btn-outline-light" role="button" aria-label="Otvoriť Oriflame">Otvoriť Oriflame</a>
-                    </p>
-
-                    <p class="mt-4">
-                        <a href="@Url.Action("MemberInfo","Home")" class="btn btn-secondary">Späť do členskej sekcie</a>
-                    </p>
+                        <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
+                            <a class="btn btn-outline-primary mb-2 mb-sm-0" href="@Url.Action("Registracia","Home")">Registrovať sa</a><br />
+                            <a class="btn btn-outline-primary mb-2 mb-sm-0" href="@Url.Action("Login","Home")">Odhlásiť sa</a><br />
+                            <a class="btn btn-outline-primary mb-2 mb-sm-0" href="@Url.Action("Memberinfo","Home")">Vrátiť sa späť</a>
+                        </div>
+                    </div>
                 </div>
-            }
-            else
-            {
-                <div class="alert alert-warning" role="alert">
-                    <strong>Prístup obmedzený:</strong> Sekcia objednávok je dostupná len pre registrovaných a prihlásených používateľov.
-                </div>
-
-                <p class="mb-3">
-                    Prihláste sa, aby ste videli svoje objednávky a históriu.
-                </p>
-
-                <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
-                    <a class="btn btn-primary mb-2 mb-sm-0" href="@Url.Action("Login","Home")">Prihlásiť sa</a>
-                    <a class="btn btn-outline-primary mb-2 mb-sm-0" href="@Url.Action("Registracia","Home")">Registrovať sa</a>
-                    <a class="btn btn-secondary" href="@Url.Action("MemberInfo","Home")">Späť do členskej sekcie</a>
-                </div>
-            }
+            </div>
         </div>
     </div>
 </div>
@@ -64,13 +51,11 @@
     {
         Trace.TraceInformation($"[Objednavky.cshtml] View render time: {_viewTimer.ElapsedMilliseconds} ms; Memory delta: {_memDelta} bytes");
     }
-    catch
-    {
-        // Intentionally swallow logging exceptions to avoid affecting response
-    }
-
-    // Emit a hidden HTML comment with timing so client-side tools can pick it up if needed
+    catch { }
 }
 <!-- Server-side view render: @(_viewTimer.ElapsedMilliseconds) ms; memory delta: @(_memDelta) bytes -->
+
+
+
 
 

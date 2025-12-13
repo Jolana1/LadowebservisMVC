@@ -24,6 +24,33 @@
             nameProp.SetValue(member, User.Identity.Name);
         }
     }
+
+    // Resolve Name and Email properties dynamically
+    string displayName = null;
+    string email = null;
+    if (member != null)
+    {
+        var t = member.GetType();
+        var namePi = t.GetProperty("Name")
+                  ?? t.GetProperty("UserName")
+                  ?? t.GetProperty("Username")
+                  ?? t.GetProperty("DisplayName")
+                  ?? t.GetProperty("Meno");
+        var emailPi = t.GetProperty("Email")
+                   ?? t.GetProperty("Mail")
+                   ?? t.GetProperty("EMail")
+                   ?? t.GetProperty("E_mail");
+        if (namePi != null)
+        {
+            var v = namePi.GetValue(member, null);
+            displayName = v != null ? v.ToString() : null;
+        }
+        if (emailPi != null)
+        {
+            var v = emailPi.GetValue(member, null);
+            email = v != null ? v.ToString() : null;
+        }
+    }
 }
 
 <div class="container card pt-4">
@@ -31,16 +58,28 @@
         <div class="col-12 col-sm-10 col-md-8">
             @*<div class="card p-4">*@
             <h1 class="h4 text-center text-success">VITAJTE, STE PRIHLÁSENÝ!</h1>
+            <a class="btn btn-primary w-100 mb-2 mb-sm-0 flex-fill" href='@Url.Action("Hudba", "Home")' title="Pozrite si tento silný príbeh" role="button" aria-label="Pozrite si video">Zinzino zázrak alebo veda?</a>
+            
 
             @if (member != null)
             {
                 <div class="well text-left" style="background: rgba(255,255,255,0.04); padding: 1rem; margin-top: 1rem; color: #5d33fb;">
                     <h4>Informácie o členovi</h4>
                     <dl class="dl-horizontal">
-                        @foreach (var prop in member.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
+                        @if (!string.IsNullOrWhiteSpace(displayName))
                         {
-                            <dt>@prop.Name:</dt>
-                            <dd>@Html.Encode((prop.GetValue(member, null) ?? "").ToString())</dd>
+                            <dt>Meno:</dt>
+                            <dd>@Html.Encode(displayName)</dd>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(email))
+                        {
+                            <dt>Email:</dt>
+                            <dd>@Html.Encode(email)</dd>
+                        }
+                        @if (string.IsNullOrWhiteSpace(displayName) && string.IsNullOrWhiteSpace(email))
+                        {
+                            <dt>Info:</dt>
+                            <dd>Nie sú dostupné údaje mena alebo e-mailu.</dd>
                         }
                     </dl>
                 </div>
@@ -65,8 +104,16 @@
             </ul>
 
             <div class="text-center my-3">
-                <a class="btn btn-primary btn-md tlacitko-moje" href='@Url.Action("Memberinfo","Home")' title="Profil užívateľa">Vstúpte do členskej sekcie</a>
+                <a class="btn btn-primary btn-md tlacitko-moje" href='@Url.Action("Memberinfo","Home")' title="Profil užívateľa">Vstúpte do profilu sekcie prihláseného užívatela</a>
             </div>
+
+            @* Show order access once registration is completed *@
+            @if (TempData["CanOrder"] as bool? == true || (ViewBag.CanOrder as bool?) == true || (member != null && (member.GetType().GetProperty("CanOrder")?.GetValue(member) as bool? == true)))
+            {
+                <div class="text-center my-2">
+                    <a class="btn btn-success" href='@Url.Action("Kosik","Home")' title="Objednať produkty">Prejsť na objednávku</a>
+                </div>
+            }
 
             @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "form-horizontal text-center" }))
             {

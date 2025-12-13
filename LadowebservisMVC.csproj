@@ -797,6 +797,7 @@
     <Content Include="Image\profile-pic.jpg" />
     <Content Include="Image\puzzle-3223941_1920 2.jpg" />
     <Content Include="Image\puzzle-3223941_1920.jpg" />
+    <Content Include="Image\qr_7sI6qmgiGaAS9CU8wz.png" />
     <Content Include="Image\screencapture-zinzino-logo 2.png" />
     <Content Include="Image\screencapture-zinzino-logo.png" />
     <Content Include="Image\shopping-cart 2.png" />
@@ -835,7 +836,6 @@
     <Content Include="Image\thong-vo-2482-unsplash 5.jpg" />
     <Content Include="Image\thong-vo-2482-unsplash 6.jpg" />
     <Content Include="Image\thong-vo-2482-unsplash.jpg" />
-    <Content Include="Image\token%281%29.png" />
     <Content Include="Image\token.png" />
     <Content Include="Image\Urobte si test Zinzino 2.png" />
     <Content Include="Image\Urobte si test Zinzino 3.png" />
@@ -1052,6 +1052,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\OrderPlaced.cshtml" />
     <Content Include="Views\Home\Favorites.cshtml" />
+    <Content Include="Views\Home\ReturnPolicy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Image\corepack\dist\lib\" />
