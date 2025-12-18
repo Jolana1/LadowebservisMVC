@@ -152,6 +152,12 @@
             img.width = 48;
             img.height = 34;
             img.style.marginRight = '10px';
+            // make image navigate to Kosik
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', function (ev) {
+                ev.preventDefault(); ev.stopPropagation();
+                window.location.href = '/Home/Kosik';
+            });
 
             var displayName = (catalog && catalog[key] && catalog[key].Name) ? catalog[key].Name : key;
 
@@ -331,6 +337,12 @@
             img.width = 48;
             img.height = 34;
             img.style.marginRight = '10px';
+            // keep favorites image opening details
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', function (ev) {
+                ev.preventDefault(); ev.stopPropagation();
+                window.location.href = '/Home/Produkty?id=' + encodeURIComponent(id);
+            });
 
             const nameSpan = document.createElement('span');
             nameSpan.innerHTML = item.Name + ' ';
@@ -495,7 +507,13 @@
     window.lwsRenderFavorites = renderFavorites;
     if (!window.lwsRenderCartPage) window.lwsRenderCartPage = null;
 
+    // Expose add-to-cart for layout mini products
+    window.lwsAddToCart = function (id, imgEl) { addToCartById(id, imgEl || null); };
+
 })();
+
+
+
 
 
 

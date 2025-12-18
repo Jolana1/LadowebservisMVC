@@ -21,15 +21,22 @@
 
     <meta name="robots" content="zdravie, follow" />
     <meta name="author" content="Ladowebservis-Vladimír Ksenič" />
-    <meta name="keywords" content="Ladowebservis-„Zinzino test“, „omega 3 doplnky“, „ako zvýšiť imunitu", „únava doplnky", „zdravotné poradenstvo", „zdravie Košice", „online zdravie konzultácia" />
+    <meta name="keywords" content="Ladowebservis-„Zinzino test“, „omega 3 doplnky“, „ako zvýšiť imunitu", „únava a srdce", „zdravotné poradenstvo Košice", „zdravý cholesterol", „online zdravie konzultácia" />
     <meta name="copyright" content="©LWS - Ladowebservis" />
     <meta name="description" content="V rámci webových služieb ponúkame dizajn webov,návrh až po vytvorenie plne funkčnej webovej stránky,mesačný hosting vášho webu na mesiac zdarma potom za mesačný poplatok, ponúkame zostavenie a opravy pc-komponentov,výpočtovej techniky,odporučenie softvérov a celkové vyladenie vašich pc zostáv..">
     <meta name="content-language" content="sk" />
-    <meta property="og:image" content="~/Image/pagePiling-plugin.gif">
+
+    <!-- Open Graph tags -->
+    <meta property="og:title" content="@(!string.IsNullOrWhiteSpace(ViewBag.Title as string) ? ViewBag.Title : "Ladowebservis")">
+    <meta property="og:description" content="V rámci webových služieb ponúkame dizajn webov,návrh až po vytvorenie plne funkčnej webovej stránky,mesačný hosting vášho webu na mesiac zdarma potom za mesačný poplatok, ponúkame zostavenie a opravy pc-komponentov,výpočtovej techniky,odporučenie softvérov a celkové vyladenie vašich pc zostáv..">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="@(Request != null && Request.Url != null ? Request.Url.AbsoluteUri : "https://www.ladowebservis.sk/")">
+    <meta property="og:image" content="@(Request != null && Request.Url != null ? (Request.Url.Scheme + "://" + Request.Url.Authority + Url.Content("~/Image/pagePiling-plugin.gif")) : "https://www.ladowebservis.sk/Image/pagePiling-plugin.gif")">
     <meta property="og:image:width" content="300">
     <meta property="og:image:height" content="300">
-    <meta property="og:title" content="Ladowebservis">
 
+    <!-- Canonical URL -->
+    <link rel="canonical" href="@(Request != null && Request.Url != null ? Request.Url.AbsoluteUri : "https://www.ladowebservis.sk/")" />
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-3.4.1.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
@@ -81,10 +88,64 @@
 
     <style>
         /* Make the image fully responsive */
-        .carousel-inner img {
-            width: 100%;
-            height: 100%;
+        .carousel-inner img { width: 100%; height: 100%; }
+
+        /* Dark overlay behind text for better readability */
+        .carousel-caption-overlay {
+            background: rgba(0,0,0,0.45);
+            padding: 12px 18px;
+            border-radius: 4px;
         }
+
+        .carousel-caption-overlay h3 {
+            margin-top: 0;
+            margin-bottom: 4px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .carousel-caption-overlay p {
+            margin-bottom: 0;
+            font-size: 15px;
+        }
+
+        /* Smaller on mobile */
+        @@media (max-width: 768px) {
+            .carousel-inner img {
+                max-height: 320px;
+            }
+            .carousel-caption-overlay h3 {
+                font-size: 16px;
+            }
+            .carousel-caption-overlay p {
+                font-size: 13px;
+            }
+        }
+
+        /* Smaller navbar tweaks */
+        .navbar { min-height: 42px; }
+        .navbar .navbar-brand { padding: 10px 12px; font-size: 14px; }
+        .navbar .nav > li > a { padding: 10px 12px; font-size: 13px; }
+        .navbar .cart-toggle-btn { padding: 6px 10px; }
+
+        /* Navbar purple background, grey links/buttons */
+        .navbar { background-color: #5d33fb; border-color: #5d33fb; }
+        .navbar .navbar-brand,
+        .navbar .navbar-brand:focus,
+        .navbar .navbar-brand:hover,
+        .navbar .nav > li > a,
+        .navbar .nav > li > a:focus,
+        .navbar .nav > li > a:hover,
+        .navbar .navbar-nav > li > a { color: #ddd !important; }
+        .navbar .nav > li > a:hover { background-color: rgba(255,255,255,0.12); }
+        /* Apply same hover overlay to brand (Domov) */
+        .navbar .navbar-brand:hover,
+        .navbar .navbar-brand:focus { background-color: rgba(255,255,255,0.12); text-decoration: none; }
+
+        .navbar .navbar-toggle .icon-bar { background-color: #ddd; }
+        .navbar .cart-toggle-btn { color: #ddd; border-color: #ccc; }
+        .navbar .cart-toggle-btn:hover,
+        .navbar .cart-toggle-btn:focus { background-color: rgba(255,255,255,0.12); color:#ddd; border-color:#ccc; }
 
         #myBtn {
             display: none;
@@ -92,165 +153,75 @@
             bottom: 20px;
             right: 30px;
             z-index: 99;
-            font-size: 18px;
+            font-size: 16px;
             border: none;
             outline: none;
             background-color: #5d33fb;
             color: white;
             cursor: pointer;
-            padding: 15px;
+            padding: 10px 12px;
             border-radius: 4px;
         }
+        #myBtn:hover { background-color: #555; }
 
-            #myBtn:hover {
-                background-color: #555;
-            }
-
-        .collapse a {
-            float: left;
-            display: block;
-            color: #f2f2f2;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-            .collapse a:hover {
-                background-color: #ddd;
-                color: black;
-            }
-
-            .collapse a.active {
-                background-color: #04AA6D;
-                color: white;
-            }
-
-        .collapse .icon {
-            display: none;
-        }
-
-
-        .collapse a.icon {
-            float: right;
-            display: block;
-        }
-
-
-
-        .collapse.responsive .icon {
-            position: absolute;
-            right: 0;
-            top: 0;
-        }
-
-        .collapse.responsive a {
-            float: none;
-            display: block;
-            text-align: left;
-        }
+        .collapse a { float: left; display: block; color: #f2f2f2; text-align: center; padding: 10px 12px; text-decoration: none; font-size: 13px; }
+        .collapse a:hover { background-color: #ddd; color: black; }
+        .collapse a.active { background-color: #04AA6D; color: purple; }
+        .collapse .icon { display: none; }
+        .collapse a.icon { float: right; display: block; }
+        .collapse.responsive .icon { position: absolute; right: 0; top: 0; }
+        .collapse.responsive a { float: none; display: block; text-align: left; }
 
         /* Style the search box */
-        #mySearch {
-            width: 40%;
-            font-size: 15px;
-            padding: 7px;
-            border: 1px solid #ddd;
-        }
+        #mySearch { width: 40%; font-size: 14px; padding: 6px; border: 1px solid #ddd; }
 
         /* Style the navigation menu */
-        #myMenu {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-            /* Style the navigation links */
-            #myMenu li a {
-                padding: 12px;
-                text-decoration: none;
-                color: black;
-                display: block
-            }
-
-                #myMenu li a:hover {
-                    background-color: #eee;
-                }
+        #myMenu { list-style-type: none; padding: 0; margin: 0; }
+        #myMenu li a { padding: 10px; text-decoration: none; color: black; display: block }
+        #myMenu li a:hover { background-color: #eee; }
 
         /* Footer improvements */
-        .site-footer {
-            background: #222;
-            color: #ddd;
-            padding: 40px 0;
-            margin-top: 40px;
+        .site-footer { background: #5d33fb; color: #ddd; padding: 24px 0; margin-top: 24px; }
+        .site-footer a { color: #ddd; }
+        .site-footer .footer-title { color: #ddd; font-weight: 700; margin-bottom: 8px; font-size: 14px; }
+        .site-footer .social a { color: #ddd; margin-right: 10px; font-size: 1.2em; }
+        .site-footer .small { color: #ccc; }
+        .footer-compact { font-size: 13px; }
+        .footer-compact .list-inline > li { margin-right: 8px; }
+        .footer-contact img { max-width: 60px; height: auto; }
+        @@media (max-width: 576px) {
+            .footer-compact { font-size: 12px; }
+            .footer-contact img { max-width: 48px; }
         }
-        .site-footer a { color: #fff; }
-        .site-footer .footer-title { color: #fff; font-weight:700; margin-bottom:12px; }
-        .site-footer .social a { color: #fff; margin-right: 10px; font-size:1.2em; }
-        .site-footer .small { color:#bbb; }
 
         /* Side cart panel */
-        #side-cart {
-            position: fixed;
-            right: -360px;
-            top: 60px;
-            width: 340px;
-            max-width: 90%;
-            height: calc(100% - 80px);
-            background: #fff;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
-            z-index: 1050;
-            transition: right 0.25s ease-in-out;
-            overflow-y: auto;
-            padding: 1rem;
-        }
-
+        #side-cart { position: fixed; right: -360px; top: 60px; width: 340px; max-width: 90%; height: calc(100% - 80px); background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,0.3); z-index: 1050; transition: right 0.25s ease-in-out; overflow-y: auto; padding: 1rem; }
         #side-cart.open { right: 10px; }
-
-        #cart-overlay {
-            display: none;
-            position: fixed;
-            left: 0; top: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.4);
-            z-index: 1040;
-        }
-
+        #cart-overlay { display: none; position: fixed; left: 0; top: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 1040; }
         #cart-overlay.open { display: block; }
-
         .cart-toggle-btn { margin-left: .5rem; }
-
         .cart-badge { background: #d9534f; color: #fff; padding: 3px 7px; border-radius: 12px; }
-
-        @@media (max-width: 576px) {
-            #side-cart { top: 56px; width: 100%; right: -100%; }
-            #side-cart.open { right: 0; }
-        }
+        @@media (max-width: 576px) { #side-cart { top: 56px; width: 100%; right: -100%; } #side-cart.open { right: 0; } }
 
         /* Sad face subtle bounce animation */
-        @@keyframes sadBounce {
-            0% { transform: translateY(0) scale(1); opacity: 0; }
-            25% { transform: translateY(-6px) scale(1.02); opacity: 1; }
-            60% { transform: translateY(2px) scale(0.995); }
-            100% { transform: translateY(0) scale(1); }
-        }
-
+        @@keyframes sadBounce { 0% { transform: translateY(0) scale(1); opacity: 0; } 25% { transform: translateY(-6px) scale(1.02); opacity: 1; } 60% { transform: translateY(2px) scale(0.995); } 100% { transform: translateY(0) scale(1); } }
         .sad-face { display: inline-block; will-change: transform, opacity; }
-
-        .sad-bounce {
-            animation: sadBounce 800ms cubic-bezier(.22,1,.36,1) 0s 1 both;
-        }
+        .sad-bounce { animation: sadBounce 800ms cubic-bezier(.22,1,.36,1) 0s 1 both; }
 
         /* QR payment info block */
-        .qr-pay {
-            border-top: 1px solid #eee;
-            margin-top: 12px;
-            padding-top: 12px;
-        }
-        .qr-pay img { max-width: 100%; height: auto; }
+        .qr-pay { border-top: 1px solid #eee; margin-top: 12px; padding-top: 12px; }
+        .qr-pay img { max-width: 180px; width: 100%; height: auto; display: block; margin: 6px auto; }
         .qr-pay ol { padding-left: 18px; }
+
+        /* Mini available products below QR */
+        .mini-products { border-top: 1px solid #eee; margin-top: 8px; padding-top: 8px; font-size: 12px; }
+        .mini-products .mini-item { display:flex; align-items:center; padding:4px 0; }
+        .mini-products .mini-item img { width:32px; height:24px; object-fit:cover; margin-right:8px; border-radius:2px; }
+        .mini-products .mini-item .mini-name { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+        .mini-products .mini-item .mini-add { margin-left:6px; }
     </style>
 
-    <title>Ladowebservis</title>
+    <title>@(!string.IsNullOrWhiteSpace(ViewBag.Title as string) ? ViewBag.Title : "Ladowebservis")</title>
 
 
     <!-- Google tag (gtag.js) -->
@@ -259,7 +230,6 @@
         window['dataLayer'] = window['dataLayer'] || [];
         window['gtag'] = function () { window['dataLayer'].push(arguments); };
         window['gtag']('js', new Date());
-
         window['gtag']('config', 'G-3PFBTR5XXW');
     </script>
 
@@ -286,7 +256,7 @@
 
         <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
 
-            <a class="navbar-brand image-container img-rounded glyphicon glyphicon-heart" href="/Home/Zdravie" title="Zdravie">Úvod@*<img src="/Image/pagePiling-plugin.gif" />*@</a>
+            <a class="navbar-brand image-container img-rounded glyphicon glyphicon-heart" href="/Home/Zdravie" title="Domov">Domov</a>
 
             <!-- Product search form in navbar -->
             <form id="productSearchForm" class="navbar-form navbar-left" role="search" onsubmit="return submitProductSearch(this);" style="margin-left:10px;">
@@ -304,33 +274,30 @@
 
             <ul class="nav navbar-nav">
                 <li class="nav-item">
-                    <a class="image-container img-rounded fa fa-balance-scale" href="/Home/Produkty" title="Naše Zinzino Topprodukty pre vaše zdravie">Produkty</a>
+                    <a class="image-container img-rounded fa fa-balance-scale" href="/Home/Produkty" title="Produkty">Produkty</a>
                 </li>
                 <li class="nav-item">
-                    <a class="image-container img-rounded glyphicon glyphicon-user" href="/Home/Login" title="Prihlásenie,zabudnuté heslo a registrácia">Prihlásenie</a>
+                    <a class="image-container img-rounded glyphicon glyphicon-user" href="/Home/Login" title="Prihlásenie">Prihlásenie</a>
                 </li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle img-rounded" data-toggle="dropdown" href="#Partners" title="Naši partneri"><span class="glyphicon glyphicon-briefcase"></span>Partnery</a>
+                    <a class="dropdown-toggle img-rounded" data-toggle="dropdown" href="#Partners" title="Partnery"><span class="glyphicon glyphicon-briefcase"></span>Partnery</a>
                     <ul class="dropdown-menu">
                         <li class="active">
-                            <a class="w3-hover-white" href="/Home/ITservis" title="IT služby - podstránka"><span class="glyphicon glyphicon-wrench"></span> IT Služby</a>
+                            <a class="w3-hover-white" href="/Home/ITservis" title="IT služby"><span class="glyphicon glyphicon-wrench"></span> IT Služby</a>
                         </li>
                         <li class="active">
-                            <a class="w3-hover-white" href="https://sk.oriflame.com/products/digital-catalogue-current?store=SK-vladimirksenic&PageNumber=1" target="_blank" title="•Oriflame aktuálny katalóg">
+                            <a class="w3-hover-white" href="https://sk.oriflame.com/products/digital-catalogue-current?store=SK-vladimirksenic&PageNumber=1" target="_blank" title="Oriflame katalóg">
                                 <img src="~/Image/sk-oriflame-katalog.png" style="width:58px;height:15px" alt="Oriflame aktuálny katalóg">
                                 Oriflame katalóg 17/2025
                             </a>
-
                         </li>
-
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a class="image-container img-rounded fa fa-shopping-cart" href="/Home/Kosik" title="Košík">Košík</a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="image-container img-rounded glyphicon glyphicon-envelope" href="/odoslanie-spravy" title="Kontakt">Formulár</a>
+                    <a class="image-container img-rounded glyphicon glyphicon-envelope" href="/odoslanie-spravy" title="Kontakt">Kontakt</a>
                 </li>
             </ul>
 
@@ -342,18 +309,18 @@
     <div id="cart-overlay" onclick="closeCart()"></div>
     <aside id="side-cart" aria-hidden="true" aria-label="Shopping cart">
         <div class="d-flex justify-content-between align-items-center">
-            <h4>Košík</h4>
+            <h4><i class="fa fa-shopping-cart" aria-hidden="true"></i> Váš nákupný košík</h4>
             <button type="button" class="btn btn-sm btn-link" onclick="closeCart()" aria-label="Close cart"><i class="fa fa-times"></i></button>
         </div>
 
-        <p class="small">Tu uvidíte položky vo vašom košíku.</p>
+        <p class="small">Tu vidíte položky vo vašom košíku.</p>
         <span id="cart-items-badge" style="display:none"></span>
 
         <ul id="cart-items-list" class="list-group mb-2">
         </ul>
 
         <div>
-            <strong>Celkovo 10% zľava do konca decembra s kódom👉 FRIENDS25 👉: €<span id="total-amount">0.00</span></strong>
+            <strong>Celkovo 10% zľava do konca decembra na produkty nad 50€ s kódom👉FRIENDS25: €<span id="total-amount">👉0.00</span></strong>
             <div id="total-discount" style="font-size:0.9em;color:#d9534f;margin-top:6px;"></div>
         </div>
 
@@ -365,289 +332,231 @@
 
         <br />
 
-        <a id="header-pay-btn" class="btn btn-success mt-sm-0" href="/Home/Kosik?checkout=1" role="button" title="Skontrolovať  čo sa nachádza v mojom košíku">Zobraziť položky košíka</a>
-
-        <!-- QR payment options and instructions -->
-        <div class="qr-pay">
-            <h5>Platobné možnosti s QR kódom</h5>
-            <p class="small">Zaplaťte rýchlo pomocou skenovania QR kódu vo vašej bankovej aplikácii.</p>
-            <img src="~/Image/qr_7sI6qmgiGaAS9CU8wz.png" alt="Platba pomocou QR kódu" title="Platba pomocou QR kódu" />
-            <ol class="small">
-                <li>Otvorte bankovú alebo platobnú aplikáciu vo vašom telefóne.</li>
-                <li>Zvoľte možnosť skenovania QR kódu.</li>
-                <li>Naskenujte QR kód uvedený vyššie.</li>
-                <li>Skontrolujte údaje o platbe a potvrďte platbu.</li>
-            </ol>
-            <p class="small">Alternatívne môžete pokračovať do košíka a zaplatiť bežným spôsobom.</p>
+        <a id="header-pay-btn" class="btn btn-success mt-sm-0" href="/Home/Kosik?checkout=1" role="button" title="Skontrolovať čo sa nachádza v mojom košíku">Zobraziť položky košíka</a>
+        <!-- Available products (compact) -->
+        <div class="mini-products">
+            <button type="button" class="btn btn-link btn-xs mini-products-toggle" onclick="toggleMiniProducts()" aria-expanded="false" aria-controls="mini-products-list">Dostupné produkty</button>
+            <ul id="mini-products-list" class="list-unstyled" style="display:none"></ul>
         </div>
-    </aside>
-
-    <!-- Carousel -->
-    <div class="container-fluid-right">
-        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-
-
-
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1" class=""></li>
-                <li data-target="#myCarousel" data-slide-to="2" class=""></li>
-                <li data-target="#myCarousel" data-slide-to="3" class=""></li>
-                <li data-target="#myCarousel" data-slide-to="4" class=""></li>
-                <li data-target="#myCarousel" data-slide-to="5" class=""></li>
-
-
-            </ol>
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner">
-
-                <div class="item active">
-
-                    <img src="~/Image/merry_christmas.jpg" alt="xmas" style="width:2560px;height:539px;" title="•Vitajte na našej stránke spoločnosti ©LadoWebServis•">
-                    <div class="carousel-caption">
-
-                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">
-                            Vitajte na našej stránke.Začnite sviatočné obdobie so zdravými návykmi.
-                        </p>
-                    </div>
-
-                </div>
-
-                <div class="item">
-                    <img src="~/Image/pagePiling-plugin.gif" alt="LogoLWS" style="width:2560px;height:539px" title="•Vitajte na stránke spoločnosti ©LadoWebServis, ponúkame Vám webové služby v oblasti dizajnu webov,návrhov až po vytvorenie plne funkčnej webovej stránky ako aj zostavenie pc-komponentov,opravy výpočtovej techniky,doporučenie softvérov na vyladenie pc zostáv.Ak vás tento web zaujíma alebo sa zaujímate o naše služby, kontaktujte nás formulárom alebo prostredníctvom e-mailu. Ďakujeme za váš záujem, Vaša spokojnosť je našou prioritou">
-                    <div class="carousel-caption">
-                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Ponúkame Vám it služby&amp;kvalitné výživové produkty od švédskej spoločnosti Zinzino<br>Nenechajte si ujsť túto ponuku!</p>
-
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="~/Image/Zinzino.jpg" alt="" style="width:2560px;height:539px" title="Vitajte na stránke spoločnosti ©LadoWebServis.V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz nižšie a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu,nakolko sme partnerom spol. Zinzino. Srdečne ďakujeme za váš záujem,Vaša spokojnosť je našou prioritou.">
-                    <div class="carousel-caption">
-                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Začnite svoju cestu za zdravím už dnes.</p>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="~/Image/skusenosti.jpg" alt="" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
-                    <div class="carousel-caption">
-
-                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Volajte +421907151293 only Slovakia alebo ak nedvíhame tak nám napíšte na kontaktný formulár<br>Neváhajte!</p>
-
-                    </div>
-                </div>
-
-                <div class="item">
-                    <img src="~/Image/photo-1461722936851-13a79b294a5d.jpeg" alt="max" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
-                    <div class="carousel-caption">
-                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Pri 1.objednávke a novej registrácii použite kupón FRIENDS25 a máte 10% zľavu z nákupu!!!</p>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <img src="~/Image/thong-vo-2482-unsplash 2.jpg" alt="" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
-                    <div class="carousel-caption">
-
-                        <p style="font-size:18px;color:#fff;text-shadow:1px 1px 4px #000000;padding-bottom:.25em;">
-
-                            <img src="~/Image/pagePiling-plugin.gif" alt="smalLogo" style="width:125px;height:42px ; padding: .2em; " title="©LadoWebServis,ponúkame Vám webové služby v oblasti dizajnu webov,návrhov až po vytvorenie plne funkčnej webovej stránky ako aj zostavenie pc-komponentov,opravy výpočtovej techniky,doporučenie softvérov na vyladenie pc zostáv.Ak vás tento web zaujíma alebo sa zaujímate o naše produkty a služby, kontaktujte nás prostredníctvom formulára alebo telefónu iba zo Slovenska. Srdečne ďakujeme za váš záujem,Vaša spokojnosť je našou prioritou."><br>
-                            Ďakujeme za nákup a váš záujem.
-                        </p>
-
-                        <!--p style="color:#fff;text-shadow:1px 1px 4px #000000;padding-bottom: .55em;"><em><i class='fa fa-phone' style='font-size:13px'> +421556711924 or +421907151293 </i></em></p-->
-
-                    </div>
-                </div>
-
-
-            </div>
-
-
-
-
-            <!-- Left and right controls -->
-            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-                <span class="sr-only">Next</span>
-            </a>
-
-        </div>
+        <!-- QR payment options and instructions-->
+    <div class="qr-pay">
+        <h5>Vyskúšajte si platobné možnosti s QR kódom za malý BalanceOil Orange+ 100ml 25€</h5>
+        <p class="small">Zaplaťte rýchlo pomocou QR kódu vo vašej bankovej aplikácii.</p>
+        <img src="~/Image/qr_7sI6qmgiGaAS9CU8wz.png" alt="Platba pomocou QR kódu" title="Platba pomocou QR kódu" />
+        <ol class="small">
+            <li>Otvorte bankovú alebo platobnú aplikáciu vo vašom telefóne.</li>
+            <li>Zvoľte možnosť skenovania QR kódu.</li>
+            <li>Naskenujte QR kód uvedený vyššie.</li>
+            <li>Skontrolujte údaje o platbe a potvrďte platbu.</li>
+        </ol>
+        <p class="small">Alternatívne môžete pokračovať do košíka a zaplatiť bežným spôsobom.</p>
     </div>
+       </aside>
 
+       <script>
+           function toggleMiniProducts() {
+               var ul = document.getElementById('mini-products-list');
+               if (!ul) return;
+               if (ul.childElementCount === 0) {
+                   try {
+                       var map = window.__lws_products || {};
+                       var arr = [];
+                       for (var k in map) { if (Object.prototype.hasOwnProperty.call(map, k)) arr.push(map[k]); }
+                       arr.sort(function (a, b) { var an = (a && a.Name) || ''; var bn = (b && b.Name) || ''; return an.localeCompare(bn); });
+                       var max = 8;
+                       for (var i = 0; i < arr.length && i < max; i++) {
+                           var p = arr[i]; if (!p) continue;
+                           var li = document.createElement('li');
+                           li.className = 'mini-item';
+                           var name = (p.Name || p.Id || '').toString();
+                           var id = (p.Id || '').toString();
+                           var imgSrc = (p.Image || '').toString();
+                           var imgTag = imgSrc ? '<img src="' + imgSrc + '" alt="' + name.replace(/"/g, '&quot;') + '">' : '';
+                           // removed add button from side cart mini list
+                           li.innerHTML = imgTag + '<span class="mini-name"><a href="/Home/Produkty?id=' + encodeURIComponent(id) + '" title="' + name.replace(/"/g, '&quot;') + '">' + name + '</a></span>';
+                           ul.appendChild(li);
+                       }
+                   } catch (e) { /* ignore */ }
+               }
+               ul.style.display = (ul.style.display === 'none' || !ul.style.display) ? 'block' : 'none';
+           }
+       </script>
 
+       <!-- Carousel -->
+        <div class="container-fluid-right">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+                    <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+                    <li data-target="#myCarousel" data-slide-to="3" class=""></li>
+                    <li data-target="#myCarousel" data-slide-to="4" class=""></li>
+                    <li data-target="#myCarousel" data-slide-to="5" class=""></li>
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    <div class="item active" data-interval="6000">
+                        <img src="~/Image/merry_christmas.jpg" alt="xmas" style="width:2560px;height:539px;" title="•Vitajte na našej stránke spoločnosti ©LadoWebServis•">
+                        <div class="carousel-caption">
+                            <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Vitajte.Začnite sviatočné obdobie so zdravými návykmi.</p>
+                        </div>
+                    </div>
+                    <div class="item" data-interval="4000">
+                        <img src="~/Image/pagePiling-plugin.gif" alt="LogoLWS" style="width:2560px;height:539px" title="•Vitajte na stránke spoločnosti ©LadoWebServis, ponúkame Vám webové služby v oblasti dizajnu webov,návrhov až po vytvorenie plne funkčnej webovej stránky ako aj zostavenie pc-komponentov,opravy výpočtovej techniky,doporučenie softvérov na vyladenie pc zostáv.Ak vás tento web zaujíma alebo sa zaujímate o naše služby, kontaktujte nás formulárom alebo prostredníctvom e-mailu. Ďakujeme za váš záujem, Vaša spokojnosť je našou prioritou">
+                        <div class="carousel-caption">
+                            <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Ponúkame Vám it služby&amp;kvalitné výživové produkty od švédskej spoločnosti Zinzino<br>Nenechajte si ujsť túto ponuku!</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="~/Image/Zinzino.jpg" alt="" style="width:2560px;height:539px" title="Vitajte na stránke spoločnosti ©LadoWebServis.V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz nižšie a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu,nakolko sme partnerom spol. Zinzino. Srdečne ďakujeme za váš záujem,Vaša spokojnosť je našou prioritou.">
+                        <div class="carousel-caption">
+                            <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Začnite svoju cestu za zdravím už dnes.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="~/Image/skusenosti.jpg" alt="" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
+                        <div class="carousel-caption">
+                            <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Volajte +421907151293 only Slovakia alebo ak nedvíhame tak nám napíšte na kontaktný formulár<br>Neváhajte!</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="~/Image/photo-1461722936851-13a79b294a5d.jpeg" alt="max" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
+                        <div class="carousel-caption">
+                            <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Pri 1.objednávke a novej registrácii použite kupón FRIENDS25 a máte 10% zľavu z nákupu!!!</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="~/Image/thong-vo-2482-unsplash 2.jpg" alt="" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
+                        <div class="carousel-caption">
+                            <p style="font-size:18px;color:#fff;text-shadow:1px 1px 4px #000000;padding-bottom:.25em;"><img src="~/Image/pagePiling-plugin.gif" alt="smalLogo" style="width:125px;height:42px ; padding: .2em; " title="©LadoWebServis,ponúkame Vám webové služby v oblasti dizajnu webov,návrhov až po vytvorenie plne funkčnej webovej stránky ako aj zostavenie pc-komponentov,opravy výpočtovej techniky,doporučenie softvérov na vyladenie pc zostáv.Ak vás tento web zaujíma alebo sa zaujímate o naše produkty a služby, kontaktujte nás prostredníctvom formulára alebo telefónu iba zo Slovenska. Srdečne ďakujeme za váš záujem,Vaša spokojnosť je našou prioritou."><br>Ďakujeme za nákup a váš záujem.</p>
+                        </div>
+                    </div>
+                </div>
 
-
-    <!-- End of carousel -->
-
-
-    <div class="container body-content">
-
-        @RenderBody()
-        <hr />
-        <footer>
-            <br>
-
-
-            <div class="w3-center pt-4 w3-text-white cner-fluid" id="footer">
-
-
-
-                <address>
-                    <hr />
-
-                    <img src="~/Image/sk 2.png" class="img-thumbnail" alt="sk" style="width:65px;height:50px;padding: .1em;">
-                    <p style="font-size: 15px;color:white;">
-                        <br /><a href="@Url.Action("Zdravie","Home",new {area = "Ladowebservis"})" style="font-size: 15px;color:white;">
-                            <strong>🌐 Web: www.ladowebservis.sk/zdravie</strong>
-                        </a><br />
-                    </p>
-                    
-                </address>
-                <abbr title="Telefón"><strong>📞 Telefón: +421907151293</strong></abbr><br />
-                <abbr title="Napíšte nám na technickú podporu">
-                    <strong>📧 E-mail:</strong><a href="mailto:podpora@ladowebservis.sk" style="font-size: 15px;color:white;"> podpora@ladowebservis.sk</a><br />
-                </abbr>
-
-
-                <strong>INFO:</strong><a href="mailto:info@ladowebservis.sk" style="font-size: 15px;color:white;"> info@ladowebservis.sk</a>
-
-
-
-
-
-                <p>
-                    <img src="~/Image/pagePiling-plugin.gif" class="img-rounded" alt="logo" title="Ladowebservis" style="width:105px;height:42px; padding: .1em;">
-                    <hr />
-
-
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
-            <!-- Add this link in the footer section near other links -->
-            <p>
-                <a href="@Url.Action("ReturnPolicy","Home")" class="w3-text-white" title="Zásady vrátenia tovaru">Zásady vrátenia tovaru</a>
-            </p>
+        </div>
 
-            <i class='fa fa-heart'>"Your satisfaction is our priority."</i><br>
+        <!-- End of carousel -->
+
+        <div class="container body-content">
+            @RenderBody()
             <hr />
-            <p class="text-white">© LadoWebServis @DateTime.Today.Year– oficiálny partner Zinzino</p>
+            <footer class="site-footer footer-compact">
+                <div class="w3-center w3-text-white cner-fluid" id="footer">
+                    <div class="footer-contact">
+                        <img src="~/Image/sk 2.png" class="img-thumbnail" alt="Slovakia" title="Slovakia" />
+                    </div>
 
-            <a href="https://www.linkedin.com/in/vladim%C3%ADr-kseni%C4%8D/" target="_blank">
-                <i class="fa fa-linkedin w3-hover-text-white w3-large"></i>&nbsp;&nbsp;
-            </a>
+                    <address class="mt-2 mb-2">
+                        <a href='@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })' class="w3-text-white" title="Domov">🌐 Web: www.ladowebservis.sk/zdravie</a>
+                    </address>
 
-            
-            <a href="https://soundcloud.com/lado-8" target="_blank">
-                <i class="fa fa-soundcloud w3-hover-text-white w3-large"></i>&nbsp;&nbsp;
-            </a>
-            <a class="fa fa-facebook-official w3-hover-text-white w3-large" href="https://www.facebook.com/vladimir.ksenic" target="_blank"></a>&nbsp;&nbsp;
+                    <ul class="list-inline">
+                        <li><abbr title="Telefón">📞 Telefón:</abbr> <span>+421907151293</span></li>
+                        <li><abbr title="Technická podpora">📧 Podpora:</abbr> <a href="mailto:podpora@ladowebservis.sk" class="w3-text-white">podpora@ladowebservis.sk</a></li>
+                        <li><abbr title="Informácie">ℹ️ Info:</abbr> <a href="mailto:info@ladowebservis.sk" class="w3-text-white">info@ladowebservis.sk</a></li>
+                    </ul>
 
-        </footer>
+                    <p class="mt-2 mb-2">
+                        <img src="~/Image/pagePiling-plugin.gif" class="img-rounded" alt="Ladowebservis logo" title="Ladowebservis" style="width:95px;height:38px;" />
+                    </p>
 
+                    <p class="mb-2">
+                        <a href='@Url.Action("ReturnPolicy","Home")' class="w3-text-white" title="Zásady vrátenia tovaru">Zásady vrátenia tovaru</a>
+                    </p>
 
+                    <p class="small mb-2"><i class='fa fa-heart'></i> Your satisfaction is our priority.</p>
+                    <p class="small">© LadoWebServis @DateTime.Today.Year – oficiálny partner Zinzino</p>
 
+                    <p class="mt-2">
+                        <a href="https://www.linkedin.com/in/vladim%C3%ADr-kseni%C4%8D/" target="_blank" aria-label="LinkedIn"><i class="fa fa-linkedin w3-hover-text-white"></i></a>
+                        <a href="https://soundcloud.com/lado-8" target="_blank" aria-label="SoundCloud" class="ml-2"><i class="fa fa-soundcloud w3-hover-text-white"></i></a>
+                        <a href="https://www.facebook.com/vladimir.ksenic" target="_blank" aria-label="Facebook" class="ml-2"><i class="fa fa-facebook-official w3-hover-text-white"></i></a>
+                    </p>
+                </div>
+            </footer>
 
-    <script>
-        // Get the Top Button
-        var mybutton = document.getElementById("myBtn");
-
-        // When the user scrolls down 20px from the top of the document, show the button
-        window.onscroll = function () { scrollFunction() };
-
-        function scrollFunction() {
-            if (!mybutton) return;
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                mybutton.style.display = "block";
-            } else {
-                mybutton.style.display = "none";
+            <script>
+                // Get the Top Button
+                var mybutton = document.getElementById("myBtn");
+                window.onscroll = function () { scrollFunction() };
+                function scrollFunction() {
+                    if (!mybutton) return;
+                    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                        mybutton.style.display = "block";
+                    } else {
+                        mybutton.style.display = "none";
+                    }
+                }
+                function topFunction() { document.body.scrollTop = 0; document.documentElement.scrollTop = 0; }
+            </script>
+            <!--End footer section-->
+        </div>
+        <script>
+            function toggleTopnav() {
+                var x = document.getElementById("myTopnav");
+                if (!x) return;
+                if (x.className === "collapse") { x.className += " responsive"; } else { x.className = "collapse"; }
             }
-        }
-
-        // When the user clicks on the button, scroll to the top of the document
-        function topFunction() {
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-        }
-    </script>
-    <!--End footer section-->
-    </div>
-    <script>
-        function toggleTopnav() {
-            var x = document.getElementById("myTopnav");
-            if (!x) return;
-            if (x.className === "collapse") {
-                x.className += " responsive";
-            } else {
-                x.className = "collapse";
+            function toggleCart() {
+                var cart = document.getElementById('side-cart');
+                var overlay = document.getElementById('cart-overlay');
+                if (!cart || !overlay) return;
+                var open = cart.classList.toggle('open');
+                overlay.classList.toggle('open', open);
+                cart.setAttribute('aria-hidden', !open);
+                overlay.setAttribute('aria-hidden', !open);
+                if (open) { cart.focus(); }
             }
-        }
-
-        function toggleCart() {
-            var cart = document.getElementById('side-cart');
-            var overlay = document.getElementById('cart-overlay');
-            if (!cart || !overlay) return;
-            var open = cart.classList.toggle('open');
-            overlay.classList.toggle('open', open);
-            cart.setAttribute('aria-hidden', !open);
-            overlay.setAttribute('aria-hidden', !open);
-            // Focus trap: move focus to cart when opened
-            if (open) {
-                cart.focus();
+            function closeCart() {
+                var cart = document.getElementById('side-cart');
+                var overlay = document.getElementById('cart-overlay');
+                if (!cart || !overlay) return;
+                cart.classList.remove('open');
+                overlay.classList.remove('open');
+                cart.setAttribute('aria-hidden', 'true');
+                overlay.setAttribute('aria-hidden', 'true');
+                document.getElementById('cartToggle').focus();
             }
-        }
-
-        function closeCart() {
-            var cart = document.getElementById('side-cart');
-            var overlay = document.getElementById('cart-overlay');
-            if (!cart || !overlay) return;
-            cart.classList.remove('open');
-            overlay.classList.remove('open');
-            cart.setAttribute('aria-hidden', 'true');
-            overlay.setAttribute('aria-hidden', 'true');
-            // Return focus to the cart toggle button when closed
-            document.getElementById('cartToggle').focus();
-        }
-
-
-
-    </script>
-    <script>
-        function filterMenu() {
-            // Declare variables
-            var input, filter, ul, li, a, i;
-            input = document.getElementById("mySearch");
-            if (!input) return;
-            filter = input.value.toUpperCase();
-            ul = document.getElementById("myTopnav");
-            if (!ul) return;
-            li = ul.getElementsByTagName("li");
-
-            // Loop through all list items, and hide those who don't match the search query
-            for (i = 0; i < li.length; i++) {
-                a = li[i].getElementsByTagName("a")[0];
-                if (a && a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                    li[i].style.display = "";
-                } else {
-                    li[i].style.display = "none";
+        </script>
+        <script>
+            function filterMenu() {
+                var input, filter, ul, li, a, i;
+                input = document.getElementById("mySearch");
+                if (!input) return;
+                filter = input.value.toUpperCase();
+                ul = document.getElementById("myTopnav");
+                if (!ul) return;
+                li = ul.getElementsByTagName("li");
+                for (i = 0; i < li.length; i++) {
+                    a = li[i].getElementsByTagName("a")[0];
+                    if (a && a.innerHTML.toUpperCase().indexOf(filter) > -1) { li[i].style.display = ""; } else { li[i].style.display = "none"; }
                 }
             }
-        }
-    </script>
-    <script>
-        function submitProductSearch(form) {
-            try {
-                var q = (document.getElementById('productSearchInput') || {}).value || '';
-                q = q.trim();
-                if (!q) return false; // don't submit empty
-                // Redirect to Produkty page with query param
-                window.location.href = '/Home/Produkty?q=' + encodeURIComponent(q);
-            } catch (e) { }
-            return false;
-        }
-    </script>
+        </script>
+        <script>
+            function submitProductSearch(form) {
+                try {
+                    var q = (document.getElementById('productSearchInput') || {}).value || '';
+                    q = q.trim();
+                    if (!q) return false;
+                    window.location.href = '/Home/Produkty?q=' + encodeURIComponent(q);
+                } catch (e) { }
+                return false;
+            }
+        </script>
 
-    @RenderSection("scripts", required: false)
+        @RenderSection("scripts", required: false)
 
 </body>
 </html>
