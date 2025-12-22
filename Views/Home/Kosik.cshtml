@@ -10,7 +10,8 @@
         <div class="col-12 col-md-10">
             <h2 class="mb-3 text-center" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">Váš nákupný košík</h2>
             <div class="text-center mt-4">
-                <a href="@Url.Action("MemberInfo","Home")" class="btn btn-secondary me-2">Späť do členskej sekcie</a>
+                <a href="@Url.Action("Login","Home")" class="btn btn-secondary me-2">Prihlásenie do členskej sekcie</a>
+                <a href='@Url.Action("Favorites","Home")' class="btn btn-secondary me-2">Obľúbené produkty</a>
                 <a href='@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })' class="btn btn-primary btn-md tlacitko-moje">Späť na úvod</a>
             </div>
             <div id="cartReview" class="card p-3 mb-3">
@@ -26,9 +27,25 @@
                 </div>
 
                 <p class="mb-3 text-center" style="color:#5d33fb;text-shadow:1px 1px 4px #5d33fb">
-                    Po kliknutí tlačidla 👉Prejsť k platbe<br />si na zabezpečenej stránke Stripe opäť upravte alebo pridajte produkty o ktoré máte záujem,<br />nakoniec vyberte spôsob platby,vašu dodaciu adresu a zaplaťte. <br />
+                    Po kliknutí tlačidla 👉Prejsť k platbe<br />si na zabezpečenej stránke Stripe opäť upravte alebo pridajte produkty o ktoré máte záujem,<br />nakoniec vyberte spôsob platby,vašu fakturačnú adresu a zaplaťte. <br />
                     Nezabudnite vložiť propagačný kód👉 FRIENDS25 👉aby ste mali 10% zľavu z celého nákupu vrátane DPH.<br /> Ďakujeme Vám za nákup a želáme pevné zdravie!
                 </p>
+
+                <!-- Oriflame + IT service options info -->
+                <div class="alert alert-info" style="margin-bottom:1.5rem;">
+                    <h4 style="margin-top:0;">Oriflame produkty a IT služby</h4>
+                    <p class="small">
+                        Ak máte záujem objednať si aj kozmetiku alebo doplnky Oriflame, môžete:
+                    </p>
+                    <ul class="small" style="padding-left:18px;">
+                        <li>prejsť na oficiálny Oriflame katalóg cez položku <strong>Partnery → Oriflame katalóg</strong> v hornej navigácii a vytvoriť objednávku priamo tam, alebo</li>
+                        <li>napísať nám svoj zoznam Oriflame produktov na e‑mail <a href="mailto:info@ladowebservis.sk">info@ladowebservis.sk</a> a my vás budeme kontaktovať s ďalšími možnosťami.</li>
+                    </ul>
+                    <p class="small" style="margin-bottom:0;">
+                        V prípade záujmu o IT služby (oprava PC, nastavenie systému, webové riešenia a pod.)
+                        napíšte stručný popis problému na adresu <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a> a náš IT servis vás bude kontaktovať e‑mailom.
+                    </p>
+                </div>
 
                 <!-- Payment procedure help thumbnail: clicking opens enlarged image via Fancybox (included in layout) -->
                 <div class="text-center mb-3">
@@ -37,10 +54,13 @@
                         <img src="@Url.Content("~/Image/Postup platby.png")" alt="Payment procedure" class="img-thumbnail" style="max-width:100px;cursor:pointer;" />
                     </a>
                 </div>
+                
 
-                <stripe-buy-button buy-button-id="buy_btn_1Qr3pPHrPMzQ1ua8bEe7WMIU"
+                <stripe-buy-button buy-button-id="buy_btn_1SgujHHrPMzQ1ua8771vUUL4"
                                    publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
                 </stripe-buy-button>
+
+                
             </div>
 
             <!-- Available products: show catalog and allow adding to cart -->
@@ -178,6 +198,24 @@
                 return { subtotal: subtotal, total: total, discount: discount, totalQty: totalQty };
             }
 
+            function changeQuantity(id, delta) {
+                if (!id || !delta) return;
+                var cart = loadCart();
+                var item = cart[id];
+                if (!item) return;
+                var current = item.quantity || 0;
+                var next = current + delta;
+                if (next <= 0) {
+                    delete cart[id];
+                } else {
+                    item.quantity = next;
+                    cart[id] = item;
+                }
+                saveCart(cart);
+                render();
+                if (window.lwsRenderCartHeader) window.lwsRenderCartHeader();
+            }
+
             function render() {
                 var cart = loadCart();
                 var list = document.getElementById('cartReviewList');
@@ -229,17 +267,45 @@
 
                     var controls = document.createElement('div');
                     controls.style.marginLeft = 'auto';
+                    controls.className = 'text-end';
 
-                    // detail button opens Produkty page
+                    // quantity controls: - [qty] +
+                    var qtyControls = document.createElement('div');
+                    qtyControls.className = 'btn-group btn-group-sm';
+
+                    var decBtn = document.createElement('button');
+                    decBtn.type = 'button';
+                    decBtn.className = 'btn btn-default';
+                    decBtn.textContent = '-';
+                    decBtn.title = 'Znížiť množstvo';
+                    decBtn.addEventListener('click', function (e) {
+                        e.preventDefault(); e.stopPropagation();
+                        changeQuantity(k, -1);
+                    });
+
+                    var qtyLabel = document.createElement('span');
+                    qtyLabel.className = 'btn btn-light disabled';
+                    qtyLabel.textContent = qtyVal;
+
+                    var incBtn = document.createElement('button');
+                    incBtn.type = 'button';
+                    incBtn.className = 'btn btn-default';
+                    incBtn.textContent = '+';
+                    incBtn.title = 'Zvýšiť množstvo';
+                    incBtn.addEventListener('click', function (e) {
+                        e.preventDefault(); e.stopPropagation();
+                        changeQuantity(k, 1);
+                    });
+
+                    qtyControls.appendChild(decBtn);
+                    qtyControls.appendChild(qtyLabel);
+                    qtyControls.appendChild(incBtn);
+
                     var detail = document.createElement('a');
                     detail.href = '/Home/Produkty?id=' + encodeURIComponent(k);
                     detail.className = 'btn btn-sm btn-info';
                     detail.textContent = 'Detail';
-                    detail.style.marginRight = '8px';
-
-                    var qty = document.createElement('span');
-                    qty.textContent = 'Ks: ' + qtyVal;
-                    qty.style.marginRight = '12px';
+                    detail.style.margin = '0 8px 0 12px';
 
                     var del = document.createElement('button');
                     del.type = 'button';
@@ -251,13 +317,12 @@
                             var cartNow = loadCart();
                             if (cartNow && cartNow[key]) { delete cartNow[key]; saveCart(cartNow); }
                             render();
-                            // notify header to re-render
                             if (window.lwsRenderCartHeader) window.lwsRenderCartHeader();
                         });
                     })(k);
 
+                    controls.appendChild(qtyControls);
                     controls.appendChild(detail);
-                    controls.appendChild(qty);
                     controls.appendChild(del);
 
                     li.appendChild(img);
@@ -360,6 +425,7 @@
         })();
     </script>
 }
+
 
 
 

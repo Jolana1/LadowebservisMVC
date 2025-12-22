@@ -1053,6 +1053,7 @@
     <Content Include="Views\Home\OrderPlaced.cshtml" />
     <Content Include="Views\Home\Favorites.cshtml" />
     <Content Include="Views\Home\ReturnPolicy.cshtml" />
+    <Content Include="Views\Home\Gdpr.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Image\corepack\dist\lib\" />

@@ -30,6 +30,7 @@ namespace LadowebservisMVC
             routes.MapRoute("odhlasenie", "odhlasenie", new { controller = "Home", action = "Logout" });
             routes.MapRoute("search", "search", new { controller = "Home", action = "Search" });
             routes.MapRoute("return-policy", "return-policy", new { controller = "Home", action = "ReturnPolicy" });
+            routes.MapRoute("terms-of-service", "terms-of-service", new { controller = "Home", action = "TermsOfService" });
             //routes.MapRoute("ebook", "ebook", new { controller = "Home", action = "DownloadEbook" });
 
 
