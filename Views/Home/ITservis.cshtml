@@ -3,44 +3,60 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container-fluid py-4">
-    <div class="row justify-content-center">
-        <div class="col-12 col-sm-10 col-md-8 col-lg-7">
-            <div class="card p-3">
-                <h2 class="mb-3 text-center">IT služby</h2>
+<div class="container card py-4">
+    <h2 class="mb-3" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">
+        IT služby
+    </h2>
 
-                <p class="lead">Ponúkame široké spektrum IT služieb: opravy počítačov, zostavenie zostáv, inštalácie softvéru, zabezpečenie dát a poradenstvo.</p>
+    <p class="small text-muted">
+        Poskytujeme profesionálne IT služby a podporu pre domácnosti aj menšie firmy.
+    </p>
 
-                <div class="row">
-                    <div class="col-12 col-md-6 mb-3">
-                        <h4>Servis a opravy</h4>
-                        <p>Diagnostika hardvéru, výmena komponentov, oprava chybových stavov a optimalizácia výkonu vašich zariadení.</p>
-                    </div>
-                    <div class="col-12 col-md-6 mb-3">
-                        <h4>Zostavy na mieru</h4>
-                        <p>Pomôžeme vám zostaviť počítač podľa vášho rozpočtu a požiadaviek, vrátane odporúčania kompatibilných komponentov.</p>
-                    </div>
-                </div>
+    <hr />
 
-                <div class="row">
-                    <div class="col-12 col-md-6 mb-3">
-                        <h4>Softvér a bezpečnosť</h4>
-                        <p>Inštalácia a nastavenie operačných systémov, antivírusových riešení a softvéru pre prácu aj zábavu.</p>
-                    </div>
-                    <div class="col-12 col-md-6 mb-3">
-                        <h4>Poradenstvo</h4>
-                        <p>Konzultácie pri výbere služieb, optimalizácia siete a zálohovacie stratégie.</p>
-                    </div>
-                </div>
+    <h4>Čo ponúkame</h4>
+    <ul>
+        <li>Diagnostika a opravy PC,smartfónov a notebookov.</li>
+        <li>Inštalácia a aktualizácia operačných systémov a softvéru.</li>
+        <li>Nastavenie a optimalizácia počítačov pre rýchlejší a stabilnejší chod.</li>
+        <li>Poradenstvo pri výbere hardvéru a zostavení PC zostáv.</li>
+        <li>Základné sieťové nastavenia (Wi‑Fi, router, domáca sieť).</li>
+    </ul>
 
-                <div class="text-center mt-3">
-                    <a href='@Url.Action("Kontakt","Home")' class="btn btn-primary btn-sm mb-2 mb-sm-0 me-2">Kontaktujte nás</a>
-                    <a href='@Url.Action("Produkty","Home")' class="btn btn-outline-secondary btn-sm">Zobraziť produkty</a>
-                </div>
+    <h4>Postup objednania IT servisu</h4>
+    <ol>
+        <li>
+            Napíšte nám stručný popis problému na
+            <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a>
+            alebo použite kontaktný formulár na stránke Kontakt.
+        </li>
+        <li>
+            Po obdržaní vašej správy vás budeme kontaktovať e‑mailom alebo telefonicky
+            a dohodneme si ďalší postup.
+        </li>
+        <li>
+            Navrhneme riešenie, približnú cenu a čas realizácie podľa rozsahu problému.
+        </li>
+    </ol>
 
-            </div>
-        </div>
-    </div>
+    <h4>Cenové podmienky</h4>
+    <p class="small">
+        Cena IT služieb závisí od typu zásahu a časovej náročnosti. Odhad ceny vám oznámime
+        vopred na základe vášho popisu problému a prípadnej diagnostiky.
+    </p>
+
+    <h4>Kontakt</h4>
+    <p>
+        Telefón: +421907151293 (iba Slovensko)<br />
+        E‑mail: <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a>
+    </p>
+
+    <p>
+        <a href="@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })"
+           class="btn btn-primary btn-md tlacitko-moje">
+            Späť na úvod
+        </a>
+    </p>
 </div>
 
 <style>

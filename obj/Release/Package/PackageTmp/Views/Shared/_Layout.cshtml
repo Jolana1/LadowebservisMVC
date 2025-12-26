@@ -21,7 +21,7 @@
 
     <meta name="robots" content="zdravie, follow" />
     <meta name="author" content="Ladowebservis-Vladimír Ksenič" />
-    <meta name="keywords" content="Ladowebservis-„Zinzino test“, „omega 3 doplnky“, „ako zvýšiť imunitu\", „únava a srdce\", „zdravotné poradenstvo Košice\", „zdravý cholesterol\", „online zdravie konzultácia\" />
+    <meta name="keywords" content="Ladowebservis, Zinzino test, omega 3 doplnky, ako zvýšiť imunitu, únava a srdce, zdravotné poradenstvo Košice, zdravý cholesterol, online zdravie konzultácia,itservis,Oriflame" />
     <meta name="copyright" content="©LWS - Ladowebservis" />
     <meta name="description" content="V rámci webových služieb ponúkame dizajn webov,návrh až po vytvorenie plne funkčnej webovej stránky,mesačný hosting vášho webu na mesiac zdarma potom za mesačný poplatok, ponúkame zostavenie a opravy pc-komponentov,výpočtovej techniky,odporučenie softvérov a celkové vyladenie vašich pc zostáv..">
     <meta name="content-language" content="sk" />
@@ -233,10 +233,35 @@
         window['gtag']('config', 'G-3PFBTR5XXW');
     </script>
 
+    <!-- Google Website Translator -->
+    <meta name="google-translate-customization" content="" />
+
+    <style>
+        .goog-te-banner-frame.skiptranslate { display: none !important; }
+        body { top: 0 !important; }
+        .goog-te-gadget-simple { background-color: transparent !important; border: none !important; padding: 0 !important; }
+        .goog-te-gadget-simple span { color: #ddd !important; }
+        .goog-te-gadget-icon { display: none !important; }
+    </style>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'sk',
+                includedLanguages: 'en,sk,hu,de,pl',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   </head>
 
 
 <body>
+    @{
+        var lang = (ViewBag.Lang as string ?? "sk").ToLowerInvariant();
+    }
+
     <button onclick="topFunction()" id="myBtn" class="fa fa-arrow-up" data-toggle="tooltip" title="Go to top"></button>
 
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light navbar-fixed-top">
@@ -274,7 +299,7 @@
 
             <ul class="nav navbar-nav">
                 <li class="nav-item">
-                    <a class="image-container img-rounded" href="/Home/Zdravie?lang=en" title="Switch to English">EN</a>
+                    <div id="google_translate_element" class="image-container img-rounded" title="Translate"></div>
                 </li>
                 <li class="nav-item">
                     <a class="image-container img-rounded fa fa-balance-scale" href="/Home/Produkty" title="Produkty">Produkty</a>
@@ -344,7 +369,7 @@
             <button type="button" class="btn btn-link btn-xs mini-products-toggle" onclick="toggleMiniProducts()" aria-expanded="false" aria-controls="mini-products-list">Dostupné produkty</button>
             <ul id="mini-products-list" class="list-unstyled" style="display:none"></ul>
         </div>
-        <!-- QR payment options and instructions-->
+        <!-- QR payment options and instructions>
         <div class="qr-pay">
             <h5>Zaplaťte rýchlo pomocou QR kódu vo vašej bankovej aplikácii</h5>
             <p class="small">Vyskúšajte si platobné možnosti s QR kódom za položky vo vašom košíku.</p>
@@ -356,7 +381,7 @@
                 <li>Skontrolujte si údaje a sumu podla položiek v nákupnom košíku o platbe nakoniec potvrďte platbu.</li>
             </ol>
             <p class="small">Alternatívne môžete pokračovať do košíka a zaplatiť bežným spôsobom.</p>
-        </div>
+        </div -->
     </aside>
 
        <script>
@@ -446,7 +471,7 @@
                     <span class="sr-only">Previous</span>
                 </a>
                 <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class=" glyphicon glyphicon-chevron-right"></span>
                     <span class="sr-only">Next</span>
                 </a>
             </div>
@@ -568,6 +593,387 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

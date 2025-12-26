@@ -5,32 +5,60 @@
 
 <div class="container-fluid card py-4">
     <div class="row justify-content-center">
-        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-7">
+        <div class="col-xs-12 col-sm-10 col-md-8">
             <h2 class="mb-3 text-center" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">Tvoj zoznam ob¾úbenıch produktov</h2>
-            <p class="text-center" style="color: #5d33fb; margin-bottom: 1rem;">Tu nájdete produkty, ktoré ste si oznaèili ako ob¾úbené. Môete ich prida do košíka alebo odstráni zo zoznamu.</p>
+            <p class="text-center" style="color: #5d33fb; margin-bottom: 1rem;">Tu nájdete produkty, ktoré ste si oznaèili ako ob¾úbené. Môete ich prida do košíka, zvıši mnostvo alebo odstráni zo zoznamu.</p>
 
-            <ul id="favoritesList" class="list-group mb-3">
+            <ul id="favoritesList" class="list-group mb-1">
                 <!-- Favorites populated by cart.js -> window.lwsRenderFavorites() -->
             </ul>
 
             <div class="text-center">
-                <a href='@Url.Action("Produkty","Home")' class="btn btn-primary btn-sm">Zobrazi Top produkty</a>
-                <a href='@Url.Action("Kosik","Home")' class="btn btn-default btn-sm" style="margin-left:.5rem;">Prejs do košíka</a>
-                <a href='@Url.Action("Memberinfo","Home")' class="btn btn-info btn-sm" style="margin-left:.5rem;">Spä</a>
+                <a href='@Url.Action("Produkty","Home")' class="btn btn-primary btn-sm">Ponuka produktov</a>
+                <a href='@Url.Action("Kosik","Home")' class="btn btn-default btn-sm" style="margin-left:.5rem;">Spä do košíka</a>
+                <button type="button"
+                        class="btn btn-primary btn-xsm"
+                        style="margin-left:.5rem;"
+                        onclick="openSideCart()">
+                    Skontrolova poloky v košíku
+                </button>
             </div>
 
-            <p class="small text-center" style="color: #5d33fb; margin-top: 1rem;">Tip: kliknite na "Prida do košíka" pri produkte a pokraèujte k platbe.</p>
+            <p class="small text-center" style="color: #5d33fb; margin-top: 2rem;">Tip: pouite tlaèidlá + a x pri produkte na úpravu ob¾úbenıch a košíka.</p>
         </div>
     </div>
 </div>
 
+<style>
+    /* Make favorite list buttons smaller and compact */
+    #favoritesList .btn-add-cart,
+    #favoritesList .btn-remove-fav,
+    #favoritesList .btn-dec-qty {
+        padding: 1px 4px;
+        font-size: 13px;
+        line-height: 1.1;
+    }
+</style>
+
 @section scripts {
     <script>
+        function openSideCart() {
+            try {
+                var cart = document.getElementById('side-cart');
+                var overlay = document.getElementById('cart-overlay');
+                if (!cart || !overlay) return;
+                cart.classList.add('open');
+                overlay.classList.add('open');
+                cart.setAttribute('aria-hidden', 'false');
+                overlay.setAttribute('aria-hidden', 'false');
+                cart.focus();
+            } catch (e) { }
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             try {
                 if (window.lwsRenderFavorites) {
                     window.lwsRenderFavorites();
-                    // if render produced no items, show placeholder
                     setTimeout(function () {
                         var el = document.getElementById('favoritesList');
                         if (el && el.children.length === 0) {
@@ -45,3 +73,4 @@
         });
     </script>
 }
+

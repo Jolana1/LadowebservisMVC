@@ -18,7 +18,7 @@ namespace LadowebservisMVC.Util
         {
             { "0", new ProductInfo { Id = "0", Name = "BalanceTest", Price = 195.00m, Image = "/Image/BalanceTest.png", Stock = 10 } },
             { "1", new ProductInfo { Id = "1", Name = "BalanceOil+ Orange (300ml) ", Price = 55.00m, Image = "/Image/BalanceOil.png", Stock = 50 } },
-            { "2", new ProductInfo { Id = "2", Name = "Zinobiotic", Price = 33.00m, Image = "/Image/Zinobiotic2025.png", Stock = 30 } },
+            { "2", new ProductInfo { Id = "2", Name = "Zinobiotic", Price = 40.00m, Image = "/Image/Zinobiotic2025.png", Stock = 30 } },
             { "3", new ProductInfo { Id = "3", Name = "ZinzinoXtend", Price = 44.00m, Image = "/Image/ZinzinoXtend.png", Stock = 25 } },
             // Additional products - add images under /Image or adjust paths as needed
             { "4", new ProductInfo { Id = "4", Name = "BalanceOil+ Orange (100ml)", Price = 25.00m, Image = "/Image/BalanceOil orange 100ml.png", Stock = 20 } },

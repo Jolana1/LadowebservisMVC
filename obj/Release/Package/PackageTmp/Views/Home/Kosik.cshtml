@@ -13,6 +13,12 @@
                 <a href="@Url.Action("Login","Home")" class="btn btn-secondary me-2">Prihlásenie do členskej sekcie</a>
                 <a href='@Url.Action("Favorites","Home")' class="btn btn-secondary me-2">Obľúbené produkty</a>
                 <a href='@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })' class="btn btn-primary btn-md tlacitko-moje">Späť na úvod</a>
+                <button type="button"
+                        class="btn btn-primary btn-sm"
+                        style="margin-left:.5rem;"
+                        onclick="openSideCart()">
+                    Skontrolovať položky v košíku
+                </button>
             </div>
             <div id="cartReview" class="card p-3 mb-3">
                 <ul id="cartReviewList" class="list-group mb-2">
@@ -152,6 +158,19 @@
 
 @section scripts {
     <script>
+        function openSideCart() {
+            try {
+                var cart = document.getElementById('side-cart');
+                var overlay = document.getElementById('cart-overlay');
+                if (!cart || !overlay) return;
+                cart.classList.add('open');
+                overlay.classList.add('open');
+                cart.setAttribute('aria-hidden', 'false');
+                overlay.setAttribute('aria-hidden', 'false');
+                cart.focus();
+            } catch (e) { }
+        }
+
         (function () {
             var STORAGE_KEY = 'lws_cart_v1';
 
@@ -425,6 +444,18 @@
         })();
     </script>
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
