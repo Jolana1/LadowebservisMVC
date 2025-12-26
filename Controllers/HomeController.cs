@@ -378,6 +378,11 @@ namespace LadowebservisMVC.Controllers
             ViewBag.PageTitle = "Obchodné Podmienky";
             return View();
         }
+        public ActionResult Error()
+        {
+            ViewBag.PageTitle = "Oops";
+            return View();
+        }
     }
 }
 

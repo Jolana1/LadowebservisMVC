@@ -1,38 +1,70 @@
-@{
-    ViewBag.Title = "Zásady vrátenia tovaru";
+ï»¿@{
+    ViewBag.Title = "ZÃ¡sady vrÃ¡tenia tovaru";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <h2>Zásady vrátenia tovaru</h2>
-    <p class="small">Posledná aktualizácia: @DateTime.Today.ToString("dd.MM.yyyy")</p>
+<div class="container card py-4">
+    <h2 class="mb-3" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">
+        ZÃ¡sady vrÃ¡tenia tovaru
+    </h2>
+
+    <p class="small text-muted">
+        PoslednÃ¡ aktualizÃ¡cia: @DateTime.Today.ToString("dd.MM.yyyy")
+    </p>
+
     <hr />
-    <h4>Lehota na vrátenie</h4>
-    <p>Tovar je moné vráti do 14 dní od doruèenia bez udania dôvodu.</p>
+
+    <h4>Lehota na vrÃ¡tenie</h4>
+    <p>
+        Tovar je moÅ¾nÃ© vrÃ¡tiÅ¥ do 14 dnÃ­ od doruÄenia bez udania dÃ´vodu
+        v sÃºlade s platnou legislatÃ­vou EÃš a SR.
+    </p>
 
     <h4>Podmienky</h4>
     <ul>
-        <li>Tovar musí by nepoškodenı, kompletnı a v pôvodnom balení.</li>
-        <li>Otvorené alebo pouité potravinové doplnky nie je moné vráti (ak neboli vadné).</li>
-        <li>Doklad o kúpe (faktúra/objednávka) je potrebnı pri kadom vrátení.</li>
+        <li>Tovar musÃ­ byÅ¥ nepoÅ¡kodenÃ½, kompletnÃ½ a ideÃ¡lne v pÃ´vodnom balenÃ­.</li>
+        <li>OtvorenÃ© alebo pouÅ¾itÃ© potravinovÃ© doplnky nie je moÅ¾nÃ© vrÃ¡tiÅ¥, pokiaÄ¾ nie sÃº vadnÃ©.</li>
+        <li>Pri kaÅ¾dom vrÃ¡tenÃ­ je potrebnÃ© predloÅ¾iÅ¥ doklad o kÃºpe (faktÃºru alebo potvrdenie objednÃ¡vky).</li>
     </ul>
 
-    <h4>Postup vrátenia</h4>
+    <h4>Postup vrÃ¡tenia</h4>
     <ol>
-        <li>Kontaktujte nás na <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a> a uveïte èíslo objednávky a dôvod vrátenia.</li>
-        <li>Tovar bezpeène zaba¾te a odošlite na adresu, ktorú vám potvrdíme v e-maile.</li>
-        <li>Po prijatí a kontrole tovaru vám vrátime peniaze rovnakou platobnou metódou.</li>
+        <li>
+            Kontaktujte nÃ¡s na adrese
+            <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a>
+            a uveÄte ÄÃ­slo objednÃ¡vky, nÃ¡zov produktu a dÃ´vod vrÃ¡tenia.
+        </li>
+        <li>
+            Po obdrÅ¾anÃ­ vaÅ¡ej Å¾iadosti vÃ¡m potvrdÃ­me adresu a pokyny na zaslanie tovaru.
+        </li>
+        <li>
+            Tovar bezpeÄne zabaÄ¾te a odoÅ¡lite. Po prijatÃ­ a kontrole tovaru vÃ¡m v primeranej lehote
+            vrÃ¡time peniaze rovnakou platobnou metÃ³dou, ak sa nedohodneme inak.
+        </li>
     </ol>
 
-    <h4>Náklady na dopravu</h4>
-    <p>Pri vrátení bez vady hradí zákazník náklady na dopravu. Pri vade produktu hradíme náklady my.</p>
+    <h4>NÃ¡klady na dopravu</h4>
+    <p>
+        Pri vrÃ¡tenÃ­ bez vady hradÃ­ nÃ¡klady na dopravu zÃ¡kaznÃ­k. Pri preukÃ¡zanej vade produktu
+        znÃ¡Å¡ame nÃ¡klady na dopravu my.
+    </p>
 
-    <h4>Reklamácie a vadnı tovar</h4>
-    <p>Ak bol produkt vadnı, kontaktujte nás ihneï. Postup reklamácie vám poskytneme e-mailom.</p>
+    <h4>ReklamÃ¡cie a vadnÃ½ tovar</h4>
+    <p>
+        Ak bol produkt pri prevzatÃ­ alebo krÃ¡tko po Åˆom vadnÃ½, kontaktujte nÃ¡s ihneÄ.
+        Postup reklamÃ¡cie a ÄalÅ¡ie pokyny vÃ¡m poskytneme eâ€‘mailom.
+    </p>
 
     <h4>Kontakt</h4>
     <p>
-        Telefón: +421907151293<br />
-        E-mail: <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a>
+        TelefÃ³n: +421907151293<br />
+        Eâ€‘mail: <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a>
     </p>
 
-    
+    <p>
+        <a href="@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })"
+           class="btn btn-primary btn-md tlacitko-moje">
+            SpÃ¤Å¥ na Ãºvod
+        </a>
+    </p>
+</div>

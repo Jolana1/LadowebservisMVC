@@ -4,25 +4,35 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Niečo nie je v poriadku</h1>
-            <hr />
-            <p>
-                Mrzí nás to, ale niečo nie je v poriadku.
-                Pri spracovaní webovej stránky, ktorú ste sa pokúšali na našom webe navštíviť, niečo zlyhalo.
-            </p>
-            <p>
-                Skúste rovnakú akciu zopakovať ešte raz. Ak sa to nezlepší, kontaktujte nás prosím.
-            </p>
-            <p>
-                Ďakujeme za pochopenie.
-            </p>
-            <hr />
-            <p>
-                Admin info: INDEX
-            </p>
-        </div><!-- /.col-md-12 -->
-    </div>
+<div class="container card py-4">
+    <h2 class="mb-3" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">Niečo nie je v poriadku</h2>
+
+    <p class="small text-muted">Pri spracovaní požiadavky na tejto stránke došlo k chybe.</p>
+
+    <hr />
+
+    <p>
+        Mrzí nás to, ale pri načítaní alebo spracovaní stránky, ktorú ste sa pokúsili navštíviť,
+        došlo k neočakávanej chybe.
+    </p>
+    <p>
+        Skúste, prosím, akciu zopakovať o niekoľko sekúnd neskôr. Ak sa problém bude opakovať,
+        kontaktujte nás a uveďte, na akej stránke sa chyba zobrazila.
+    </p>
+    <p>
+        Ďakujeme za pochopenie.
+    </p>
+
+    <h4 class="mt-3">Kontaktné údaje prevádzkovateľa</h4>
+    <p>
+        V prípade otázok alebo opakovaného výskytu chyby nás môžete kontaktovať na e‑mailových adresách:
+        <a href="mailto:info@ladowebservis.sk">info@ladowebservis.sk</a> alebo
+        <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a>.
+    </p>
+
+    <p class="small text-muted">Admin info: LadoWebServis</p>
+
+    <p>
+        <a href="@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })" class="btn btn-primary btn-md tlacitko-moje">Späť na úvod</a>
+    </p>
 </div>

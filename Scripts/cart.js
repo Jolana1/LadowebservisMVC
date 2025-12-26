@@ -319,7 +319,7 @@
                     }
                 }
             }
-            favNote.textContent = 'Máte označené obľúbené produkty. Zoznam nájdete v sekcii Obľúbené produkty.';
+            favNote.textContent = 'Ak máte označené aj obľúbené produkty môžte si ich ešte sem pridať.Zoznam nájdete v sekcii Obľúbené produkty.';
         } else if (favNote && favNote.parentNode) {
             favNote.parentNode.removeChild(favNote);
         }

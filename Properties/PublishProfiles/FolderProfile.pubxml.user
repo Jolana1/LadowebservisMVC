@@ -46,10 +46,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/09/2025 17:59:35</publishTime>
     </File>
     <File Include="bin/LadowebservisMVC.dll">
-      <publishTime>12/24/2025 00:20:57</publishTime>
+      <publishTime>12/26/2025 23:42:41</publishTime>
     </File>
     <File Include="bin/LadowebservisMVC.pdb">
-      <publishTime>12/24/2025 00:20:57</publishTime>
+      <publishTime>12/26/2025 23:42:41</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Antiforgery.dll">
       <publishTime>11/09/2025 17:59:35</publishTime>
@@ -1281,6 +1281,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Image/nature-4176575_1920.jpg">
       <publishTime>11/09/2025 17:59:35</publishTime>
     </File>
+    <File Include="Image/newLogo.png">
+      <publishTime>12/24/2025 00:40:19</publishTime>
+    </File>
     <File Include="Image/objects.js">
       <publishTime>11/09/2025 17:59:35</publishTime>
     </File>
@@ -1849,7 +1852,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/11/2024 20:25:31</publishTime>
     </File>
     <File Include="Scripts/cart.js">
-      <publishTime>12/23/2025 21:18:22</publishTime>
+      <publishTime>12/26/2025 23:09:14</publishTime>
     </File>
     <File Include="Scripts/checkout.js">
       <publishTime>10/26/2025 22:01:14</publishTime>
@@ -2008,13 +2011,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Views/Home/Error.cshtml">
-      <publishTime>07/30/2025 20:49:34</publishTime>
+      <publishTime>12/26/2025 23:37:42</publishTime>
     </File>
     <File Include="Views/Home/Favorites.cshtml">
       <publishTime>12/23/2025 21:54:31</publishTime>
     </File>
     <File Include="Views/Home/Gdpr.cshtml">
-      <publishTime>12/22/2025 00:48:20</publishTime>
+      <publishTime>12/26/2025 19:43:32</publishTime>
     </File>
     <File Include="Views/Home/Hudba.cshtml">
       <publishTime>12/08/2025 20:16:05</publishTime>
@@ -2023,7 +2026,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>08/18/2025 20:16:49</publishTime>
     </File>
     <File Include="Views/Home/ITservis.cshtml">
-      <publishTime>12/09/2025 21:15:45</publishTime>
+      <publishTime>12/26/2025 19:26:59</publishTime>
     </File>
     <File Include="Views/Home/Kontakt.cshtml">
       <publishTime>11/25/2025 19:20:21</publishTime>
@@ -2042,6 +2045,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="Views/Home/Memberinfo.cshtml">
       <publishTime>12/14/2025 00:46:24</publishTime>
+    </File>
+    <File Include="Views/Home/ObchodnePodmienky.cshtml">
+      <publishTime>12/26/2025 21:11:40</publishTime>
     </File>
     <File Include="Views/Home/Objednavky.cshtml">
       <publishTime>12/13/2025 23:19:26</publishTime>
@@ -2068,7 +2074,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/28/2025 20:37:27</publishTime>
     </File>
     <File Include="Views/Home/ReturnPolicy.cshtml">
-      <publishTime>12/12/2025 21:03:49</publishTime>
+      <publishTime>12/26/2025 19:23:46</publishTime>
     </File>
     <File Include="Views/Home/ZberUdajov.cshtml">
       <publishTime>06/19/2024 21:28:49</publishTime>
@@ -2080,7 +2086,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>12/13/2025 23:27:48</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>12/24/2025 00:12:02</publishTime>
+      <publishTime>12/26/2025 23:22:01</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>06/11/2024 20:25:46</publishTime>
