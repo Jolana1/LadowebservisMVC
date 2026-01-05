@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "HTTP 404 - Stránka sa nenašla";
+    ViewBag.Description = "Požadovaná stránka sa nenašla (HTTP 404).";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container card py-4">
+    <h2 class="mb-3" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">
+        Stránka sa nenašla (HTTP 404)
+    </h2>
+
+    <p class="small text-muted">
+        Požadovaný zdroj alebo stránka neboli nájdené. Mohli byť odstránené, presunuté alebo adresa URL obsahuje preklep.
+    </p>
+
+    <hr />
+
+    <p>
+        Mrzí nás to, ale stránka alebo zdroj, ktorý hľadáte, sa nenašiel.
+        Skontrolujte, prosím, adresu v prehliadači, prípadne prejdite na úvodnú stránku a skúste nájsť obsah odtiaľ.
+    </p>
+
+    <h4 class="mt-3">Kontaktné údaje prevádzkovateľa</h4>
+    <p>
+        V prípade otázok nás môžete kontaktovať na e‑mailových adresách:
+        <a href="mailto:info@ladowebservis.sk">info@ladowebservis.sk</a> alebo
+        <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a>.
+    </p>
+
+    <p class="small text-muted">Admin info: LadoWebServis</p>
+
+    <p>
+        <a href="@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })"
+           class="btn btn-primary btn-md tlacitko-moje">
+            Späť na úvod
+        </a>
+    </p>
+</div>
+
+
