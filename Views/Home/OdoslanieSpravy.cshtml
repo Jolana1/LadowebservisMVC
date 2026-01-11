@@ -2,7 +2,7 @@
     ViewBag.Title = "OdoslanieSpravy";
 }
 
-<div class="container card pt-4">
+<!--<div class="container card pt-4">
     <div class="row justify-content-center">
         <div class="col-12 col-sm-10 col-md-8 col-lg-6">
             <div class="card text-center p-4">
@@ -10,15 +10,36 @@
                     Správa bola odoslaná. Ďakujeme za váš e‑mail.
                     <br />
                     <small class="text-muted">Your message has been successfully sent.</small>
-                </h2>
+                </h2>-->
 
                 @*<p class="mb-3">
                     <a href='@Url.Action("DownloadEbook", "Home")' class="btn btn-secondary btn-sm mb-2">Stiahnuť e‑book (PDF)</a>
                 </p>*@
 
-                <p>
+                <!--<p>
                     <a href='@Url.Action("Zdravie","Home",new {area = "Ladowebservis"})' class="btn btn-primary btn-md tlacitko-moje">Späť na úvod</a>
                 </p>
+            </div>
+        </div>
+    </div>
+</div>-->
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-center" style="padding-top:2rem;padding-bottom:2rem;">
+            <div class="well" style="background:transparent;border:none;">
+                <div class="alert alert-success" role="alert" style="background:rgba(93,51,251,0.06);border-color:rgba(93,51,251,0.25);color:#fff;">
+                    <h2 style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb;margin-top:0;">Ďakujeme za správu..</h2>
+                    <p style="color:#ffffff;margin:0.5rem 0 0;">Vaša správa bola úspešne odoslaná.Nezabudnite sa zaregistrovať a mať ďalšie zľavy na produkty ako verný zákazník.</p>
+                    <p style="color:#ffffff;margin:0.5rem 0 0;">Your message has been sent successfully. Thank you!</p>
+                </div>
+
+                <div class="btn-group" role="group" aria-label="Akcie po registracii" style="margin-top:1rem;">
+                    <a href="@Url.Action("Zdravie","Home")" class="btn btn-primary" role="button">Späť na úvod</a>
+                    <a href="@Url.Action("Registracia","Home")" class="btn btn-default" role="button">Registrácia</a>
+                    <a href="@Url.Action("Produkty","Home")" class="btn btn-primary" role="button">Produkty-ponuka</a>
+                </div>
+
+                <p class="small" style="color:#ddd;margin-top:1rem;">Ak potrebujete pomoc, kontaktujte nás cez formulár alebo e‑mail.</p>
             </div>
         </div>
     </div>

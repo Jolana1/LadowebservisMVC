@@ -1,4 +1,5 @@
-﻿@using LadowebservisMVC.Util
+﻿
+@using LadowebservisMVC.Util
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,7 @@
     <meta name="author" content="Ladowebservis-Vladimír Ksenič" />
     <meta name="keywords" content="Ladowebservis, Zinzino test, omega 3 doplnky, ako zvýšiť imunitu, únava a srdce, zdravotné poradenstvo Košice, zdravý cholesterol, online zdravie konzultácia,itservis,Oriflame" />
     <meta name="copyright" content="©LWS - Ladowebservis" />
-    <meta name="description" content="V rámci webových služieb ponúkame dizajn webov,návrh až po vytvorenie plne funkčnej webovej stránky,mesačný hosting vášho webu na mesiac zdarma potom za mesačný poplatok, ponúkame zostavenie a opravy pc-komponentov,výpočtovej techniky,odporučenie softvérov a celkové vyladenie vašich pc zostáv..">
+    <meta name="description" content="Ponúkame Vám kvalitné výživové produkty od švédskej spoločnosti Zinzino.">
     <meta name="content-language" content="sk" />
 
     <!-- Open Graph tags -->
@@ -66,7 +67,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-
     <!-- Css -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" type="text/css" href="~/styles/w31.css">
@@ -79,12 +79,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
     <!-- 1. Add latest jQuery and fancybox files -->
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-
 
     <style>
         /* Make the image fully responsive */
@@ -120,6 +117,32 @@
             .carousel-caption-overlay p {
                 font-size: 13px;
             }
+
+            /* Left-align navbar items on small screens */
+            .navbar .navbar-collapse {
+                text-align: left;
+            }
+            .navbar .navbar-nav {
+                float: none;
+            }
+            .navbar .navbar-nav > li {
+                float: none;
+                display: block;
+            }
+
+            /* Force navbar text/icons to white on mobile */
+            .navbar .navbar-brand,
+            .navbar .navbar-brand:focus,
+            .navbar .navbar-brand:hover,
+            .navbar .nav > li > a,
+            .navbar .nav > li > a:focus,
+            .navbar .nav > li > a:hover,
+            .navbar .navbar-nav > li > a {
+                color: #fff !important;
+            }
+            .navbar .navbar-toggle .icon-bar {
+                background-color: #fff;
+            }
         }
 
         /* Smaller navbar tweaks */
@@ -146,6 +169,30 @@
         .navbar .cart-toggle-btn { color: #ddd; border-color: #ccc; }
         .navbar .cart-toggle-btn:hover,
         .navbar .cart-toggle-btn:focus { background-color: rgba(255,255,255,0.12); color:#ddd; border-color:#ccc; }
+
+        /* Nav quick search: placeholder animation + focus glow */
+        @@keyframes navPlaceholderPulse {
+            0% { opacity: .45; }
+            50% { opacity: 1; }
+            100% { opacity: .45; }
+        }
+
+        #navQuickSearchInput.pulse-placeholder::placeholder {
+            animation: navPlaceholderPulse 900ms ease-in-out 0s 3;
+        }
+
+        #navQuickSearchInput.pulse-placeholder::-webkit-input-placeholder {
+            animation: navPlaceholderPulse 900ms ease-in-out 0s 3;
+        }
+
+        #navQuickSearchInput.pulse-placeholder:-ms-input-placeholder {
+            animation: navPlaceholderPulse 900ms ease-in-out 0s 3;
+        }
+
+        #navQuickSearchInput:focus {
+            border-color: #5d33fb;
+            box-shadow: 0 0 0 0.2rem rgba(93,51,251,0.25);
+        }
 
         #myBtn {
             display: none;
@@ -181,14 +228,22 @@
         #myMenu li a:hover { background-color: #eee; }
 
         /* Footer improvements */
-        .site-footer { background: #5d33fb; color: #ddd; padding: 24px 0; margin-top: 24px; }
-        .site-footer a { color: #ddd; }
-        .site-footer .footer-title { color: #ddd; font-weight: 700; margin-bottom: 8px; font-size: 14px; }
-        .site-footer .social a { color: #ddd; margin-right: 10px; font-size: 1.2em; }
-        .site-footer .small { color: #ccc; }
+        .site-footer {
+            background: #5d33fb;
+            color: #ccc;
+            padding: 28px 0;
+            margin-top: 24px;
+            border-top: 1px solid #111;
+        }
+        .site-footer a { color: #e0e0e0; }
+        .site-footer a:hover,
+        .site-footer a:focus { color: #fff; text-decoration: none; }
+        .site-footer .footer-title { color: #e0e0e0; font-weight: 700; margin-bottom: 8px; font-size: 14px; }
+        .site-footer .social a { color: #e0e0e0; margin-right: 10px; font-size: 1.2em; }
+        .site-footer .small { color: #9a9a9a; }
         .footer-compact { font-size: 13px; }
         .footer-compact .list-inline > li { margin-right: 8px; }
-        .footer-contact img { max-width: 60px; height: auto; }
+        .footer-contact img { max-width: 60px; height: auto; filter: grayscale(100%); }
         @@media (max-width: 576px) {
             .footer-compact { font-size: 12px; }
             .footer-contact img { max-width: 48px; }
@@ -223,7 +278,6 @@
 
     <title>@(!string.IsNullOrWhiteSpace(ViewBag.Title as string) ? ViewBag.Title : "Ladowebservis")</title>
 
-
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3PFBTR5XXW"></script>
     <script>
@@ -254,8 +308,7 @@
         }
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  </head>
-
+</head>
 
 <body>
     @{
@@ -270,43 +323,60 @@
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
+        <a class="navbar-brand image-container img-rounded" href="/Home/Zdravie" title="Domov">
+            <img src="@Url.Content("~/Image/pagePiling-plugin.gif")" alt="Domov" style="height:24px;width:auto;" />
+        </a>
+        <a href="/Home/Login"
+           class="btn btn-outline-secondary cart-toggle-btn"
+           title="Prihlásenie"
+           aria-label="Prihlásenie">
+            <i class="fa fa-user"></i>
+        </a>
         <!-- Cart toggle button moved to navbar for quick access (badge kept here) -->
         <div class="navbar-right">
-            <button id="cartToggle" class="btn btn-outline-secondary cart-toggle-btn" onclick="toggleCart()" aria-label="Open cart">
+            <a href="/Home/Favorites" class="btn btn-outline-secondary cart-toggle-btn" title="Obľúbené/Uložené produkty" aria-label="Obľúbené/uložené produkty">
+                <i class="fa fa-heart"></i>
+            </a>
+
+            <button type="button" class="btn btn-outline-secondary cart-toggle-btn" title="Zadaj názov produktu" aria-label="Hľadať produkty v ponuke" onclick="toggleNavSearch()">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+
+            <span class="navbar-quick-search" id="navQuickSearch" style="display:none;">
+                <form class="navbar-form" role="search" onsubmit="return submitNavQuickSearch();" style="margin:0; padding:0; display:inline-block;">
+                    <div class="input-group">
+                        <input id="navQuickSearchInput" type="text" class="form-control" placeholder="Hľadať produkty v ponuke.." aria-label="Zadaj názov produktu" />
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default" aria-label="Hľadať">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </span>
+
+            <button id="cartToggle"
+                    class="btn btn-outline-secondary cart-toggle-btn"
+                    onclick="toggleCart()"
+                    aria-label="Open cart">
                 <i class="fa fa-shopping-cart"></i>
                 <span id="cart-items" class="cart-badge">0</span>
             </button>
         </div>
 
         <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-
-            <a class="navbar-brand image-container img-rounded glyphicon glyphicon-heart" href="/Home/Zdravie" title="Domov">Domov</a>
-
-            <!-- Product search form in navbar -->
-            <form id="productSearchForm" class="navbar-form navbar-left" role="search" onsubmit="return submitProductSearch(this);" style="margin-left:10px;">
-                <div class="form-group">
-                    <div class="input-group">
-                        <input id="productSearchInput" name="q" type="text" class="form-control" placeholder="Hľadať produkty..." aria-label="Hľadať produkty" />
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-default" title="Hľadať produkty" aria-label="Hľadať produkty">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </button>
-                        </span>
-                    </div>
-                </div>
-            </form>
-
             <ul class="nav navbar-nav">
                 <li class="nav-item">
                     <div id="google_translate_element" class="image-container img-rounded" title="Translate"></div>
                 </li>
+                @*<li class="nav-item">
+                    <a class="image-container img-rounded fa fa-download" href="/Home/DownloadEbook" title="Stiahnuť E-book">Stiahnuť E-book</a>
+                </li>*@
+
                 <li class="nav-item">
                     <a class="image-container img-rounded fa fa-balance-scale" href="/Home/Produkty" title="Produkty">Produkty</a>
                 </li>
-                <li class="nav-item">
-                    <a class="image-container img-rounded glyphicon glyphicon-user" href="/Home/Login" title="Prihlásenie">Prihlásenie</a>
-                </li>
+
                 <li class="dropdown">
                     <a class="dropdown-toggle img-rounded" data-toggle="dropdown" href="#Partners" title="Partnery"><span class="glyphicon glyphicon-briefcase"></span>Partnery</a>
                     <ul class="dropdown-menu">
@@ -327,7 +397,7 @@
                 <li class="nav-item">
                     <a class="image-container img-rounded glyphicon glyphicon-envelope" href="/odoslanie-spravy" title="Kontakt">Kontakt</a>
                 </li>
-                
+
             </ul>
 
         </div>
@@ -338,7 +408,7 @@
     <div id="cart-overlay" onclick="closeCart()"></div>
     <aside id="side-cart" aria-hidden="true" aria-label="Shopping cart">
         <div class="d-flex justify-content-between align-items-center">
-            <h4><i class="fa fa-shopping-cart" aria-hidden="true"></i> Tu vidíte položky vo vašom košíku</h4>
+            <h4><i class="fa fa-shopping-cart" aria-hidden="true"></i> Tu je zoznam produktov v košíku</h4>
             <button type="button" class="btn btn-sm btn-link" onclick="closeCart()" aria-label="Close cart"><i class="fa fa-times"></i></button>
         </div>
 
@@ -349,298 +419,6902 @@
         </ul>
 
         <div>
-            <strong>Teraz 10% zľava do konca decembra na produkty nad 50€ s kódom👉FRIENDS25👉Celková suma je: €<span id="total-amount">0.00</span></strong>
+            <strong>👉Celková suma je: €<span id="total-amount">0.00</span></strong>
             <div id="total-discount" style="font-size: 0.9em; color: #5d33fb; margin-top: 6px;"></div>
         </div>
 
-        <script async
-                src="https://js.stripe.com/v3/buy-button.js">
-        </script>
-
-        <stripe-buy-button buy-button-id="buy_btn_1SgujHHrPMzQ1ua8771vUUL4"
-                           publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
-        </stripe-buy-button>
+       
 
         <br />
 
-        <a id="header-pay-btn" class="btn btn-success mt-sm-0" href="/Home/Kosik?checkout=1" role="button" title="Skontrolovať čo sa nachádza v mojom košíku">Tu vidíte stránku vášho košíka</a>
+        <a id="header-pay-btn" class="btn btn-success mt-sm-0" href="/Home/Kosik?checkout=1" role="button" title="Skontrolovať čo sa nachádza v mojom košíku">Chcem sa vrátiť na stránku košíka</a>
         <!-- Available products (compact) -->
         <div class="mini-products">
             <button type="button" class="btn btn-link btn-xs mini-products-toggle"
                     onclick="toggleMiniProducts()" aria-expanded="false"
                     aria-controls="mini-products-list">
-                Dostupné produkty
+                Nezabudli ste ešte na niečo? ▼
             </button>
             <ul id="mini-products-list" class="list-unstyled" style="display:none"></ul>
-
-            <!-- New Favorites link under available products -->
-            <a href="/Home/Favorites"
-               class="btn btn-link btn-xs"
-               style="margin-top:4px;"
-               title="Obľúbené produkty">
-                Obľúbené produkty
+        </div>
+        <!-- Payment procedure help thumbnail: clicking opens enlarged image via Fancybox (included in layout) -->
+        <div class="text-center mb-3">
+            <p class="small text-black">Potrebujete pomoc s platbou? Kliknite na pomocný obrázok pre návod ako jednoducho postupovať a prejsť ku platbe cez našu platobnú bránu Stripe.</p>
+            <a data-fancybox="payment-help" data-caption="Payment procedure" href="@Url.Content("~/Image/Postup platby.png")" aria-label="Open payment procedure image">
+                <img src="@Url.Content("~/Image/Postup platby.png")" alt="Payment procedure" class="img-thumbnail" style="max-width:100px;cursor:pointer;" />
             </a>
+            <br>
+            <script async
+                    src="https://js.stripe.com/v3/buy-button.js">
+            </script>
+
+            <stripe-buy-button buy-button-id="buy_btn_1SgujHHrPMzQ1ua8771vUUL4"
+                               publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
+            </stripe-buy-button>
         </div>
         <!-- QR payment options and instructions>
-        <div class="qr-pay">
-            <h5>Zaplaťte rýchlo pomocou QR kódu vo vašej bankovej aplikácii</h5>
-            <p class="small">Vyskúšajte si platobné možnosti s QR kódom za položky vo vašom košíku.</p>
-            <img src="~/Image/qr_7sI6qmgiGaAS9CU8wz.png" alt="Platba pomocou QR kódu" title="Platba pomocou QR kódu" />
-            <ol class="small">
-                <li>Otvorte bankovú alebo platobnú aplikáciu vo vašom telefóne.</li>
-                <li>Zvoľte možnosť skenovania QR kódu.</li>
-                <li>Naskenujte QR kód uvedený vyššie.</li>
-                <li>Skontrolujte si údaje a sumu podla položiek v nákupnom košíku o platbe nakoniec potvrďte platbu.</li>
-            </ol>
-            <p class="small">Alternatívne môžete pokračovať do košíka a zaplatiť bežným spôsobom.</p>
-        </div -->
+    <div class="qr-pay">
+        <h5>Zaplaťte rýchlo pomocou QR kódu vo vašej bankovej aplikácii</h5>
+        <p class="small">Vyskúšajte si platobné možnosti s QR kódom za položky vo vašom košíku.</p>
+        <img src="~/Image/qr_7sI6qmgiGaAS9CU8wz.png" alt="Platba pomocou QR kódu" title="Platba pomocou QR kódu" />
+        <ol class="small">
+            <li>Otvorte bankovú alebo platobnú aplikáciu vo vašom telefóne.</li>
+            <li>Zvoľte možnosť skenovania QR kódu.</li>
+            <li>Naskenujte QR kód uvedený vyššie.</li>
+            <li>Skontrolujte si údaje a sumu podla položiek v nákupnom košíku o platbe nakoniec potvrďte platbu.</li>
+        </ol>
+        <p class="small">Alternatívne môžete pokračovať do košíka a zaplatiť bežným spôsobom.</p>
+    </div -->
     </aside>
 
-       <script>
-           function toggleMiniProducts() {
-               var ul = document.getElementById('mini-products-list');
-               if (!ul) return;
-               if (ul.childElementCount === 0) {
-                   try {
-                       var map = window.__lws_products || {};
-                       var arr = [];
-                       for (var k in map) { if (Object.prototype.hasOwnProperty.call(map, k)) arr.push(map[k]); }
-                       arr.sort(function (a, b) { var an = (a && a.Name) || ''; var bn = (b && b.Name) || ''; return an.localeCompare(bn); });
-                       var max = 8;
-                       for (var i = 0; i < arr.length && i < max; i++) {
-                           var p = arr[i]; if (!p) continue;
-                           var li = document.createElement('li');
-                           li.className = 'mini-item';
-                           var name = (p.Name || p.Id || '').toString();
-                           var id = (p.Id || '').toString();
-                           var imgSrc = (p.Image || '').toString();
-                           var imgTag = imgSrc ? '<img src="' + imgSrc + '" alt="' + name.replace(/"/g, '&quot;') + '">' : '';
-                           // removed add button from side cart mini list
-                           li.innerHTML = imgTag + '<span class="mini-name"><a href="/Home/Produkty?id=' + encodeURIComponent(id) + '" title="' + name.replace(/"/g, '&quot;') + '">' + name + '</a></span>';
-                           ul.appendChild(li);
-                       }
-                   } catch (e) { /* ignore */ }
-               }
-               ul.style.display = (ul.style.display === 'none' || !ul.style.display) ? 'block' : 'none';
-           }
-       </script>
+    <script>
+        function toggleMiniProducts() {
+            var ul = document.getElementById('mini-products-list');
+            if (!ul) return;
+            if (ul.childElementCount === 0) {
+                try {
+                    var map = window.__lws_products || {};
+                    var arr = [];
+                    for (var k in map) { if (Object.prototype.hasOwnProperty.call(map, k)) arr.push(map[k]); }
+                    arr.sort(function (a, b) { var an = (a && a.Name) || ''; var bn = (b && b.Name) || ''; return an.localeCompare(bn); });
+                    var max = 8;
+                    for (var i = 0; i < arr.length && i < max; i++) {
+                        var p = arr[i]; if (!p) continue;
+                        var li = document.createElement('li');
+                        li.className = 'mini-item';
+                        var name = (p.Name || p.Id || '').toString();
+                        var id = (p.Id || '').toString();
+                        var imgSrc = (p.Image || '').toString();
+                        var imgTag = imgSrc ? '<img src="' + imgSrc + '" alt="' + name.replace(/"/g, '&quot;') + '">' : '';
+                        // removed add button from side cart mini list
+                        li.innerHTML = imgTag + '<span class="mini-name"><a href="/Home/Produkty?id=' + encodeURIComponent(id) + '" title="' + name.replace(/"/g, '&quot;') + '">' + name + '</a></span>';
+                        ul.appendChild(li);
+                    }
+                } catch (e) { /* ignore */ }
+            }
+            ul.style.display = (ul.style.display === 'none' || !ul.style.display) ? 'block' : 'none';
+        }
+    </script>
 
-       <!-- Carousel -->
-        <div class="container-fluid-right">
-            <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1" class=""></li>
-                    <li data-target="#myCarousel" data-slide-to="2" class=""></li>
-                    <li data-target="#myCarousel" data-slide-to="3" class=""></li>
-                    <li data-target="#myCarousel" data-slide-to="4" class=""></li>
-                    <li data-target="#myCarousel" data-slide-to="5" class=""></li>
-                </ol>
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                    <div class="item active" data-interval="6000">
-                        <img src="~/Image/merry_christmas.jpg" alt="xmas" style="width:2560px;height:539px;" title="•Vitajte na našej stránke spoločnosti ©LadoWebServis•">
-                        <div class="carousel-caption">
-                            <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Vitajte.Začnite sviatočné obdobie so zdravými návykmi.</p>
-                        </div>
-                    </div>
-                    <div class="item" data-interval="4000">
-                        <img src="~/Image/pagePiling-plugin.gif" alt="LogoLWS" style="width:2560px;height:539px" title="•Vitajte na stránke spoločnosti ©LadoWebServis, ponúkame Vám webové služby v oblasti dizajnu webov,návrhov až po vytvorenie plne funkčnej webovej stránky ako aj zostavenie pc-komponentov,opravy výpočtovej techniky,doporučenie softvérov na vyladenie pc zostáv.Ak vás tento web zaujíma alebo sa zaujímate o naše služby, kontaktujte nás formulárom alebo prostredníctvom e-mailu. Ďakujeme za váš záujem, Vaša spokojnosť je našou prioritou">
-                        <div class="carousel-caption">
-                            <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Ponúkame Vám kvalitné výživové produkty od švédskej spoločnosti Zinzino<br>Nenechajte si ujsť túto ponuku!</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="~/Image/Zinzino.jpg" alt="" style="width:2560px;height:539px" title="Vitajte na stránke spoločnosti ©LadoWebServis.V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz nižšie a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu,nakolko sme partnerom spol. Zinzino. Srdečne ďakujeme za váš záujem,Vaša spokojnosť je našou prioritou.">
-                        <div class="carousel-caption">
-                            <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Začnite svoju cestu za zdravím už dnes.</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="~/Image/skusenosti.jpg" alt="" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
-                        <div class="carousel-caption">
-                            <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Volajte +421907151293 only Slovakia alebo ak nedvíhame tak nám napíšte na formulár-Kontakt<br>Neváhajte!</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="~/Image/photo-1461722936851-13a79b294a5d.jpeg" alt="max" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
-                        <div class="carousel-caption">
-                            <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Pri 1.objednávke použite kupón FRIENDS25 a máte 10% zľavu z nákupu!!!</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="~/Image/thong-vo-2482-unsplash 2.jpg" alt="" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
-                        <div class="carousel-caption">
-                            <p style="font-size:18px;color:#fff;text-shadow:1px 1px 4px #000000;padding-bottom:.25em;"><img src="~/Image/pagePiling-plugin.gif" alt="smalLogo" style="width:125px;height:42px ; padding: .2em; " title="©LadoWebServis,ponúkame Vám webové služby v oblasti dizajnu webov,návrhov až po vytvorenie plne funkčnej webovej stránky ako aj zostavenie pc-komponentov,opravy výpočtovej techniky,doporučenie softvérov na vyladenie pc zostáv.Ak vás tento web zaujíma alebo sa zaujímate o naše produkty a služby, kontaktujte nás prostredníctvom formulára alebo telefónu iba zo Slovenska. Srdečne ďakujeme za váš záujem,Vaša spokojnosť je našou prioritou."><br>Ďakujeme za nákup a váš záujem.</p>
-                        </div>
+    <!-- Carousel -->
+    <div class="container-fluid-right">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+                <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+                <li data-target="#myCarousel" data-slide-to="3" class=""></li>
+                <li data-target="#myCarousel" data-slide-to="4" class=""></li>
+                <li data-target="#myCarousel" data-slide-to="5" class=""></li>
+            </ol>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active" data-interval="6000">
+                    <img src="~/Image/pagePiling-plugin.gif" alt="wish" style="width:2560px;height:539px;" title="•Vitajte na našej stránke spoločnosti ©LadoWebServis•">
+                    <div class="carousel-caption">
+                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Vitajte.Začnite Nový Rok 2026 so zdravými návykmi.</p>
                     </div>
                 </div>
+                <div class="item" data-interval="4000">
+                    <img src="~/Image/LWSGEN Logo.png" alt="LogoLWS" style="width:2560px;height:539px" title="•Vitajte na stránke spoločnosti ©LadoWebServis, ponúkame Vám webové služby v oblasti dizajnu webov,návrhov až po vytvorenie plne funkčnej webovej stránky ako aj zostavenie pc-komponentov,opravy výpočtovej techniky,doporučenie softvérov na vyladenie pc zostáv.Ak vás tento web zaujíma alebo sa zaujímate o naše služby, kontaktujte nás formulárom alebo prostredníctvom e-mailu. Ďakujeme za váš záujem, Vaša spokojnosť je našou prioritou">
+                    <div class="carousel-caption">
+                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Ponúkame Vám kvalitné výživové produkty od švédskej spoločnosti Zinzino a IT služby<br>Nenechajte si ujsť túto ponuku!</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="~/Image/Zinzino.jpg" alt="" style="width:2560px;height:539px" title="Vitajte na stránke spoločnosti ©LadoWebServis.V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz nižšie a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu,nakolko sme partnerom spol. Zinzino. Srdečne ďakujeme za váš záujem,Vaša spokojnosť je našou prioritou.">
+                    <div class="carousel-caption">
+                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Začnite svoju cestu za zdravím už dnes.</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="~/Image/skusenosti.jpg" alt="" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
+                    <div class="carousel-caption">
+                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Volajte +421907151293 only Slovakia alebo ak nedvíhame tak nám napíšte na formulár-Kontakt<br>Neváhajte!</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="~/Image/photo-1461722936851-13a79b294a5d.jpeg" alt="max" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
+                    <div class="carousel-caption">
+                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Pri objednávke nad 50€ použite kupón a máte 10% zľavu z nákupu!!!</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="~/Image/thong-vo-2482-unsplash 2.jpg" alt="" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
+                    <div class="carousel-caption">
+                        <p style="font-size:18px;color:#fff;text-shadow:1px 1px 4px #000000;padding-bottom:.25em;"><img src="~/Image/pagePiling-plugin.gif" alt="smalLogo" style="width:125px;height:42px ; padding: .2em; " title="©LadoWebServis,ponúkame Vám webové služby v oblasti dizajnu webov,návrhov až po vytvorenie plne funkčnej webovej stránky ako aj zostavenie pc-komponentov,opravy výpočtovej techniky,doporučenie softvérov na vyladenie pc zostáv.Ak vás tento web zaujíma alebo sa zaujímate o naše produkty a služby, kontaktujte nás prostredníctvom formulára alebo telefónu iba zo Slovenska. Srdečne ďakujeme za váš záujem,Vaša spokojnosť je našou prioritou."><br>Ďakujeme za nákup a váš záujem.</p>
+                    </div>
+                </div>
+            </div>
 
-                <!-- Left and right controls -->
-                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                    <span class=" glyphicon glyphicon-chevron-right"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class=" glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- End of carousel -->
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer class="site-footer footer-compact">
+            <div class="w3-center w3-text-white cner-fluid" id="footer">
+                <div class="footer-contact">
+                    <img src="~/Image/LWSGEN Logo.png" class="img-thumbnail" alt="LWSGEN Logo" title="Ladowebservis intro" />
+                </div>
+
+                <address class="mt-2 mb-2">
+                    <a href='@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })' class="w3-text-white" title="Domov">🌐 Web: www.ladowebservis.sk/zdravie</a>
+                </address>
+
+                <ul class="list-inline">
+                    <li><abbr title="Telefón">📞 Telefón:</abbr> <span>+421907151293</span></li>
+                    <li><abbr title="Technická podpora">📧 Podpora:</abbr> <a href="mailto:podpora@ladowebservis.sk" class="w3-text-white">podpora@ladowebservis.sk</a></li>
+                    <li><abbr title="Informácie">ℹ️ Info:</abbr> <a href="mailto:info@ladowebservis.sk" class="w3-text-white">info@ladowebservis.sk</a></li>
+                </ul>
+
+                <p class="mt-2 mb-2">
+                    <img src="~/Image/pagePiling-plugin.gif" class="img-rounded" alt="Ladowebservis logo" title="Ladowebservis" style="width:95px;height:38px;" />
+                </p>
+
+                <p class="mb-2">
+                    <a href='@Url.Action("ReturnPolicy","Home")' class="w3-text-white" title="Zásady vrátenia tovaru">Zásady vrátenia tovaru</a>
+                </p>
+                <p class="mb-2">
+                    <a href='@Url.Action("Gdpr","Home")' class="w3-text-white" title="Ochrana osobných údajov (GDPR)">Ochrana osobných údajov (GDPR)</a>
+                </p>
+                <p class="mb-2">
+                    <a href='@Url.Action("ObchodnePodmienky","Home")'
+                       class="w3-text-white" title="Obchodné podmienky">
+                        Obchodné podmienky
+                    </a>
+                </p>
+
+                <p class="small mb-2"><i class='fa fa-heart'></i> Your satisfaction is our priority.</p>
+                <p class="small">© LadoWebServis @DateTime.Today.Year – oficiálny partner Zinzino</p>
+
+                <p class="mt-2">
+                    <a href="https://www.linkedin.com/in/vladim%C3%ADr-kseni%C4%8D/" target="_blank" aria-label="LinkedIn"><i class="fa fa-linkedin w3-hover-text-white"></i></a>
+                    <a href="https://soundcloud.com/lado-8" target="_blank" aria-label="SoundCloud" class="ml-2"><i class="fa fa-soundcloud w3-hover-text-white"></i></a>
+                    <a href="https://www.facebook.com/vladimir.ksenic" target="_blank" aria-label="Facebook" class="ml-2"><i class="fa fa-facebook-official w3-hover-text-white"></i></a>
+                </p>
+            </div>
+        </footer>
+
+        <script>
+            // Get the Top Button
+            var mybutton = document.getElementById("myBtn");
+            window.onscroll = function () { scrollFunction() };
+            function scrollFunction() {
+                if (!mybutton) return;
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    mybutton.style.display = "block";
+                } else {
+                    mybutton.style.display = "none";
+                }
+            }
+            function topFunction() { document.body.scrollTop = 0; document.documentElement.scrollTop = 0; }
+        </script>
+        <!--End footer section-->
+    </div>
+
+    <script>
+        function toggleTopnav() {
+            var x = document.getElementById("myTopnav");
+            if (!x) return;
+            if (x.className === "collapse") { x.className += " responsive"; } else { x.className = "collapse"; }
+        }
+
+        function toggleCart() {
+            var cart = document.getElementById('side-cart');
+            var overlay = document.getElementById('cart-overlay');
+            if (!cart || !overlay) return;
+            var open = cart.classList.toggle('open');
+            overlay.classList.toggle('open', open);
+            cart.setAttribute('aria-hidden', !open);
+            overlay.setAttribute('aria-hidden', !open);
+            if (open) { cart.focus(); }
+        }
+
+        function closeCart() {
+            var cart = document.getElementById('side-cart');
+            var overlay = document.getElementById('cart-overlay');
+            if (!cart || !overlay) return;
+            cart.classList.remove('open');
+            overlay.classList.remove('open');
+            cart.setAttribute('aria-hidden', 'true');
+            overlay.setAttribute('aria-hidden', 'true');
+            document.getElementById('cartToggle').focus();
+        }
+
+        function toggleNavSearch() {
+            var wrap = document.getElementById('navQuickSearch');
+            var input = document.getElementById('navQuickSearchInput');
+            if (!wrap || !input) return;
+
+            var isHidden = (wrap.style.display === 'none' || wrap.style.display === '');
+            wrap.style.display = isHidden ? 'inline-block' : 'none';
+
+            if (isHidden) {
+                input.focus();
+                input.classList.remove('pulse-placeholder');
+                void input.offsetWidth; // restart animation
+                input.classList.add('pulse-placeholder');
+            }
+        }
+
+        function submitNavQuickSearch() {
+            try {
+                var input = document.getElementById('navQuickSearchInput');
+                var q = (input && input.value) ? input.value : '';
+                q = q.trim();
+                if (!q) {
+                    if (input) {
+                        input.focus();
+                        input.classList.remove('pulse-placeholder');
+                        void input.offsetWidth; // restart animation
+                        input.classList.add('pulse-placeholder');
+                    }
+                    return false;
+                }
+
+                window.location.href = '/Home/Produkty?q=' + encodeURIComponent(q);
+            } catch (e) { }
+            return false;
+        }
+    </script>
+
+    <script>
+        function filterMenu() {
+            var input, filter, ul, li, a, i;
+            input = document.getElementById("mySearch");
+            if (!input) return;
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myTopnav");
+            if (!ul) return;
+            li = ul.getElementsByTagName("li");
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                if (a && a.innerHTML.toUpperCase().indexOf(filter) > -1) { li[i].style.display = ""; } else { li[i].style.display = "none"; }
+            }
+        }
+    </script>
+    <script>
+        function submitProductSearch(form) {
+            try {
+                var q = (document.getElementById('productSearchInput') || {}).value || '';
+                q = q.trim();
+                if (!q) return false;
+                window.location.href = '/Home/Produkty?q=' + encodeURIComponent(q);
+            } catch (e) { }
+            return false;
+        }
+    </script>
+
+    @RenderSection("scripts", required: false)
+
+    <!-- Exit Intent Popup -->
+    <div id="exitIntentPopup" class="exit-intent-overlay" style="display: none;">
+        <div class="exit-intent-modal">
+            <!-- Close Button -->
+            <button type="button" class="exit-intent-close" onclick="closeExitIntent()" aria-label="Zavrieť">
+                <i class="fa fa-times"></i>
+            </button>
+
+            <!-- Content -->
+            <div class="exit-intent-content">
+                <h2>Čakajte! 🎁</h2>
+                <p class="exit-intent-subtitle">Neodchádzajte bez špeciálnej ponuky</p>
+
+                <!-- Offer Section -->
+                <div class="exit-intent-offer">
+                    <div class="offer-badge">ŠPECIÁLNA PONUKA</div>
+                    <p class="offer-text"><strong>10% zľava</strong> na produkty nad 50€</p>
+                    <p class="offer-code">Kód: <code>NOVYROK26</code></p>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="exit-intent-actions">
+                    <a href='@Url.Action("Kontakt", "Home")' class="btn-ebook" onclick="closeExitIntent()">
+                        <i class="fa fa-download"></i> Stiahnuť E-book zadarmo
+                    </a>
+                    <a href='@Url.Action("Registracia", "Home")' class="btn-register" onclick="closeExitIntent()">
+                        <i class="fa fa-user-plus"></i> Zaregistrovať sa
+                    </a>
+                </div>
+
+                <!-- Additional Info -->
+                <div class="exit-intent-info">
+                    <p><i class="fa fa-truck"></i> Bezplatná doprava na objednávky nad 50€ v rámci SK</p>
+                    <p><i class="fa fa-shield"></i> 100% bezpečné nákupy</p>
+                </div>
+
+                <!-- Dismiss Button -->
+                <button type="button" class="btn-dismiss" onclick="closeExitIntent()">
+                    Nie, pokračujem v prehliadaní
+                </button>
             </div>
         </div>
+    </div>
 
-        <!-- End of carousel -->
+    <style>
+        /* Exit Intent Popup Styles */
+        .exit-intent-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeIn 0.3s ease;
+        }
 
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer class="site-footer footer-compact">
-                <div class="w3-center w3-text-white cner-fluid" id="footer">
-                    <div class="footer-contact">
-                        <img src="~/Image/sk 2.png" class="img-thumbnail" alt="Slovakia" title="Slovakia" />
-                    </div>
+            .exit-intent-overlay.show {
+                display: flex;
+            }
 
-                    <address class="mt-2 mb-2">
-                        <a href='@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })' class="w3-text-white" title="Domov">🌐 Web: www.ladowebservis.sk/zdravie</a>
-                    </address>
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
 
-                    <ul class="list-inline">
-                        <li><abbr title="Telefón">📞 Telefón:</abbr> <span>+421907151293</span></li>
-                        <li><abbr title="Technická podpora">📧 Podpora:</abbr> <a href="mailto:podpora@ladowebservis.sk" class="w3-text-white">podpora@ladowebservis.sk</a></li>
-                        <li><abbr title="Informácie">ℹ️ Info:</abbr> <a href="mailto:info@ladowebservis.sk" class="w3-text-white">info@ladowebservis.sk</a></li>
-                    </ul>
+            to {
+                opacity: 1;
+            }
+        }
 
-                    <p class="mt-2 mb-2">
-                        <img src="~/Image/pagePiling-plugin.gif" class="img-rounded" alt="Ladowebservis logo" title="Ladowebservis" style="width:95px;height:38px;" />
-                    </p>
+        .exit-intent-modal {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
+            width: 90%;
+            padding: 40px 30px;
+            position: relative;
+            animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
 
-                    <p class="mb-2">
-                        <a href='@Url.Action("ReturnPolicy","Home")' class="w3-text-white" title="Zásady vrátenia tovaru">Zásady vrátenia tovaru</a>
-                    </p>
-                    <p class="mb-2">
-                        <a href='@Url.Action("Gdpr","Home")' class="w3-text-white" title="Ochrana osobných údajov (GDPR)">Ochrana osobných údajov (GDPR)</a>
-                    </p>
-                    <p class="mb-2">
-                        <a href='@Url.Action("ObchodnePodmienky","Home")'
-                           class="w3-text-white" title="Obchodné podmienky">
-                            Obchodné podmienky
-                        </a>
-                    </p>
+        @@keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
 
-                    <p class="small mb-2"><i class='fa fa-heart'></i> Your satisfaction is our priority.</p>
-                    <p class="small">© LadoWebServis @DateTime.Today.Year – oficiálny partner Zinzino</p>
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-                    <p class="mt-2">
-                        <a href="https://www.linkedin.com/in/vladim%C3%ADr-kseni%C4%8D/" target="_blank" aria-label="LinkedIn"><i class="fa fa-linkedin w3-hover-text-white"></i></a>
-                        <a href="https://soundcloud.com/lado-8" target="_blank" aria-label="SoundCloud" class="ml-2"><i class="fa fa-soundcloud w3-hover-text-white"></i></a>
-                        <a href="https://www.facebook.com/vladimir.ksenic" target="_blank" aria-label="Facebook" class="ml-2"><i class="fa fa-facebook-official w3-hover-text-white"></i></a>
-                    </p>
-                </div>
-            </footer>
+        .exit-intent-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #999;
+            cursor: pointer;
+            padding: 6px;
+            transition: all 0.2s ease;
+        }
 
-            <script>
-                // Get the Top Button
-                var mybutton = document.getElementById("myBtn");
-                window.onscroll = function () { scrollFunction() };
-                function scrollFunction() {
-                    if (!mybutton) return;
-                    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                        mybutton.style.display = "block";
-                    } else {
-                        mybutton.style.display = "none";
-                    }
+            .exit-intent-close:hover {
+                color: #5d33fb;
+                transform: scale(1.1);
+            }
+
+        .exit-intent-content h2 {
+            margin: 0 0 8px 0;
+            font-size: 28px;
+            color: #5d33fb;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .exit-intent-subtitle {
+            margin: 0 0 25px 0;
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+        }
+
+        /* Offer Section */
+        .exit-intent-offer {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e7f3ff 100%);
+            border: 2px solid #5d33fb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .offer-badge {
+            display: inline-block;
+            background: #5d33fb;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .offer-text {
+            margin: 8px 0;
+            font-size: 18px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .offer-code {
+            margin: 0;
+            font-size: 13px;
+            color: #666;
+        }
+
+            .offer-code code {
+                background: #fff;
+                padding: 4px 8px;
+                border-radius: 4px;
+                font-family: 'Courier New', monospace;
+                font-weight: 700;
+                color: #5d33fb;
+                border: 1px solid #e0e0e0;
+            }
+
+        /* Action Buttons */
+        .exit-intent-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .btn-ebook,
+        .btn-register {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-ebook {
+            background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(93, 51, 251, 0.3);
+        }
+
+            .btn-ebook:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(93, 51, 251, 0.4);
+            }
+
+        .btn-register {
+            background: #f0f0f0;
+            color: #5d33fb;
+            border: 2px solid #5d33fb;
+        }
+
+            .btn-register:hover {
+                background: #5d33fb;
+                color: #fff;
+                transform: translateY(-2px);
+            }
+
+        /* Info Section */
+        .exit-intent-info {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 12px;
+        }
+
+            .exit-intent-info p {
+                margin: 6px 0;
+                color: #666;
+                display: flex;
+                align-items: center;
+            }
+
+            .exit-intent-info i {
+                color: #5d33fb;
+                margin-right: 8px;
+                font-size: 14px;
+            }
+
+        /* Dismiss Button */
+        .btn-dismiss {
+            width: 100%;
+            padding: 10px;
+            background: none;
+            border: 1px solid #ddd;
+            color: #666;
+            font-size: 13px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+            .btn-dismiss:hover {
+                border-color: #999;
+                color: #333;
+                background: #fafafa;
+            }
+
+        /* Responsive */
+        @@media (max-width: 600px) {
+            .exit-intent-modal {
+                padding: 30px 20px;
+                max-width: 95%;
+            }
+
+            .exit-intent-content h2 {
+                font-size: 24px;
+            }
+
+            .exit-intent-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-ebook,
+            .btn-register {
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+
+    <script>
+        // Exit Intent Detection
+        (function () {
+            var exitIntentPopup = document.getElementById('exitIntentPopup');
+            var exitIntentShown = false;
+
+            // Detect mouse leaving the page
+            document.addEventListener('mouseleave', function (e) {
+                if (!exitIntentShown && e.clientY <= 0) {
+                    showExitIntent();
                 }
-                function topFunction() { document.body.scrollTop = 0; document.documentElement.scrollTop = 0; }
-            </script>
-            <!--End footer section-->
-        </div>
-        <script>
-            function toggleTopnav() {
-                var x = document.getElementById("myTopnav");
-                if (!x) return;
-                if (x.className === "collapse") { x.className += " responsive"; } else { x.className = "collapse"; }
-            }
-            function toggleCart() {
-                var cart = document.getElementById('side-cart');
-                var overlay = document.getElementById('cart-overlay');
-                if (!cart || !overlay) return;
-                var open = cart.classList.toggle('open');
-                overlay.classList.toggle('open', open);
-                cart.setAttribute('aria-hidden', !open);
-                overlay.setAttribute('aria-hidden', !open);
-                if (open) { cart.focus(); }
-            }
-            function closeCart() {
-                var cart = document.getElementById('side-cart');
-                var overlay = document.getElementById('cart-overlay');
-                if (!cart || !overlay) return;
-                cart.classList.remove('open');
-                overlay.classList.remove('open');
-                cart.setAttribute('aria-hidden', 'true');
-                overlay.setAttribute('aria-hidden', 'true');
-                document.getElementById('cartToggle').focus();
-            }
-        </script>
-        <script>
-            function filterMenu() {
-                var input, filter, ul, li, a, i;
-                input = document.getElementById("mySearch");
-                if (!input) return;
-                filter = input.value.toUpperCase();
-                ul = document.getElementById("myTopnav");
-                if (!ul) return;
-                li = ul.getElementsByTagName("li");
-                for (i = 0; i < li.length; i++) {
-                    a = li[i].getElementsByTagName("a")[0];
-                    if (a && a.innerHTML.toUpperCase().indexOf(filter) > -1) { li[i].style.display = ""; } else { li[i].style.display = "none"; }
+            });
+
+            // Also show on page unload if user tries to close
+            window.addEventListener('beforeunload', function (e) {
+                // Don't block, just track
+            });
+
+            function showExitIntent() {
+                if (exitIntentPopup && !exitIntentShown) {
+                    exitIntentPopup.classList.add('show');
+                    exitIntentShown = true;
+
+                    // Log event (optional analytics tracking)
+                    try {
+                        if (window.gtag) {
+                            gtag('event', 'exit_intent_shown');
+                        }
+                    } catch (e) { }
                 }
             }
-        </script>
-        <script>
-            function submitProductSearch(form) {
-                try {
-                    var q = (document.getElementById('productSearchInput') || {}).value || '';
-                    q = q.trim();
-                    if (!q) return false;
-                    window.location.href = '/Home/Produkty?q=' + encodeURIComponent(q);
-                } catch (e) { }
-                return false;
-            }
-        </script>
 
-        @RenderSection("scripts", required: false)
+            window.closeExitIntent = function () {
+                if (exitIntentPopup) {
+                    exitIntentPopup.classList.remove('show');
+                }
+            };
+
+            // Also close on Escape key
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    closeExitIntent();
+                }
+            });
+        })();
+    </script>
 
 </body>
 </html>
 
 
 
-<script>
-// show a small note in side cart when some products are in favorites
-const favIds = loadFavorites();
-let favNote = document.getElementById('side-cart-favorites-note');
-if (favIds && favIds.length > 0) {
-    if (!favNote) {
-        favNote = document.createElement('p');
-        favNote.id = 'side-cart-favorites-note';
-        favNote.className = 'small';
-        favNote.style.marginTop = '8px';
-        favNote.style.color = '#5d33fb';
-        const sideCart = document.getElementById('side-cart');
-        if (sideCart) {
-            const firstPara = sideCart.querySelector('p.small');
-            if (firstPara && firstPara.nextSibling) {
-                firstPara.parentNode.insertBefore(favNote, firstPara.nextSibling);
-            } else {
-                sideCart.appendChild(favNote);
-            }
-        }
-    }
-    favNote.textContent = 'Máte označené obľúbené produkty. Zoznam nájdete v sekcii Obľúbené produkty.';
-} else if (favNote && favNote.parentNode) {
-    favNote.parentNode.removeChild(favNote);
-}
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

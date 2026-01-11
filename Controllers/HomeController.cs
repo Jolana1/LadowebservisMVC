@@ -378,13 +378,71 @@ namespace LadowebservisMVC.Controllers
             ViewBag.PageTitle = "Obchodné Podmienky";
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DownloadEbook(DownloadEbookModel model)
+        {
+            ViewBag.PageTitle = "DownloadEbook";
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                var contact = new ContactModel_Sk
+                {
+                    Name = model.Name,
+                    Email = model.Email,
+                    Text = model.Sprava ?? string.Empty,
+                    Password = model.Captcha,
+                    File = model.File
+                };
+
+                var mailer = new Mailer();
+                mailer.OdoslanieSpravy(contact, model.File);
+
+                TempData["EbookSuccess"] = true;
+                return RedirectToAction("DownloadEbook", new { success = 1 });
+            }
+            catch (Exception ex)
+            {
+                // TODO: replace with your logging solution (e.g., NLog/Serilog)
+                System.Diagnostics.Trace.TraceError($"E-book email send failed: {ex}");
+
+                ModelState.AddModelError(string.Empty,
+                    "Odoslanie e‑mailu sa nepodarilo. Skúste to prosím znova o chvíľu.");
+                return View(model);
+            }
+        }
+        public ActionResult DownloadEbook()
+        {
+            ViewBag.PageTitle = "DownloadEbook";
+            var model = new DownloadEbookModel();
+            if (TempData["EbookSuccess"] != null && (bool)TempData["EbookSuccess"] == true)
+            {
+                ViewBag.EbookSuccess = true;
+            }
+            return View(model);
+        }
         public ActionResult Error()
         {
-            ViewBag.PageTitle = "Oops";
+            ViewBag.PageTitle = "404";
             return View();
         }
+
     }
 }
+
+
+
+
+
+
+
+
+
 
 
 

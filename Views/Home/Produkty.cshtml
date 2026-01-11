@@ -5,16 +5,142 @@
 @{
     ViewBag.Title = "Produkty";
 }
+
+<style>
+    .product-match { outline: 3px solid #5d33fb; box-shadow: 0 0 0 4px rgba(93,51,251,0.18); border-radius: 6px; }
+    .product-hidden { display: none !important; }
+
+    /* ========== SEARCH LOADING SPINNER ========== */
+    .search-spinner-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .search-spinner-overlay.show {
+        display: flex;
+        opacity: 1;
+    }
+
+    /* Spinner Container */
+    .spinner-container {
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        max-width: 300px;
+    }
+
+    /* Circular Spinner */
+    .spinner {
+        border: 4px solid #f0f0f0;
+        border-top: 4px solid #5d33fb;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 16px;
+    }
+
+    @@keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Spinner Text */
+    .spinner-text {
+        font-size: 14px;
+        color: #555;
+        font-weight: 500;
+        margin: 0;
+    }
+
+    .spinner-text.sub {
+        font-size: 12px;
+        color: #999;
+        margin-top: 8px;
+        font-weight: normal;
+    }
+
+    /* Minimal Inline Spinner (for navbar search) */
+    .search-icon-loading {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid #f0f0f0;
+        border-top-color: #5d33fb;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        vertical-align: middle;
+        margin-right: 6px;
+    }
+
+    /* Product Container Animation */
+    .products {
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    }
+
+    .products.loading {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    /* Products Grid Responsive Layout */
+    @@media (max-width: 768px) {
+        .spinner-container {
+            padding: 20px;
+            max-width: 250px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f0f0f0;
+            border-top: 3px solid #5d33fb;
+        }
+    }
+
+    /* Pulse effect for "no results" state */
+    @@keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.6; }
+    }
+
+    .no-results {
+        animation: pulse 2s ease-in-out infinite;
+    }
+</style>
+
 <div class="w3-center card pt-4">
-    <h1 style="font-size:26px;color:#ffffff;text-shadow:1px 1px 4px #5d33fb">ZAČNITE DNES-VAŠE TELO SA VÁM POĎAKUJE.<br>KED IDE O ZDRAVIE,NEKOMPROMISUJTE S CENAMI!</h1>
-  
+    <h2 style="font-size:20px;color:#ffffff;text-shadow:1px 1px 4px #5d33fb;text-align:center">VITAJTE TU JE NAŠA PONUKA PRODUKTOV:<br>ZAČNITE NOVÝ ROK ZDRAVŠIE-VAŠE TELO SA VÁM POĎAKUJE.<br>KED IDE O ZDRAVIE,NEKOMPROMISUJTE S CENAMI!</h2>
 </div>
+
+<!-- Loading Spinner Overlay -->
+<div id="searchSpinnerOverlay" class="search-spinner-overlay">
+    <div class="spinner-container">
+        <div class="spinner"></div>
+        <p class="spinner-text">Hľadám produkty...</p>
+        <p class="spinner-text sub">Čakajte prosím</p>
+    </div>
+</div>
+
 <div class="w3-center card pt-4">
 
-    <section class="products" id="1" data-product-name="BalanceOil" data-product-image='@Url.Content("~/Image/BalanceOil.png")'>
-        <h2>💊 BalanceOilOrange+ 300ml – Náš bestseller hlavný produkt 55 €/ks</h2>
+    <section class="products" id="product-1" data-product-id="1" data-product-name="BalanceOil" data-product-aliases="balance oil,balanceoil,balance oil orange,orange" data-product-image='@Url.Content("~/Image/BalanceOil.png")'>
+        <h2>Náš bestseller hlavný produkt 55 €/ks💊 BalanceOilOrange+ 300ml</h2>
 
-        <p class="w3-green">Nezabudnite vložiť propagačný kód👉 NOVYROK26 👉aby ste mali 10% zľavu na produkty nad 50€ alebo celý nákup</p>
+        <p class="w3-green">Nezabudnite si pri platbe vložiť propagačný kód👉 NOVYROK26 👉aby ste mali 10% zľavu na tento a iné zľavnené produkty nad 50€.</p>
         <button type="button" class="add-to-cart w3-hover-deep-purple" data-id="1" title="Pridať BalanceOil do košíka" aria-label="Pridať BalanceOil do košíka">Pridať do <span class="fa fa-shopping-cart" aria-hidden="true"></span></button>
         <a data-fancybox="gallery" href='@Url.Content("~/Image/BalanceOil.png")'><img class="rounded" src='@Url.Content("~/Image/BalanceOil.png")' alt="BalanceOil" style="width:100%" title="Momentálne najlacnejšie na trhu aj s dopravou v rámci SR!!!!"></a>
 
@@ -36,7 +162,7 @@
 
 </div>
 <div class="w3-center card pt-4">
-    <section class="products" id="6" data-product-name="Davkovacie pohare" data-product-image='@Url.Content("~/Image/Davkovacie pohare.png")'>
+    <section class="products" id="product-6" data-product-id="6" data-product-name="Davkovacie pohare" data-product-aliases="dávkovacie poháre,davkovacie pohare,pohare,pohár,pohare 10ks" data-product-image='@Url.Content("~/Image/Davkovacie pohare.png")'>
         <h2>Dávkovacie poháre 15 €/10ks</h2>
         <p class="w3-green">Plastové dávkovacie poháre vhodné do umývačky riadov s mierkou v ml.</p>
         <button type="button" class="add-to-cart w3-hover-deep-purple" data-id="6" title="Pridať Davkovacie pohare do košíka" aria-label="Pridať Davkovacie pohare do košíka">Pridať do <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></button>
@@ -51,7 +177,7 @@
 
 <div class="w3-center card pt-4">
 
-    <section class="products" id="2" data-product-name="Zinobiotic" data-product-image='@Url.Content("~/Image/Zinobiotic2025.png")'>
+    <section class="products" id="product-2" data-product-id="2" data-product-name="Zinobiotic" data-product-aliases="zinobiotic,probiotika,probiotiká" data-product-image='@Url.Content("~/Image/Zinobiotic2025.png")'>
         <h2>Zinobiotic+ 40€/ks</h2>
         <p class="w3-green">Nie je to len doplnok – je to systém pre vaše zdravie.</p>
         <button type="button" class="add-to-cart w3-hover-deep-purple" data-id="2" title="Pridať Zinobiotic do košíka" aria-label="Pridať Zinobiotic do košíka">Pridať do <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></button>
@@ -73,7 +199,7 @@
 <br>
 
 <div class="w3-center card pt-4">
-    <section class="products" id="3" data-product-name="ZinzinoXtend" data-product-image='@Url.Content("~/Image/ZinzinoXtend.png")'>
+    <section class="products" id="product-3" data-product-id="3" data-product-name="ZinzinoXtend" data-product-aliases="zinzino xtend,xtend,imunita" data-product-image='@Url.Content("~/Image/ZinzinoXtend.png")'>
         <h2>Zinzino Xtend 44 €/ks</h2>
         <p class="w3-green">Nie je to len doplnok – je to systém pre vaše zdravie.</p>
         <button type="button" class="add-to-cart w3-hover-deep-purple" data-id="3" title="Pridať ZinzinoXtend do košíka" aria-label="Pridať ZinzinoXtend do košíka">Pridať do <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></button>
@@ -87,7 +213,7 @@
 
 <br>
 <div class="w3-center card pt-4">
-    <section class="products" id="4" data-product-name="BalanceOil orange 100ml" data-product-image='@Url.Content("~/Image/BalanceOil orange 100ml.png")'>
+    <section class="products" id="product-4" data-product-id="4" data-product-name="BalanceOil orange 100ml" data-product-aliases="balance oil 100ml,balanceoil 100ml,100ml,orange 100ml" data-product-image='@Url.Content("~/Image/BalanceOil orange 100ml.png")'>
         <h2>BalanceOil orange 100ml 25 €/ks</h2>
         <p class="w3-green">Nie je to len doplnok – je to systém pre vaše zdravie.</p>
         <button type="button" class="add-to-cart w3-hover-deep-purple" data-id="4" title="Pridať BalanceOil orange 100ml do košíka" aria-label="Pridať BalanceOil orange 100ml do košíka">Pridať do <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></button>
@@ -100,9 +226,9 @@
 </div>
 <br>
 <div class="w3-center card pt-4">
-    <section class="products" id="5" data-product-name="Vitamin D Test" data-product-image='@Url.Content("~/Image/VitaminDTest.png")'>
+    <section class="products" id="product-5" data-product-id="5" data-product-name="Vitamin D Test" data-product-aliases="vitamin d,vitamin d test,vitamind,test" data-product-image='@Url.Content("~/Image/VitaminDTest.png")'>
         <h2>Vitamin D Test 65 €/ks</h2>
-        <p class="w3-green">Nezabudnite vložiť propagačný kód👉 NOVYROK26 👉aby ste mali 10% zľavu na produkty nad 50€ alebo celý nákup.</p>
+        <p class="w3-green">Nezabudnite si pri platbe vložiť propagačný kód👉 NOVYROK26 👉aby ste mali 10% zľavu na tento a iné zľavnené produkty nad 50€.</p>
         <button type="button" class="add-to-cart w3-hover-deep-purple" data-id="5" title="Pridať Vitamin D Test do košíka" aria-label="Pridať Vitamin D Test do košíka">Pridať do <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></button>
 
         <a data-fancybox="gallery" href='@Url.Content("~/Image/VitaminDTest.png")'><img class="rounded" src='@Url.Content("~/Image/VitaminDTest.png")' alt="VitaminDTest" style="width:100%" title="VitaminD Test je dôverný, laboratórne analyzovaný test suchej kvapky krvi, ktorý odhalí aktuálny stav a pomôže prispôsobiť nutričné potreby vitamínu D. Je rýchly a jednoduchý a výsledok stavu vitamínu D je zosumarizovaný v ľahko pochopiteľnej grafike."></a>
@@ -110,13 +236,12 @@
             <p class="font-size:10px;color:#000;text-shadow:1px 1px 4px #fff;">Vykonaním testu získate prehľad o svojich hladinách vitamínu D a dostanete prispôsobené odporúčania o tom, ako sa dá dostať do rúk alebo zlepšiť svoje hladiny. Test sa odporúča vykonať každých 120 dní, aby ste mohli sledovať svoj stav a prispôsobiť svoj príjem a životný štýl podľa sezónnych variácií. .</p>
         </details>
     </section>
-    <section class="products" id="0" data-product-name="BalanceTest" data-product-image='@Url.Content("~/Image/BalanceTest.png")'>
+    <section class="products" id="product-0" data-product-id="0" data-product-name="BalanceTest" data-product-aliases="balancetest,balance test,test" data-product-image='@Url.Content("~/Image/BalanceTest.png")'>
         <h2>🎓 BalanceTest – prémiový produkt 195 €/ks</h2>
-        <p class="w3-green">
-            Nezabudnite vložiť propagačný kód👉 NOVYROK26 👉aby ste mali 10% zľavu na produkty nad 50€ alebo celý nákup
+        <p class="w3-green">Nezabudnite si pri platbe vložiť propagačný kód👉 NOVYROK26 👉aby ste mali 10% zľavu na tento a iné zľavnené produkty nad 50€.</p>
 
-            <a id="discover-health-btn" class="btn btn-primary btn-lg highlight-cta" href='@Url.Action("Kontakt","Home")' title="Formulár" role="button" aria-label="Zistiť stav zdravia">Áno, chcem zistiť svoj stav zdravia!</a>
-        </p>
+        <a id="discover-health-btn" class="btn btn-primary btn-lg highlight-cta" href='@Url.Action("Kontakt","Home")' title="Formulár" role="button" aria-label="Zistiť stav zdravia">Áno, chcem zistiť svoj stav zdravia!</a>
+
 
         <button type="button" class="add-to-cart w3-hover-deep-purple" data-id="0" title="Pre pridanie BalanceTest do košíka" aria-label="Pridať BalanceTest do košíka">Pridať do <span class="fa fa-shopping-cart" aria-hidden="true"></span></button>
         <a data-fancybox="gallery" href='@Url.Content("~/Image/BalanceTest.png")'><img class="rounded" src='@Url.Content("~/Image/BalanceTest.png")' alt="TestZinzino" style="width:100%" title="Lepšie zdravie sa začína lepšou rovnováhou.SPRAVTE TRI KROKY K ROVNOVÁHE,REGENERÁCII A POSILNENIU ZDRAVIA "></a>
@@ -124,7 +249,7 @@
         <br>
         <details>
             <p class="font-size:10px;color:#000;text-shadow:1px 1px 4px #fff;">
-                <br>👉 „Všetko prebieha anonymne, bezpečne a v pohodlí domova.“
+                <br>👉 „Všetko prebieha anonymne, bezpečne a v pohodlí domova."
                 <br>🧩 1. Otestujte sa doma – jednoduchý krvný test (1 kvapka) odošlete do laboratória.
                 <br>📊 2. Získajte výsledky online – detailná správa s pomerom Omega-3 a Omega-6.
                 <br>💊 3. Upravte výživu – doplnky Zinzino pomáhajú dostať telo do rovnováhy.
@@ -136,9 +261,9 @@
 
 <br>
 <div class="w3-center card pt-4">
-    <section class="products" id="7" data-product-name="Balzam" data-product-image='@Url.Content("~/Image/Balzam.png")'>
+    <section class="products" id="product-7" data-product-id="7" data-product-name="Balzam" data-product-aliases="balzam,balm,oriflame balzam,balsam" data-product-image='@Url.Content("~/Image/Balzam.png")'>
         <h2>Balzam 5 €/1ks</h2>
-        <p class="w3-green">Veľká ikona z Oriflamu-Balzam-hojivý zázrak príchuť podla vášho výberu treba nám napísať na email.</p>
+        <p class="w3-green">Ikonický produkt z Oriflamu-Balzam-prírodný hojivý zázrak.</p>
         <button type="button" class="add-to-cart w3-hover-deep-purple"
                 data-id="7"
                 title="Pridať Balzam do košíka"
@@ -148,7 +273,7 @@
 
         <a data-fancybox="gallery" href='@Url.Content("~/Image/Balzam.png")'><img class="rounded" src='@Url.Content("~/Image/Balzam.png")' alt="Balsam na pery" style="width:100%" title="Balzam na pery-hojivý zázrak malina alebo podla vášho výberu"></a>
         <details>
-            <p class="font-size:10px;color:#000;text-shadow:1px 1px 4px #fff;">Balzam na pery-hojivý zázrak malina alebo podla vášho výberu.</p>
+            <p class="font-size:10px;color:#000;text-shadow:1px 1px 4px #fff;">Balzam na pery-prírodný hojivý zázrak,teraz v akcii príchute Malina,Slivka,Marakuja alebo možnosť podla vášho výberu.</p>
         </details>
     </section>
 </div>
@@ -158,7 +283,134 @@
 <br>
 <p>
     <a href="@Url.Action("Kosik","Home",new {area = "Ladowebservis"})" class="btn btn-primary btn-md tlacitko-moje">Späť na Košík</a>
-
 </p>
+
+@section scripts {
+    <script>
+        (function () {
+            // Configuration
+            var SEARCH_CONFIG = {
+                showSpinner: true,
+                spinnerDelay: 300,
+                spinnerMinDuration: 600,
+                overlayId: 'searchSpinnerOverlay'
+            };
+
+            // References
+            var spinnerOverlay = document.getElementById(SEARCH_CONFIG.overlayId);
+            var spinnerTimeout;
+            var spinnerStartTime;
+
+            function normalize(s) {
+                return (s || '')
+                    .toString()
+                    .toLowerCase()
+                    .replace(/\s+/g, ' ')
+                    .trim();
+            }
+
+            function showSpinner() {
+                if (!SEARCH_CONFIG.showSpinner || !spinnerOverlay) return;
+                
+                spinnerStartTime = Date.now();
+                spinnerTimeout = setTimeout(function() {
+                    spinnerOverlay.classList.add('show');
+                }, SEARCH_CONFIG.spinnerDelay);
+            }
+
+            function hideSpinner() {
+                if (!spinnerOverlay) return;
+                
+                clearTimeout(spinnerTimeout);
+                
+                // Ensure minimum display time for UX
+                var elapsed = Date.now() - spinnerStartTime;
+                var remaining = Math.max(0, SEARCH_CONFIG.spinnerMinDuration - elapsed);
+                
+                setTimeout(function() {
+                    spinnerOverlay.classList.remove('show');
+                }, remaining);
+            }
+
+            function getQuery() {
+                try {
+                    var params = new URLSearchParams(window.location.search);
+                    var q = params.get('q') || params.get('Q') || '';
+                    return normalize(q);
+                } catch (e) {
+                    // IE fallback
+                    var m = /[?&]q=([^&]+)/i.exec(window.location.search || '');
+                    return m ? normalize(decodeURIComponent(m[1].replace(/\+/g, ' '))) : '';
+                }
+            }
+
+            function applySearch(q) {
+                var sections = document.querySelectorAll('section.products');
+                if (!sections || !sections.length) return;
+
+                // Add loading state
+                sections.forEach(function(s) {
+                    s.classList.add('loading');
+                });
+
+                // Use small delay for visual feedback
+                setTimeout(function() {
+                    // Reset
+                    sections.forEach(function(s) {
+                        s.classList.remove('product-hidden', 'product-match', 'loading');
+                    });
+
+                    if (!q) return;
+
+                    var best = null;
+                    var matchCount = 0;
+
+                    for (var j = 0; j < sections.length; j++) {
+                        var s = sections[j];
+                        var name = normalize(s.getAttribute('data-product-name'));
+                        var aliases = normalize(s.getAttribute('data-product-aliases'));
+                        var hay = (name + ' ' + aliases);
+                        var isMatch = hay.indexOf(q) >= 0;
+
+                        if (!isMatch) {
+                            // also allow partial token matching
+                            var tokens = q.split(' ');
+                            for (var t = 0; t < tokens.length; t++) {
+                                if (tokens[t] && hay.indexOf(tokens[t]) >= 0) { isMatch = true; break; }
+                            }
+                        }
+
+                        if (isMatch) {
+                            matchCount++;
+                            if (!best) best = s;
+                        } else {
+                            s.classList.add('product-hidden');
+                        }
+                    }
+
+                    // Highlight best match
+                    if (best) {
+                        best.classList.remove('product-hidden');
+                        best.classList.add('product-match');
+                        try {
+                            best.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        } catch (e) {
+                            best.scrollIntoView(true);
+                        }
+                    }
+
+                    hideSpinner();
+                }, 100);
+            }
+
+            // Initialize
+            var initialQuery = getQuery();
+            if (initialQuery) {
+                showSpinner();
+                applySearch(initialQuery);
+            }
+        })();
+    </script>
+}
 
 

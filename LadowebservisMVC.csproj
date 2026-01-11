@@ -580,6 +580,7 @@
     <Compile Include="Models\OdoslanieRegModel.cs" />
     <Compile Include="Models\PlaceOrderModel.cs" />
     <Compile Include="Models\QuoteModel.cs" />
+    <Compile Include="Models\DownloadEbookModel.cs" />
     <Compile Include="Models\TextTemplateModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\MemberInfoModel.cs" />
@@ -671,6 +672,7 @@
     <Content Include="Image\BalanceOil.png" />
     <Content Include="Image\Balanceoilaqua.png" />
     <Content Include="Image\BalanceTest.png" />
+    <Content Include="Image\Balzam.png" />
     <Content Include="Image\basic%281%29.css" />
     <Content Include="Image\Basic.jpg" />
     <Content Include="Image\be8ad217f286a5754c09fddd71b4fd7c.jpg" />
@@ -693,6 +695,7 @@
     <Content Include="Image\cycles.js" />
     <Content Include="Image\dashboard2018experiencegained 2.png" />
     <Content Include="Image\dashboard2018experiencegained.png" />
+    <Content Include="Image\Davkovacie pohare.png" />
     <Content Include="Image\dom-elements.js" />
     <Content Include="Image\dom-events.js" />
     <Content Include="Image\edit.genial.ly-Editor.png" />
@@ -742,6 +745,7 @@
     <Content Include="Image\logo.gif" />
     <Content Include="Image\lptrading-favicon.png" />
     <Content Include="Image\LWS-web and eshop.png" />
+    <Content Include="Image\LWSGEN Logo.png" />
     <Content Include="Image\LWSlogo 2.jpg" />
     <Content Include="Image\LWSlogo.jpg" />
     <Content Include="Image\maincv.jpg" />
@@ -782,8 +786,6 @@
     <Content Include="Image\pagePiling-plugin 2.png" />
     <Content Include="Image\pagePiling-plugin.gif" />
     <Content Include="Image\pagePiling-plugin.png" />
-    <Content Include="Image\pf2019 2.png" />
-    <Content Include="Image\pf2019.png" />
     <Content Include="Image\photo-1461722936851-13a79b294a5d 2.jpeg" />
     <Content Include="Image\photo-1461722936851-13a79b294a5d 2.jpg" />
     <Content Include="Image\photo-1461722936851-13a79b294a5d.jpeg" />
@@ -794,6 +796,7 @@
     <Content Include="Image\Pikatec.png" />
     <Content Include="Image\polyfill.min.js" />
     <Content Include="Image\Postup platby.png" />
+    <Content Include="Image\Prianie26.png" />
     <Content Include="Image\profile-pic 2.jpg" />
     <Content Include="Image\profile-pic.jpg" />
     <Content Include="Image\puzzle-3223941_1920 2.jpg" />
@@ -1049,12 +1052,13 @@
     <Content Include="Views\Home\Objednavky.cshtml" />
     <Content Include="Views\Home\Produkty.cshtml" />
     <Content Include="Views\Home\Kosik.cshtml" />
-    <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Home\HTTP 404.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\OrderPlaced.cshtml" />
     <Content Include="Views\Home\Favorites.cshtml" />
     <Content Include="Views\Home\ReturnPolicy.cshtml" />
     <Content Include="Views\Home\Gdpr.cshtml" />
+    <Content Include="Views\Home\DownloadEbook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Image\corepack\dist\lib\" />
@@ -1364,7 +1368,6 @@
     <Folder Include="Image\npm\node_modules\write-file-atomic\lib\" />
     <Folder Include="Image\npm\node_modules\yallist\" />
     <Folder Include="Repositories\UmbracoCmsContent\" />
-    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

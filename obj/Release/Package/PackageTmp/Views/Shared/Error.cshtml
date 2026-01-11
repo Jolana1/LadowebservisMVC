@@ -1,28 +1,37 @@
 ﻿@{
-    ViewBag.Title = "Oops";
-    ViewBag.Description = "Na web stránke niečo nie je v poriadku.";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "HTTP 404 - Stránka sa nenašla";
+    ViewBag.Description = "Požadovaná stránka sa nenašla (HTTP 404).";
+    Layout = "~/Views/Shared/Error.cshtml";
 }
+<div class="container card py-4">
+    <h2 class="mb-3" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">
+        Stránka sa nenašla (HTTP 404)
+    </h2>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Niečo nie je v poriadku</h1>
-            <hr />
-            <p>
-                Mrzí nás to, ale niečo nie je v poriadku.
-                Pri spracovaní webovej stránky, ktorú ste sa pokúšali na našom webe navštíviť, niečo zlyhalo.
-            </p>
-            <p>
-                Skúste rovnakú akciu zopakovať ešte raz. Ak sa to nezlepší, kontaktujte nás prosím.
-            </p>
-            <p>
-                Ďakujeme za pochopenie.
-            </p>
-            <hr />
-            <p>
-                Admin info: ERROR
-            </p>
-        </div><!-- /.col-md-12 -->
-    </div>
+    <p class="small text-muted">
+        Požadovaný zdroj alebo stránka neboli nájdené. Mohli byť odstránené, presunuté alebo adresa URL obsahuje preklep.
+    </p>
+
+    <hr />
+
+    <p>
+        Mrzí nás to, ale stránka alebo zdroj, ktorý hľadáte, sa nenašiel.
+        Skontrolujte, prosím, adresu v prehliadači, prípadne prejdite na úvodnú stránku a skúste nájsť obsah odtiaľ.
+    </p>
+
+    <h4 class="mt-3">Kontaktné údaje prevádzkovateľa</h4>
+    <p>
+        V prípade otázok nás môžete kontaktovať na e‑mailových adresách:
+        <a href="mailto:info@ladowebservis.sk">info@ladowebservis.sk</a> alebo
+        <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a>.
+    </p>
+
+    <p class="small text-muted">Admin info: LadoWebServis</p>
+
+    <p>
+        <a href="@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })"
+           class="btn btn-primary btn-md tlacitko-moje">
+            Späť na úvod
+        </a>
+    </p>
 </div>
