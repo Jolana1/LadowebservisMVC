@@ -688,6 +688,7 @@
     <Content Include="Image\cart-icon.jpg" />
     <Content Include="Image\cart-icon1.jpg" />
     <Content Include="Image\cart.js" />
+    <Content Include="Image\CollagenBoozt.png" />
     <Content Include="Image\colors.gif" />
     <Content Include="Image\colors3.gif" />
     <Content Include="Image\compatible.gif" />
@@ -1058,7 +1059,6 @@
     <Content Include="Views\Home\Favorites.cshtml" />
     <Content Include="Views\Home\ReturnPolicy.cshtml" />
     <Content Include="Views\Home\Gdpr.cshtml" />
-    <Content Include="Views\Home\DownloadEbook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Image\corepack\dist\lib\" />

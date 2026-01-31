@@ -1,5 +1,4 @@
-﻿
-@using LadowebservisMVC.Util
+﻿@using LadowebservisMVC.Util
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,9 +19,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     @Scripts.Render("~/bundles/modernizr")
 
-    <meta name="robots" content="zdravie, follow" />
+    <meta name="robots" content="Vitajte priatelia u nás je zdravie v rovnováhe, follow" />
     <meta name="author" content="Ladowebservis-Vladimír Ksenič" />
-    <meta name="keywords" content="Ladowebservis, Zinzino test, omega 3 doplnky, ako zvýšiť imunitu, únava a srdce, zdravotné poradenstvo Košice, zdravý cholesterol, online zdravie konzultácia,itservis,Oriflame" />
+    <meta name="keywords" content="Ladowebservis,omega zdravie v rovnováhe, ako zvýšiť imunitu, únava a srdce, zdravotné poradenstvo Košice, zdravý cholesterol,itservis....." />
     <meta name="copyright" content="©LWS - Ladowebservis" />
     <meta name="description" content="Ponúkame Vám kvalitné výživové produkty od švédskej spoločnosti Zinzino.">
     <meta name="content-language" content="sk" />
@@ -274,6 +273,528 @@
         .mini-products .mini-item img { width:32px; height:24px; object-fit:cover; margin-right:8px; border-radius:2px; }
         .mini-products .mini-item .mini-name { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
         .mini-products .mini-item .mini-add { margin-left:6px; }
+
+        /* Modern Navbar Styles */
+        .navbar {
+            min-height: 70px;
+            background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+            border: none;
+            box-shadow: 0 2px 15px rgba(93, 51, 251, 0.2);
+            padding: 0 20px;
+        }
+
+        /* Standardize all navbar icons */
+        .navbar .nav > li > a i,
+        .navbar .nav > li > a .fa,
+        .navbar .nav > li > a .glyphicon,
+        .navbar .nav > li > a [class*="glyphicon-"],
+        .navbar-right .cart-toggle-btn i {
+            font-size: 16px;
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+
+        .navbar-right .cart-toggle-btn i {
+            margin-right: 0;
+        }
+
+        .navbar-brand {
+            padding: 20px 15px;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            height: 70px;
+        }
+
+        .navbar-brand img {
+            height: 32px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-brand:hover img {
+            transform: scale(1.05);
+        }
+
+        .navbar-nav > li {
+            margin: 0 5px;
+        }
+
+        .navbar-nav > li > a {
+            padding: 25px 18px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            height: 70px;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-nav > li > a::after {
+            content: '';
+            position: absolute;
+            bottom: 15px;
+            left: 18px;
+            right: 18px;
+            height: 2px;
+            background: #fff;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-nav > li > a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            height: 70px;
+        }
+
+        .cart-toggle-btn {
+            padding: 10px 16px;
+            font-size: 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .cart-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .cart-badge {
+            background: #ff4444;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* Dropdown improvements */
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            margin-top: 0;
+            padding: 10px 0;
+        }
+
+        .dropdown-menu > li > a {
+            padding: 12px 20px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-menu > li > a:hover {
+            background: #f5f5f5;
+            padding-left: 25px;
+        }
+
+        .dropdown-menu > li > a i,
+        .dropdown-menu > li > a .glyphicon {
+            font-size: 14px;
+            width: 14px;
+            margin-right: 8px;
+        }
+
+        /* Mobile navbar toggle */
+        .navbar-toggler {
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 15px 0;
+        }
+
+        .navbar-toggler-icon {
+            width: 24px;
+            height: 2px;
+            background: #fff;
+            display: block;
+            position: relative;
+        }
+
+        .navbar-toggler-icon::before,
+        .navbar-toggler-icon::after {
+            content: '';
+            width: 24px;
+            height: 2px;
+            background: #fff;
+            display: block;
+            position: absolute;
+            left: 0;
+        }
+
+        .navbar-toggler-icon::before {
+            top: -8px;
+        }
+
+        .navbar-toggler-icon::after {
+            bottom: -8px;
+        }
+
+        /* Google Translate styling */
+        #google_translate_element {
+            padding: 15px 10px;
+        }
+
+        .goog-te-gadget-simple {
+            border: 2px solid rgba(255, 255, 255, 0.3) !important;
+            border-radius: 8px !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+            padding: 8px 12px !important;
+        }
+
+        /* Mobile Responsive */
+        @@media (max-width: 768px) {
+            .navbar {
+                min-height: 60px;
+                padding: 0 15px;
+            }
+
+            .navbar .nav > li > a i,
+            .navbar .nav > li > a .fa,
+            .navbar .nav > li > a .glyphicon {
+                font-size: 14px;
+                width: 14px;
+                margin-right: 5px;
+            }
+
+            .navbar-brand {
+                padding: 15px 10px;
+                height: 60px;
+            }
+
+            .navbar-brand img {
+                height: 28px;
+            }
+
+            .navbar-right {
+                height: 60px;
+                gap: 8px;
+            }
+
+            .cart-toggle-btn {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+
+            .navbar-collapse {
+                background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+                margin: 0 -15px;
+                padding: 20px 0;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            .navbar-nav {
+                margin: 0;
+            }
+
+            .navbar-nav > li {
+                margin: 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .navbar-nav > li:last-child {
+                border-bottom: none;
+            }
+
+            .navbar-nav > li > a {
+                padding: 15px 25px;
+                height: auto;
+            }
+
+            .navbar-nav > li > a::after {
+                display: none;
+            }
+
+            .navbar-nav > li > a:hover {
+                background: rgba(255, 255, 255, 0.1);
+                padding-left: 30px;
+            }
+
+            .dropdown-menu {
+                background: rgba(0, 0, 0, 0.1);
+                box-shadow: none;
+                border-radius: 0;
+                margin: 0;
+            }
+
+            .dropdown-menu > li > a {
+                color: #fff;
+                padding: 12px 35px;
+            }
+
+            .dropdown-menu > li > a:hover {
+                background: rgba(255, 255, 255, 0.15);
+            }
+        }
+
+        /* Tablet adjustments */
+        @@media (min-width: 769px) and (max-width: 991px) {
+            .navbar-nav > li > a {
+                padding: 25px 12px;
+                font-size: 14px;
+            }
+
+            .navbar .nav > li > a i,
+            .navbar .nav > li > a .fa,
+            .navbar .nav > li > a .glyphicon {
+                font-size: 15px;
+            }
+        }
+
+        /* Css */
+        .exit-intent-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .exit-intent-overlay.show {
+            display: flex;
+        }
+
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .exit-intent-modal {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
+            width: 90%;
+            padding: 40px 30px;
+            position: relative;
+            animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @@keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .exit-intent-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #999;
+            cursor: pointer;
+            padding: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .exit-intent-close:hover {
+            color: #5d33fb;
+            transform: scale(1.1);
+        }
+
+        .exit-intent-content h2 {
+            margin: 0 0 8px 0;
+            font-size: 28px;
+            color: #5d33fb;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .exit-intent-subtitle {
+            margin: 0 0 25px 0;
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+        }
+
+        /* Offer Section */
+        .exit-intent-offer {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e7f3ff 100%);
+            border: 2px solid #5d33fb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .offer-badge {
+            display: inline-block;
+            background: #5d33fb;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .offer-text {
+            margin: 8px 0;
+            font-size: 18px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .offer-code {
+            margin: 0;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .offer-code code {
+            background: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            color: #5d33fb;
+            border: 1px solid #e0e0e0;
+        }
+
+        /* Action Buttons */
+        .exit-intent-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .btn-ebook,
+        .btn-register {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-ebook {
+            background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(93, 51, 251, 0.3);
+        }
+
+        .btn-ebook:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(93, 51, 251, 0.4);
+        }
+
+        .btn-register {
+            background: #f0f0f0;
+            color: #5d33fb;
+            border: 2px solid #5d33fb;
+        }
+
+        .btn-register:hover {
+            background: #5d33fb;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Info Section */
+        .exit-intent-info {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 12px;
+        }
+
+        .exit-intent-info p {
+            margin: 6px 0;
+            color: #666;
+            display: flex;
+            align-items: center;
+        }
+
+        .exit-intent-info i {
+            color: #5d33fb;
+            margin-right: 8px;
+            font-size: 14px;
+        }
+
+        /* Dismiss Button */
+        .btn-dismiss {
+            width: 100%;
+            padding: 10px;
+            background: none;
+            border: 1px solid #ddd;
+            color: #666;
+            font-size: 13px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .btn-dismiss:hover {
+            border-color: #999;
+            color: #333;
+            background: #fafafa;
+        }
+
+        /* Responsive */
+        @@media (max-width: 600px) {
+            .exit-intent-modal {
+                padding: 30px 20px;
+                max-width: 95%;
+            }
+
+            .exit-intent-content h2 {
+                font-size: 24px;
+            }
+
+            .exit-intent-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-ebook,
+            .btn-register {
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+        }
     </style>
 
     <title>@(!string.IsNullOrWhiteSpace(ViewBag.Title as string) ? ViewBag.Title : "Ladowebservis")</title>
@@ -302,7 +823,7 @@
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
                 pageLanguage: 'sk',
-                includedLanguages: 'en,sk,hu,de,pl,cz,hr',
+                includedLanguages: 'en,sk,hu,de,pl,cz,hr,ru',
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE
             }, 'google_translate_element');
         }
@@ -318,14 +839,15 @@
     <button onclick="topFunction()" id="myBtn" class="fa fa-arrow-up" data-toggle="tooltip" title="Go to top"></button>
 
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light navbar-fixed-top">
+        <a class="navbar-brand image-container img-rounded" href="/Home/Zdravie" title="Domov">
+            <img src="@Url.Content("~/Image/pagePiling-plugin.gif")" alt="Domov" style="height:65px;width:100px;" />
+        </a>
 
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand image-container img-rounded" href="/Home/Zdravie" title="Domov">
-            <img src="@Url.Content("~/Image/pagePiling-plugin.gif")" alt="Domov" style="height:24px;width:auto;" />
-        </a>
+
         <a href="/Home/Login"
            class="btn btn-outline-secondary cart-toggle-btn"
            title="Prihlásenie"
@@ -334,18 +856,18 @@
         </a>
         <!-- Cart toggle button moved to navbar for quick access (badge kept here) -->
         <div class="navbar-right">
-            <a href="/Home/Favorites" class="btn btn-outline-secondary cart-toggle-btn" title="Obľúbené/Uložené produkty" aria-label="Obľúbené/uložené produkty">
+            <a href="/Home/Favorites" class="btn btn-outline-secondary cart-toggle-btn" title="Vaše obľúbené/Uložené produkty" aria-label="Obľúbené/uložené produkty">
                 <i class="fa fa-heart"></i>
             </a>
 
-            <button type="button" class="btn btn-outline-secondary cart-toggle-btn" title="Zadaj názov produktu" aria-label="Hľadať produkty v ponuke" onclick="toggleNavSearch()">
+            <button type="button" class="btn btn-outline-secondary cart-toggle-btn" title="Zadaj názov produktu" aria-label="Zadaj názov produktu" onclick="toggleNavSearch()">
                 <i class="fa fa-search" aria-hidden="true"></i>
             </button>
 
             <span class="navbar-quick-search" id="navQuickSearch" style="display:none;">
                 <form class="navbar-form" role="search" onsubmit="return submitNavQuickSearch();" style="margin:0; padding:0; display:inline-block;">
                     <div class="input-group">
-                        <input id="navQuickSearchInput" type="text" class="form-control" placeholder="Hľadať produkty v ponuke.." aria-label="Zadaj názov produktu" />
+                        <input id="navQuickSearchInput" type="text" class="form-control" placeholder="Zadaj názov produktu" aria-label="Zadaj názov produktu" />
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-default" aria-label="Hľadať">
                                 <i class="fa fa-search" aria-hidden="true"></i>
@@ -367,32 +889,30 @@
         <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
             <ul class="nav navbar-nav">
                 <li class="nav-item">
-                    <div id="google_translate_element" class="image-container img-rounded" title="Translate"></div>
+                    <div id="google_translate_element" class="image-container img-rounded" title="Preklad jazyka">    </div>
                 </li>
-                @*<li class="nav-item">
-                    <a class="image-container img-rounded fa fa-download" href="/Home/DownloadEbook" title="Stiahnuť E-book">Stiahnuť E-book</a>
-                </li>*@
+
 
                 <li class="nav-item">
-                    <a class="image-container img-rounded fa fa-balance-scale" href="/Home/Produkty" title="Produkty">Produkty</a>
+                    <a class="image-container img-rounded fa fa-balance-scale" href="/Home/Produkty" title="Ponuka produktov a ich popis">Produkty ponuka</a>
                 </li>
 
                 <li class="dropdown">
-                    <a class="dropdown-toggle img-rounded" data-toggle="dropdown" href="#Partners" title="Partnery"><span class="glyphicon glyphicon-briefcase"></span>Partnery</a>
+                    <a class="dropdown-toggle img-rounded" data-toggle="dropdown" href="#Partners" title="Oriflame a Itservis"><span class="glyphicon glyphicon-briefcase"></span>Partnery</a>
                     <ul class="dropdown-menu">
                         <li class="active">
-                            <a class="w3-hover-white" href="/Home/ITservis" title="IT služby"><span class="glyphicon glyphicon-wrench"></span> IT Služby</a>
+                            <a class="w3-hover-white" href="/Home/ITservis" title="IT služby"><span class="glyphicon glyphicon-wrench"></span>ITSlužby</a>
                         </li>
                         <li class="active">
                             <a class="w3-hover-white" href="https://sk.oriflame.com/products/digital-catalogue-current?store=SK-vladimirksenic&PageNumber=1" target="_blank" title="Oriflame katalóg">
                                 <img src="~/Image/sk-oriflame-katalog.png" style="width:58px;height:15px" alt="Oriflame aktuálny katalóg">
-                                Oriflame katalóg 18/2025
+                                Oriflame katalóg 02/2026 
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="image-container img-rounded fa fa-shopping-cart" href="/Home/Kosik" title="Košík">Košík</a>
+                    <a class="image-container img-rounded fa fa-money" href="/Home/Kosik" title="Výber produktov a postup platby">Výber produktov</a>
                 </li>
                 <li class="nav-item">
                     <a class="image-container img-rounded glyphicon glyphicon-envelope" href="/odoslanie-spravy" title="Kontakt">Kontakt</a>
@@ -408,7 +928,7 @@
     <div id="cart-overlay" onclick="closeCart()"></div>
     <aside id="side-cart" aria-hidden="true" aria-label="Shopping cart">
         <div class="d-flex justify-content-between align-items-center">
-            <h4><i class="fa fa-shopping-cart" aria-hidden="true"></i> Tu je zoznam produktov v košíku</h4>
+            <h4><i class="fa fa-shopping-cart" aria-hidden="true"></i> Tvoj zoznam produktov vo vozíku</h4>
             <button type="button" class="btn btn-sm btn-link" onclick="closeCart()" aria-label="Close cart"><i class="fa fa-times"></i></button>
         </div>
 
@@ -423,19 +943,29 @@
             <div id="total-discount" style="font-size: 0.9em; color: #5d33fb; margin-top: 6px;"></div>
         </div>
 
-       
+
 
         <br />
 
-        <a id="header-pay-btn" class="btn btn-success mt-sm-0" href="/Home/Kosik?checkout=1" role="button" title="Skontrolovať čo sa nachádza v mojom košíku">Chcem sa vrátiť na stránku košíka</a>
+        <a class="btn btn-outline-primary" href="/Home/Kosik?checkout=1" role="button" title="Skontrolovať čo sa nachádza v mojom vozíku">Chcem sa vrátiť na stránku košíka</a>
         <!-- Available products (compact) -->
         <div class="mini-products">
-            <button type="button" class="btn btn-link btn-xs mini-products-toggle"
-                    onclick="toggleMiniProducts()" aria-expanded="false"
-                    aria-controls="mini-products-list">
-                Nezabudli ste ešte na niečo? ▼
-            </button>
-            <ul id="mini-products-list" class="list-unstyled" style="display:none"></ul>
+            <a class="btn btn-outline-primary" href='@Url.Action("Produkty","Home")' aria-label="Prezrieť všetky produkty" style="border-width:2px; border-color:#5d33fb; color:#5d33fb;">
+                🔍 Prezrieť ponuku všetkých produktov
+            </a>
+            <script async
+                    src="https://js.stripe.com/v3/buy-button.js">
+            </script>
+
+            <stripe-buy-button buy-button-id="buy_btn_1SgujHHrPMzQ1ua8771vUUL4"
+                               publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
+            </stripe-buy-button>
+            @*<button type="button" class="btn btn-link btn-xs mini-products-toggle"
+                onclick="toggleMiniProducts()" aria-expanded="false"
+                aria-controls="mini-products-list">
+            Nezabudli ste ešte na niečo? ▼
+        </button>
+        <ul id="mini-products-list" class="list-unstyled" style="display:none"></ul>*@
         </div>
         <!-- Payment procedure help thumbnail: clicking opens enlarged image via Fancybox (included in layout) -->
         <div class="text-center mb-3">
@@ -444,27 +974,10 @@
                 <img src="@Url.Content("~/Image/Postup platby.png")" alt="Payment procedure" class="img-thumbnail" style="max-width:100px;cursor:pointer;" />
             </a>
             <br>
-            <script async
-                    src="https://js.stripe.com/v3/buy-button.js">
-            </script>
-
-            <stripe-buy-button buy-button-id="buy_btn_1SgujHHrPMzQ1ua8771vUUL4"
-                               publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
-            </stripe-buy-button>
+            
         </div>
-        <!-- QR payment options and instructions>
-    <div class="qr-pay">
-        <h5>Zaplaťte rýchlo pomocou QR kódu vo vašej bankovej aplikácii</h5>
-        <p class="small">Vyskúšajte si platobné možnosti s QR kódom za položky vo vašom košíku.</p>
-        <img src="~/Image/qr_7sI6qmgiGaAS9CU8wz.png" alt="Platba pomocou QR kódu" title="Platba pomocou QR kódu" />
-        <ol class="small">
-            <li>Otvorte bankovú alebo platobnú aplikáciu vo vašom telefóne.</li>
-            <li>Zvoľte možnosť skenovania QR kódu.</li>
-            <li>Naskenujte QR kód uvedený vyššie.</li>
-            <li>Skontrolujte si údaje a sumu podla položiek v nákupnom košíku o platbe nakoniec potvrďte platbu.</li>
-        </ol>
-        <p class="small">Alternatívne môžete pokračovať do košíka a zaplatiť bežným spôsobom.</p>
-    </div -->
+        <!-- QR payment options and instructions-->
+       
     </aside>
 
     <script>
@@ -513,13 +1026,13 @@
                 <div class="item active" data-interval="6000">
                     <img src="~/Image/pagePiling-plugin.gif" alt="wish" style="width:2560px;height:539px;" title="•Vitajte na našej stránke spoločnosti ©LadoWebServis•">
                     <div class="carousel-caption">
-                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Vitajte.Začnite Nový Rok 2026 so zdravými návykmi.</p>
+                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Vitajte.Začnite Nový Rok so zdravými návykmi.</p>
                     </div>
                 </div>
                 <div class="item" data-interval="4000">
                     <img src="~/Image/LWSGEN Logo.png" alt="LogoLWS" style="width:2560px;height:539px" title="•Vitajte na stránke spoločnosti ©LadoWebServis, ponúkame Vám webové služby v oblasti dizajnu webov,návrhov až po vytvorenie plne funkčnej webovej stránky ako aj zostavenie pc-komponentov,opravy výpočtovej techniky,doporučenie softvérov na vyladenie pc zostáv.Ak vás tento web zaujíma alebo sa zaujímate o naše služby, kontaktujte nás formulárom alebo prostredníctvom e-mailu. Ďakujeme za váš záujem, Vaša spokojnosť je našou prioritou">
                     <div class="carousel-caption">
-                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Ponúkame Vám kvalitné výživové produkty od švédskej spoločnosti Zinzino a IT služby<br>Nenechajte si ujsť túto ponuku!</p>
+                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">
                     </div>
                 </div>
                 <div class="item">
@@ -531,7 +1044,7 @@
                 <div class="item">
                     <img src="~/Image/skusenosti.jpg" alt="" style="width:2560px;height:539px" title="V prípade ak si vyberiete nejaký z produktov Zinzina stači kliknúť na odkaz zaplatiť v pokladni a následne si z webu vybrať a zaplatiť váš požadovaný tovar za akciovu cenu">
                     <div class="carousel-caption">
-                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Volajte +421907151293 only Slovakia alebo ak nedvíhame tak nám napíšte na formulár-Kontakt<br>Neváhajte!</p>
+                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Ponúkame Vám kvalitné výživové produkty od švédskej spoločnosti Zinzino a IT služby<br>Nenechajte si ujsť túto ponuku!</p>
                     </div>
                 </div>
                 <div class="item">
@@ -602,7 +1115,7 @@
                 <p class="small">© LadoWebServis @DateTime.Today.Year – oficiálny partner Zinzino</p>
 
                 <p class="mt-2">
-                    <a href="https://www.linkedin.com/in/vladim%C3%ADr-kseni%C4%8D/" target="_blank" aria-label="LinkedIn"><i class="fa fa-linkedin w3-hover-text-white"></i></a>
+                    <a href="https://www.linkedin.com/in/vladimír-kseni%C4%8D/" target="_blank" aria-label="LinkedIn"><i class="fa fa-linkedin w3-hover-text-white"></i></a>
                     <a href="https://soundcloud.com/lado-8" target="_blank" aria-label="SoundCloud" class="ml-2"><i class="fa fa-soundcloud w3-hover-text-white"></i></a>
                     <a href="https://www.facebook.com/vladimir.ksenic" target="_blank" aria-label="Facebook" class="ml-2"><i class="fa fa-facebook-official w3-hover-text-white"></i></a>
                 </p>
@@ -721,342 +1234,2124 @@
 
     @RenderSection("scripts", required: false)
 
-    <!-- Exit Intent Popup -->
-    <div id="exitIntentPopup" class="exit-intent-overlay" style="display: none;">
-        <div class="exit-intent-modal">
-            <!-- Close Button -->
-            <button type="button" class="exit-intent-close" onclick="closeExitIntent()" aria-label="Zavrieť">
+    <!-- AI Chat Assistant -->
+    <div id="chatAssistant" class="chat-widget" style="display: none;">
+        <div class="chat-widget-header">
+            <div class="chat-header-content">
+                <div class="chat-avatar">
+                    <img src="@Url.Content("~/Image/Me.jpg")" alt="Asistent" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" />
+                </div>
+                <div class="chat-header-text">
+                    <h4>Vladimír - Váš Asistent</h4>
+                    <p class="chat-status">
+                        <span class="status-dot"></span> Online - Som tu pre vás
+                    </p>
+                </div>
+            </div>
+            <button type="button" class="chat-close-btn" onclick="closeChatWidget()" aria-label="Zavrieť chat">
                 <i class="fa fa-times"></i>
             </button>
+        </div>
 
-            <!-- Content -->
-            <div class="exit-intent-content">
-                <h2>Čakajte! 🎁</h2>
-                <p class="exit-intent-subtitle">Neodchádzajte bez špeciálnej ponuky</p>
-
-                <!-- Offer Section -->
-                <div class="exit-intent-offer">
-                    <div class="offer-badge">ŠPECIÁLNA PONUKA</div>
-                    <p class="offer-text"><strong>10% zľava</strong> na produkty nad 50€</p>
-                    <p class="offer-code">Kód: <code>NOVYROK26</code></p>
+        <div class="chat-widget-body">
+            <div class="chat-welcome-message">
+                <div class="welcome-avatar">
+                    <img src="@Url.Content("~/Image/pagePiling-plugin.gif")" alt="Vladimír" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" />
                 </div>
-
-                <!-- CTA Buttons -->
-                <div class="exit-intent-actions">
-                    <a href='@Url.Action("Kontakt", "Home")' class="btn-ebook" onclick="closeExitIntent()">
-                        <i class="fa fa-download"></i> Stiahnuť E-book zadarmo
-                    </a>
-                    <a href='@Url.Action("Registracia", "Home")' class="btn-register" onclick="closeExitIntent()">
-                        <i class="fa fa-user-plus"></i> Zaregistrovať sa
-                    </a>
+                <div class="welcome-text">
+                    <h5>👋 Ahoj, som Vladimír!</h5>
+                    <p>Som tu, aby som vám rád pomohol s výberom produktov a odpovedal na všetky vaše otázky o zdraví.</p>
                 </div>
+            </div>
 
-                <!-- Additional Info -->
-                <div class="exit-intent-info">
-                    <p><i class="fa fa-truck"></i> Bezplatná doprava na objednávky nad 50€ v rámci SK</p>
-                    <p><i class="fa fa-shield"></i> 100% bezpečné nákupy</p>
-                </div>
-
-                <!-- Dismiss Button -->
-                <button type="button" class="btn-dismiss" onclick="closeExitIntent()">
-                    Nie, pokračujem v prehliadaní
+            <!-- Quick Action Buttons -->
+            <div class="chat-quick-actions">
+                <button class="quick-action-btn" onclick="sendQuickMessage('Chcem informácie o Balance Test')">
+                    🧪 Balance Test
+                </button>
+                <button class="quick-action-btn" onclick="sendQuickMessage('Ako funguje objednávka?')">
+                    🛒 Objednávka
+                </button>
+                <button class="quick-action-btn" onclick="sendQuickMessage('Aké produkty odporúčate?')">
+                    💊 Produkty
+                </button>
+                <button class="quick-action-btn" onclick="sendQuickMessage('Mám otázku o doprave')">
+                    🚚 Doprava
                 </button>
             </div>
+
+            <!-- Chat Messages -->
+            <div id="chatMessages" class="chat-messages">
+                <!-- Messages will be added here dynamically -->
+            </div>
+        </div>
+
+        <div class="chat-widget-footer">
+            <form id="chatForm" onsubmit="return sendChatMessage(event);">
+                <div class="chat-input-wrapper">
+                    <input type="text" id="chatInput" class="chat-input" placeholder="Napíšte správu..." autocomplete="off" />
+                    <button type="submit" class="chat-send-btn" aria-label="Odoslať správu">
+                        <i class="fa fa-paper-plane"></i>
+                    </button>
+                </div>
+            </form>
+            <p class="chat-footer-text">
+                <i class="fa fa-shield"></i> Vaše údaje sú v bezpečí
+            </p>
         </div>
     </div>
 
+    <!-- Chat Widget Toggle Button -->
+    <button id="chatToggleBtn" class="chat-toggle-button" onclick="toggleChatWidget()" aria-label="Otvoriť chat">
+        <img src="@Url.Content("~/Image/Me.jpg")" alt="Chat" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" />
+        <span class="chat-notification-badge">1</span>
+    </button>
+
     <style>
-        /* Exit Intent Popup Styles */
-        .exit-intent-overlay {
+        /* Chat Widget Styles */
+        .chat-widget {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            animation: fadeIn 0.3s ease;
-        }
-
-            .exit-intent-overlay.show {
-                display: flex;
-            }
-
-        @@keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .exit-intent-modal {
+            bottom: 20px;
+            left: 20px;
+            width: 380px;
+            max-width: calc(100vw - 40px);
+            height: 600px;
+            max-height: calc(100vh - 100px);
             background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
-            max-width: 450px;
-            width: 90%;
-            padding: 40px 30px;
-            position: relative;
-            animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            z-index: 9998;
+            display: flex;
+            flex-direction: column;
+            animation: slideUp 0.3s ease-out;
         }
 
         @@keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        .exit-intent-close {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #999;
-            cursor: pointer;
-            padding: 6px;
-            transition: all 0.2s ease;
-        }
-
-            .exit-intent-close:hover {
-                color: #5d33fb;
-                transform: scale(1.1);
-            }
-
-        .exit-intent-content h2 {
-            margin: 0 0 8px 0;
-            font-size: 28px;
-            color: #5d33fb;
-            font-weight: 700;
-            text-align: center;
-        }
-
-        .exit-intent-subtitle {
-            margin: 0 0 25px 0;
-            font-size: 14px;
-            color: #666;
-            text-align: center;
-        }
-
-        /* Offer Section */
-        .exit-intent-offer {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e7f3ff 100%);
-            border: 2px solid #5d33fb;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .offer-badge {
-            display: inline-block;
-            background: #5d33fb;
+        .chat-widget-header {
+            background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
             color: #fff;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            letter-spacing: 0.5px;
+            padding: 20px;
+            border-radius: 16px 16px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .offer-text {
-            margin: 8px 0;
-            font-size: 18px;
-            color: #333;
-            font-weight: 600;
-        }
-
-        .offer-code {
-            margin: 0;
-            font-size: 13px;
-            color: #666;
-        }
-
-            .offer-code code {
-                background: #fff;
-                padding: 4px 8px;
-                border-radius: 4px;
-                font-family: 'Courier New', monospace;
-                font-weight: 700;
-                color: #5d33fb;
-                border: 1px solid #e0e0e0;
-            }
-
-        /* Action Buttons */
-        .exit-intent-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        .chat-header-content {
+            display: flex;
+            align-items: center;
             gap: 12px;
-            margin-bottom: 15px;
         }
 
-        .btn-ebook,
-        .btn-register {
+        .chat-avatar {
+            width: 48px;
+            height: 48px;
+            background: #fff;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            padding: 12px 16px;
-            border-radius: 6px;
-            font-size: 13px;
+            font-size: 24px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .chat-header-text h4 {
+            margin: 0;
+            font-size: 16px;
             font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
         }
 
-        .btn-ebook {
-            background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(93, 51, 251, 0.3);
+        .chat-status {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-            .btn-ebook:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 6px 16px rgba(93, 51, 251, 0.4);
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #28a745;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @@keyframes pulse {
+            0%, 100% {
+                opacity: 1;
             }
+            50% {
+                opacity: 0.5;
+            }
+        }
 
-        .btn-register {
-            background: #f0f0f0;
-            color: #5d33fb;
+        .chat-close-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 8px;
+            transition: transform 0.2s ease;
+        }
+
+        .chat-close-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-widget-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .chat-welcome-message {
+            background: #fff;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            gap: 12px;
+        }
+
+        .welcome-avatar {
+            width: 40px;
+            height: 40px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            overflow: hidden;
             border: 2px solid #5d33fb;
         }
 
-            .btn-register:hover {
-                background: #5d33fb;
-                color: #fff;
-                transform: translateY(-2px);
-            }
-
-        /* Info Section */
-        .exit-intent-info {
-            background: #f9f9f9;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            font-size: 12px;
+        .welcome-text h5 {
+            margin: 0 0 8px 0;
+            font-size: 16px;
+            color: #333;
         }
 
-            .exit-intent-info p {
-                margin: 6px 0;
-                color: #666;
-                display: flex;
-                align-items: center;
-            }
-
-            .exit-intent-info i {
-                color: #5d33fb;
-                margin-right: 8px;
-                font-size: 14px;
-            }
-
-        /* Dismiss Button */
-        .btn-dismiss {
-            width: 100%;
-            padding: 10px;
-            background: none;
-            border: 1px solid #ddd;
+        .welcome-text p {
+            margin: 0;
+            font-size: 14px;
             color: #666;
+            line-height: 1.5;
+        }
+
+        .chat-quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .quick-action-btn {
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px;
             font-size: 13px;
-            border-radius: 4px;
+            font-weight: 500;
+            color: #333;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-weight: 500;
+            text-align: left;
         }
 
-            .btn-dismiss:hover {
-                border-color: #999;
-                color: #333;
-                background: #fafafa;
+        .quick-action-btn:hover {
+            border-color: #5d33fb;
+            background: #f5f3ff;
+            transform: translateY(-2px);
+        }
+
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-message {
+            display: flex;
+            gap: 10px;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #5d33fb;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .message-avatar.bot {
+            background: #fff;
+            border: 2px solid #28a745;
+        }
+
+        .message-bubble {
+            background: #fff;
+            border-radius: 12px;
+            padding: 12px 16px;
+            max-width: 75%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .chat-message.user .message-bubble {
+            background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+            color: #fff;
+        }
+
+        .message-text {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .message-time {
+            font-size: 11px;
+            opacity: 0.7;
+            margin-top: 4px;
+        }
+
+        .chat-widget-footer {
+            padding: 16px;
+            background: #fff;
+            border-top: 1px solid #e0e0e0;
+            border-radius: 0 0 16px 16px;
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            border: 2px solid #e0e0e0;
+            border-radius: 24px;
+            padding: 12px 16px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .chat-input:focus {
+            border-color: #5d33fb;
+        }
+
+        .chat-send-btn {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(93, 51, 251, 0.3);
+        }
+
+        .chat-footer-text {
+            margin: 8px 0 0 0;
+            text-align: center;
+            font-size: 11px;
+            color: #999;
+        }
+
+        /* Chat Toggle Button */
+        .chat-toggle-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 28px;
+            cursor: pointer;
+            box-shadow: 0 6px 24px rgba(93, 51, 251, 0.4);
+            z-index: 9997;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 3px solid #fff;
+        }
+
+        .chat-toggle-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 32px rgba(93, 51, 251, 0.5);
+        }
+
+        .chat-notification-badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 20px;
+            height: 20px;
+            background: #ff4444;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #fff;
+        }
+
+        /* Typing indicator */
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 12px 16px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #999;
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @@keyframes typingBounce {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-8px);
+            }
+        }
+
+        /* Mobile Responsive */
+        @@media (max-width: 480px) {
+            .chat-widget {
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                max-width: 100%;
+                height: 100vh;
+                max-height: 100vh;
+                border-radius: 0;
             }
 
-        /* Responsive */
-        @@media (max-width: 600px) {
-            .exit-intent-modal {
-                padding: 30px 20px;
-                max-width: 95%;
+            .chat-widget-header {
+                border-radius: 0;
             }
 
-            .exit-intent-content h2 {
-                font-size: 24px;
+            .chat-widget-footer {
+                border-radius: 0;
             }
 
-            .exit-intent-actions {
+            .chat-quick-actions {
                 grid-template-columns: 1fr;
-            }
-
-            .btn-ebook,
-            .btn-register {
-                padding: 10px 12px;
-                font-size: 12px;
             }
         }
     </style>
 
     <script>
-        // Exit Intent Detection
+        // Chat Widget Functionality
         (function () {
-            var exitIntentPopup = document.getElementById('exitIntentPopup');
-            var exitIntentShown = false;
+            var chatWidget = document.getElementById('chatAssistant');
+            var chatToggleBtn = document.getElementById('chatToggleBtn');
+            var chatInput = document.getElementById('chatInput');
+            var chatMessages = document.getElementById('chatMessages');
+            var notificationBadge = document.querySelector('.chat-notification-badge');
 
-            // Detect mouse leaving the page
-            document.addEventListener('mouseleave', function (e) {
-                if (!exitIntentShown && e.clientY <= 0) {
-                    showExitIntent();
-                }
-            });
+            // Auto-responses database
+            var responses = {
+                'balance test': 'Balance Test je vedecký test, ktorý analyzuje pomer Omega-3 a Omega-6 mastných kyselín vo vašej krvi. Získate presné výsledky a personalizované odporúčania. <a href="/Home/Produkty?q=balance" style="color:#5d33fb;text-decoration:underline;">Zobraziť viac →</a>',
+                'objednávka': 'Objednávka je jednoduchá! Pridajte produkty do košíka, použite zľavový kód <strong>NOVYROK26</strong> pre 10% zľavu a dokončite platbu cez Stripe. Doprava je ZDARMA nad 50€. <a href="/Home/Kosik" style="color:#5d33fb;text-decoration:underline;">Prejsť do košíka →</a>',
+                'produkty': 'Odporúčame: <br>• <strong>Balance Oil</strong> - Omega-3 pre zdravie<br>• <strong>Zinobiotic</strong> - Probiotiká<br>• <strong>Balzam alebo Kolagén</strong> - Starostlivosť o pokožku<br><a href="/Home/Produkty" style="color:#5d33fb;text-decoration:underline;">Všetky produkty →</a>',
+                'doprava': 'Doprava je <strong>ZDARMA</strong> pri objednávke nad 50€ v rámci SR. Doručíme do 3-5 pracovných dní. Akceptujeme platby kartou cez Stripe.',
+                'zľava': 'Máme pre vás špeciálnu zľavu! Použite kód <strong>NOVYROK26</strong> a získate 10% zľavu na objednávku nad 50€. Platnosť: 3 mesiace.',
+                'kontakt': 'Môžete nás kontaktovať:<br>📧 Email: info@ladowebservis.sk<br>📞 Telefón: +421907151293<br><a href="/odoslanie-spravy" style="color:#5d33fb;text-decoration:underline;">Kontaktný formulár →</a>',
+                'default': 'Ďakujeme za vašu správu! Momentálne nie som schopný odpovedať na túto otázku. Kontaktujte nás prosím na <strong>info@ladowebservis.sk</strong> alebo na <strong>podpora@ladowebservis.sk</strong>.'
+            };
 
-            // Also show on page unload if user tries to close
-            window.addEventListener('beforeunload', function (e) {
-                // Don't block, just track
-            });
-
-            function showExitIntent() {
-                if (exitIntentPopup && !exitIntentShown) {
-                    exitIntentPopup.classList.add('show');
-                    exitIntentShown = true;
-
-                    // Log event (optional analytics tracking)
+            window.toggleChatWidget = function () {
+                if (chatWidget.style.display === 'none' || !chatWidget.style.display) {
+                    chatWidget.style.display = 'flex';
+                    chatToggleBtn.style.display = 'none';
+                    if (notificationBadge) notificationBadge.style.display = 'none';
+                    chatInput.focus();
+                    
+                    // Track analytics
                     try {
                         if (window.gtag) {
-                            gtag('event', 'exit_intent_shown');
+                            gtag('event', 'chat_opened');
                         }
                     } catch (e) { }
-                }
-            }
-
-            window.closeExitIntent = function () {
-                if (exitIntentPopup) {
-                    exitIntentPopup.classList.remove('show');
+                } else {
+                    closeChatWidget();
                 }
             };
 
-            // Also close on Escape key
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') {
-                    closeExitIntent();
+            window.closeChatWidget = function () {
+                chatWidget.style.display = 'none';
+                chatToggleBtn.style.display = 'flex';
+            };
+
+            window.sendQuickMessage = function (message) {
+                addMessage(message, 'user');
+                setTimeout(function () {
+                    getBotResponse(message);
+                }, 600);
+            };
+
+            window.sendChatMessage = function (event) {
+                event.preventDefault();
+                var message = chatInput.value.trim();
+                if (!message) return false;
+
+                addMessage(message, 'user');
+                chatInput.value = '';
+
+                setTimeout(function () {
+                    getBotResponse(message);
+                }, 800);
+
+                return false;
+            };
+
+            function addMessage(text, sender) {
+                var messageDiv = document.createElement('div');
+                messageDiv.className = 'chat-message ' + sender;
+
+                var avatar = document.createElement('div');
+                avatar.className = 'message-avatar ' + (sender === 'user' ? '' : 'bot');
+                if (sender === 'user') {
+                    avatar.innerHTML = '<i class="fa fa-user"></i>';
+                } else {
+                    avatar.innerHTML = '<img src="' + '@Url.Content("~/Image/Me.jpg")' + '" alt="Asistent" style="width:100%; height:100%; object-fit:cover;" />';
                 }
-            });
+
+                var bubble = document.createElement('div');
+                bubble.className = 'message-bubble';
+
+                var messageText = document.createElement('p');
+                messageText.className = 'message-text';
+                messageText.innerHTML = text;
+
+                var time = document.createElement('div');
+                time.className = 'message-time';
+                time.textContent = new Date().toLocaleTimeString('sk-SK', { hour: '2-digit', minute: '2-digit' });
+
+                bubble.appendChild(messageText);
+                bubble.appendChild(time);
+
+                messageDiv.appendChild(avatar);
+                messageDiv.appendChild(bubble);
+
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function getBotResponse(userMessage) {
+                // Show typing indicator
+                var typingDiv = document.createElement('div');
+                typingDiv.className = 'chat-message bot';
+                typingDiv.innerHTML = '<div class="message-avatar bot"><img src="' + '@Url.Content("~/Image/Me.jpg")' + '" alt="Asistent" style="width:100%; height:100%; object-fit:cover;" /></div><div class="message-bubble"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>';
+                chatMessages.appendChild(typingDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                setTimeout(function () {
+                    chatMessages.removeChild(typingDiv);
+
+                    var msg = userMessage.toLowerCase();
+                    var response = responses['default'];
+
+                    for (var key in responses) {
+                        if (msg.includes(key)) {
+                            response = responses[key];
+                            break;
+                        }
+                    }
+
+                    addMessage(response, 'bot');
+                }, 1500);
+            }
+
+            // Show notification after 5 seconds
+            setTimeout(function () {
+                if (chatWidget.style.display === 'none' || !chatWidget.style.display) {
+                    if (notificationBadge) {
+                        notificationBadge.style.display = 'flex';
+                    }
+                }
+            }, 5000);
         })();
     </script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

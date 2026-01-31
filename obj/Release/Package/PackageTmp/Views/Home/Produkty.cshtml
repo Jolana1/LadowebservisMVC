@@ -7,8 +7,15 @@
 }
 
 <style>
-    .product-match { outline: 3px solid #5d33fb; box-shadow: 0 0 0 4px rgba(93,51,251,0.18); border-radius: 6px; }
-    .product-hidden { display: none !important; }
+    .product-match {
+        outline: 3px solid #5d33fb;
+        box-shadow: 0 0 0 4px rgba(93,51,251,0.18);
+        border-radius: 6px;
+    }
+
+    .product-hidden {
+        display: none !important;
+    }
 
     /* ========== SEARCH LOADING SPINNER ========== */
     .search-spinner-overlay {
@@ -26,10 +33,10 @@
         transition: opacity 0.3s ease;
     }
 
-    .search-spinner-overlay.show {
-        display: flex;
-        opacity: 1;
-    }
+        .search-spinner-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
 
     /* Spinner Container */
     .spinner-container {
@@ -53,8 +60,13 @@
     }
 
     @@keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
     }
 
     /* Spinner Text */
@@ -65,12 +77,12 @@
         margin: 0;
     }
 
-    .spinner-text.sub {
-        font-size: 12px;
-        color: #999;
-        margin-top: 8px;
-        font-weight: normal;
-    }
+        .spinner-text.sub {
+            font-size: 12px;
+            color: #999;
+            margin-top: 8px;
+            font-weight: normal;
+        }
 
     /* Minimal Inline Spinner (for navbar search) */
     .search-icon-loading {
@@ -91,10 +103,10 @@
         transition: opacity 0.3s ease;
     }
 
-    .products.loading {
-        opacity: 0.5;
-        pointer-events: none;
-    }
+        .products.loading {
+            opacity: 0.5;
+            pointer-events: none;
+        }
 
     /* Products Grid Responsive Layout */
     @@media (max-width: 768px) {
@@ -113,8 +125,13 @@
 
     /* Pulse effect for "no results" state */
     @@keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.6; }
+        0%, 100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.6;
+        }
     }
 
     .no-results {
@@ -123,7 +140,7 @@
 </style>
 
 <div class="w3-center card pt-4">
-    <h2 style="font-size:20px;color:#ffffff;text-shadow:1px 1px 4px #5d33fb;text-align:center">VITAJTE TU JE NAŠA PONUKA PRODUKTOV:<br>ZAČNITE NOVÝ ROK ZDRAVŠIE-VAŠE TELO SA VÁM POĎAKUJE.<br>KED IDE O ZDRAVIE,NEKOMPROMISUJTE S CENAMI!</h2>
+    <h2 style="font-size:20px;color:#ffffff;text-shadow:1px 1px 4px #5d33fb;text-align:center">VITAJTE TU JE NAŠA PONUKA DOSTUPNÝCH PRODUKTOV:<br>KED IDE O ZDRAVIE,NEKOMPROMISUJTE S CENAMI!</h2>
 </div>
 
 <!-- Loading Spinner Overlay -->
@@ -261,6 +278,27 @@
 
 <br>
 <div class="w3-center card pt-4">
+    <section class="products" id="product-8" data-product-id="8" data-product-name="CollagenBoozt" data-product-aliases="" data-product-image='@Url.Content("~/Image/CollagenBoozt.png")'>
+        <h2>CollagenBoozt 10x46ml 85 €/ks</h2>
+        <p class="w3-hover-red">NEW NOVINKA!!Tekutý morský kolagén, príchuť čerešňa.</p>
+        <button type="button" class="add-to-cart w3-hover-deep-purple" data-id="8" title="Pridať ZinzinoCollagenBoozt do košíka" aria-label="Pridať CollagenBoozt do košíka">Pridať do <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></button>
+
+        <a data-fancybox="gallery" href='@Url.Content("~/Image/CollagenBoozt.png")'><img class="rounded" src='@Url.Content("~/Image/CollagenBoozt.png")' alt="CollagenBoozt" style="width:100%" title="prírodný výživový doplnok na podporu a udržanie zdravej pokožky"></a>
+        <details>
+            <p class="font-size:10px;color:#000;text-shadow:1px 1px 4px #fff;">
+                Collagen Boozt je tekutý prípravok s príchuťou čerešne s vysokým obsahom dvoch kľúčových zložiek: morského kolagénu a kyseliny hyalurónovej. Morský kolagén pochádzajúci z rýb je známy svojou vysokou biologickou dostupnosťou a potenciálom zlepšovať štruktúru a pružnosť pokožky, zatiaľ čo kyselina hyalurónová sa cení pre svoje vlastnosti udržiavania vlhkosti pokožky.
+
+                Collagen Boozt je je navrhnutý ako 10-dňová rutina, starostlivo zostavená pre pokrytie vašich potrieb kolagénu.Dospelí: 1 vrecúško denne počas 10 dní. Neprekračujte odporúčanú dennú dávku. Potravinové doplnky nie sú určené ako náhrada vyváženej a pestrej stravy.Morský kolagén prispieva k udržaniu pružnosti pokožky.
+                Morský kolagén podporuje normálnu štruktúru pokožky
+                Peptidy morského kolagénu zvyšujú hydratáciu, a kyselina hyalurónová pomáha udržať vlhkosť v pokožke
+                Vitamín C prispieva k správnej tvorbe kolagénu a k správnej funkcii pokožky
+                Biotín a zinok prispievajú k udržaniu zdravej pokožky.
+            </p>
+        </details>
+    </section>
+</div>
+<br>
+<div class="w3-center card pt-sm-3">
     <section class="products" id="product-7" data-product-id="7" data-product-name="Balzam" data-product-aliases="balzam,balm,oriflame balzam,balsam" data-product-image='@Url.Content("~/Image/Balzam.png")'>
         <h2>Balzam 5 €/1ks</h2>
         <p class="w3-green">Ikonický produkt z Oriflamu-Balzam-prírodný hojivý zázrak.</p>
@@ -311,23 +349,23 @@
 
             function showSpinner() {
                 if (!SEARCH_CONFIG.showSpinner || !spinnerOverlay) return;
-                
+
                 spinnerStartTime = Date.now();
-                spinnerTimeout = setTimeout(function() {
+                spinnerTimeout = setTimeout(function () {
                     spinnerOverlay.classList.add('show');
                 }, SEARCH_CONFIG.spinnerDelay);
             }
 
             function hideSpinner() {
                 if (!spinnerOverlay) return;
-                
+
                 clearTimeout(spinnerTimeout);
-                
+
                 // Ensure minimum display time for UX
                 var elapsed = Date.now() - spinnerStartTime;
                 var remaining = Math.max(0, SEARCH_CONFIG.spinnerMinDuration - elapsed);
-                
-                setTimeout(function() {
+
+                setTimeout(function () {
                     spinnerOverlay.classList.remove('show');
                 }, remaining);
             }
@@ -349,14 +387,14 @@
                 if (!sections || !sections.length) return;
 
                 // Add loading state
-                sections.forEach(function(s) {
+                sections.forEach(function (s) {
                     s.classList.add('loading');
                 });
 
                 // Use small delay for visual feedback
-                setTimeout(function() {
+                setTimeout(function () {
                     // Reset
-                    sections.forEach(function(s) {
+                    sections.forEach(function (s) {
                         s.classList.remove('product-hidden', 'product-match', 'loading');
                     });
 

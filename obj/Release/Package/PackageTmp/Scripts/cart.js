@@ -7,6 +7,9 @@
         ['BalanceOil', 55.00],
         ['Zinobiotic', 40.00],
         ['ZinzinoXtend', 44.00],
+        ['CollagenBoozt', 65.00],
+
+
 
 
     ]);
@@ -345,7 +348,7 @@
                     }
                 }
             }
-            favNote.textContent = 'Nezabudnite si pri platbe cez Stripe vložiť propagačný kód👉NOVYROK26👉aby ste mali 10% zľavu.Kód je možné uplatniť len pre: Balanceoil+ 300ml, BalanceTest, Vitamin D test alebo kombinaciu.';
+            favNote.textContent = 'Je to jednoduché.Nemusíte tu nič zadávať.Stačí len prejsť k platbe a tam si naklikať čo chcete zakúpiť.Nezabudnite si pri platbe cez Stripe vložiť propagačný kód👉NOVYROK26👉aby ste mali 10% zľavu.Kód je možné uplatniť len na produkty nad 50€ alebo predpredajový balík.';
         } else if (favNote && favNote.parentNode) {
             favNote.parentNode.removeChild(favNote);
         }

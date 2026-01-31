@@ -24,7 +24,9 @@ namespace LadowebservisMVC.Util
             { "4", new ProductInfo { Id = "4", Name = "BalanceOil+ Orange (100ml)", Price = 25.00m, Image = "/Image/BalanceOil orange 100ml.png", Stock = 2 } },
             { "5", new ProductInfo { Id = "5", Name = "Vitamin D Test", Price = 65.00m, Image = "/Image/VitaminDTest.png", Stock = 0 } },
             { "6", new ProductInfo { Id = "6", Name = "Davkovacie pohare", Price = 15.00m, Image = "/Image/Davkovacie pohare.png", Stock = 1 } },
-            { "7", new ProductInfo { Id = "7", Name = "Balzam", Price = 5.00m, Image = "/Image/Balzam.png", Stock = 1 } }
+            { "7", new ProductInfo { Id = "7", Name = "Balzam", Price = 5.00m, Image = "/Image/Balzam.png", Stock = 1 } },
+            { "8", new ProductInfo { Id = "8", Name = "CollagenBoozt", Price = 85.00m, Image = "/Image/CollagenBoozt.png", Stock = 1 } }
+
         };
 
         public static bool TryGetById(string id, out ProductInfo info)
