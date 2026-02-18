@@ -1,87 +1,465 @@
 ﻿@model LadowebservisMVC.Controllers.Models.ContactModel_Sk
 
-<div class="container card pt-4">
-    <div class="row">
-        <div class="col-xs-12 col-md-10 col-md-offset-1">
+<style>
+    /* ========== CONTACT PAGE STYLES ========== */
+    .contact-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
 
-                <p class="contact-items">
-                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                    <span>info@ladowebservis.sk</span>
-                    <br />
-                    <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
-                    <span>+421907151293</span>
-                </p>
+    /* ========== HERO SECTION ========== */
+    .contact-hero {
+        background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+        color: #fff;
+        padding: 50px 30px;
+        border-radius: 12px;
+        text-align: center;
+        margin-bottom: 40px;
+        box-shadow: 0 10px 30px rgba(93, 51, 251, 0.3);
+    }
 
-                <h2 style="font-size:20px;color:#ffffff;text-shadow:1px 1px 4px #5d33fb;text-align:center">
-                    „Získajte e-book zdarma:<br /> Päť prirodzených ciest k väčšej energii stačí nám poslať vyplnený kontaktný formulár“
-                </h2>
-                <p class="w3-green">Nie je to len doplnok – je to systém pre vaše zdravie.</p>
+    .contact-hero h1 {
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0 0 20px 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
 
-                <div class="">
-                    <img src="~/Image/TestZinzino 2.jpg" class="img-responsive center-block" alt="TestZinzino" style="max-width:100%;height:auto;" title="Lepšie zdravie sa začína lepšou rovnováhou.">
-                </div>
+    .contact-hero p {
+        font-size: 18px;
+        opacity: 0.95;
+        margin: 0;
+    }
 
-                <details class="w3-center mt-2 text-center">
-                    „Všetko prebieha anonymne, bezpečne a v pohodlí domova."
-                    <br />
-                    🧩 1. Otestujte sa doma – jednoduchý krvný test (1 kvapka) odošlete do laboratória.
-                    <br />📊 2. Získajte výsledky online – detailná správa s pomerom Omega-3 a Omega-6.
-                    <br />💊 3. Upravte výživu – doplnky Zinzino pomáhajú dostať telo do rovnováhy.
-                    <br />🔄 4. Sledujte pokrok – opakujte test po 120 dňoch a sledujte zmeny.
-                    <br />🎓 5. Bezplatná konzultácia – ak si nie ste istí, čo potrebujete získajte od nás e-book zdarma:
-                    <br />👉 Päť prirodzených ciest k väčšej energii.
-                </details>
+    /* ========== DISCOUNT BANNER ========== */
+    .discount-banner {
+        background: linear-gradient(135deg, #ffeb3b 0%, #ffc107 100%);
+        color: #2c3e50;
+        padding: 25px;
+        border-radius: 10px;
+        text-align: center;
+        margin-bottom: 30px;
+        box-shadow: 0 6px 20px rgba(255, 193, 7, 0.3);
+        border: 3px solid #ff9800;
+    }
 
-                <hr />
+    .discount-banner h3 {
+        margin: 0 0 15px 0;
+        font-size: 24px;
+        font-weight: 700;
+        color: #5d33fb;
+    }
 
-               
+    .discount-banner .discount-code {
+        background: #fff;
+        color: #5d33fb;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 22px;
+        font-weight: 700;
+        display: inline-block;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        margin: 10px 0;
+    }
 
-                @using (Html.BeginForm("OdoslanieSpravy", "Home", FormMethod.Post, new { @class = "form-horizontal moj-formular" }))
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(true, "Údaje boli neúspešné. Prosím opravte chyby a skúste to znovu.")
+    /* ========== CONTACT INFO CARDS ========== */
+    .contact-info-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 40px;
+    }
 
-                    <div class="row">
-                        <div class="col-xs-12 col-md-8 col-md-offset-2">
+    .contact-card {
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border: 2px solid #e0e0e0;
+    }
 
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Name, new { @class = "control-label" })
-                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Vaše meno", tabindex = 1 })
-                                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
-                            </div>
+    .contact-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(93, 51, 251, 0.2);
+        border-color: #5d33fb;
+    }
 
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Email, new { @class = "control-label" })
-                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Zadajte email", tabindex = 1 })
-                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                            </div>
+    .contact-card .icon {
+        font-size: 48px;
+        color: #5d33fb;
+        margin-bottom: 15px;
+    }
 
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Text, new { @class = "control-label" })
-                                @Html.TextAreaFor(m => m.Text, new { @class = "form-control", placeholder = "Sem napíšte krátku správu alebo otázku.„Získajte e-book zdarma: 5 prirodzených ciest k väčšej energii“\r\nE‑book bude dostupný v prílohe po vyplnení a odoslaný na váš email.", style = "height:150px", tabindex = 4 })
-                                @Html.ValidationMessageFor(m => m.Text, "", new { @class = "text-danger" })
-                            </div>
+    .contact-card h4 {
+        color: #2c3e50;
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
 
-                            <div class="api-password-group">
-                                @Html.LabelFor(m => m.Password, new { @class = "control-label" })
-                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                            </div>
+    .contact-card p {
+        color: #555;
+        font-size: 16px;
+        margin: 0;
+    }
 
-                          
+    .contact-card a {
+        color: #5d33fb;
+        text-decoration: none;
+        font-weight: 600;
+    }
 
-                            <div class="form-group text-center">
-                                <button type="submit" class="btn btn-primary btn-lg tlacitko-moje" tabindex="6">Odoslať správu</button>
-                            </div>
+    .contact-card a:hover {
+        text-decoration: underline;
+    }
 
-                        </div>
-                    </div>
-                }
+    /* ========== E-BOOK OFFER ========== */
+    .ebook-offer {
+        background: linear-gradient(135deg, #e7f3ff 0%, #c3e3ff 100%);
+        border: 3px solid #5d33fb;
+        border-radius: 12px;
+        padding: 40px;
+        margin-bottom: 40px;
+        text-align: center;
+    }
 
+    .ebook-offer .badge {
+        background: #28a745;
+        color: #fff;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 700;
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+
+    .ebook-offer h2 {
+        color: #5d33fb;
+        font-size: 28px;
+        font-weight: 700;
+        margin: 0 0 20px 0;
+    }
+
+    .ebook-offer .benefits {
+        text-align: left;
+        max-width: 600px;
+        margin: 20px auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 8px;
+    }
+
+    .ebook-offer .benefits li {
+        padding: 10px 0;
+        border-bottom: 1px solid #e0e0e0;
+        font-size: 16px;
+        color: #2c3e50;
+    }
+
+    .ebook-offer .benefits li:last-child {
+        border-bottom: none;
+    }
+
+    /* ========== FORM SECTION ========== */
+    .form-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 40px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+
+    .form-card h3 {
+        color: #5d33fb;
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .form-group label {
+        color: #2c3e50;
+        font-weight: 600;
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+    .form-control {
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 12px 15px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: #5d33fb;
+        box-shadow: 0 0 0 0.2rem rgba(93, 51, 251, 0.25);
+        outline: none;
+    }
+
+    .btn-submit {
+        background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+        color: #fff;
+        border: none;
+        padding: 15px 40px;
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(93, 51, 251, 0.3);
+    }
+
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(93, 51, 251, 0.4);
+    }
+
+    /* ========== IMAGE SECTION ========== */
+    .test-image-section {
+        text-align: center;
+        margin: 40px 0;
+    }
+
+    .test-image-section img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ========== PROCESS STEPS ========== */
+    .process-steps {
+        background: #f8f9fa;
+        padding: 30px;
+        border-radius: 12px;
+        margin: 30px 0;
+    }
+
+    .process-steps h4 {
+        color: #5d33fb;
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .step-item {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        border-left: 4px solid #5d33fb;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .step-item:last-child {
+        margin-bottom: 0;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @@media (max-width: 768px) {
+        .contact-hero h1 {
+            font-size: 24px;
+        }
+
+        .contact-hero p {
+            font-size: 16px;
+        }
+
+        .ebook-offer {
+            padding: 25px 15px;
+        }
+
+        .ebook-offer h2 {
+            font-size: 22px;
+        }
+
+        .form-card {
+            padding: 25px 15px;
+        }
+
+        .discount-banner h3 {
+            font-size: 20px;
+        }
+
+        .discount-banner .discount-code {
+            font-size: 18px;
+        }
+    }
+
+    /* Hide honeypot field */
+    .api-password-group {
+        position: absolute;
+        left: -9999px;
+    }
+</style>
+
+<div class="contact-container">
+    <!-- Hero Section -->
+    <div class="contact-hero">
+        <h1>📧 Kontaktujte nás</h1>
+        <p>Sme tu pre vás! Napíšte nám a získajte bezplatný e-book o zdraví</p>
+    </div>
+
+    <!-- Discount Banner -->
+    <div class="discount-banner">
+        <h3>🎉 ŠPECIÁLNA ZĽAVA PRE VÁS!</h3>
+        <p style="font-size: 18px; margin-bottom: 10px;">
+            Získajte <strong>10% zľavu</strong> na všetky produkty nad <strong>50€</strong>
+        </p>
+        <div class="discount-code">NOVYROK26</div>
+        <p style="margin-top: 15px; font-size: 14px;">
+            ✅ Platí pre: BalanceOil+ 300ml, BalanceTest, Vitamin D Test, CollagenBoozt<br>
+            ⏰ Platnosť: 3 mesiace
+        </p>
+    </div>
+
+    <!-- Contact Information Cards -->
+    <div class="contact-info-section">
+        <div class="contact-card">
+            <div class="icon">
+                <i class="fa fa-envelope"></i>
+            </div>
+            <h4>Email</h4>
+            <p>
+                <a href="mailto:info@ladowebservis.sk">info@ladowebservis.sk</a>
+            </p>
+        </div>
+
+        <div class="contact-card">
+            <div class="icon">
+                <i class="fa fa-phone"></i>
+            </div>
+            <h4>Telefón</h4>
+            <p>
+                <a href="tel:+421907151293">+421 917952432</a>
+            </p>
+        </div>
+
+        <div class="contact-card">
+            <div class="icon">
+                <i class="fa fa-clock-o"></i>
+            </div>
+            <h4>Pracovný čas</h4>
+            <p>Po-Pia: 9:00-17:00</p>
         </div>
     </div>
-</div>
 
-<p class="text-center mt-3">
-    <a href="@Url.Action("Zdravie","Home",new {area = "Ladowebservis"})" class="btn btn-secondary">Späť na úvod</a>
-</p>
+    <!-- E-book Offer -->
+    <div class="ebook-offer">
+        <span class="badge">🎁 ZDARMA</span>
+        <h2>📚 Získajte e-book zdarma!</h2>
+        <p style="font-size: 18px; color: #2c3e50; margin-bottom: 25px;">
+            <strong>"5 prirodzených ciest k väčšej energii"</strong>
+        </p>
+        <div class="benefits">
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                <li>✅ Ako zvýšiť energiu bez kávy</li>
+                <li>✅ Prírodné metódy pre lepší spánok</li>
+                <li>✅ Výživa pre zdravé srdce a mozog</li>
+                <li>✅ Tipy na posilnenie imunity</li>
+                <li>✅ Personalizované odporúčania</li>
+            </ul>
+        </div>
+        <p style="color: #28a745; font-weight: 600; margin-top: 20px;">
+            📥 E-book dostanete automaticky po vyplnení formulára!
+        </p>
+    </div>
+
+    <!-- Test Image Section -->
+    <div class="test-image-section">
+        <img src="~/Image/TestZinzino 2.jpg" alt="Balance Test" title="Lepšie zdravie sa začína lepšou rovnováhou">
+    </div>
+
+    <!-- Process Steps -->
+    <div class="process-steps">
+        <h4>🔬 Ako funguje Balance Test?</h4>
+        <div class="step-item">
+            <strong>🧩 1. Otestujte sa doma</strong><br>
+            Jednoduchý krvný test (1 kvapka) odošlete do laboratória
+        </div>
+        <div class="step-item">
+            <strong>📊 2. Získajte výsledky online</strong><br>
+            Detailná správa s pomerom Omega-3 a Omega-6
+        </div>
+        <div class="step-item">
+            <strong>💊 3. Upravte výživu</strong><br>
+            Doplnky Zinzino pomáhajú dostať telo do rovnováhy
+        </div>
+        <div class="step-item">
+            <strong>🔄 4. Sledujte pokrok</strong><br>
+            Opakujte test po 120 dňoch a sledujte zmeny
+        </div>
+        <div class="step-item">
+            <strong>🎓 5. Bezplatná konzultácia</strong><br>
+            Získajte e-book zdarma: "5 prirodzených ciest k väčšej energii"
+        </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="form-card">
+        <h3>📝 Kontaktný formulár</h3>
+        <p class="text-center" style="color: #666; margin-bottom: 30px;">
+            Vyplňte formulár a pošleme vám e-book spolu s odpoveďou na váš email
+        </p>
+
+        @using (Html.BeginForm("OdoslanieSpravy", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "Údaje boli neúspešné. Prosím opravte chyby a skúste to znovu.", new { @class = "alert alert-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, "Vaše meno *")
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Zadajte vaše celé meno", required = "required" })
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, "Emailová adresa *")
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "vas.email@example.com", type = "email", required = "required" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Text, "Vaša správa *")
+                @Html.TextAreaFor(m => m.Text, new { 
+                    @class = "form-control", 
+                    placeholder = "Napíšte sem vašu správu alebo otázku...\n\nAk chcete získať e-book \"5 prirodzených ciest k väčšej energii\", stačí napísať: \"Chcem e-book\" alebo len vyplniť tento formulár.\n\nE-book bude automaticky zaslaný na váš email.", 
+                    style = "height:180px; resize:vertical;", 
+                    required = "required" 
+                })
+                @Html.ValidationMessageFor(m => m.Text, "", new { @class = "text-danger" })
+            </div>
+
+            <!-- Honeypot field (hidden from users, catches bots) -->
+            <div class="api-password-group">
+                @Html.LabelFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", tabindex = "-1" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group text-center">
+                <button type="submit" class="btn-submit">
+                    <i class="fa fa-paper-plane"></i> Odoslať správu
+                </button>
+            </div>
+
+            <p class="text-center" style="color: #999; font-size: 13px; margin-top: 20px;">
+                🔒 Vaše údaje sú v bezpečí a nebudú zdieľané s tretími stranami
+            </p>
+        }
+    </div>
+
+    <!-- Back Button -->
+    <div class="text-center">
+        <a href="@Url.Action("Zdravie","Home",new {area = "Ladowebservis"})" class="btn btn-secondary btn-lg">
+            <i class="fa fa-arrow-left"></i> Späť na úvod
+        </a>
+    </div>
+</div>

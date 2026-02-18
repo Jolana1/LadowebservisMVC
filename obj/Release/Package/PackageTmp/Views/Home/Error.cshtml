@@ -1,0 +1,367 @@
+﻿@{
+    ViewBag.Title = ViewBag.ErrorTitle ?? "Chyba";
+    var statusCode = ViewBag.StatusCode ?? 500;
+    var errorMessage = ViewBag.ErrorMessage ?? "Vyskytla sa neočakávaná chyba.";
+    var errorTitle = ViewBag.ErrorTitle ?? "Vyskytla sa chyba";
+}
+
+<style>
+    /* ========== ERROR PAGE STYLES ========== */
+    .error-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        min-height: calc(100vh - 200px);
+    }
+
+    /* ========== ERROR HERO ========== */
+    .error-hero {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        color: #fff;
+        padding: 60px 30px;
+        border-radius: 12px;
+        text-align: center;
+        margin-bottom: 40px;
+        box-shadow: 0 10px 30px rgba(220, 53, 69, 0.3);
+    }
+
+    .error-hero.warning {
+        background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+        color: #2c3e50;
+    }
+
+    .error-hero.info {
+        background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+        color: #fff;
+    }
+
+    .error-hero .error-icon {
+        font-size: 80px;
+        margin-bottom: 20px;
+        opacity: 0.9;
+    }
+
+    .error-hero h1 {
+        font-size: 48px;
+        font-weight: 700;
+        margin: 0 0 15px 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .error-hero .error-code {
+        font-size: 72px;
+        font-weight: 900;
+        margin-bottom: 10px;
+        opacity: 0.8;
+    }
+
+    .error-hero p {
+        font-size: 18px;
+        opacity: 0.95;
+        margin: 0;
+    }
+
+    /* ========== ERROR CONTENT ========== */
+    .error-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        margin-bottom: 30px;
+    }
+
+    .error-card h2 {
+        color: #5d33fb;
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0 0 20px 0;
+    }
+
+    .error-card p {
+        color: #555;
+        font-size: 16px;
+        line-height: 1.8;
+        margin-bottom: 15px;
+    }
+
+    /* ========== HELP SECTION ========== */
+    .help-section {
+        background: #f8f9fa;
+        border-left: 4px solid #5d33fb;
+        padding: 25px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+    }
+
+    .help-section h3 {
+        color: #5d33fb;
+        font-size: 20px;
+        font-weight: 600;
+        margin: 0 0 15px 0;
+    }
+
+    .help-section ul {
+        margin: 0;
+        padding-left: 20px;
+    }
+
+    .help-section ul li {
+        color: #555;
+        padding: 8px 0;
+        font-size: 16px;
+    }
+
+    /* ========== QUICK LINKS ========== */
+    .quick-links {
+        background: #fff;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+
+    .quick-links h3 {
+        color: #5d33fb;
+        font-size: 22px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .quick-links-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .quick-link-btn {
+        background: #f8f9fa;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: block;
+    }
+
+    .quick-link-btn:hover {
+        border-color: #5d33fb;
+        background: #f5f3ff;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(93, 51, 251, 0.2);
+        text-decoration: none;
+    }
+
+    .quick-link-btn i {
+        font-size: 36px;
+        color: #5d33fb;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .quick-link-btn span {
+        color: #2c3e50;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    /* ========== CONTACT INFO ========== */
+    .contact-info {
+        background: linear-gradient(135deg, #e7f3ff 0%, #c3e3ff 100%);
+        border-radius: 12px;
+        padding: 30px;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .contact-info h4 {
+        color: #5d33fb;
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .contact-info p {
+        color: #2c3e50;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .contact-info a {
+        color: #5d33fb;
+        font-weight: 600;
+    }
+
+    /* ========== BUTTONS ========== */
+    .btn-primary-custom {
+        background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+        color: #fff;
+        padding: 15px 40px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(93, 51, 251, 0.3);
+        border: none;
+        margin: 10px;
+    }
+
+    .btn-primary-custom:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(93, 51, 251, 0.4);
+        color: #fff;
+        text-decoration: none;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @@media (max-width: 768px) {
+        .error-hero {
+            padding: 40px 20px;
+        }
+
+        .error-hero .error-code {
+            font-size: 56px;
+        }
+
+        .error-hero h1 {
+            font-size: 32px;
+        }
+
+        .error-hero .error-icon {
+            font-size: 60px;
+        }
+
+        .error-card {
+            padding: 25px 20px;
+        }
+
+        .quick-links-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="error-container">
+    <!-- Error Hero -->
+    <div class="error-hero @(statusCode == 404 ? "warning" : statusCode == 403 ? "info" : "")">
+        @if (statusCode == 404)
+        {
+            <div class="error-icon">😕</div>
+            <div class="error-code">404</div>
+        }
+        else if (statusCode == 403)
+        {
+            <div class="error-icon">🔒</div>
+            <div class="error-code">403</div>
+        }
+        else if (statusCode == 500)
+        {
+            <div class="error-icon">⚠️</div>
+            <div class="error-code">500</div>
+        }
+        else
+        {
+            <div class="error-icon">❌</div>
+        }
+        
+        <h1>@errorTitle</h1>
+        <p>@errorMessage</p>
+    </div>
+
+    <!-- Error Details Card -->
+    <div class="error-card">
+        <h2>Čo sa stalo?</h2>
+        
+        @if (statusCode == 404)
+        {
+            <p>
+                Požadovaná stránka alebo zdroj neboli nájdené. Mohli byť odstránené, presunuté alebo adresa URL obsahuje preklep.
+            </p>
+        }
+        else if (statusCode == 403)
+        {
+            <p>
+                Nemáte oprávnenie na prístup k tejto stránke alebo zdroju. Ak si myslíte, že je to chyba, kontaktujte nás.
+            </p>
+        }
+        else if (statusCode == 500)
+        {
+            <p>
+                Vyskytla sa chyba na serveri pri spracovaní vašej požiadavky. Náš tím bol informovaný a pracujeme na oprave.
+            </p>
+        }
+        else
+        {
+            <p>
+                Vyskytla sa neočakávaná chyba. Prosím skúste to znova o chvíľu.
+            </p>
+        }
+
+        @if (ViewBag.ErrorDetails != null)
+        {
+            <p class="small text-muted">
+                <strong>Technické detaily:</strong> @ViewBag.ErrorDetails
+            </p>
+        }
+    </div>
+
+    <!-- Help Section -->
+    <div class="help-section">
+        <h3>💡 Čo môžete skúsiť?</h3>
+        <ul>
+            <li>Skontrolujte, či je adresa URL správne napísaná</li>
+            <li>Použite tlačidlo "Späť" vo vašom prehliadači</li>
+            <li>Prejdite na úvodnú stránku a začnite odznova</li>
+            <li>Vyčistite vyrovnávaciu pamäť prehliadača (cache)</li>
+            <li>Skúste to znova o chvíľu</li>
+        </ul>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="quick-links">
+        <h3>🔗 Rýchle odkazy</h3>
+        <div class="quick-links-grid">
+            <a href="@Url.Action("Zdravie","Home",new {area = "Ladowebservis"})" class="quick-link-btn">
+                <i class="fa fa-home"></i>
+                <span>Úvodná stránka</span>
+            </a>
+            <a href="@Url.Action("Produkty","Home")" class="quick-link-btn">
+                <i class="fa fa-shopping-cart"></i>
+                <span>Produkty</span>
+            </a>
+            <a href="@Url.Action("Kontakt","Home")" class="quick-link-btn">
+                <i class="fa fa-envelope"></i>
+                <span>Kontakt</span>
+            </a>
+            <a href="@Url.Action("About","Home")" class="quick-link-btn">
+                <i class="fa fa-info-circle"></i>
+                <span>O nás</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="contact-info">
+        <h4>📞 Potrebujete pomoc?</h4>
+        <p>V prípade pretrvávajúcich problémov nás môžete kontaktovať:</p>
+        <p>
+            <i class="fa fa-envelope"></i> Email: 
+            <a href="mailto:info@ladowebservis.sk">info@ladowebservis.sk</a> alebo 
+            <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a>
+        </p>
+        <p>
+            <i class="fa fa-phone"></i> Telefón: 
+            <a href="tel:+421907151293">+421 907 151 293</a>
+        </p>
+    </div>
+
+    <!-- Back Button -->
+    <div class="text-center">
+        <a href="@Url.Action("Zdravie","Home",new {area = "Ladowebservis"})" class="btn-primary-custom">
+            <i class="fa fa-arrow-left"></i> Späť na úvod
+        </a>
+    </div>
+</div>

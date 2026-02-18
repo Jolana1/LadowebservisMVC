@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace LadowebservisMVC.Controllers
 {
+    [HandleError]
     public class HomeController : Controller
     {
         // GET: Home
@@ -115,10 +116,18 @@ namespace LadowebservisMVC.Controllers
             ViewBag.PageTitle = "OdoslanieSpravy";
             if (ModelState.IsValid)
             {
-                Mailer mailer = new Mailer();
-                mailer.OdoslanieSpravy(model);
-
-                return View();
+                try
+                {
+                    Mailer mailer = new Mailer();
+                    mailer.OdoslanieSpravy(model);
+                    return View();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Trace.TraceError($"Email send failed: {ex.Message}");
+                    ModelState.AddModelError("", "Odoslanie správy sa nepodarilo. Skúste to prosím znova.");
+                    return View("Kontakt", model);
+                }
             }
             return View("Kontakt", model);
         }
@@ -144,14 +153,23 @@ namespace LadowebservisMVC.Controllers
             ViewBag.PageTitle = "OdoslanieReg";
             if (ModelState.IsValid)
             {
-                var mailer = new Mailer();
-                mailer.OdoslanieEmailu(model);
+                try
+                {
+                    var mailer = new Mailer();
+                    mailer.OdoslanieEmailu(model);
 
-                // allow access to ordering after successful registration
-                TempData["CanOrder"] = true;
+                    // allow access to ordering after successful registration
+                    TempData["CanOrder"] = true;
 
-                // Redirect to the registration confirmation page
-                return RedirectToAction("OdoslanieReg", "Home");
+                    // Redirect to the registration confirmation page
+                    return RedirectToAction("OdoslanieReg", "Home");
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Trace.TraceError($"Registration email failed: {ex.Message}");
+                    ModelState.AddModelError("", "Registrácia sa nepodarila. Skúste to prosím znova.");
+                    return View("Registracia", model);
+                }
             }
 
             // On validation errors, re-render registration with validation messages
@@ -167,7 +185,6 @@ namespace LadowebservisMVC.Controllers
         public ActionResult Objednavky()
         {
             ViewBag.PageTitle = "Objednavky";
-
             return View();
         }
 
@@ -198,7 +215,6 @@ namespace LadowebservisMVC.Controllers
             catch { ViewBag.Products = new List<ProductInfo>(); }
 
             return View(model);
-
         }
 
         public ActionResult Kosik()
@@ -213,153 +229,201 @@ namespace LadowebservisMVC.Controllers
             return View();
         }
 
+        // Unsubscribe from marketing emails
+        [HttpGet]
+        public ActionResult Unsubscribe(string email, string token)
+        {
+            ViewBag.PageTitle = "Odhlásenie z odberu";
+            
+            // Validate email and token
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                ViewBag.Error = "Neplatný email.";
+                return View();
+            }
+
+            // TODO: Implement actual unsubscribe logic here
+            // For now, just pass the email to the view
+            ViewBag.Email = email;
+            ViewBag.UnsubscribeSuccess = true;
+
+            try
+            {
+                // Log unsubscribe request
+                System.Diagnostics.Trace.TraceInformation($"Unsubscribe request: {email}");
+                
+                // TODO: Add email to unsubscribe list in database or file
+                // Example: UnsubscribeService.Add(email);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.TraceError($"Unsubscribe error: {ex.Message}");
+                ViewBag.Error = "Vyskytla sa chyba pri odhlasovaní.";
+                ViewBag.UnsubscribeSuccess = false;
+            }
+
+            return View();
+        }
+
+        // About page
+        public ActionResult About()
+        {
+            ViewBag.PageTitle = "O nás";
+            return View();
+        }
+
         // Place order (bank transfer)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult PlaceOrder(PlaceOrderModel model)
         {
-            if (model == null)
+            try
             {
-                return RedirectToAction("Produkty");
-            }
-
-            // parse cart JSON into Items
-            if (string.IsNullOrWhiteSpace(model.CartJson))
-            {
-                ModelState.AddModelError("CartJson", "Nákupný košík je prázdny.");
-            }
-            else
-            {
-                try
+                if (model == null)
                 {
-                    var js = new JavaScriptSerializer();
-                    // expect CartJson to be an array of items matching OrderItem
-                    model.Items = js.Deserialize<List<OrderItem>>(model.CartJson) ?? new List<OrderItem>();
+                    return RedirectToAction("Produkty");
                 }
-                catch
-                {
-                    model.Items = new List<OrderItem>();
-                    ModelState.AddModelError("CartJson", "Chyba pri spracovaní košíka.");
-                }
-            }
 
-            // Server-side validation: compare prices and stock with ProductCatalog
-            var catalogErrors = new List<string>();
-            foreach (var item in model.Items)
-            {
-                if (ProductCatalog.TryGetById(item.Id, out var info))
+                // parse cart JSON into Items
+                if (string.IsNullOrWhiteSpace(model.CartJson))
                 {
-                    // check stock
-                    if (item.Quantity <= 0 || item.Quantity > info.Stock)
-                    {
-                        catalogErrors.Add($"Nesprávne množstvo pre produkt {info.Name}.");
-                    }
-
-                    // check price - if client-supplied UnitPrice differs, replace with catalog price and note discrepancy
-                    if (item.UnitPrice != info.Price)
-                    {
-                        // replace client price with trusted price
-                        item.UnitPrice = info.Price;
-                        catalogErrors.Add($"Cena produktu {info.Name} bola upravená podľa katalógu.");
-                    }
+                    ModelState.AddModelError("CartJson", "Nákupný košík je prázdny.");
                 }
                 else
                 {
-                    catalogErrors.Add($"Produkt s ID '{item.Id}' neexistuje.");
+                    try
+                    {
+                        var js = new JavaScriptSerializer();
+                        model.Items = js.Deserialize<List<OrderItem>>(model.CartJson) ?? new List<OrderItem>();
+                    }
+                    catch
+                    {
+                        model.Items = new List<OrderItem>();
+                        ModelState.AddModelError("CartJson", "Chyba pri spracovaní košíka.");
+                    }
                 }
-            }
 
-            if (catalogErrors.Any())
+                // Server-side validation: compare prices and stock with ProductCatalog
+                var catalogErrors = new List<string>();
+                foreach (var item in model.Items)
+                {
+                    if (ProductCatalog.TryGetById(item.Id, out var info))
+                    {
+                        // check stock
+                        if (item.Quantity <= 0 || item.Quantity > info.Stock)
+                        {
+                            catalogErrors.Add($"Nesprávne množstvo pre produkt {info.Name}.");
+                        }
+
+                        // check price
+                        if (item.UnitPrice != info.Price)
+                        {
+                            item.UnitPrice = info.Price;
+                            catalogErrors.Add($"Cena produktu {info.Name} bola upravená podľa katalógu.");
+                        }
+                    }
+                    else
+                    {
+                        catalogErrors.Add($"Produkt s ID '{item.Id}' neexistuje.");
+                    }
+                }
+
+                if (catalogErrors.Any())
+                {
+                    foreach (var e in catalogErrors) ModelState.AddModelError("CartJson", e);
+                }
+
+                var total = model.Items?.Sum(i => i.LineTotal) ?? 0m;
+
+                if (!ModelState.IsValid)
+                {
+                    return RedirectToAction("Kosik");
+                }
+
+                ViewBag.Items = model.Items;
+                ViewBag.Total = total;
+                ViewBag.PaymentMethod = "bank";
+
+                return View("OrderPlaced");
+            }
+            catch (Exception ex)
             {
-                foreach (var e in catalogErrors) ModelState.AddModelError("CartJson", e);
+                System.Diagnostics.Trace.TraceError($"Order placement error: {ex.Message}");
+                TempData["ErrorMessage"] = "Objednávka sa nepodarila. Skúste to prosím znova.";
+                return RedirectToAction("Error");
             }
-
-            // compute total
-            var total = model.Items?.Sum(i => i.LineTotal) ?? 0m;
-
-            if (!ModelState.IsValid)
-            {
-                // return to cart view with errors (keep simple: redirect to Kosik)
-                return RedirectToAction("Kosik");
-            }
-
-            // Here you could persist the order, reduce stock, send confirmation email, etc.
-
-            ViewBag.Items = model.Items;
-            ViewBag.Total = total;
-            ViewBag.PaymentMethod = "bank";
-
-            return View("OrderPlaced");
         }
 
-        // Start Stripe checkout - parse cart and forward to payment gateway integration
+        // Start Stripe checkout
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult StartStripeCheckout(PlaceOrderModel model)
         {
-            if (model == null)
-            {
-                return RedirectToAction("Produkty");
-            }
-
             try
             {
+                if (model == null)
+                {
+                    return RedirectToAction("Produkty");
+                }
+
                 var js = new JavaScriptSerializer();
                 model.Items = js.Deserialize<List<OrderItem>>(model.CartJson) ?? new List<OrderItem>();
+
+                var total = model.Items?.Sum(i => i.LineTotal) ?? 0m;
+
+                if (model.Items == null || model.Items.Count == 0)
+                {
+                    return RedirectToAction("Kosik");
+                }
+
+                ViewBag.Items = model.Items;
+                ViewBag.Total = total;
+                ViewBag.PaymentMethod = "stripe";
+
+                return View("OrderPlaced");
             }
-            catch
+            catch (Exception ex)
             {
-                model.Items = new List<OrderItem>();
+                System.Diagnostics.Trace.TraceError($"Stripe checkout error: {ex.Message}");
+                TempData["ErrorMessage"] = "Platba sa nepodarila. Skúste to prosím znova.";
+                return RedirectToAction("Error");
             }
-
-            var total = model.Items?.Sum(i => i.LineTotal) ?? 0m;
-
-            if (model.Items == null || model.Items.Count == 0)
-            {
-                return RedirectToAction("Kosik");
-            }
-
-            // TODO: integrate with Stripe API. For now show OrderPlaced summary with payment method stripe
-            ViewBag.Items = model.Items;
-            ViewBag.Total = total;
-            ViewBag.PaymentMethod = "stripe";
-
-            return View("OrderPlaced");
         }
 
-        // Start PayPal checkout - parse cart and forward to PayPal integration
+        // Start PayPal checkout
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult StartPayPalCheckout(PlaceOrderModel model)
         {
-            if (model == null)
-            {
-                return RedirectToAction("Produkty");
-            }
-
             try
             {
+                if (model == null)
+                {
+                    return RedirectToAction("Produkty");
+                }
+
                 var js = new JavaScriptSerializer();
                 model.Items = js.Deserialize<List<OrderItem>>(model.CartJson) ?? new List<OrderItem>();
+
+                var total = model.Items?.Sum(i => i.LineTotal) ?? 0m;
+
+                if (model.Items == null || model.Items.Count == 0)
+                {
+                    return RedirectToAction("Kosik");
+                }
+
+                ViewBag.Items = model.Items;
+                ViewBag.Total = total;
+                ViewBag.PaymentMethod = "paypal";
+
+                return View("OrderPlaced");
             }
-            catch
+            catch (Exception ex)
             {
-                model.Items = new List<OrderItem>();
+                System.Diagnostics.Trace.TraceError($"PayPal checkout error: {ex.Message}");
+                TempData["ErrorMessage"] = "Platba sa nepodarila. Skúste to prosím znova.";
+                return RedirectToAction("Error");
             }
-
-            var total = model.Items?.Sum(i => i.LineTotal) ?? 0m;
-
-            if (model.Items == null || model.Items.Count == 0)
-            {
-                return RedirectToAction("Kosik");
-            }
-
-            // TODO: integrate with PayPal API. For now show OrderPlaced summary with payment method paypal
-            ViewBag.Items = model.Items;
-            ViewBag.Total = total;
-            ViewBag.PaymentMethod = "paypal";
-
-            return View("OrderPlaced");
         }
 
         public ActionResult ReturnPolicy()
@@ -373,11 +437,13 @@ namespace LadowebservisMVC.Controllers
             ViewBag.PageTitle = "GDPR";
             return View();
         }
+
         public ActionResult ObchodnePodmienky()
         {
             ViewBag.PageTitle = "Obchodné Podmienky";
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DownloadEbook(DownloadEbookModel model)
@@ -408,14 +474,12 @@ namespace LadowebservisMVC.Controllers
             }
             catch (Exception ex)
             {
-                // TODO: replace with your logging solution (e.g., NLog/Serilog)
                 System.Diagnostics.Trace.TraceError($"E-book email send failed: {ex}");
-
-                ModelState.AddModelError(string.Empty,
-                    "Odoslanie e‑mailu sa nepodarilo. Skúste to prosím znova o chvíľu.");
+                ModelState.AddModelError(string.Empty, "Odoslanie e‑mailu sa nepodarilo. Skúste to prosím znova o chvíľu.");
                 return View(model);
             }
         }
+
         public ActionResult DownloadEbook()
         {
             ViewBag.PageTitle = "DownloadEbook";
@@ -426,12 +490,105 @@ namespace LadowebservisMVC.Controllers
             }
             return View(model);
         }
+
+        // Error page with proper error handling
         public ActionResult Error()
         {
-            ViewBag.PageTitle = "404";
+            ViewBag.PageTitle = "Chyba";
+            
+            // Get error message from TempData if available
+            if (TempData["ErrorMessage"] != null)
+            {
+                ViewBag.ErrorMessage = TempData["ErrorMessage"];
+            }
+
+            // Get exception from Server if available
+            var exception = Server.GetLastError();
+            if (exception != null)
+            {
+                ViewBag.ErrorDetails = exception.Message;
+                System.Diagnostics.Trace.TraceError($"Application error: {exception}");
+            }
+
+            // Check for HTTP status code
+            var httpContext = System.Web.HttpContext.Current;
+            if (httpContext != null && httpContext.Response != null)
+            {
+                var statusCode = httpContext.Response.StatusCode;
+                ViewBag.StatusCode = statusCode;
+
+                if (statusCode == 404)
+                {
+                    ViewBag.ErrorTitle = "Stránka nenájdená";
+                    ViewBag.ErrorMessage = "Požadovaná stránka neexistuje alebo bola presunutá.";
+                }
+                else if (statusCode == 500)
+                {
+                    ViewBag.ErrorTitle = "Chyba servera";
+                    ViewBag.ErrorMessage = "Vyskytla sa chyba na serveri. Prosím skúste to znova.";
+                }
+                else if (statusCode == 403)
+                {
+                    ViewBag.ErrorTitle = "Prístup zamietnutý";
+                    ViewBag.ErrorMessage = "Nemáte oprávnenie na prístup k tejto stránke.";
+                }
+                else
+                {
+                    ViewBag.ErrorTitle = "Vyskytla sa chyba";
+                    if (ViewBag.ErrorMessage == null)
+                    {
+                        ViewBag.ErrorMessage = "Niečo sa pokazilo. Prosím skúste to znova.";
+                    }
+                }
+            }
+            else
+            {
+                ViewBag.ErrorTitle = "Vyskytla sa chyba";
+                if (ViewBag.ErrorMessage == null)
+                {
+                    ViewBag.ErrorMessage = "Niečo sa pokazilo. Prosím skúste to znova.";
+                }
+            }
+
+            // Clear error to prevent infinite loop
+            Server.ClearError();
+
             return View();
         }
 
+        // Custom 404 Not Found handler
+        public ActionResult NotFound()
+        {
+            ViewBag.PageTitle = "404 - Stránka nenájdená";
+            ViewBag.ErrorTitle = "Stránka nenájdená";
+            ViewBag.ErrorMessage = "Požadovaná stránka neexistuje alebo bola presunutá.";
+            ViewBag.StatusCode = 404;
+            
+            Response.StatusCode = 404;
+            Response.TrySkipIisCustomErrors = true;
+            
+            return View("Error");
+        }
+
+        // Override OnException for additional error handling
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            if (filterContext.ExceptionHandled)
+                return;
+
+            // Log the error
+            var exception = filterContext.Exception;
+            System.Diagnostics.Trace.TraceError($"Unhandled exception: {exception}");
+
+            // Set error details in TempData
+            TempData["ErrorMessage"] = "Vyskytla sa neočakávaná chyba. Prosím skúste to znova.";
+
+            // Mark as handled
+            filterContext.ExceptionHandled = true;
+
+            // Redirect to error page
+            filterContext.Result = RedirectToAction("Error");
+        }
     }
 }
 

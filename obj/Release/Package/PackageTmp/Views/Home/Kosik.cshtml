@@ -5,163 +5,451 @@
     var seenIds = new System.Collections.Generic.HashSet<string>(System.StringComparer.OrdinalIgnoreCase);
 }
 
-<div class="container-fluid card py-4">
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-10">
-            <h2 style="font-size:20px;color:#ffffff;text-shadow:1px 1px 4px #5d33fb;text-align:center">
-                <br />Toto je stránka kde si môžte skontrolovať čo sa v košíku ocitlo a dostupné produkty pridávať,.
-                <br />editovať,vložiť do obľúbených a pod.
-                <br />Prejsť k platbe môžte aj priamo stlačením tlačidla bez zadávanie do košíka<br />
-                <stripe-buy-button buy-button-id="buy_btn_1SgujHHrPMzQ1ua8771vUUL4"
-                                   publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
-                </stripe-buy-button><br />Nezabudnite si pri platbe cez Stripe vložiť propagačný kód👉NOVYROK26👉aby ste mali 10% zľavu.Kód je možné uplatniť len pre: Balanceoil+ 300ml, BalanceTest, Vitamin D test alebo kombinaciu.
-            </h2>
-                <div class="text-center mt-4">
-                    <a href="@Url.Action("Login","Home")" class="btn btn-secondary me-2">Prihlásenie do členskej sekcie</a>
-                    <a href='@Url.Action("Favorites","Home")' class="btn btn-secondary me-2">Obľúbené produkty</a>
-                    <a href='@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })' class="btn btn-primary btn-md tlacitko-moje">Späť na úvod</a>
-                    <button type="button"
-                            class="btn btn-primary btn-sm"
-                            style="margin-left:.5rem;"
-                            onclick="openSideCart()">
-                        Skontrolovať položky v košíku
-                    </button>
-                </div>
-                <!-- Available products: show catalog and allow adding to cart -->
-                <div id="availableProducts" class="card p-3 mb-3">
-                    <h3 class="mb-3">Dostupné produkty</h3>
-                    <div class="row">
-                        @foreach (var p in ProductCatalog.GetAll())
+<style>
+    /* ========== MAIN CONTAINER ========== */
+    .kosik-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* ========== HERO HEADER ========== */
+    .kosik-hero {
+        background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+        color: #fff;
+        padding: 40px 20px;
+        border-radius: 12px;
+        text-align: center;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(93, 51, 251, 0.3);
+    }
+
+    .kosik-hero h2 {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0 0 20px 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        line-height: 1.6;
+    }
+
+    /* ========== DISCOUNT NOTICE ========== */
+    .discount-notice {
+        background: linear-gradient(135deg, #ffeb3b 0%, #ffc107 100%);
+        color: #2c3e50;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+        text-align: center;
+    }
+
+    .discount-notice code {
+        background: #fff;
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-weight: 700;
+        color: #5d33fb;
+        font-size: 16px;
+    }
+
+    /* ========== CARD SECTIONS ========== */
+    .kosik-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin-bottom: 30px;
+    }
+
+    .kosik-card h3 {
+        color: #5d33fb;
+        font-weight: 700;
+        margin-bottom: 25px;
+        font-size: 22px;
+    }
+
+    /* ========== PRODUCT CARDS ========== */
+    .product-card {
+        position: relative;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-card:hover {
+        border-color: #5d33fb;
+        box-shadow: 0 8px 20px rgba(93, 51, 251, 0.15);
+        transform: translateY(-3px);
+    }
+
+    .product-card img {
+        max-width: 100%;
+        max-height: 120px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        margin: 0 auto;
+    }
+
+    .product-card h4 {
+        color: #2c3e50;
+        font-size: 16px;
+        font-weight: 600;
+        margin: 15px 0 10px;
+    }
+
+    .product-card p {
+        color: #28a745;
+        font-size: 20px;
+        font-weight: 700;
+        margin: 10px 0;
+    }
+
+    /* ========== BUTTONS ========== */
+    .btn-detail {
+        background: #17a2b8;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+    .btn-detail:hover {
+        background: #138496;
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+    }
+
+    .btn-add-cart {
+        background: #5d33fb;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-add-cart:hover {
+        background: #4a2fb5;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(93, 51, 251, 0.3);
+    }
+
+    .product-heart {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 8px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 10;
+    }
+
+    .product-heart .fa-heart {
+        font-size: 20px;
+        color: #e25555;
+        transition: all 0.3s ease;
+    }
+
+    .product-heart:hover .fa-heart {
+        transform: scale(1.2);
+    }
+
+    /* ========== CART REVIEW ========== */
+    .cart-item {
+        border: 2px solid #f0f0f0;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+    }
+
+    .cart-item:hover {
+        border-color: #5d33fb;
+        box-shadow: 0 4px 12px rgba(93, 51, 251, 0.1);
+    }
+
+    .cart-item-discount {
+        background: #e7f3ff;
+        border-color: #28a745;
+    }
+
+    .cart-item img {
+        max-width: 120px;
+        max-height: 120px;
+        object-fit: contain;
+        border-radius: 8px;
+    }
+
+    .discount-badge {
+        display: inline-block;
+        background: #28a745;
+        color: #fff;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 700;
+        margin-left: 10px;
+    }
+
+    .price-original {
+        text-decoration: line-through;
+        color: #999;
+        margin-right: 8px;
+    }
+
+    .price-discounted {
+        color: #28a745;
+        font-weight: 700;
+    }
+
+    /* ========== TOTALS ========== */
+    .cart-totals {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    .cart-totals .row {
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    .cart-totals .row:last-child {
+        border-top: 2px solid #5d33fb;
+        padding-top: 15px;
+        margin-top: 15px;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @@media (max-width: 768px) {
+        .kosik-hero h2 {
+            font-size: 18px;
+        }
+
+        .kosik-card {
+            padding: 20px;
+        }
+
+        .cart-item {
+            padding: 15px;
+        }
+
+        .cart-item img {
+            max-width: 80px;
+            max-height: 80px;
+        }
+    }
+
+    /* ========== ALERT STYLES ========== */
+    .alert-info {
+        background: #e7f3ff;
+        border: 2px solid #5d33fb;
+        border-radius: 8px;
+        padding: 20px;
+    }
+
+    .alert-info h4 {
+        color: #5d33fb;
+        margin-top: 0;
+    }
+
+    /* Fly-to-cart image animation */
+    .lws-fly-img {
+        position: absolute !important;
+        pointer-events: none;
+        z-index: 9999;
+        border-radius: 6px;
+        transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+        opacity: 1;
+        will-change: transform, opacity;
+    }
+</style>
+
+<div class="kosik-container">
+    <!-- Hero Header -->
+    <div class="kosik-hero">
+        <h2>
+            🛒 Košík - Skontrolujte si produkty a dokončite objednávku<br>
+            <small style="font-size: 16px; opacity: 0.9;">Môžete pridávať, upravovať množstvo alebo odstraňovať položky</small>
+        </h2>
+
+        <div class="discount-notice">
+            🎉 Nezabudnite! Pri platbe použite kód <code>NOVYROK26</code> a získajte 10% zľavu na produkty nad 50€
+        </div>
+
+        <!-- Stripe Buy Button -->
+        <div class="text-center my-3">
+            <stripe-buy-button buy-button-id="buy_btn_1SgujHHrPMzQ1ua8771vUUL4"
+                               publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
+            </stripe-buy-button>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="text-center mt-4">
+            <a href="@Url.Action("Login","Home")" class="btn btn-light me-2 mb-2">
+                <i class="fa fa-user"></i> Prihlásenie
+            </a>
+            <a href='@Url.Action("Favorites","Home")' class="btn btn-light me-2 mb-2">
+                <i class="fa fa-heart"></i> Obľúbené
+            </a>
+            <a href='@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })' class="btn btn-light me-2 mb-2">
+                <i class="fa fa-home"></i> Späť na úvod
+            </a>
+            <button type="button" class="btn btn-light mb-2" onclick="openSideCart()">
+                <i class="fa fa-shopping-cart"></i> Skontrolovať košík
+            </button>
+        </div>
+    </div>
+
+    <!-- Available Products Section -->
+    <div class="kosik-card">
+        <h3>📦 Dostupné produkty</h3>
+        <div class="row">
+            @foreach (var p in ProductCatalog.GetAll())
+            {
+                @* skip duplicates by Id only *@
+                if (p == null) { continue; }
+                var id = (p.Id ?? string.Empty).Trim();
+                if (string.IsNullOrEmpty(id)) { continue; }
+
+                // If we've already rendered the same id, skip to avoid duplicates
+                if (seenIds.Contains(id)) { continue; }
+
+                // mark as seen
+                seenIds.Add(id);
+
+                // Calculate if product qualifies for discount (price > 50€)
+                var qualifiesForDiscount = p.Price > 50;
+                var discountedPrice = qualifiesForDiscount ? p.Price * 0.9m : p.Price;
+
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 products" data-product-id="@p.Id" data-product-name="@p.Name" data-product-image="@p.Image">
+                    <div class="card p-3 text-center product-card">
+                        @if (qualifiesForDiscount)
                         {
-                            @* skip duplicates by Id only *@
-                            if (p == null) { continue; }
-                            var id = (p.Id ?? string.Empty).Trim();
-                            if (string.IsNullOrEmpty(id)) { continue; }
-
-                            // If we've already rendered the same id, skip to avoid duplicates
-                            if (seenIds.Contains(id)) { continue; }
-
-                            // mark as seen
-                            seenIds.Add(id);
-
-                            <div class="col-12 col-sm-6 col-md-4 mb-3 products" data-product-id="@p.Id" data-product-name="@p.Name" data-product-image="@p.Image">
-                                <div class="card p-2 text-center product-card h-100 d-flex flex-column">
-                                    <img src="@p.Image" alt="@p.Name" class="img-fluid mx-auto" style="max-height:100px;object-fit:contain;" />
-                                    <h4 class="mt-2">@p.Name</h4>
-                                    <p>€@String.Format("{0:0.00}", p.Price)</p>
-                                    <div class="mt-auto d-flex gap-2 justify-content-center align-items-center">
-                                        <a class="btn btn-sm btn-info" href="@Url.Action("Produkty", "Home", new { id = p.Id })" title="Detail produktu">Detail</a>
-                                        <button type="button" class="btn btn-sm btn-dark add-to-cart btn-block" data-id="@p.Id">Pridať do košíka</button>
-                                        <button type="button" class="product-heart btn btn-link" data-id="@p.Id" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">
-                                            <i class="fa fa-heart" aria-hidden="true"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                            <span class="discount-badge" style="position: absolute; top: 10px; left: 10px;">-10% ZĽAVA</span>
                         }
-                    </div>
-                </div>
 
-                <div id="cartReview" class="card p-3 mb-3">
-                    <h3 class="mb-3">Tu je zoznam produktov v košíku</h3>
-                    <ul id="cartReviewList" class="list-group mb-2">
-                        <!-- items rendered by JS -->
-                    </ul>
-                    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center">
+                        <button type="button" class="product-heart" data-id="@p.Id" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
 
-                        <div class="mb-2 mb-sm-0">
-                            Celková suma: €<span id="cartReviewTotal">0.00</span>
-                            <button id="clear-cart-btn" class="btn btn-sm btn-danger ms-2">Vyprázdniť košík</button>
+                        <img src="@p.Image" alt="@p.Name" class="img-fluid mx-auto mb-3" />
+                        
+                        <h4>@p.Name</h4>
+                        
+                        @if (qualifiesForDiscount)
+                        {
+                            <p>
+                                <span class="price-original">€@String.Format("{0:0.00}", p.Price)</span>
+                                <span class="price-discounted">€@String.Format("{0:0.00}", discountedPrice)</span>
+                            </p>
+                        }
+                        else
+                        {
+                            <p>€@String.Format("{0:0.00}", p.Price)</p>
+                        }
+
+                        <div class="mt-auto d-flex gap-2 justify-content-center align-items-center flex-wrap">
+                            <a class="btn btn-sm btn-detail" href="@Url.Action("Produkty", "Home", new { id = p.Id })" title="Zobraziť detail produktu">
+                                <i class="fa fa-info-circle"></i> Detail
+                            </a>
+                            <button type="button" class="btn btn-sm btn-add-cart add-to-cart" data-id="@p.Id">
+                                <i class="fa fa-cart-plus"></i> Do košíka
+                            </button>
                         </div>
                     </div>
-
-                    <p class="mb-3 text-center" style="color:#5d33fb;text-shadow:1px 1px 4px #5d33fb">
-                        Po kliknutí tlačidla 👉Prejsť k platbe<br />rovno prechádzate na platobný proces na zabezpečenej stránke Stripe kde si musíte upraviť produkty o ktoré máte záujem,<br />potom si vyberte spôsob platby,vašu adresu a zaplaťte. <br />
-                        Nezabudnite vložiť propagačný kód👉 NOVYROK26 👉aby ste mali 10% zľavu.To je všetko.<br /> Ďakujeme Vám za nákup a želáme pevné zdravie!
-                    </p>
-
-                    <!-- Oriflame + IT service options info -->
-                    <div class="alert alert-info" style="margin-bottom:1.5rem;">
-                        <h4 style="margin-top:0;">Oriflame produkty a IT služby</h4>
-                        <p class="small">
-                            Ak máte záujem objednať si aj inú kozmetiku alebo doplnky Oriflame, môžete:
-                        </p>
-                        <ul class="small" style="padding-left:18px;">
-                            <li>prejsť na oficiálny Oriflame katalóg cez položku <strong>Partnery → Oriflame katalóg</strong> v hornej navigácii a vytvoriť objednávku priamo tam, alebo</li>
-                            <li>napísať nám svoj zoznam Oriflame produktov na e‑mail <a href="mailto:info@ladowebservis.sk">info@ladowebservis.sk</a> a my vás budeme kontaktovať s ďalšími možnosťami.</li>
-                        </ul>
-                        <p class="small" style="margin-bottom:0;">
-                            V prípade záujmu o IT služby (oprava PC, nastavenie systému, webové riešenia a pod.)
-                            napíšte stručný popis problému na adresu <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a> a náš IT servis vás bude kontaktovať e‑mailom.
-                        </p>
-                    </div>
-
-                    <!-- Payment procedure help thumbnail: clicking opens enlarged image via Fancybox (included in layout) -->
-                    <div class="text-center mb-3">
-                        <p class="small text-muted">Potrebujete pomoc s platbou? Kliknite na obrázok pre návod cez platobnú bránu Stripe.</p>
-                        <a data-fancybox="payment-help" data-caption="Payment procedure" href="@Url.Content("~/Image/Postup platby.png")" aria-label="Open payment procedure image">
-                            <img src="@Url.Content("~/Image/Postup platby.png")" alt="Payment procedure" class="img-thumbnail" style="max-width:100px;cursor:pointer;" />
-                        </a>
-                    </div>
-
-
-                  
-
-
                 </div>
+            }
+        </div>
+    </div>
 
-                <!-- Order form: bank transfer (posts to PlaceOrder) -->
+    <!-- Cart Review Section -->
+    <div class="kosik-card">
+        <h3>🛍️ Položky v košíku</h3>
+        
+        <div id="cartReviewList" class="mb-4">
+            <!-- items rendered by JS -->
+        </div>
 
+        <!-- Cart Totals -->
+        <div class="cart-totals" id="cartTotalsSection" style="display: none;">
+            <div class="row">
+                <div class="col text-end">Medzisúčet:</div>
+                <div class="col-auto"><strong id="cartSubtotal">€0.00</strong></div>
+            </div>
+            <div class="row" id="discountRow" style="display: none;">
+                <div class="col text-end" style="color:#28a745;">Zľava 10% (produkty nad 50€):</div>
+                <div class="col-auto" style="color:#28a745;"><strong id="cartDiscount">-€0.00</strong></div>
+            </div>
+            <div class="row">
+                <div class="col text-end"><strong>Celková suma:</strong></div>
+                <div class="col-auto"><strong id="cartTotal" style="color:#5d33fb; font-size: 24px;">€0.00</strong></div>
+            </div>
+        </div>
 
+        <div class="text-center mt-4">
+            <button id="clear-cart-btn" class="btn btn-danger btn-lg">
+                <i class="fa fa-trash"></i> Vyprázdniť košík
+            </button>
+        </div>
+
+        <!-- Payment Instructions -->
+        <div class="alert alert-info mt-4">
+            <h4><i class="fa fa-credit-card"></i> Postup platby</h4>
+            <p>
+                Po kliknutí na tlačidlo <strong>"Prejsť k platbe"</strong> budete presmerovaní na zabezpečenú platobnú bránu Stripe, kde si:
+            </p>
+            <ol>
+                <li>Upravíte produkty a množstvá</li>
+                <li>Vyplníte dodaciu adresu</li>
+                <li>Vložíte propagačný kód <code>NOVYROK26</code> pre 10% zľavu</li>
+                <li>Dokončíte platbu</li>
+            </ol>
+            <p class="mb-0"><strong>Ďakujeme za váš nákup a želáme pevné zdravie! 💚</strong></p>
+        </div>
+
+        <!-- Oriflame + IT Services Info -->
+        <div class="alert alert-info">
+            <h4><i class="fa fa-shopping-bag"></i> Oriflame produkty a IT služby</h4>
+            <p>
+                <strong>Oriflame kozmetika:</strong>
+            </p>
+            <ul>
+                <li>Prejdite na <strong>Partnery → Oriflame katalóg</strong> v menu</li>
+                <li>Alebo napíšte zoznam produktov na: <a href="mailto:info@ladowebservis.sk">info@ladowebservis.sk</a></li>
+            </ul>
+            <p>
+                <strong>IT služby (oprava PC, web, software):</strong><br>
+                Napíšte na: <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a>
+            </p>
+        </div>
+
+        <!-- Payment Help Image -->
+        <div class="text-center">
+            <p class="small text-muted">Potrebujete pomoc s platbou? Kliknite na obrázok:</p>
+            <a data-fancybox="payment-help" data-caption="Postup platby" href="@Url.Content("~/Image/Snímka obrazovky 2026-01-30 235017.png")">
+                <img src="@Url.Content("~/Image/Snímka obrazovky 2026-01-30 235017.png")" alt="Postup platby" class="img-thumbnail" style="max-width:150px;cursor:pointer;" />
+            </a>
+        </div>
+    </div>
 </div>
-
-    </div>
-    </div>
-    
-
-    <style>
-        /* Fly-to-cart image animation */
-        .lws-fly-img {
-            position: absolute !important;
-            pointer-events: none;
-            z-index: 9999;
-            border-radius: 6px;
-            transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
-            opacity: 1;
-            will-change: transform, opacity;
-        }
-        /* small heart in product card */
-        .product-card { position: relative; }
-        .product-card .product-heart {
-            position: absolute;
-            bottom: 6px;
-            right: 6px;
-            /* minimize footprint */
-            padding: 2px;
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: transparent;
-            border: 0;
-            line-height: 1;
-        }
-        /* smaller heart glyph */
-        .product-card .product-heart .fa-heart { font-size: 12px; color: #e25555; }
-
-        /* reduce focus outline to subtle ring for accessibility */
-        .product-card .product-heart:focus { outline: none; box-shadow: 0 0 0 3px rgba(94,33,255,0.15); border-radius: 4px; }
-
-        /* Responsive adjustments */
-        @@media (max-width: 576px) {
-            .product-card .product-heart { bottom: 12px; right: 12px; }
-            .add-to-cart.btn-block { display: block; width: 100%; }
-        }
-
-        /* Hide empty cart message row (reuse existing class for convenience) */
-        .d-none { display: none !important; }
-    </style>
 
 @section scripts {
     <script>
@@ -195,9 +483,7 @@
 
             function getProductPrice(key) {
                 var catalog = window.__lws_products || {};
-                // try id-based lookup
                 if (catalog && catalog[key] && catalog[key].Price) return parseFloat(catalog[key].Price) || 0;
-                // try match by Name
                 if (catalog) {
                     for (var id in catalog) {
                         if (!catalog.hasOwnProperty(id)) continue;
@@ -205,8 +491,7 @@
                         if (it && it.Name === key && it.Price) return parseFloat(it.Price) || 0;
                     }
                 }
-                // fallback hardcoded prices
-                return ({ 'BalanceTest': 195.00, 'BalanceOil': 55.00, 'Zinobiotic': 33.00, 'ZinzinoXtend': 34.00 }[key] || 0);
+                return ({ 'BalanceTest': 195.00, 'BalanceOil': 55.00, 'Zinobiotic': 40.00, 'ZinzinoXtend': 44.00, 'CollagenBoozt': 85.00 }[key] || 0);
             }
 
             function getCartTotals(cart) {
@@ -219,7 +504,7 @@
                     var unit = getProductPrice(k);
                     var line = unit * q;
                     subtotal += line;
-                    // 10% discount only when line amount (unit * quantity) > 50€
+                    // 10% discount when line amount > 50€
                     if (line > 50) {
                         discount += line * 0.10;
                     }
@@ -248,12 +533,10 @@
 
             function render() {
                 var cart = loadCart();
-                var list = document.getElementById('cartReviewList');
-                var totalEl = document.getElementById('cartReviewTotal');
-                if (!list || !totalEl) return;
-                var listEl = list;
-                listEl.innerHTML = '';
+                var container = document.getElementById('cartReviewList');
+                if (!container) return;
 
+                container.innerHTML = '';
                 var hasItems = false;
                 var catalog = window.__lws_products || {};
 
@@ -266,156 +549,123 @@
                     var displayName = productInfo && productInfo.Name ? productInfo.Name : k;
                     var imgSrc = item.image || (productInfo && productInfo.Image) || ('/Image/' + k + '.png');
                     var unitPrice = getProductPrice(k);
-
                     var qtyVal = item.quantity || 0;
                     var baseLine = unitPrice * qtyVal;
                     var qualifiesForDiscount = baseLine > 50;
-                    var lineTotal = qualifiesForDiscount
-                        ? (baseLine * 0.9).toFixed(2)
-                        : baseLine.toFixed(2);
+                    var discountAmount = qualifiesForDiscount ? baseLine * 0.10 : 0;
+                    var lineTotal = baseLine - discountAmount;
 
-                    var li = document.createElement('li');
-                    li.className = 'list-group-item d-flex align-items-center';
+                    var itemDiv = document.createElement('div');
+                    itemDiv.className = 'cart-item' + (qualifiesForDiscount ? ' cart-item-discount' : '');
 
-                    var img = document.createElement('img');
-                    img.src = imgSrc;
-                    img.alt = displayName;
-                    img.style.width = '120px';
-                    img.style.marginRight = '20px';
-
-                    var name = document.createElement('div');
-                    var html = '<strong>' + displayName + '</strong><br/>' +
-                               'ID: ' + k + '<br/>';
+                    var html = '<div class="row align-items-center">';
+                    html += '<div class="col-md-2 col-4 text-center mb-3 mb-md-0">';
+                    html += '<img src="' + imgSrc + '" alt="' + displayName + '" class="img-fluid">';
+                    html += '</div>';
+                    html += '<div class="col-md-5 col-8 mb-3 mb-md-0">';
+                    html += '<h5 style="color:#5d33fb; margin-bottom:10px;">' + displayName + '</h5>';
+                    html += '<p class="mb-1"><small>ID: ' + k + '</small></p>';
+                    
                     if (qualifiesForDiscount) {
-                        html += 'Cena za ks: <span style="text-decoration:line-through;color:#999;">€' +
-                                unitPrice.toFixed(2) +
-                                '</span> <strong>€' + (unitPrice * 0.9).toFixed(2) + '</strong><br/>';
+                        html += '<p class="mb-1">';
+                        html += 'Cena za ks: <span class="price-original">€' + unitPrice.toFixed(2) + '</span> ';
+                        html += '<span class="price-discounted">€' + (unitPrice * 0.9).toFixed(2) + '</span>';
+                        html += '<span class="discount-badge">-10%</span>';
+                        html += '</p>';
+                        html += '<p class="mb-1">Množstvo: <strong>' + qtyVal + '</strong></p>';
+                        html += '<p class="mb-0">Suma: <strong style="color:#28a745; font-size:18px;">€' + lineTotal.toFixed(2) + '</strong> ';
+                        html += '<small style="color:#999;">(ušetrili ste €' + discountAmount.toFixed(2) + ')</small></p>';
                     } else {
-                        html += 'Cena za ks: <strong>€' + unitPrice.toFixed(2) + '</strong><br/>';
+                        html += '<p class="mb-1">Cena za ks: <strong>€' + unitPrice.toFixed(2) + '</strong></p>';
+                        html += '<p class="mb-1">Množstvo: <strong>' + qtyVal + '</strong></p>';
+                        html += '<p class="mb-0">Suma: <strong style="font-size:18px;">€' + lineTotal.toFixed(2) + '</strong></p>';
                     }
-                    html += 'Počet: ' + qtyVal + ' &nbsp; Suma: €' + lineTotal + '<br/>';
-                    name.innerHTML = html;
+                    
+                    html += '</div>';
+                    html += '<div class="col-md-5 col-12 text-md-end">';
+                    html += '<div class="btn-group mb-2" role="group">';
+                    html += '<button type="button" class="btn btn-sm btn-outline-secondary qty-dec" data-id="' + k + '" title="Znížiť množstvo">-</button>';
+                    html += '<span class="btn btn-sm btn-light disabled">' + qtyVal + '</span>';
+                    html += '<button type="button" class="btn btn-sm btn-outline-secondary qty-inc" data-id="' + k + '" title="Zvýšiť množstvo">+</button>';
+                    html += '</div><br>';
+                    html += '<a href="/Home/Produkty?id=' + encodeURIComponent(k) + '" class="btn btn-sm btn-detail me-2 mb-2"><i class="fa fa-info-circle"></i> Detail</a>';
+                    html += '<button type="button" class="btn btn-sm btn-danger remove-item mb-2" data-id="' + k + '"><i class="fa fa-trash"></i> Odstrániť</button>';
+                    html += '</div>';
+                    html += '</div>';
 
-                    var controls = document.createElement('div');
-                    controls.style.marginLeft = 'auto';
-                    controls.className = 'text-end';
-
-                    var qtyControls = document.createElement('div');
-                    qtyControls.className = 'btn-group btn-group-sm';
-
-                    var decBtn = document.createElement('button');
-                    decBtn.type = 'button';
-                    decBtn.className = 'btn btn-default';
-                    decBtn.textContent = '-';
-                    decBtn.title = 'Znížiť množstvo';
-                    decBtn.addEventListener('click', function (e) {
-                        e.preventDefault(); e.stopPropagation();
-                        changeQuantity(k, -1);
-                    });
-
-                    var qtyLabel = document.createElement('span');
-                    qtyLabel.className = 'btn btn-light disabled';
-                    qtyLabel.textContent = qtyVal;
-
-                    var incBtn = document.createElement('button');
-                    incBtn.type = 'button';
-                    incBtn.className = 'btn btn-default';
-                    incBtn.textContent = '+';
-                    incBtn.title = 'Zvýšiť množstvo';
-                    incBtn.addEventListener('click', function (e) {
-                        e.preventDefault(); e.stopPropagation();
-                        changeQuantity(k, 1);
-                    });
-
-                    qtyControls.appendChild(decBtn);
-                    qtyControls.appendChild(qtyLabel);
-                    qtyControls.appendChild(incBtn);
-
-                    var detail = document.createElement('a');
-                    detail.href = '/Home/Produkty?id=' + encodeURIComponent(k);
-                    detail.className = 'btn btn-sm btn-info';
-                    detail.textContent = 'Detail';
-                    detail.style.margin = '0 8px 0 12px';
-
-                    var del = document.createElement('button');
-                    del.type = 'button';
-                    del.className = 'btn btn-sm btn-danger';
-                    del.textContent = 'X';
-                    (function (key) {
-                        del.addEventListener('click', function (e) {
-                            e.preventDefault(); e.stopPropagation();
-                            var cartNow = loadCart();
-                            if (cartNow && cartNow[key]) { delete cartNow[key]; saveCart(cartNow); }
-                            render();
-                            if (window.lwsRenderCartHeader) window.lwsRenderCartHeader();
-                        });
-                    })(k);
-
-                    controls.appendChild(qtyControls);
-                    controls.appendChild(detail);
-                    controls.appendChild(del);
-
-                    li.appendChild(img);
-                    li.appendChild(name);
-                    li.appendChild(controls);
-
-                    listEl.appendChild(li);
+                    itemDiv.innerHTML = html;
+                    container.appendChild(itemDiv);
                 });
 
+                // Attach event listeners
+                container.querySelectorAll('.qty-dec').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        changeQuantity(this.getAttribute('data-id'), -1);
+                    });
+                });
+
+                container.querySelectorAll('.qty-inc').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        changeQuantity(this.getAttribute('data-id'), 1);
+                    });
+                });
+
+                container.querySelectorAll('.remove-item').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        var id = this.getAttribute('data-id');
+                        var cartNow = loadCart();
+                        if (cartNow && cartNow[id]) {
+                            delete cartNow[id];
+                            saveCart(cartNow);
+                        }
+                        render();
+                        if (window.lwsRenderCartHeader) window.lwsRenderCartHeader();
+                    });
+                });
+
+                // Update totals
                 var totals = getCartTotals(cart);
-                var parent = listEl.parentNode;
-                var prevSubtotal = document.getElementById('cartSubtotalRow'); if (prevSubtotal) prevSubtotal.parentNode.removeChild(prevSubtotal);
-                var prevDiscount = document.getElementById('cartDiscountRow'); if (prevDiscount) prevDiscount.parentNode.removeChild(prevDiscount);
-                var prevTotal = document.getElementById('cartTotalRow'); if (prevTotal) prevTotal.parentNode.removeChild(prevTotal);
+                var totalsSection = document.getElementById('cartTotalsSection');
+                var subtotalEl = document.getElementById('cartSubtotal');
+                var discountEl = document.getElementById('cartDiscount');
+                var totalEl = document.getElementById('cartTotal');
+                var discountRow = document.getElementById('discountRow');
 
-                var subtotalRow = document.createElement('div');
-                subtotalRow.className = 'row';
-                subtotalRow.id = 'cartSubtotalRow';
-                subtotalRow.innerHTML = '<div class="col text-end">Medzisúčet:</div><div class="col-auto"><strong>€' + totals.subtotal.toFixed(2) + '</strong></div>';
-                parent.appendChild(subtotalRow);
+                if (hasItems) {
+                    totalsSection.style.display = 'block';
+                    subtotalEl.textContent = '€' + totals.subtotal.toFixed(2);
+                    totalEl.textContent = '€' + totals.total.toFixed(2);
 
-                if (totals.discount > 0) {
-                    var discountRow = document.createElement('div');
-                    discountRow.className = 'row';
-                    discountRow.id = 'cartDiscountRow';
-                    discountRow.innerHTML = '<div class="col text-end" style="color:#d9534f;">Zľava 10% (len na produkty nad 50€):</div><div class="col-auto" style="color:#d9534f;"><strong>-€' + (totals.discount).toFixed(2) + '</strong></div>';
-                    parent.appendChild(discountRow);
-                }
-
-                var totalRow = document.createElement('div');
-                totalRow.className = 'row';
-                totalRow.id = 'cartTotalRow';
-                totalRow.innerHTML = '<div class="col text-end"><strong>Celková suma:</strong></div><div class="col-auto"><strong style="font-size:1.1em;">€' + totals.total.toFixed(2) + '</strong></div>';
-                parent.appendChild(totalRow);
-
-                totalEl.textContent = totals.total.toFixed(2);
-
-                // Toggle visibility of cart review section
-                var reviewEmpty = !hasItems;
-                var reviewList = document.getElementById('cartReviewList');
-                var reviewTotal = document.getElementById('cartReviewTotal');
-                if (reviewEmpty) {
-                    // Hide cart review elements
-                    reviewList.innerHTML = '<li class="list-group-item text-center text-muted">Košík je prázdny</li>';
-                    reviewTotal.innerText = '0.00';
+                    if (totals.discount > 0) {
+                        discountRow.style.display = 'flex';
+                        discountEl.textContent = '-€' + totals.discount.toFixed(2);
+                    } else {
+                        discountRow.style.display = 'none';
+                    }
                 } else {
-                    // Ensure cart review elements are visible
-                    reviewList.classList.remove('d-none');
-                    reviewTotal.classList.remove('d-none');
+                    totalsSection.style.display = 'none';
+                    container.innerHTML = '<div class="alert alert-warning text-center"><i class="fa fa-shopping-cart"></i> Váš košík je prázdny</div>';
                 }
 
-                var cartCount = Object.keys(cart).reduce((sum, key) => sum + (cart[key].quantity || 0), 0);
-                var cartCountEl = document.getElementById('cart-item-count');
-                if (cartCountEl) {
-                    cartCountEl.innerText = cartCount > 0 ? cartCount : '';
-                }
+                // Update header cart badge
+                if (window.lwsRenderCartHeader) window.lwsRenderCartHeader();
             }
 
-            // initial render
+            // Clear cart button
+            document.getElementById('clear-cart-btn').addEventListener('click', function () {
+                if (confirm('Naozaj chcete vyprázdniť celý košík?')) {
+                    localStorage.removeItem(STORAGE_KEY);
+                    render();
+                    if (window.lwsRenderCartHeader) window.lwsRenderCartHeader();
+                }
+            });
+
+            // Initial render
             render();
         })();
     </script>
 }
+
 
 
 

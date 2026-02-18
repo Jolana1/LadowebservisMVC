@@ -207,8 +207,13 @@
             cursor: pointer;
             padding: 10px 12px;
             border-radius: 4px;
+            transition: all 0.3s ease;
         }
-        #myBtn:hover { background-color: #555; }
+        #myBtn:hover { 
+            background-color: #4a2fb5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(93, 51, 251, 0.3);
+        }
 
         .collapse a { float: left; display: block; color: #f2f2f2; text-align: center; padding: 10px 12px; text-decoration: none; font-size: 13px; }
         .collapse a:hover { background-color: #ddd; color: black; }
@@ -276,7 +281,7 @@
 
         /* Modern Navbar Styles */
         .navbar {
-            min-height: 70px;
+            min-height: 45px;
             background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
             border: none;
             box-shadow: 0 2px 15px rgba(93, 51, 251, 0.2);
@@ -289,9 +294,9 @@
         .navbar .nav > li > a .glyphicon,
         .navbar .nav > li > a [class*="glyphicon-"],
         .navbar-right .cart-toggle-btn i {
-            font-size: 16px;
-            width: 16px;
-            height: 16px;
+            font-size: 14px;
+            width: 14px;
+            height: 14px;
             display: inline-block;
             vertical-align: middle;
             margin-right: 6px;
@@ -302,16 +307,16 @@
         }
 
         .navbar-brand {
-            padding: 20px 15px;
-            font-size: 18px;
+            padding: 8px 15px;
+            font-size: 14px;
             font-weight: 600;
             display: flex;
             align-items: center;
-            height: 70px;
+            height: 45px;
         }
 
         .navbar-brand img {
-            height: 32px;
+            height: 24px;
             width: auto;
             transition: transform 0.3s ease;
         }
@@ -321,16 +326,16 @@
         }
 
         .navbar-nav > li {
-            margin: 0 5px;
+            margin: 0 3px;
         }
 
         .navbar-nav > li > a {
-            padding: 25px 18px;
-            font-size: 15px;
+            padding: 12px 12px;
+            font-size: 13px;
             font-weight: 500;
             transition: all 0.3s ease;
             position: relative;
-            height: 70px;
+            height: 45px;
             display: flex;
             align-items: center;
         }
@@ -338,9 +343,9 @@
         .navbar-nav > li > a::after {
             content: '';
             position: absolute;
-            bottom: 15px;
-            left: 18px;
-            right: 18px;
+            bottom: 8px;
+            left: 12px;
+            right: 12px;
             height: 2px;
             background: #fff;
             transform: scaleX(0);
@@ -354,14 +359,14 @@
         .navbar-right {
             display: flex;
             align-items: center;
-            gap: 10px;
-            height: 70px;
+            gap: 8px;
+            height: 45px;
         }
 
         .cart-toggle-btn {
-            padding: 10px 16px;
-            font-size: 16px;
-            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 14px;
+            border-radius: 6px;
             transition: all 0.3s ease;
             border: 2px solid rgba(255, 255, 255, 0.3);
             background: rgba(255, 255, 255, 0.1);
@@ -373,429 +378,43 @@
             transform: translateY(-2px);
         }
 
-        .cart-badge {
-            background: #ff4444;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        /* Dropdown improvements */
-        .dropdown-menu {
-            border: none;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
-            border-radius: 8px;
-            margin-top: 0;
-            padding: 10px 0;
-        }
-
-        .dropdown-menu > li > a {
-            padding: 12px 20px;
-            font-size: 14px;
-            transition: all 0.2s ease;
-        }
-
-        .dropdown-menu > li > a:hover {
-            background: #f5f5f5;
-            padding-left: 25px;
-        }
-
-        .dropdown-menu > li > a i,
-        .dropdown-menu > li > a .glyphicon {
-            font-size: 14px;
-            width: 14px;
-            margin-right: 8px;
-        }
-
-        /* Mobile navbar toggle */
+        /* Mobile navbar toggle - Hamburger Style */
         .navbar-toggler {
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            border-radius: 8px;
-            padding: 10px 12px;
-            background: rgba(255, 255, 255, 0.1);
-            margin: 15px 0;
+            border: none;
+            background: transparent !important;
+            padding: 8px 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 24px;
+            margin: 0;
+        }
+
+        .navbar-toggler:focus {
+            outline: none;
+            box-shadow: none;
         }
 
         .navbar-toggler-icon {
-            width: 24px;
-            height: 2px;
-            background: #fff;
-            display: block;
-            position: relative;
-        }
-
-        .navbar-toggler-icon::before,
-        .navbar-toggler-icon::after {
-            content: '';
-            width: 24px;
-            height: 2px;
-            background: #fff;
-            display: block;
-            position: absolute;
-            left: 0;
-        }
-
-        .navbar-toggler-icon::before {
-            top: -8px;
-        }
-
-        .navbar-toggler-icon::after {
-            bottom: -8px;
-        }
-
-        /* Google Translate styling */
-        #google_translate_element {
-            padding: 15px 10px;
-        }
-
-        .goog-te-gadget-simple {
-            border: 2px solid rgba(255, 255, 255, 0.3) !important;
-            border-radius: 8px !important;
-            background: rgba(255, 255, 255, 0.1) !important;
-            padding: 8px 12px !important;
-        }
-
-        /* Mobile Responsive */
-        @@media (max-width: 768px) {
-            .navbar {
-                min-height: 60px;
-                padding: 0 15px;
-            }
-
-            .navbar .nav > li > a i,
-            .navbar .nav > li > a .fa,
-            .navbar .nav > li > a .glyphicon {
-                font-size: 14px;
-                width: 14px;
-                margin-right: 5px;
-            }
-
-            .navbar-brand {
-                padding: 15px 10px;
-                height: 60px;
-            }
-
-            .navbar-brand img {
-                height: 28px;
-            }
-
-            .navbar-right {
-                height: 60px;
-                gap: 8px;
-            }
-
-            .cart-toggle-btn {
-                padding: 8px 12px;
-                font-size: 14px;
-            }
-
-            .navbar-collapse {
-                background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
-                margin: 0 -15px;
-                padding: 20px 0;
-                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            }
-
-            .navbar-nav {
-                margin: 0;
-            }
-
-            .navbar-nav > li {
-                margin: 0;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            .navbar-nav > li:last-child {
-                border-bottom: none;
-            }
-
-            .navbar-nav > li > a {
-                padding: 15px 25px;
-                height: auto;
-            }
-
-            .navbar-nav > li > a::after {
-                display: none;
-            }
-
-            .navbar-nav > li > a:hover {
-                background: rgba(255, 255, 255, 0.1);
-                padding-left: 30px;
-            }
-
-            .dropdown-menu {
-                background: rgba(0, 0, 0, 0.1);
-                box-shadow: none;
-                border-radius: 0;
-                margin: 0;
-            }
-
-            .dropdown-menu > li > a {
-                color: #fff;
-                padding: 12px 35px;
-            }
-
-            .dropdown-menu > li > a:hover {
-                background: rgba(255, 255, 255, 0.15);
-            }
-        }
-
-        /* Tablet adjustments */
-        @@media (min-width: 769px) and (max-width: 991px) {
-            .navbar-nav > li > a {
-                padding: 25px 12px;
-                font-size: 14px;
-            }
-
-            .navbar .nav > li > a i,
-            .navbar .nav > li > a .fa,
-            .navbar .nav > li > a .glyphicon {
-                font-size: 15px;
-            }
-        }
-
-        /* Css */
-        .exit-intent-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .exit-intent-overlay.show {
-            display: flex;
-        }
-
-        @@keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .exit-intent-modal {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
-            max-width: 450px;
-            width: 90%;
-            padding: 40px 30px;
-            position: relative;
-            animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        @@keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .exit-intent-close {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #999;
-            cursor: pointer;
-            padding: 6px;
-            transition: all 0.2s ease;
-        }
-
-        .exit-intent-close:hover {
-            color: #5d33fb;
-            transform: scale(1.1);
-        }
-
-        .exit-intent-content h2 {
-            margin: 0 0 8px 0;
-            font-size: 28px;
-            color: #5d33fb;
-            font-weight: 700;
-            text-align: center;
-        }
-
-        .exit-intent-subtitle {
-            margin: 0 0 25px 0;
-            font-size: 14px;
-            color: #666;
-            text-align: center;
-        }
-
-        /* Offer Section */
-        .exit-intent-offer {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e7f3ff 100%);
-            border: 2px solid #5d33fb;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .offer-badge {
-            display: inline-block;
-            background: #5d33fb;
-            color: #fff;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            letter-spacing: 0.5px;
-        }
-
-        .offer-text {
-            margin: 8px 0;
-            font-size: 18px;
-            color: #333;
-            font-weight: 600;
-        }
-
-        .offer-code {
-            margin: 0;
-            font-size: 13px;
-            color: #666;
-        }
-
-        .offer-code code {
-            background: #fff;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            font-weight: 700;
-            color: #5d33fb;
-            border: 1px solid #e0e0e0;
-        }
-
-        /* Action Buttons */
-        .exit-intent-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-
-        .btn-ebook,
-        .btn-register {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px 16px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-ebook {
-            background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(93, 51, 251, 0.3);
-        }
-
-        .btn-ebook:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(93, 51, 251, 0.4);
-        }
-
-        .btn-register {
-            background: #f0f0f0;
-            color: #5d33fb;
-            border: 2px solid #5d33fb;
-        }
-
-        .btn-register:hover {
-            background: #5d33fb;
-            color: #fff;
-            transform: translateY(-2px);
-        }
-
-        /* Info Section */
-        .exit-intent-info {
-            background: #f9f9f9;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            font-size: 12px;
-        }
-
-        .exit-intent-info p {
-            margin: 6px 0;
-            color: #666;
-            display: flex;
-            align-items: center;
-        }
-
-        .exit-intent-info i {
-            color: #5d33fb;
-            margin-right: 8px;
-            font-size: 14px;
-        }
-
-        /* Dismiss Button */
-        .btn-dismiss {
             width: 100%;
-            padding: 10px;
-            background: none;
-            border: 1px solid #ddd;
-            color: #666;
-            font-size: 13px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-weight: 500;
+            height: 2px;
+            background: #fff;
+            display: block;
+            transition: all 0.3s ease;
         }
 
-        .btn-dismiss:hover {
-            border-color: #999;
-            color: #333;
-            background: #fafafa;
+        .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
         }
 
-        /* Responsive */
-        @@media (max-width: 600px) {
-            .exit-intent-modal {
-                padding: 30px 20px;
-                max-width: 95%;
-            }
-
-            .exit-intent-content h2 {
-                font-size: 24px;
-            }
-
-            .exit-intent-actions {
-                grid-template-columns: 1fr;
-            }
-
-            .btn-ebook,
-            .btn-register {
-                padding: 10px 12px;
-                font-size: 12px;
-            }
+        .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon:nth-child(2) {
+            opacity: 0;
         }
-    </style>
+
+        .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
 
     <title>@(!string.IsNullOrWhiteSpace(ViewBag.Title as string) ? ViewBag.Title : "Ladowebservis")</title>
 
@@ -846,6 +465,8 @@
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
 
         <a href="/Home/Login"
@@ -860,7 +481,7 @@
                 <i class="fa fa-heart"></i>
             </a>
 
-            <button type="button" class="btn btn-outline-secondary cart-toggle-btn" title="Zadaj názov produktu" aria-label="Zadaj názov produktu" onclick="toggleNavSearch()">
+            <button type="button" class="btn btn-outline-secondary cart-toggle-btn" title="Hľadať produkt" aria-label="Zadaj názov produktu" onclick="toggleNavSearch()">
                 <i class="fa fa-search" aria-hidden="true"></i>
             </button>
 
@@ -878,7 +499,7 @@
             </span>
 
             <button id="cartToggle"
-                    class="btn btn-outline-secondary cart-toggle-btn"
+                    class="btn btn-outline-secondary cart-toggle-btn" title="Tvoj zoznam produktov vo vozíku"
                     onclick="toggleCart()"
                     aria-label="Open cart">
                 <i class="fa fa-shopping-cart"></i>
@@ -894,25 +515,25 @@
 
 
                 <li class="nav-item">
-                    <a class="image-container img-rounded fa fa-balance-scale" href="/Home/Produkty" title="Ponuka produktov a ich popis">Produkty ponuka</a>
+                    <a class="image-container img-rounded fa fa-balance-scale" href="/Home/Produkty" title="Ponuka produktov a ich popis">Eshop</a>
                 </li>
 
                 <li class="dropdown">
                     <a class="dropdown-toggle img-rounded" data-toggle="dropdown" href="#Partners" title="Oriflame a Itservis"><span class="glyphicon glyphicon-briefcase"></span>Partnery</a>
                     <ul class="dropdown-menu">
                         <li class="active">
-                            <a class="w3-hover-white" href="/Home/ITservis" title="IT služby"><span class="glyphicon glyphicon-wrench"></span>ITSlužby</a>
+                            <a class="w3-hover-white" href="/Home/ITservis" title="IT služby"><span class="glyphicon glyphicon-wrench"></span>IT Služby</a>
                         </li>
                         <li class="active">
                             <a class="w3-hover-white" href="https://sk.oriflame.com/products/digital-catalogue-current?store=SK-vladimirksenic&PageNumber=1" target="_blank" title="Oriflame katalóg">
                                 <img src="~/Image/sk-oriflame-katalog.png" style="width:58px;height:15px" alt="Oriflame aktuálny katalóg">
-                                Oriflame katalóg 02/2026 
+                                Oriflame Katalóg 3/26 
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="image-container img-rounded fa fa-money" href="/Home/Kosik" title="Výber produktov a postup platby">Výber produktov</a>
+                    <a class="image-container img-rounded fa fa-money" href="/Home/Kosik" title="Výber dostupných produktov a postup platby">Výber produktov</a>
                 </li>
                 <li class="nav-item">
                     <a class="image-container img-rounded glyphicon glyphicon-envelope" href="/odoslanie-spravy" title="Kontakt">Kontakt</a>
@@ -948,6 +569,7 @@
         <br />
 
         <a class="btn btn-outline-primary" href="/Home/Kosik?checkout=1" role="button" title="Skontrolovať čo sa nachádza v mojom vozíku">Chcem sa vrátiť na stránku košíka</a>
+        <br />
         <!-- Available products (compact) -->
         <div class="mini-products">
             <a class="btn btn-outline-primary" href='@Url.Action("Produkty","Home")' aria-label="Prezrieť všetky produkty" style="border-width:2px; border-color:#5d33fb; color:#5d33fb;">
@@ -960,24 +582,25 @@
             <stripe-buy-button buy-button-id="buy_btn_1SgujHHrPMzQ1ua8771vUUL4"
                                publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
             </stripe-buy-button>
-            @*<button type="button" class="btn btn-link btn-xs mini-products-toggle"
+            <br>
+            <button type="button" class="btn btn-link btn-xs mini-products-toggle"
                 onclick="toggleMiniProducts()" aria-expanded="false"
                 aria-controls="mini-products-list">
             Nezabudli ste ešte na niečo? ▼
         </button>
-        <ul id="mini-products-list" class="list-unstyled" style="display:none"></ul>*@
+        <ul id="mini-products-list" class="list-unstyled" style="display:none"></ul>
         </div>
         <!-- Payment procedure help thumbnail: clicking opens enlarged image via Fancybox (included in layout) -->
         <div class="text-center mb-3">
-            <p class="small text-black">Potrebujete pomoc s platbou? Kliknite na pomocný obrázok pre návod ako jednoducho postupovať a prejsť ku platbe cez našu platobnú bránu Stripe.</p>
-            <a data-fancybox="payment-help" data-caption="Payment procedure" href="@Url.Content("~/Image/Postup platby.png")" aria-label="Open payment procedure image">
+            <p class="small text-black">Potrebujete pomoc s platbou? Kliknite na stránku košíka</p>
+            @*<a data-fancybox="payment-help" data-caption="Payment procedure" href="@Url.Content("~/Image/Postup platby.png")" aria-label="Open payment procedure image">
                 <img src="@Url.Content("~/Image/Postup platby.png")" alt="Payment procedure" class="img-thumbnail" style="max-width:100px;cursor:pointer;" />
-            </a>
+            </a>*@
             <br>
-            
+
         </div>
-        <!-- QR payment options and instructions-->
-       
+
+
     </aside>
 
     <script>
@@ -1026,7 +649,7 @@
                 <div class="item active" data-interval="6000">
                     <img src="~/Image/pagePiling-plugin.gif" alt="wish" style="width:2560px;height:539px;" title="•Vitajte na našej stránke spoločnosti ©LadoWebServis•">
                     <div class="carousel-caption">
-                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Vitajte.Začnite Nový Rok so zdravými návykmi.</p>
+                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">Vitajte!Začnite Tento Rok so zdravými návykmi.</p>
                     </div>
                 </div>
                 <div class="item" data-interval="4000">
@@ -1083,15 +706,11 @@
                 <div class="footer-contact">
                     <img src="~/Image/LWSGEN Logo.png" class="img-thumbnail" alt="LWSGEN Logo" title="Ladowebservis intro" />
                 </div>
-
-                <address class="mt-2 mb-2">
-                    <a href='@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })' class="w3-text-white" title="Domov">🌐 Web: www.ladowebservis.sk/zdravie</a>
-                </address>
-
+                <br />
                 <ul class="list-inline">
-                    <li><abbr title="Telefón">📞 Telefón:</abbr> <span>+421907151293</span></li>
-                    <li><abbr title="Technická podpora">📧 Podpora:</abbr> <a href="mailto:podpora@ladowebservis.sk" class="w3-text-white">podpora@ladowebservis.sk</a></li>
-                    <li><abbr title="Informácie">ℹ️ Info:</abbr> <a href="mailto:info@ladowebservis.sk" class="w3-text-white">info@ladowebservis.sk</a></li>
+                    <li><abbr title="Telefón">📞 Tel:</abbr> <span>+421917952432</span></li>
+                    <li><abbr title="Email">📧 Email:</abbr> <a href="mailto:info@ladowebservis.sk" class="w3-text-white">info@ladowebservis.sk</a></li>
+                    <li><abbr title="Pracovný čas">⏰ Pracovný čas:</abbr> <span>Po-Pia 9:00-17:00</span></li>
                 </ul>
 
                 <p class="mt-2 mb-2">
@@ -1260,7 +879,7 @@
                 </div>
                 <div class="welcome-text">
                     <h5>👋 Ahoj, som Vladimír!</h5>
-                    <p>Som tu, aby som vám rád pomohol s výberom produktov a odpovedal na všetky vaše otázky o zdraví.</p>
+                    <p>Som tu, aby som vám pomohol s výberom produktov a odpovedal na všetky vaše otázky o zdraví.</p>
                 </div>
             </div>
 
@@ -1635,23 +1254,6 @@
             box-shadow: 0 8px 32px rgba(93, 51, 251, 0.5);
         }
 
-        .chat-notification-badge {
-            position: absolute;
-            top: 4px;
-            right: 4px;
-            width: 20px;
-            height: 20px;
-            background: #ff4444;
-            color: #fff;
-            border-radius: 50%;
-            font-size: 12px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #fff;
-        }
-
         /* Typing indicator */
         .typing-indicator {
             display: flex;
@@ -1685,28 +1287,107 @@
         }
 
         /* Mobile Responsive */
-        @@media (max-width: 480px) {
-            .chat-widget {
-                bottom: 0;
-                left: 0;
-                right: 0;
-                width: 100%;
-                max-width: 100%;
-                height: 100vh;
-                max-height: 100vh;
-                border-radius: 0;
+        @@media (max-width: 768px) {
+            .navbar {
+                min-height: 45px;
+                padding: 0 15px;
             }
 
-            .chat-widget-header {
-                border-radius: 0;
+            .navbar .nav > li > a i,
+            .navbar .nav > li > a .fa,
+            .navbar .nav > li > a .glyphicon {
+                font-size: 13px;
+                width: 13px;
+                margin-right: 5px;
             }
 
-            .chat-widget-footer {
-                border-radius: 0;
+            .navbar-brand {
+                padding: 8px 10px;
+                height: 45px;
             }
 
-            .chat-quick-actions {
-                grid-template-columns: 1fr;
+            .navbar-brand img {
+                height: 22px;
+            }
+
+            .navbar-right {
+                height: 45px;
+                gap: 6px;
+            }
+
+            .cart-toggle-btn {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+
+            .navbar-collapse {
+                background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+                margin: 0 -15px;
+                padding: 15px 0;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            .navbar-nav {
+                margin: 0;
+            }
+
+            .navbar-nav > li {
+                margin: 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .navbar-nav > li:last-child {
+                border-bottom: none;
+            }
+
+            .navbar-nav > li > a {
+                padding: 12px 20px;
+                height: auto;
+            }
+
+            .navbar-nav > li > a::after {
+                display: none;
+            }
+
+            .navbar-nav > li > a:hover {
+                background: rgba(255, 255, 255, 0.1);
+                padding-left: 25px;
+            }
+
+            .dropdown-menu {
+                background: rgba(0, 0, 0, 0.1);
+                box-shadow: none;
+                border-radius: 0;
+                margin: 0;
+            }
+
+            .dropdown-menu > li > a {
+                color: #fff;
+                padding: 12px 35px;
+            }
+
+            .dropdown-menu > li > a:hover {
+                background: rgba(255, 255, 255, 0.15);
+            }
+
+            .navbar-toggler {
+                width: 28px;
+                height: 22px;
+                padding: 6px 10px;
+            }
+        }
+
+        /* Tablet adjustments */
+        @@media (min-width: 769px) and (max-width: 991px) {
+            .navbar-nav > li > a {
+                padding: 12px 10px;
+                font-size: 12px;
+            }
+
+            .navbar .nav > li > a i,
+            .navbar .nav > li > a .fa,
+            .navbar .nav > li > a .glyphicon {
+                font-size: 13px;
             }
         }
     </style>
@@ -1847,6 +1528,1892 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

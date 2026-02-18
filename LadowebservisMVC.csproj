@@ -826,6 +826,7 @@
     <Content Include="Image\skusenosti – kópia.jpg" />
     <Content Include="Image\skusenosti.jpg" />
     <Content Include="Image\Snímka obrazovky 2023-06-10 161035.png" />
+    <Content Include="Image\Snímka obrazovky 2026-01-30 235017.png" />
     <Content Include="Image\style%281%29.css" />
     <Content Include="Image\style.min%281%29.css" />
     <Content Include="Image\tall ship under sails 2.jpg" />
@@ -1054,11 +1055,12 @@
     <Content Include="Views\Home\Produkty.cshtml" />
     <Content Include="Views\Home\Kosik.cshtml" />
     <Content Include="Views\Home\HTTP 404.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Home\OrderPlaced.cshtml" />
     <Content Include="Views\Home\Favorites.cshtml" />
     <Content Include="Views\Home\ReturnPolicy.cshtml" />
     <Content Include="Views\Home\Gdpr.cshtml" />
+    <Content Include="Views\Home\Unsubscribe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Image\corepack\dist\lib\" />
