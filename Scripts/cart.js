@@ -361,41 +361,6 @@
         // ensure favorite icons reflect current state
         renderFavoriteButtons();
         renderHeaderPaymentButton();
-
-        // show a small note in side cart when some products are in favorites
-        const favIds = loadFavorites();
-        let favNote = document.getElementById('side-cart-favorites-note');
-        if (favIds && favIds.length > 0) {
-            if (!favNote) {
-                favNote = document.createElement('p');
-                favNote.id = 'side-cart-favorites-note';
-                favNote.className = 'small';
-                favNote.style.marginTop = '6px';
-                favNote.style.color = '#5d33fb';
-                const sideCart = document.getElementById('side-cart');
-                if (sideCart) {
-                    // insert just below the main text at top if possible, otherwise at end
-                    const firstPara = sideCart.querySelector('p.small');
-                    if (firstPara && firstPara.nextSibling) {
-                        firstPara.parentNode.insertBefore(favNote, firstPara.nextSibling);
-                    } else {
-                        sideCart.appendChild(favNote);
-                    }
-                }
-            }
-            favNote.innerHTML = 
-                '<strong style="color: #5d33fb; font-size: 12px; display: block; margin-bottom: 8px;">💡 Postup pri platbe na stránke Stripe:</strong>' +
-                '<ol style="margin: 0; padding-left: 12px; font-size: 11px; color: #333; line-height: 1.5;">' +
-                '<li>Upravte si produkty alebo využite našu ⏰ LIMITOVANÚ PONUKU: Iba prvých 10 zákazníkov dostane 10% zľavu + DARČEK ZDARMA!</li>' +
-                '<li>Zadajte propagačný kód: NOVYROK26</li>' +
-                '<li>Kliknite "Použiť kupón"</li>' +
-                '<li>Zľava sa odpočíta</li>' +
-                '<li>Vyplňte údaje</li>' +
-                '<li>Dokončite nákup</li>' +
-                '</ol>';
-        } else if (favNote && favNote.parentNode) {
-            favNote.parentNode.removeChild(favNote);
-        }
     }
 
     function animateFlyToCart(imgSrc, startRect) {

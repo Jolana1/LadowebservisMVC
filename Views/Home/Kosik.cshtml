@@ -367,7 +367,7 @@
                         }
 
                         <div class="mt-auto d-flex gap-2 justify-content-center align-items-center flex-wrap">
-                            <a class="btn btn-sm btn-detail" href="@Url.Action("Produkty", "Home", new { id = p.Id })" title="Zobraziť detail produktu">
+                            <a class="btn btn-sm btn-detail" href="@Url.Action("Produkty", "Home", new { q = p.Name })" title="Zobraziť detail produktu">
                                 <i class="fa fa-info-circle"></i> Detail
                             </a>
                             <button type="button" class="btn btn-sm btn-add-cart add-to-cart" data-id="@p.Id">
@@ -444,8 +444,8 @@
         <!-- Payment Help Image -->
         <div class="text-center">
             <p class="small text-muted">Potrebujete pomoc s platbou? Kliknite na obrázok:</p>
-            <a data-fancybox="payment-help" data-caption="Postup platby" href="@Url.Content("~/Image/Snímka obrazovky 2026-01-30 235017.png")">
-                <img src="@Url.Content("~/Image/Snímka obrazovky 2026-01-30 235017.png")" alt="Postup platby" class="img-thumbnail" style="max-width:150px;cursor:pointer;" />
+            <a data-fancybox="payment-help" data-caption="Postup platby" href="@Url.Content("~/Image/Postup platby.png")">
+                <img src="@Url.Content("~/Image/Postup platby.png")" alt="Postup platby" class="img-thumbnail" style="max-width:150px;cursor:pointer;" />
             </a>
         </div>
     </div>
@@ -588,7 +588,7 @@
                     html += '<span class="btn btn-sm btn-light disabled">' + qtyVal + '</span>';
                     html += '<button type="button" class="btn btn-sm btn-outline-secondary qty-inc" data-id="' + k + '" title="Zvýšiť množstvo">+</button>';
                     html += '</div><br>';
-                    html += '<a href="/Home/Produkty?id=' + encodeURIComponent(k) + '" class="btn btn-sm btn-detail me-2 mb-2"><i class="fa fa-info-circle"></i> Detail</a>';
+                    html += '<a href="/Home/Produkty?q=' + encodeURIComponent(displayName) + '" class="btn btn-sm btn-detail me-2 mb-2"><i class="fa fa-info-circle"></i> Detail</a>';
                     html += '<button type="button" class="btn btn-sm btn-danger remove-item mb-2" data-id="' + k + '"><i class="fa fa-trash"></i> Odstrániť</button>';
                     html += '</div>';
                     html += '</div>';

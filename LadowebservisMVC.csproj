@@ -598,6 +598,7 @@
     <Compile Include="Util\TextTemplateParam.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\DB.sql" />
     <Content Include="App_Data\_dbEshop.sql" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -826,7 +827,6 @@
     <Content Include="Image\skusenosti – kópia.jpg" />
     <Content Include="Image\skusenosti.jpg" />
     <Content Include="Image\Snímka obrazovky 2023-06-10 161035.png" />
-    <Content Include="Image\Snímka obrazovky 2026-01-30 235017.png" />
     <Content Include="Image\style%281%29.css" />
     <Content Include="Image\style.min%281%29.css" />
     <Content Include="Image\tall ship under sails 2.jpg" />
@@ -899,6 +899,7 @@
     <Content Include="Image\Zinzino.jpg" />
     <Content Include="Image\ZinzinoXtend.jpg" />
     <Content Include="Image\ZinzinoXtend.png" />
+    <Content Include="Scripts\chat-ui.js" />
     <Content Include="Scripts\newFile.js" />
     <Content Include="Scripts\return.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
