@@ -26,7 +26,12 @@ namespace LadowebservisMVC.Util
             "ramyl_gilmanov@mail.ru",
             "slayd@t-online.de",
             "jessInjuff7037@gmail.com",
-            "sergey-luzan98@mail.ru"
+            "sergey-luzan98@mail.ru",
+            "tacusol-6816@mail.ru",
+            "konstantinrovini@mail.ru",
+            "simonenko.borya@list.ru",
+            "mamedov.edgar.1992.3.3@inbox.ru",
+            "zuyev-vadik@bk.ru"
         };
 
         // Unsubscribe endpoint base URL - change to match your domain

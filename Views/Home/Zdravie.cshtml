@@ -14,17 +14,20 @@
         margin-bottom: 40px;
         box-shadow: 0 10px 40px rgba(0,0,0,0.15);
     }
-    .hero-section h1 {
-        font-size: 42px;
-        font-weight: 700;
-        margin-bottom: 20px;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-    }
-    .hero-section .lead {
-        font-size: 20px;
-        margin-bottom: 30px;
-        line-height: 1.6;
-    }
+
+        .hero-section h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero-section .lead {
+            font-size: 20px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
     .cta-primary {
         background: #28a745;
         color: #fff !important;
@@ -38,12 +41,14 @@
         transition: all 0.3s ease;
         border: none;
     }
-    .cta-primary:hover {
-        background: #218838;
-        transform: translateY(-3px);
-        box-shadow: 0 12px 30px rgba(40,167,69,0.4);
-        color: #fff !important;
-    }
+
+        .cta-primary:hover {
+            background: #218838;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(40,167,69,0.4);
+            color: #fff !important;
+        }
+
     .benefit-card {
         background: #fff;
         padding: 30px;
@@ -52,15 +57,18 @@
         margin-bottom: 30px;
         transition: transform 0.3s ease;
     }
-    .benefit-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-    }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
     .benefit-icon {
         font-size: 48px;
         color: #5d33fb;
         margin-bottom: 15px;
     }
+
     .testimonial-card {
         background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         padding: 25px;
@@ -68,6 +76,7 @@
         border-left: 4px solid #5d33fb;
         margin-bottom: 20px;
     }
+
     .price-badge {
         background: #ffcc00;
         color: #2c3e50;
@@ -78,6 +87,7 @@
         display: inline-block;
         margin: 10px 0;
     }
+
     .guarantee-box {
         background: #e7f3ff;
         border: 2px solid #5d33fb;
@@ -86,6 +96,7 @@
         margin: 30px 0;
         text-align: center;
     }
+
     .urgency-banner {
         background: #ff6b6b;
         color: #fff;
@@ -95,387 +106,463 @@
         margin-bottom: 30px;
         font-weight: 600;
     }
+
     .stats-row {
         display: flex;
         justify-content: space-around;
         flex-wrap: wrap;
         margin: 40px 0;
     }
+
     .stat-item {
         text-align: center;
         flex: 1;
         min-width: 200px;
         margin: 10px;
     }
+
     .stat-number {
         font-size: 48px;
         font-weight: 700;
         color: #5d33fb;
     }
+
     .stat-label {
         font-size: 16px;
         color: #666;
         margin-top: 5px;
     }
+
     @@media (max-width: 768px) {
-        .hero-section h1 { font-size: 28px; }
-        .hero-section .lead { font-size: 16px; }
-        .cta-primary { padding: 14px 30px; font-size: 16px; }
-        .benefit-card { margin-bottom: 20px; }
-        .benefit-icon { font-size: 36px; }
-        .stats-row { flex-direction: column; }
-        .stat-item { min-width: 100%; margin: 15px 0; }
-        .stat-number { font-size: 36px; }
-        .stat-label { font-size: 14px; }
-        .testimonial-card { margin-bottom: 15px; }
+        .hero-section h1 {
+            font-size: 28px;
+        }
+
+        .hero-section .lead {
+            font-size: 16px;
+        }
+
+        .cta-primary {
+            padding: 14px 30px;
+            font-size: 16px;
+        }
+
+        .benefit-card {
+            margin-bottom: 20px;
+        }
+
+        .benefit-icon {
+            font-size: 36px;
+        }
+
+        .stats-row {
+            flex-direction: column;
+        }
+
+        .stat-item {
+            min-width: 100%;
+            margin: 15px 0;
+        }
+
+        .stat-number {
+            font-size: 36px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+        }
+
+        .testimonial-card {
+            margin-bottom: 15px;
+        }
     }
+
     @@media (max-width: 576px) {
-        .hero-section { padding: 40px 15px; }
-        .hero-section h1 { font-size: 24px; }
-        .hero-section .lead { font-size: 14px; }
-        .cta-primary { 
-            padding: 12px 20px; 
+        .hero-section {
+            padding: 40px 15px;
+        }
+
+            .hero-section h1 {
+                font-size: 24px;
+            }
+
+            .hero-section .lead {
+                font-size: 14px;
+            }
+
+        .cta-primary {
+            padding: 12px 20px;
             font-size: 14px;
             display: block;
             margin: 0 auto;
         }
-        .urgency-banner { 
-            font-size: 14px; 
+
+        .urgency-banner {
+            font-size: 14px;
             padding: 12px;
         }
-        .benefit-card { 
+
+        .benefit-card {
             padding: 20px;
             margin-bottom: 15px;
         }
-        .benefit-icon { font-size: 32px; }
-        h2 { font-size: 20px !important; }
-        h3 { font-size: 18px !important; }
-        h4 { font-size: 16px !important; }
-        ul { font-size: 16px !important; }
-        .price-badge { font-size: 14px; padding: 6px 16px; }
-        .guarantee-box { padding: 20px; }
-        .testimonial-card { padding: 15px; }
+
+        .benefit-icon {
+            font-size: 32px;
+        }
+
+        h2 {
+            font-size: 20px !important;
+        }
+
+        h3 {
+            font-size: 18px !important;
+        }
+
+        h4 {
+            font-size: 16px !important;
+        }
+
+        ul {
+            font-size: 16px !important;
+        }
+
+        .price-badge {
+            font-size: 14px;
+            padding: 6px 16px;
+        }
+
+        .guarantee-box {
+            padding: 20px;
+        }
+
+        .testimonial-card {
+            padding: 15px;
+        }
     }
 </style>
 
 <!-- Hero Section -->
-    <div style="background:#5d33fb; color:#fff; padding:50px 30px; border-radius:12px; text-align: center;">
-        <h2 style="font-weight:700; margin-bottom:20px;">🚀 Začnite Svoj Zdravotný Reštart Teraz</h2>
-        <!-- Urgency Banner -->
+<div style="background:#5d33fb; color:#fff; padding:50px 30px; border-radius:12px; text-align: center;">
+    <h2 style="font-weight:700; margin-bottom:20px;">🚀 Začnite Svoj Životný Reštart Teraz</h2>
+    <!-- Urgency Banner -->
     <div class="urgency-banner">
-        ⏰ LIMITOVANÁ PONUKA: Iba prvých 20 zákazníkov dostane 10% zľavu + DARČEK ZDARMA!
+        ⏰POZOR LIMITOVANÁ PONUKA: Iba prvých 20 zákazníkov dostane 10% zľavu na Balance balík + DARČEK ZDARMA!
     </div>
-        <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" target="_blank" class="cta-primary">
-            ✅ ÁNO, CHCEM BALANCE BALÍK S BONUSOM!
-        </a>
-        <p style="margin-top:20px; font-size:14px; opacity:0.9;">
-            ⏰ Ponuka platí iba do vyčerpania zásob alebo do 28.2.2026
-        </p>
-    </div>
+    <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" target="_blank" class="cta-primary">
+        ✅ ÁNO, CHCEM BALANCE BALÍK<br>
+        1.BalanceOil 300ml + 2.Zinobiotic + 3.ZinzinoxTend!<br>
+        (120 dní užívania)treba vybrať pri platbe cez Stripe v poznámke prop.kód pri objednávke zadajte kód: NOVYROK26 a máte 10% zľavu + BALZAM ZDARMA!
 
-    
-
-    <!-- Problem/Solution Section -->
-    <div class="row text-center mb-5">
-        <div class="col-12">
-            <h2 style="color:#5d33fb; font-weight:700;">Cítite Sa Takto?</h2>
-            <p class="lead">Nie ste sami - 85% Slovákov trpí týmito problémami:</p>
-        </div>
-    </div>
-
-    <div class="row mb-5">
-        <div class="col-md-3 col-sm-6 col-12 mb-3 mb-md-0">
-            <div class="benefit-card text-center">
-                <div class="benefit-icon">😴</div>
-                <h4>Únava</h4>
-                <p>Neustále vyčerpaní, aj po spánku</p>
+    </a>
+    <p style="margin-top:20px; font-size:14px; opacity:0.9;">
+        ⏰ Ponuka platí iba do vyčerpania zásob alebo do 5.3.2026
+    </p>
+</div>
+<!-- CollagenBoozt Featured Product -->
+<div class="row mb-5">
+    <div class="col-12">
+        <div style="background:linear-gradient(135deg,#fff5e6 0%,#ffe0b2 100%); border:3px solid #ff9800; border-radius:12px; padding:40px; box-shadow:0 10px 30px rgba(255,152,0,0.2);">
+            <div class="text-center mb-4">
+                <span style="background:#ff9800; color:#fff; padding:8px 20px; border-radius:20px; font-size:14px; font-weight:700;">🔥NAŠA NOVINKA PRE VÁS- CollagenBoozt SO ZĽAVOU</span>
             </div>
-        </div>
-        <div class="col-md-3 col-sm-6 col-12 mb-3 mb-md-0">
-            <div class="benefit-card text-center">
-                <div class="benefit-icon">🤒</div>
-                <h4>Slabá Imunita</h4>
-                <p>Časté prechladnutia a choroby</p>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6 col-12 mb-3 mb-sm-0">
-            <div class="benefit-card text-center">
-                <div class="benefit-icon">🧠</div>
-                <h4>Brain Fog</h4>
-                <p>Problémy s koncentráciou</p>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6 col-12">
-            <div class="benefit-card text-center">
-                <div class="benefit-icon">❤️</div>
-                <h4>Zápal</h4>
-                <p>Chronické bolesti kĺbov</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Solution -->
-    <div class="row mt-5 mb-5">
-        <div class="col-12 text-center">
-            <h2 style="color:#28a745; font-weight:700;">✅ Riešenie: BalanceOil + Zinobiotic + ZinzinoxTend</h2>
-            <p class="lead">🧪 Pomocou: BalanceTestu zistíte PRESNE, čo Vášmu telu chýba a ako to napraviť</p>
-        </div>
-    </div>
-
-    <!-- Stats -->
-    <div class="stats-row">
-        <div class="stat-item">
-            <div class="stat-number">15:1</div>
-            <div class="stat-label">Priemerný pomer<br>Omega-6:Omega-3</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">3:1</div>
-            <div class="stat-label">Ideálny zdravý<br>pomer</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">95%</div>
-            <div class="stat-label">Zákazníkov vidí<br>zlepšenie</div>
-        </div>
-    </div>
-
-    <!-- Product Image -->
-    <div class="row mb-5">
-        <div class="col-12 text-center">
-            <img src="~/Image/Snímka obrazovky 2023-06-10 161035.png" alt="3 kroky k zdraviu" class="img-fluid" style="max-width:100%; box-shadow:0 10px 40px rgba(0,0,0,0.15); border-radius:10px;">
-        </div>
-    </div>
-
-    <!-- How It Works -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <h2 class="text-center" style="color:#5d33fb; font-weight:700;">Ako To Funguje? (3 Jednoduché Kroky)</h2>
-        </div>
-        <div class="col-md-4 col-sm-12 mb-3 mb-md-0">
-            <div class="benefit-card">
-                <h3 style="color:#5d33fb;">1️⃣ BalanceTest</h3>
-                <p>Pošleme Vám Balancetest kit po zakúpení. Odošlete si kvapku krvi z prsta (bezbolestné pozri video).</p>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-12 mb-3 mb-md-0">
-            <div class="benefit-card">
-                <h3 style="color:#5d33fb;">2️⃣ Laboratórna Analýza</h3>
-                <p>Získate presný pomer Omega-3/6 a personalizované odporúčania.</p>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-12">
-            <div class="benefit-card">
-                <h3 style="color:#5d33fb;">3️⃣ Balance Oil</h3>
-                <p>Užívajte prémiový Balanceoil Omega-3 (120 dní) a sledujte zlepšenie.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Benefits -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <h2 class="text-center" style="color:#5d33fb; font-weight:700;">Čo Získate?</h2>
-        </div>
-        <div class="col-md-6 col-12 mb-3 mb-md-0">
-            <ul style="font-size:18px; line-height:2;">
-                <li>✅ <strong>Viac energie</strong> počas celého dňa</li>
-                <li>✅ <strong>Lepší spánok</strong> a regenerácia</li>
-                <li>✅ <strong>Silnejšia imunita</strong> - menej chorôb</li>
-                <li>✅ <strong>Jasná myseľ</strong> - lepšia koncentrácia</li>
-            </ul>
-        </div>
-        <div class="col-md-6 col-12">
-            <ul style="font-size:18px; line-height:2;">
-                <li>✅ <strong>Zdravé srdce</strong> a cievy</li>
-                <li>✅ <strong>Menej zápalov</strong> v tele</li>
-                <li>✅ <strong>Krásna pleť</strong> a vlasy</li>
-                <li>✅ <strong>Dlhodobé zdravie</strong> a vitalita</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Social Proof -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <h2 class="text-center" style="color:#5d33fb; font-weight:700;">💬 Čo Hovoria Naši Zákazníci</h2>
-        </div>
-    </div>
-    
-    <div class="row mb-5">
-        <div class="col-md-6 col-12 mb-3">
-            <div class="testimonial-card">
-                <p><strong>Jana K., Trnava ⭐⭐⭐⭐⭐</strong></p>
-                <p>"Po 60 dňoch s BalanceOil som mala VIAC ENERGIE a lepší spánok. Test to potvrdil - môj pomer sa zlepšil z 15:1 na 4:1!"</p>
-            </div>
-        </div>
-        <div class="col-md-6 col-12 mb-3">
-            <div class="testimonial-card">
-                <p><strong>Juraj J., Košice ⭐⭐⭐⭐⭐</strong></p>
-                <p>"Konečne viem, čo môjmu telu chýbalo. Kĺbové bolesti zmizli a cítim sa o 10 rokov mladší!"</p>
-            </div>
-        </div>
-        <div class="col-md-6 col-12 mb-3">
-            <div class="testimonial-card">
-                <p><strong>Peter M., Bratislava ⭐⭐⭐⭐⭐</strong></p>
-                <p>"Skeptický som bol, ale výsledky ma presvedčili. Už žiadne zimné choroby a energiu mám ako za mladých čias."</p>
-            </div>
-        </div>
-        <div class="col-md-6 col-12 mb-3">
-            <div class="testimonial-card">
-                <p><strong>Martina S., Žilina ⭐⭐⭐⭐⭐</strong></p>
-                <p>"Najlepšia investícia do môjho zdravia. Test mi ukázal presne, kde mám problém a Balance Oil to vyriešil."</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Video -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <h2 class="text-center" style="color:#5d33fb; font-weight:700;">📺 Pozrite Si Video: Ako si zlepšiť zdravie s Balance Oil</h2>
-        </div>
-        <div class="col-12">
-            <div class="embed-responsive embed-responsive-16by9" style="max-width:800px; margin:0 auto; border-radius:10px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,0.15);">
-                <iframe class="embed-responsive-item" src="https://videos.sproutvideo.com/embed/d390d3b31911ecc15a/eeb65011d6e6ae23?autoplay=0" title="Video Zinzino" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
-
-    <!-- CollagenBoozt Featured Product -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <div style="background:linear-gradient(135deg,#fff5e6 0%,#ffe0b2 100%); border:3px solid #ff9800; border-radius:12px; padding:40px; box-shadow:0 10px 30px rgba(255,152,0,0.2);">
-                <div class="text-center mb-4">
-                    <span style="background:#ff9800; color:#fff; padding:8px 20px; border-radius:20px; font-size:14px; font-weight:700;">🔥 NOVÝ PRODUKT S 10% ZĽAVOU</span>
+            <div class="row align-items-center">
+                <div class="col-md-5 text-center mb-3 mb-md-0">
+                    <img src="~/Image/CollagenBoozt.png" alt="CollagenBoozt" class="img-fluid" style="max-width:250px; border-radius:10px; box-shadow:0 5px 20px rgba(0,0,0,0.15);">
                 </div>
-                <div class="row align-items-center">
-                    <div class="col-md-5 text-center mb-3 mb-md-0">
-                        <img src="~/Image/CollagenBoozt.png" alt="CollagenBoozt" class="img-fluid" style="max-width:250px; border-radius:10px; box-shadow:0 5px 20px rgba(0,0,0,0.15);">
-                    </div>
-                    <div class="col-md-7">
-                        <h2 style="color:#ff9800; font-weight:700; margin-bottom:15px;">✨ CollagenBoozt</h2>
-                        <p style="font-size:18px; color:#2c3e50; margin-bottom:20px;">
-                            Prémiový kolagénový nápoj s vitamínmi a minerálmi pre zdravú pleť, silné vlasy a pružné kĺby.
+                <div class="col-md-7">
+                    <h2 style="color:#ff9800; font-weight:700; margin-bottom:15px;">✨ CollagenBoozt</h2>
+                    <p style="font-size:18px; color:#2c3e50; margin-bottom:20px;">
+                        Prémiový kolagénový nápoj s vitamínmi a minerálmi pre zdravú pleť, silné vlasy a pružné kĺby.
+                    </p>
+                    <ul style="font-size:16px; color:#2c3e50; line-height:1.8;">
+                        <li>💎 <strong>5000mg morského kolagénu</strong> na porciu</li>
+                        <li>🌟 <strong>Vitamín C + Zinok</strong> pre podporu tvorby kolagénu</li>
+                        <li>🧬 <strong>Hyalurónová kyselina</strong> pre hydratáciu pokožky</li>
+                        <li>⚡ <strong>Biotin + Selen</strong> pre zdravé vlasy a nechty</li>
+                        <li>🦴 <strong>Podpora kĺbov</strong> a pohyblivosti</li>
+                    </ul>
+                    <div class="mt-4">
+                        <p style="font-size:20px; margin-bottom:10px;">
+                            <span style="text-decoration:line-through; color:#999;">Pôvodná cena: 85,00€</span>
                         </p>
-                        <ul style="font-size:16px; color:#2c3e50; line-height:1.8;">
-                            <li>💎 <strong>5000mg morského kolagénu</strong> na porciu</li>
-                            <li>🌟 <strong>Vitamín C + Zinok</strong> pre podporu tvorby kolagénu</li>
-                            <li>🧬 <strong>Hyalurónová kyselina</strong> pre hydratáciu pokožky</li>
-                            <li>⚡ <strong>Biotin + Selen</strong> pre zdravé vlasy a nechty</li>
-                            <li>🦴 <strong>Podpora kĺbov</strong> a pohyblivosti</li>
-                        </ul>
-                        <div class="mt-4">
-                            <p style="font-size:20px; margin-bottom:10px;">
-                                <span style="text-decoration:line-through; color:#999;">Pôvodná cena: 85,00€</span>
-                            </p>
-                            <p style="font-size:28px; color:#28a745; font-weight:700; margin-bottom:15px;">
-                                Akciová cena: 76,50€ <span style="font-size:18px;">(ušetríte 8,50€)</span>
-                            </p>
-                            <a href='@Url.Action("Produkty","Home", new { q = "collagen" })' class="cta-primary" style="background:#ff9800; display:inline-block;">
-                                🛒 Objednať CollagenBoozt so zľavou
-                            </a>
-                        </div>
+                        <p style="font-size:28px; color:#28a745; font-weight:700; margin-bottom:15px;">
+                            Akciová cena: 76,50€ <span style="font-size:18px;">(ušetríte 8,50€)</span>
+                        </p>
+                        <a href='@Url.Action("Produkty","Home", new { q = "collagen" })' class="cta-primary" style="background:#ff9800; display:inline-block;">
+                            🛒Chcem Objednať iba CollagenBoozt s 10% zľavou
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Special Offer -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <div style="background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%); border:none; border-radius:12px; padding:40px; box-shadow:0 10px 30px rgba(0,0,0,0.12);">
-                <h2 class="text-center" style="color:#5d33fb; font-weight:700;">🎁 ŠPECIÁLNA PONUKA</h2>
-                <p class="text-center" style="font-size:18px; color:#2c3e50;">
-                    ZinzinoxTend + Balance Oil + Zinobiotic + CollagenBoozt užívať min. (120 dní)
-                </p>
-                <div class="text-center">
-                    <span class="price-badge">Kód: NOVYROK26 = 10% ZĽAVA</span>
-                </div>
-                <ul class="list-unstyled text-center mt-3" style="font-size:18px; color:#2c3e50;">
-                    
-                    <li>✅ <strong>ZinzinoxTend</strong> (najpokročilejší imunitný a výživový doplnok) - hodnota 44€</li>
-                    <li>✅ <strong>Balance Oil Orange 300ml</strong> (Omega3 bestseller hlavný produkt) - hodnota 55€</li>
-                    <li>✅ <strong>Zinobiotic</strong> (probiotiká) - hodnota 40€</li>
-                    <li>✅ <strong>CollagenBoozt</strong> (kolagénový nápoj pre zdravú pleť a kĺby) - <span style="text-decoration:line-through; color:#999;">85€</span> <strong style="color:#28a745;">76,50€ (-10%)</strong></li>
-                    <li>✅ <strong>BONUS:</strong> Balzam ZDARMA!</li>
-                    <li>✅ <strong>Doprava ZDARMA</strong> v rámci SR</li>
-                    <li>✅ <strong>Osobné poradenstvo</strong> zadarmo</li>
-                </ul>
-                <div class="text-center mt-4">
-                    <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" target="_blank" class="cta-primary">
-                        🛒 ÁNO, CHCEM BALANCE BALÍK S BONUSOM!
-                    </a>
-                    <p class="mt-3"><a href='@Url.Action("Produkty","Home")' style="color:#5d33fb;">🔍 Alebo si prezrite všetky produkty</a></p>
-                </div>
+
+<!-- Problem/Solution Section -->
+<div class="row text-center mb-5">
+    <div class="col-12">
+        <h2 style="color:#5d33fb; font-weight:700;">Cítite Sa Takto?</h2>
+        <p class="lead">Nie ste sami - 85% Slovákov trpí týmito problémami:</p>
+    </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col-md-3 col-sm-6 col-12 mb-3 mb-md-0">
+        <div class="benefit-card text-center">
+            <div class="benefit-icon">😴</div>
+            <h4>Únava</h4>
+            <p>Neustále vyčerpaní, aj po spánku</p>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-12 mb-3 mb-md-0">
+        <div class="benefit-card text-center">
+            <div class="benefit-icon">🤒</div>
+            <h4>Slabá Imunita</h4>
+            <p>Časté prechladnutia a choroby</p>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-12 mb-3 mb-sm-0">
+        <div class="benefit-card text-center">
+            <div class="benefit-icon">🧠</div>
+            <h4>Brain Fog</h4>
+            <p>Problémy s koncentráciou</p>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="benefit-card text-center">
+            <div class="benefit-icon">❤️</div>
+            <h4>Zápal</h4>
+            <p>Chronické bolesti kĺbov</p>
+        </div>
+    </div>
+</div>
+
+<!-- Solution -->
+<div class="row mt-5 mb-5">
+    <div class="col-12 text-center">
+        <h2 style="color:#28a745; font-weight:700;">✅ Riešenie: BalanceOil + Zinobiotic + ZinzinoxTend</h2>
+        <p class="lead">🧪 Pomocou: BalanceTestu zistíte PRESNE, čo Vášmu telu chýba a ako to napraviť</p>
+    </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-row">
+    <div class="stat-item">
+        <div class="stat-number">15:1</div>
+        <div class="stat-label">Priemerný pomer<br>Omega-6:Omega-3</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">3:1</div>
+        <div class="stat-label">Ideálny zdravý<br>pomer</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">95%</div>
+        <div class="stat-label">Zákazníkov vidí<br>zlepšenie</div>
+    </div>
+</div>
+
+<!-- Product Image -->
+<div class="row mb-5">
+    <div class="col-12 text-center">
+        <img src="~/Image/Snímka obrazovky 2023-06-10 161035.png" alt="3 kroky k zdraviu" class="img-fluid" style="max-width:100%; box-shadow:0 10px 40px rgba(0,0,0,0.15); border-radius:10px;">
+    </div>
+</div>
+
+<!-- How It Works -->
+<div class="row mb-5">
+    <div class="col-12">
+        <h2 class="text-center" style="color:#5d33fb; font-weight:700;">Ako To Funguje? (3 kroky čítaj vyššie).</h2>
+    </div>
+    <div class="col-md-4 col-sm-12 mb-3 mb-md-0">
+        <div class="benefit-card">
+            <h3 style="color:#5d33fb;">1️⃣ BalanceTest</h3>
+            <p>Pošleme Vám Balancetest kit po zakúpení. Odošlete si kvapku krvi z prsta (bezbolestné pozri video).</p>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12 mb-3 mb-md-0">
+        <div class="benefit-card">
+            <h3 style="color:#5d33fb;">2️⃣ Laboratórna Analýza</h3>
+            <p>Získate presný pomer Omega-3/6 a personalizované odporúčania.</p>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="benefit-card">
+            <h3 style="color:#5d33fb;">3️⃣ Balance Oil</h3>
+            <p>Užívajte prémiový Balanceoil Omega-3 (120 dní) a sledujte zlepšenie.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Benefits -->
+<div class="row mb-5">
+    <div class="col-12">
+        <h2 class="text-center" style="color:#5d33fb; font-weight:700;">Čo Získate?</h2>
+    </div>
+    <div class="col-md-6 col-12 mb-3 mb-md-0">
+        <ul style="font-size:18px; line-height:2;">
+            <li>✅ <strong>Viac energie</strong> počas celého dňa</li>
+            <li>✅ <strong>Lepší spánok</strong> a regenerácia</li>
+            <li>✅ <strong>Silnejšia imunita</strong> - menej chorôb</li>
+            <li>✅ <strong>Jasná myseľ</strong> - lepšia koncentrácia</li>
+        </ul>
+    </div>
+    <div class="col-md-6 col-12">
+        <ul style="font-size:18px; line-height:2;">
+            <li>✅ <strong>Zdravé srdce</strong> a cievy</li>
+            <li>✅ <strong>Menej zápalov</strong> v tele</li>
+            <li>✅ <strong>Krásna pleť</strong> a vlasy</li>
+            <li>✅ <strong>Dlhodobé zdravie</strong> a vitalita</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Social Proof -->
+<div class="row mb-5">
+    <div class="col-12">
+        <h2 class="text-center" style="color:#5d33fb; font-weight:700;">💬 Čo Hovoria Naši Zákazníci</h2>
+    </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col-md-6 col-12 mb-3">
+        <div class="testimonial-card">
+            <p><strong>Jana K., Trnava ⭐⭐⭐⭐⭐</strong></p>
+            <p>"Po 60 dňoch s BalanceOil som mala VIAC ENERGIE a lepší spánok. Test to potvrdil - môj pomer sa zlepšil z 15:1 na 4:1!"</p>
+        </div>
+    </div>
+    <div class="col-md-6 col-12 mb-3">
+        <div class="testimonial-card">
+            <p><strong>Juraj J., Košice ⭐⭐⭐⭐⭐</strong></p>
+            <p>"Konečne viem, čo môjmu telu chýbalo. Kĺbové bolesti zmizli a cítim sa o 10 rokov mladší!"</p>
+        </div>
+    </div>
+    <div class="col-md-6 col-12 mb-3">
+        <div class="testimonial-card">
+            <p><strong>Peter M., Bratislava ⭐⭐⭐⭐⭐</strong></p>
+            <p>"Skeptický som bol, ale výsledky ma presvedčili. Už žiadne zimné choroby a energiu mám ako za mladých čias."</p>
+        </div>
+    </div>
+    <div class="col-md-6 col-12 mb-3">
+        <div class="testimonial-card">
+            <p><strong>Martina S., Žilina ⭐⭐⭐⭐⭐</strong></p>
+            <p>"Najlepšia investícia do môjho zdravia. Test mi ukázal presne, kde mám problém a Balance Oil to vyriešil."</p>
+        </div>
+    </div>
+</div>
+
+<!-- Video -->
+<div class="row mb-5">
+    <div class="col-12">
+        <h2 class="text-center" style="color:#5d33fb; font-weight:700;">📺 Pozrite Si Video: Ako si zlepšiť zdravie s Balance Oil</h2>
+    </div>
+    <div class="col-12">
+        <div class="embed-responsive embed-responsive-16by9" style="max-width:800px; margin:0 auto; border-radius:10px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,0.15);">
+            <iframe class="embed-responsive-item" src="https://videos.sproutvideo.com/embed/d390d3b31911ecc15a/eeb65011d6e6ae23?autoplay=0" title="Video Zinzino" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Special Offer -->
+<div class="row mb-5">
+    <div class="col-12">
+        <div style="background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%); border:none; border-radius:12px; padding:40px; box-shadow:0 10px 30px rgba(0,0,0,0.12);">
+            <h2 class="text-center" style="color:#5d33fb; font-weight:700;">🎁 ŠPECIÁLNA PONUKA</h2>
+            <p class="text-center" style="font-size:18px; color:#2c3e50;">
+                ZinzinoxTend + Balance Oil + Zinobiotic + CollagenBoozt užívať min. (120 dní)
+            </p>
+            <div class="text-center">
+                <span class="price-badge">Kód: NOVYROK26 = 10% ZĽAVA</span>
             </div>
-        </div>
-    </div>
+            <ul class="list-unstyled text-center mt-3" style="font-size:18px; color:#2c3e50;">
 
-    <!-- Guarantee -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <div class="guarantee-box">
-                <h3 style="color:#5d33fb; font-weight:700;">🛡️ 100% Záruka Spokojnosti</h3>
-                <p style="font-size:18px;">
-                    Ak nebudete spokojní s výsledkami do 120 dní,<br>
-                    <strong>vrátime Vám peniaze. Bez otázok.</strong>
-                </p>
-                <p style="font-size:16px; color:#666;">
-                    + Bezpečná platba cez Stripe<br>
-                    + Certifikované laboratórium v Nórsku<br>
-                    + Vedecky overený produkt
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- FAQ Quick -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <h2 class="text-center" style="color:#5d33fb; font-weight:700;">❓ Časté Otázky</h2>
-        </div>
-        
-        <div class="col-md-6">
-            <h4 style="color:#5d33fb;">Je to bezpečné?</h4>
-            <p>Áno! Balance Oil je certifikovaný, chránený patentmi a klinicky testovaný. Viac ako 1 milión spokojných zákazníkov.</p>
-        </div>
-        <div class="col-md-6">
-            <h4 style="color:#5d33fb;">Ako dlho trvá, kým uvidím výsledky?</h4>
-            <p>Väčšina zákazníkov cíti zlepšenie po 30-60 dňach. Test po 120 dňoch ukáže presné výsledky.</p>
-        </div>
-        <div class="col-md-6">
-            <h4 style="color:#5d33fb;">Je to pre mňa?</h4>
-            <p>Ak máte únavu, slabú imunitu, kĺbové bolesti alebo chcete zlepšiť zdravie - určite áno!</p>
-        </div>
-        <div class="col-md-6">
-            <h4 style="color:#5d33fb;">Ako funguje doprava?</h4>
-            <p>ZDARMA pri objednávke nad 50€ v rámci SR. Doručíme do 3-7 pracovných dní.</p>
-        </div>
-    </div>
-
-    <!-- Final CTA -->
-    <div class="row mb-5">
-        <div class="col-12 text-center">
-            <div class="hero-section">
-                <h1>🌿 Zmeňte Svoje Zdravie</h1>
-                <p class="lead">
-                    Objavte, čo Vášmu telu chýba a obnovte prirodzenú rovnováhu<br class="d-none d-md-block">
-                    s našimi vedecky overenými produktami alebo využite našu ⏰ LIMITOVANÚ PONUKU..
-                </p>
-                <a href="@Url.Action("Kontakt","Home")" class="cta-primary">
-                    🛒 ÁNO,chcem zistiť viac a získať free-ebook „Ako doplniť energiu bez kávy – 5 prirodzených ciest"!
+                <li>✅ <strong>ZinzinoxTend</strong> (najpokročilejší imunitný a výživový doplnok) - hodnota 44€</li>
+                <li>✅ <strong>Balance Oil Orange 300ml</strong> (Omega3 bestseller hlavný produkt) - hodnota 55€</li>
+                <li>✅ <strong>Zinobiotic</strong> (probiotiká) - hodnota 40€</li>
+                <li>✅ <strong>CollagenBoozt</strong> (kolagénový nápoj pre zdravú pleť a kĺby) - <span style="text-decoration:line-through; color:#999;">85€</span> <strong style="color:#28a745;">76,50€ (-10%)</strong></li>
+                <li>✅ <strong>BONUS:</strong> Balzam ZDARMA!</li>
+                <li>✅ <strong>Doprava ZDARMA</strong> v rámci SR</li>
+                <li>✅ <strong>Osobné poradenstvo</strong> zadarmo</li>
+            </ul>
+            <div class="text-center mt-4">
+                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" target="_blank" class="cta-primary">
+                    🛒 ÁNO, CHCEM BALANCE BALÍK S BONUSOM!
                 </a>
+                <p class="mt-3"><a href='@Url.Action("Produkty","Home")' style="color:#5d33fb;">🔍 Alebo si prezrite všetky produkty</a></p>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Trust Badges -->
-    <div class="row mb-5">
-        <div class="col-12 text-center">
-            <p style="color:#999; font-size:14px;">
-                🔒 Bezpečná platba | 🚚 Doprava ZDARMA | 💳 100% záruka vrátenia peňazí | 🏆 Oficiálny partner Zinzino
+<!-- Guarantee -->
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="guarantee-box">
+            <h3 style="color:#5d33fb; font-weight:700;">🛡️ 100% Záruka Spokojnosti</h3>
+            <p style="font-size:18px;">
+                Ak nebudete spokojní s výsledkami do 120 dní,<br>
+                <strong>vrátime Vám peniaze. Bez otázok.</strong>
+            </p>
+            <p style="font-size:16px; color:#666;">
+                + Bezpečná platba cez Stripe<br>
+                + Certifikované laboratórium v Nórsku<br>
+                + Vedecky overený produkt
             </p>
         </div>
     </div>
+</div>
+
+<!-- FAQ Quick -->
+<div class="row mb-5">
+    <div class="col-12">
+        <h2 class="text-center" style="color:#5d33fb; font-weight:700;">❓ Časté Otázky</h2>
+    </div>
+
+    <div class="col-md-6">
+        <h4 style="color:#5d33fb;">Je to bezpečné?</h4>
+        <p>Áno! Balance Oil je certifikovaný, chránený patentmi a klinicky testovaný. Viac ako 1 milión spokojných zákazníkov.</p>
+    </div>
+    <div class="col-md-6">
+        <h4 style="color:#5d33fb;">Ako dlho trvá, kým uvidím výsledky?</h4>
+        <p>Väčšina zákazníkov cíti zlepšenie po 30-60 dňach. Test po 120 dňoch ukáže presné výsledky.</p>
+    </div>
+    <div class="col-md-6">
+        <h4 style="color:#5d33fb;">Je to pre mňa?</h4>
+        <p>Ak máte únavu, slabú imunitu, kĺbové bolesti alebo chcete zlepšiť zdravie - určite áno!</p>
+    </div>
+    <div class="col-md-6">
+        <h4 style="color:#5d33fb;">Ako funguje doprava?</h4>
+        <p>ZDARMA pri objednávke nad 50€ v rámci SR. Doručíme do 3-7 pracovných dní.</p>
+    </div>
+</div>
+
+<!-- Final CTA -->
+<div class="row mb-5">
+    <div class="col-12 text-center">
+        <div class="hero-section">
+            <h1>🌿 Zmeňte Svoje Zdravie</h1>
+            <p class="lead">
+                Objavte, čo Vášmu telu chýba a obnovte prirodzenú rovnováhu<br class="d-none d-md-block">
+                s našimi vedecky overenými produktami alebo využite našu ⏰ LIMITOVANÚ PONUKU..
+            </p>
+            <a href="@Url.Action("Kontakt","Home")" class="cta-primary">
+                🛒 ÁNO,chcem zistiť viac a získať free-ebook „Ako doplniť energiu bez kávy – 5 prirodzených ciest"!
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Trust Badges -->
+<div class="row mb-5">
+    <div class="col-12 text-center">
+        <p style="color:#999; font-size:14px;">
+            🔒 Bezpečná platba | 🚚 Doprava ZDARMA | 💳 100% záruka vrátenia peňazí | 🏆 Oficiálny partner Zinzino
+        </p>
+    </div>
+</div>
 
 
 
