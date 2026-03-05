@@ -16,7 +16,13 @@ namespace LadowebservisMVC.Util
     {
         // Block known spammer patterns (case-insensitive) - reject any containing 'loori'
         private static readonly string[] BannedEmailFragments = new[] { "loori" };
-        private static readonly string[] BannedEmails = new[] 
+        private static readonly string[] BannedDomains = new[]
+        {
+            "@mail.ru",
+            "@bk.ru",
+            "@list.ru"
+        };
+        private static readonly string[] BannedEmails = new[]
         { 
             "dolnovam@mail.ru",
             "test@spam.ru",
@@ -53,9 +59,16 @@ namespace LadowebservisMVC.Util
             {
                 var email = (model.Email ?? string.Empty).ToLowerInvariant();
                 var name = (model.Name ?? string.Empty);
-                
+
                 // Check banned emails list
                 if (BannedEmails.Any(b => email.Equals(b, StringComparison.OrdinalIgnoreCase)))
+                {
+                    // silently ignore/send no mail for blocked senders
+                    return;
+                }
+
+                // Check banned domains (e.g., @mail.ru, @bk.ru, @list.ru)
+                if (BannedDomains.Any(d => email.EndsWith(d, StringComparison.OrdinalIgnoreCase)))
                 {
                     // silently ignore/send no mail for blocked senders
                     return;
@@ -204,140 +217,170 @@ namespace LadowebservisMVC.Util
                     mail.From = new MailAddress("info@ladowebservis.sk", "ladowebservis.sk");
                     mail.To.Add(customerEmail);
                     mail.Bcc.Add("info@ladowebservis.sk");
-                    mail.Subject = "✨ Kolagén pre krásu + 10% zľava s kódom " + promoCode;
+                    mail.Subject = "Kolagén za zdravie a krásu - špeciálna zľava k Sviatku žien";
                     mail.SubjectEncoding = Encoding.UTF8;
                     mail.BodyEncoding = Encoding.UTF8;
-                    mail.IsBodyHtml = false;
+                    mail.IsBodyHtml = true;
 
-                    var sb = new StringBuilder();
-                    
-                    // Personalized greeting
-                    if (!string.IsNullOrWhiteSpace(nameSafe))
-                    {
-                        sb.AppendLine("Dobrý deň " + nameSafe + ",");
-                    }
-                    else
-                    {
-                        sb.AppendLine("Dobrý deň,");
-                    }
+                    // Build HTML body with product images
+                    var htmlBody = $@"
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <style>
+        body {{ font-family: Arial, sans-serif; color: #333; background-color: #f5f7fa; }}
+        .container {{ max-width: 600px; margin: 0 auto; background-color: #fff; padding: 20px; border-radius: 8px; }}
+        .header {{ background: linear-gradient(135deg, #5d33fb 0%, #764ba2 100%); color: #fff; padding: 20px; text-align: center; border-radius: 8px; }}
+        .header h1 {{ margin: 0; font-size: 24px; }}
+        .product-section {{ margin: 30px 0; padding: 20px; background: #f9f9f9; border-radius: 8px; border-left: 4px solid #5d33fb; }}
+        .product-card {{ background: #fff; padding: 15px; margin: 15px 0; border-radius: 8px; border: 1px solid #e0e0e0; }}
+        .product-image {{ max-width: 150px; height: auto; border-radius: 6px; margin: 10px 0; }}
+        .product-title {{ color: #5d33fb; font-weight: bold; font-size: 16px; margin: 10px 0; }}
+        .price {{ color: #28a745; font-weight: bold; font-size: 18px; margin: 10px 0; }}
+        .price-old {{ text-decoration: line-through; color: #999; margin-right: 10px; }}
+        .features {{ color: #666; font-size: 13px; margin: 10px 0; line-height: 1.6; }}
+        .features li {{ margin: 5px 0; }}
+        .promo-badge {{ background: #ffcc00; color: #2c3e50; padding: 10px 20px; border-radius: 8px; font-weight: bold; display: inline-block; margin: 15px 0; }}
+        .button {{ background: #28a745; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 6px; display: inline-block; margin: 10px 0; }}
+        .button:hover {{ background: #218838; }}
+        .footer {{ color: #999; font-size: 12px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0e0e0; }}
+        .section-title {{ color: #5d33fb; font-weight: bold; font-size: 18px; margin: 20px 0 15px 0; border-bottom: 2px solid #5d33fb; padding-bottom: 10px; }}
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h1>✨ Kolagén pre krásu k Sviatku žien ✨</h1>
+        </div>
 
-                    sb.AppendLine();
-                    sb.AppendLine("Ďakujeme, že ste nás kontaktovali! Máme pre Vás špeciálnu ponuku na kolagénový produkt pre vašu krásu.");
-                    sb.AppendLine();
-                    
-                    // Collagen Boozt Special Offer
-                    sb.AppendLine("═══════════════════════════════════════");
-                    sb.AppendLine("  ✨ KOLAGÉN PRE KRÁSU - ŠPECIÁL");
-                    sb.AppendLine("═══════════════════════════════════════");
-                    sb.AppendLine();
-                    sb.AppendLine("🌟 COLLAGEN BOOZT - Prírodný kolagén 85 €");
-                    sb.AppendLine("   Teraz so ŠPECIÁLNOU ZĽAVOU -10%!");
-                    sb.AppendLine("   Cena: len 76,50 € (z 85 €)");
-                    sb.AppendLine();
-                    sb.AppendLine("   Prémium kolagénový produkt od Zinzino -");
-                    sb.AppendLine("   perfektný výber pre pekný vzhľad a zdravú");
-                    sb.AppendLine("   pokožku. Vďaka prirodzeným zložkám si");
-                    sb.AppendLine("   užijete viditeľné výsledky v priebehu");
-                    sb.AppendLine("   niekoľkých týždňov.");
-                    sb.AppendLine();
-                    sb.AppendLine("   Vlastnosti:");
-                    sb.AppendLine("   • Zlepšuje elasticitu pokožky");
-                    sb.AppendLine("   • Zmierňuje vrásky a jemné linky");
-                    sb.AppendLine("   • Podporuje zdravie vlasov a nechtov");
-                    sb.AppendLine("   • 100% prírodný pôvod");
-                    sb.AppendLine();
-                    sb.AppendLine("   👉 Pozrieť a objednať: https://ladowebservis.sk/Home/Produkty?q=collagen");
-                    sb.AppendLine();
-                    sb.AppendLine("═══════════════════════════════════════");
-                    sb.AppendLine();
-                    
-                    // Promo code highlight
-                    sb.AppendLine("🎉 EXKLUZÍVNY PROMO KÓD: " + promoCode);
-                    sb.AppendLine("💰 Získajte 10% ZĽAVU na nákup vybraných produktov pri platbe");
-                    sb.AppendLine("🚀 Kombinujte s kolagénovou zľavou!");
-                    sb.AppendLine("⏰ Platnosť: 1 mesiac");
-                    sb.AppendLine();
+        <p>Dobrý deň {nameSafe},</p>
+        <p>Ďakujeme, že ste nás kontaktovali! 💚</p>
+        <p>K Sviatku žien Vám chceme ponúknuť špeciálnu ponuku na produkty pre Vašu krásu a zdravie.</p>
 
-                    // Product recommendations
-                    sb.AppendLine("🌟 ĎALŠIE ODPORÚČANÉ PRODUKTY PRE VAŠU KRÁSU:");
-                    sb.AppendLine();
-                    sb.AppendLine("• Balance Oil - Omega 3 pre zdravé srdce a mozog");
-                    sb.AppendLine("  (Krása začína zvnútra – vďaka dobrému zdraviu!)");
-                    sb.AppendLine("  https://ladowebservis.sk/Home/Produkty?q=balance");
-                    sb.AppendLine();
-                    sb.AppendLine("• Zinobiotic - Prémiové probiotiká pre trávenie");
-                    sb.AppendLine("  (Zdravá pokožka závisí na zdravom trávení)");
-                    sb.AppendLine("  https://ladowebservis.sk/Home/Produkty?q=zinobiotic");
-                    sb.AppendLine();
-                    sb.AppendLine(" Zobraziť všetky produkty: https://ladowebservis.sk/Home/Produkty");
-                    sb.AppendLine();
-                    // Registration invitation
-                    sb.AppendLine("📝 ZAREGISTRUJTE SA A ZÍSKAJTE VÝHODY:");
-                    sb.AppendLine();
-                    sb.AppendLine("✓ Prístup k členskému zľavovému programu");
-                    sb.AppendLine("✓ Rýchlejší nákup vďaka uloženým produktom");
-                    sb.AppendLine("✓ Včasné informácie o novinkách a akciách");
-                    sb.AppendLine("✓ Bonusové body za nákupy");
-                    sb.AppendLine("✓ Bezplatná doprava nad 50€ v rámci SK");
-                    sb.AppendLine("✓ Prioritná zákaznícka podpora");
-                    sb.AppendLine();
-                    sb.AppendLine("👉 Zaregistrovať sa: https://ladowebservis.sk/Home/Registracia");
-                    sb.AppendLine();
+        <!-- CollagenBoozt Product -->
+        <div class='product-section'>
+            <div class='section-title'>💎 Hlavný produkt: COLLAGEN BOOZT</div>
+            <div class='product-card'>
+                <div style='text-align: center;'>
+                    <img src='https://ladowebservis.sk/Image/CollagenBoozt.png' alt='CollagenBoozt' class='product-image'>
+                </div>
+                <div class='product-title'>COLLAGEN BOOZT - Prírodný kolagén</div>
+                <div>
+                    <span class='price-old'>Pôvodná cena: 65,00 EUR</span>
+                    <span class='price'>Akciová cena: 58,50 EUR (-10%)</span>
+                </div>
+                <p>Prémiový kolagénový nápoj od Zinzino s vitamínmi a minerálmi pre zdravú pleť, silné vlasy a pružné kĺby.</p>
+                <ul class='features'>
+                    <li>✓ 5000mg morského kolagénu na porciu</li>
+                    <li>✓ Vitamín C a Zinok pre podporu tvorby kolagénu</li>
+                    <li>✓ Hyalurónová kyselina pre hydratáciu pokožky</li>
+                    <li>✓ Biotin a Selen pre zdravé vlasy a nechty</li>
+                    <li>✓ Podpora kĺbov a pohyblivosti</li>
+                </ul>
+                <a href='https://ladowebservis.sk/Home/Produkty?q=collagen' class='button'>👉 Pozrieť a objednať</a>
+            </div>
+        </div>
 
-                    // Additional benefits reminder
-                    sb.AppendLine("💡 ČO VÁS EŠTE ČAKÁ PO REGISTRÁCII:");
-                    sb.AppendLine();
-                    sb.AppendLine("→ Osobný zoznam obľúbených produktov a ich zliav");
-                    sb.AppendLine("→ História objednávok a sledovanie zásielok");
-                    sb.AppendLine("→ Exkluzívny prémiový kód, e-maily s radami a tipmi");
-                    sb.AppendLine("→ Možnosť hodnotenia produktov");
-                    sb.AppendLine("→ 6 mesačná 10% zľava oproti klasickej objednávke");
-                    sb.AppendLine();
+        <!-- Promo Code -->
+        <div style='text-align: center;'>
+            <p><span class='promo-badge'>🎁 PROMO KÓD: {promoCode} = 10% ZĽAVA</span></p>
+        </div>
 
-                    // Cart reminder
-                    sb.AppendLine("🛒 NEZABUDLI STE NIEČO V KOŠÍKU?");
-                    sb.AppendLine();
-                    sb.AppendLine("Ak ste si prezerali naše produkty a niečo zostalo vo Vašom košíku,");
-                    sb.AppendLine("neváhajte dokončiť objednávku a využite svoj zľavový kód " + promoCode + "!");
+        <!-- Additional Products -->
+        <div class='product-section'>
+            <div class='section-title'>🌟 Ďalšie odporúčané produkty</div>
 
-                    sb.AppendLine();
-                    sb.AppendLine("👉 Skontrolovať košík: https://ladowebservis.sk/Home/Kosik");
-                    sb.AppendLine("👉 Stlačte Prejsť na platbu: https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk&__embed_source=buy_btn_1SgujHHrPMzQ1ua8771vUUL4");
-                    sb.AppendLine(); 
+            <!-- Balance Oil -->
+            <div class='product-card'>
+                <div style='text-align: center;'>
+                    <img src='https://ladowebservis.sk/Image/BalanceOil.png' alt='Balance Oil' class='product-image'>
+                </div>
+                <div class='product-title'>💊 Balance Oil - Omega 3</div>
+                <p>Pre zdravé srdce a mozog. Krása začína zvnútra vďaka dobrému zdraviu!</p>
+                <a href='https://ladowebservis.sk/Home/Produkty?q=balance' class='button'>Pozrieť →</a>
+            </div>
 
-                    // How to use promo code
-                    sb.AppendLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-                    sb.AppendLine("AKO POUŽIŤ ZĽAVOVÝ KÓD na platobnej stránke Stripe a dokončiť objednávku:");
-                    sb.AppendLine();
-                    sb.AppendLine("1. Pridajte alebo si upravte produkty do vašej objednávky");
-                    sb.AppendLine("2. Zadajte propagačný kód: " + promoCode);
-                    sb.AppendLine("3. Kliknite na \"Použiť kupón\"");
-                    sb.AppendLine("4. Zľava sa automaticky odpočíta");
-                    sb.AppendLine("5. Vyplňte kontaktné údaje a spôsob platby");
-                    sb.AppendLine("6. Dokončite objednávku na stránke a stlačte zaplatiť");
-                    sb.AppendLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-                    sb.AppendLine();
+            <!-- Zinobiotic -->
+            <div class='product-card'>
+                <div style='text-align: center;'>
+                    <img src='https://ladowebservis.sk/Image/Zinobiotic2025.png' alt='Zinobiotic' class='product-image'>
+                </div>
+                <div class='product-title'>🔬 Zinobiotic - Prémiové probiotiká</div>
+                <p>Pre zdravé trávenie. Zdravá pokožka závisí na zdravom trávení!</p>
+                <a href='https://ladowebservis.sk/Home/Produkty?q=zinobiotic' class='button'>Pozrieť →</a>
+            </div>
+        </div>
 
-                    // Contact and support
-                    sb.AppendLine("📞 MÁTE OTÁZKY?");
-                    sb.AppendLine();
-                    sb.AppendLine("Kontaktujte nás:");
-                    sb.AppendLine("• Email: info@ladowebservis.sk");
-                    sb.AppendLine("• Telefón: +421907151293 (iba SK)");
-                    sb.AppendLine("• Web: https://ladowebservis.sk/Home/Kontakt");
-                    sb.AppendLine();
-                    sb.AppendLine("Ak chcete poradiť s výberom, odpíšte na tento e‑mail – radi pomôžeme.");
-                    sb.AppendLine();
-                    sb.AppendLine("S pozdravom,");
-                    sb.AppendLine("Tím ladowebservis.sk");
-                    sb.AppendLine();
-                    sb.AppendLine("---");
-                    sb.AppendLine("📧 SPRÁVA O EMAILOCH:");
-                    sb.AppendLine("Ak si neželáte dostávať ďalšie ponuky a novinky, kliknite sem: " + GetUnsubscribeUrl(customerEmail));
-                    sb.AppendLine();
-                    sb.AppendLine("Stále budete dostávať informácie o svojich objednávkach.");
+        <!-- Oriflame Section -->
+        <div class='product-section' style='background: #fff5e6; border-left-color: #ff9800;'>
+            <div class='section-title' style='color: #ff9800; border-bottom-color: #ff9800;'>💄 Oriflame - Prémium kozmetika</div>
+            <p>Máme pre Vás aj prémium kozmetiku od Oriflame - parfumy, krémy a starostlivosť o pleť od švédskych tradičných zdrojov.</p>
+            <a href='https://sk.oriflame.com/products/digital-catalogue-current?store=SK-vladimirksenic' class='button' style='background: #ff9800;'>📖 Prezerajte katalóg</a>
+            <p>Alebo napíšte zoznam želaných produktov: <strong>info@ladowebservis.sk</strong></p>
+        </div>
 
-                    mail.Body = sb.ToString();
+        <!-- IT Services Section -->
+        <div class='product-section' style='background: #f0f3ff; border-left-color: #667eea;'>
+            <div class='section-title' style='color: #667eea; border-bottom-color: #667eea;'>💻 IT služby</div>
+            <p>Okrem produktov pre zdravie ponúkame aj profesionálne IT služby:</p>
+            <ul class='features'>
+                <li>🔧 Opravy a údržba počítačov</li>
+                <li>🌐 Tvorba webových stránok</li>
+                <li>📱 Výber a inštalácia softvéru</li>
+                <li>⚡ Vyladenie a optimalizácia počítača</li>
+            </ul>
+            <p><strong>Kontakt:</strong> podpora@ladowebservis.sk alebo +421917952432</p>
+        </div>
+
+        <!-- Registration Benefits -->
+        <div class='product-section'>
+            <div class='section-title'>📝 Zaregistrujte sa a získajte výhody</div>
+            <ul class='features'>
+                <li>✅ Prístup k členskému zľavovému programu</li>
+                <li>✅ 10% zľava na nákupy nad 50 EUR (6 mesiacov)</li>
+                <li>✅ Rýchlejší nákup vďaka uloženým produktom</li>
+                <li>✅ Bezplatná doprava v rámci SK</li>
+                <li>✅ Prioritná zákaznícka podpora</li>
+            </ul>
+            <a href='https://ladowebservis.sk/Home/Registracia' class='button'>Zaregistrovať sa</a>
+        </div>
+
+        <!-- How to Order -->
+        <div class='product-section'>
+            <div class='section-title'>🛒 Ako objednať - 6 krokov</div>
+            <ol class='features'>
+                <li><strong>Vyberte si produkty</strong> do košíka</li>
+                <li><strong>Prejdite na platbu:</strong> <a href='https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk'>Stripe platba</a></li>
+                <li><strong>Zadajte kód:</strong> {promoCode}</li>
+                <li><strong>Kliknite na</strong> 'Použiť kupón'</li>
+                <li><strong>Zľava sa automaticky odpočíta</strong></li>
+                <li><strong>Vyplňte údaje a dokončite objednávku</strong></li>
+            </ol>
+            <a href='https://ladowebservis.sk/Home/Kosik' class='button'>🛒 Skontrolovať košík</a>
+        </div>
+
+        <!-- Contact Section -->
+        <div class='product-section' style='background: #fff3cd; border-left-color: #ffc107;'>
+            <div class='section-title' style='color: #ff9800; border-bottom-color: #ffc107;'>❓ Máte otázky?</div>
+            <p><strong>📧 Email:</strong> <a href='mailto:info@ladowebservis.sk'>info@ladowebservis.sk</a></p>
+            <p><strong>📞 Telefón:</strong> +421907151293 alebo +421917952432</p>
+            <p><strong>🌐 Web:</strong> <a href='https://ladowebservis.sk/Home/Kontakt'>ladowebservis.sk/Home/Kontakt</a></p>
+            <p>Ak chcete poradiť s výberom, odpíšte na tento email - radi pomôžeme! 😊</p>
+        </div>
+
+        <p style='text-align: center; margin-top: 30px; font-weight: bold;'>S pozdravom a srdečnými želaniami,<br>Tím ladowebservis.sk 💚</p>
+
+        <div class='footer'>
+            <p><strong>📧 SPRÁVA O EMAILOCH:</strong></p>
+            <p>Ak si neželáte dostávať ďalšie ponuky a novinky, <a href='{GetUnsubscribeUrl(customerEmail)}'>kliknite sem</a>.</p>
+            <p>Stále budete dostávať informácie o svojich objednávkach.</p>
+        </div>
+    </div>
+</body>
+</html>";
+
+                    mail.Body = htmlBody;
 
                     using (var client = new SmtpClient("email.active24.com"))
                     {
@@ -363,9 +406,15 @@ namespace LadowebservisMVC.Util
             {
                 var email = (model.Email ?? string.Empty).ToLowerInvariant();
                 var name = (model.Name ?? string.Empty);
-                
+
                 // Check banned emails list
                 if (BannedEmails.Any(b => email.Equals(b, StringComparison.OrdinalIgnoreCase)))
+                {
+                    return;
+                }
+
+                // Check banned domains (e.g., @mail.ru, @bk.ru, @list.ru)
+                if (BannedDomains.Any(d => email.EndsWith(d, StringComparison.OrdinalIgnoreCase)))
                 {
                     return;
                 }

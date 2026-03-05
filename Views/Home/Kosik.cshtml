@@ -78,12 +78,56 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+        background: #fff;
+    }
+
+    .product-card.in-cart {
+        border-color: #28a745;
+        background: linear-gradient(135deg, #f0fff4 0%, #e8f5e9 100%);
+        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.15);
     }
 
     .product-card:hover {
         border-color: #5d33fb;
         box-shadow: 0 8px 20px rgba(93, 51, 251, 0.15);
         transform: translateY(-3px);
+    }
+
+    .product-card.in-cart:hover {
+        border-color: #28a745;
+        box-shadow: 0 8px 20px rgba(40, 167, 69, 0.25);
+    }
+
+    .product-qty-badge {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: #fff;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 16px;
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+        border: 2px solid #fff;
+        z-index: 5;
+    }
+
+    .product-in-cart-label {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: #28a745;
+        color: #fff;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+        z-index: 4;
     }
 
     .product-card img {
@@ -320,63 +364,13 @@
 
     <!-- Available Products Section -->
     <div class="kosik-card">
-        <h3>📦 Dostupné produkty</h3>
-        <div class="row">
-            @foreach (var p in ProductCatalog.GetAll())
-            {
-                @* skip duplicates by Id only *@
-                if (p == null) { continue; }
-                var id = (p.Id ?? string.Empty).Trim();
-                if (string.IsNullOrEmpty(id)) { continue; }
-
-                // If we've already rendered the same id, skip to avoid duplicates
-                if (seenIds.Contains(id)) { continue; }
-
-                // mark as seen
-                seenIds.Add(id);
-
-                // Calculate if product qualifies for discount (price > 50€)
-                var qualifiesForDiscount = p.Price > 50;
-                var discountedPrice = qualifiesForDiscount ? p.Price * 0.9m : p.Price;
-
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 products" data-product-id="@p.Id" data-product-name="@p.Name" data-product-image="@p.Image">
-                    <div class="card p-3 text-center product-card">
-                        @if (qualifiesForDiscount)
-                        {
-                            <span class="discount-badge" style="position: absolute; top: 10px; left: 10px;">-10% ZĽAVA</span>
-                        }
-
-                        <button type="button" class="product-heart" data-id="@p.Id" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                        </button>
-
-                        <img src="@p.Image" alt="@p.Name" class="img-fluid mx-auto mb-3" />
-                        
-                        <h4>@p.Name</h4>
-                        
-                        @if (qualifiesForDiscount)
-                        {
-                            <p>
-                                <span class="price-original">€@String.Format("{0:0.00}", p.Price)</span>
-                                <span class="price-discounted">€@String.Format("{0:0.00}", discountedPrice)</span>
-                            </p>
-                        }
-                        else
-                        {
-                            <p>€@String.Format("{0:0.00}", p.Price)</p>
-                        }
-
-                        <div class="mt-auto d-flex gap-2 justify-content-center align-items-center flex-wrap">
-                            <a class="btn btn-sm btn-detail" href="@Url.Action("Produkty", "Home", new { q = p.Name })" title="Zobraziť detail produktu">
-                                <i class="fa fa-info-circle"></i> Detail
-                            </a>
-                            <button type="button" class="btn btn-sm btn-add-cart add-to-cart" data-id="@p.Id">
-                                <i class="fa fa-cart-plus"></i> Do košíka
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            }
+        <h3>📦 Dostupné produkty <span id="productCount" style="color: #999; font-weight: 400; font-size: 16px;">(0 produktov)</span></h3>
+        <p style="color: #666; margin-bottom: 25px;">
+            <i class="fa fa-lightbulb" style="color: #ff9800;"></i> 
+            <strong>Tip:</strong> Produkty s <span style="color: #28a745; font-weight: 700;">zeleným rámom</span> sú už v Vašom košíku. Kliknite na <strong>+</strong> alebo <strong>-</strong> pre zmenu množstva.
+        </p>
+        <div class="row" id="productsContainer">
+            <!-- Products will be rendered here -->
         </div>
     </div>
 
@@ -527,11 +521,174 @@
                     cart[id] = item;
                 }
                 saveCart(cart);
-                render();
+                renderProducts();
+                renderCartReview();
                 if (window.lwsRenderCartHeader) window.lwsRenderCartHeader();
             }
 
-            function render() {
+            function renderProducts() {
+                var catalog = window.__lws_products || {};
+                var cart = loadCart();
+                var container = document.getElementById('productsContainer');
+                var productCount = document.getElementById('productCount');
+
+                if (!container) return;
+
+                container.innerHTML = '';
+                var allProducts = [];
+
+                // Build product list from catalog
+                if (Array.isArray(catalog)) {
+                    allProducts = catalog;
+                } else {
+                    for (var id in catalog) {
+                        if (catalog.hasOwnProperty(id)) {
+                            allProducts.push(catalog[id]);
+                        }
+                    }
+                }
+
+                // Render each product
+                allProducts.forEach(function (p) {
+                    if (!p || !p.Id) return;
+
+                    var id = p.Id.toString().trim();
+                    var name = p.Name || 'Unknown';
+                    var price = parseFloat(p.Price) || 0;
+                    var image = p.Image || '/Image/placeholder.png';
+
+                    var qualifiesForDiscount = price > 50;
+                    var discountedPrice = qualifiesForDiscount ? price * 0.9 : price;
+
+                    var cartItem = cart[id];
+                    var cartQty = cartItem ? (cartItem.quantity || 0) : 0;
+                    var isInCart = cartQty > 0;
+
+                    var col = document.createElement('div');
+                    col.className = 'col-12 col-sm-6 col-md-4 col-lg-3 mb-4';
+                    col.setAttribute('data-product-id', id);
+
+                    var cardClass = 'card p-3 text-center product-card' + (isInCart ? ' in-cart' : '');
+
+                    var html = '<div class="' + cardClass + '">';
+
+                    // In cart label
+                    if (isInCart) {
+                        html += '<span class="product-in-cart-label"><i class="fa fa-check"></i> V košíku</span>';
+                    }
+
+                    // Quantity badge
+                    if (isInCart) {
+                        html += '<div class="product-qty-badge" title="Počet ks v košíku">' + cartQty + '</div>';
+                    }
+
+                    // Discount badge
+                    if (qualifiesForDiscount) {
+                        html += '<span class="discount-badge" style="position: absolute; top: 10px; left: 10px;">-10% ZĽAVA</span>';
+                    }
+
+                    // Heart button
+                    html += '<button type="button" class="product-heart" data-id="' + id + '" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">';
+                    html += '<i class="fa fa-heart" aria-hidden="true"></i>';
+                    html += '</button>';
+
+                    // Image
+                    html += '<img src="' + image + '" alt="' + name + '" class="img-fluid mx-auto mb-3" />';
+
+                    // Name
+                    html += '<h4>' + name + '</h4>';
+
+                    // Price
+                    if (qualifiesForDiscount) {
+                        html += '<p>';
+                        html += '<span class="price-original">€' + price.toFixed(2) + '</span>';
+                        html += '<span class="price-discounted">€' + discountedPrice.toFixed(2) + '</span>';
+                        html += '</p>';
+                    } else {
+                        html += '<p>€' + price.toFixed(2) + '</p>';
+                    }
+
+                    // Buttons
+                    html += '<div class="mt-auto d-flex gap-2 justify-content-center align-items-center flex-wrap">';
+
+                    if (isInCart) {
+                        html += '<div class="btn-group btn-group-sm" role="group">';
+                        html += '<button type="button" class="btn btn-outline-success qty-dec-product" data-id="' + id + '" title="Znížiť množstvo">−</button>';
+                        html += '<button type="button" class="btn btn-light" disabled>' + cartQty + '</button>';
+                        html += '<button type="button" class="btn btn-outline-success qty-inc-product" data-id="' + id + '" title="Zvýšiť množstvo">+</button>';
+                        html += '</div>';
+                    } else {
+                        html += '<button type="button" class="btn btn-sm btn-add-cart add-to-cart" data-id="' + id + '">';
+                        html += '<i class="fa fa-cart-plus"></i> Do košíka';
+                        html += '</button>';
+                    }
+
+                    html += '<a class="btn btn-sm btn-detail" href="/Home/Produkty?q=' + encodeURIComponent(name) + '" title="Zobraziť detail produktu">';
+                    html += '<i class="fa fa-info-circle"></i> Detail';
+                    html += '</a>';
+                    html += '</div>';
+
+                    html += '</div>';
+                    col.innerHTML = html;
+                    container.appendChild(col);
+                });
+
+                // Update product count
+                if (productCount) {
+                    productCount.textContent = '(' + allProducts.length + ' produktov)';
+                }
+
+                // Attach event listeners
+                container.querySelectorAll('.add-to-cart').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        var id = this.getAttribute('data-id');
+                        var cart = loadCart();
+                        var item = cart[id];
+                        if (!item) {
+                            var prodInfo = allProducts.find(function (p) { return p.Id.toString() === id; });
+                            cart[id] = { quantity: 1, image: prodInfo ? prodInfo.Image : '' };
+                        } else {
+                            item.quantity = (item.quantity || 0) + 1;
+                        }
+                        saveCart(cart);
+                        renderProducts();
+                        renderCartReview();
+                        if (window.lwsRenderCartHeader) window.lwsRenderCartHeader();
+                    });
+                });
+
+                container.querySelectorAll('.qty-inc-product').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        changeQuantity(this.getAttribute('data-id'), 1);
+                    });
+                });
+
+                container.querySelectorAll('.qty-dec-product').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        changeQuantity(this.getAttribute('data-id'), -1);
+                    });
+                });
+
+                container.querySelectorAll('.product-heart').forEach(function (btn) {
+                    btn.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        var id = this.getAttribute('data-id');
+                        var prodInfo = allProducts.find(function (p) { return p.Id.toString() === id; });
+                        if (prodInfo) {
+                            var favs = JSON.parse(localStorage.getItem('lws_favorites') || '{}');
+                            if (favs[id]) {
+                                delete favs[id];
+                            } else {
+                                favs[id] = { name: prodInfo.Name, price: prodInfo.Price, image: prodInfo.Image };
+                            }
+                            localStorage.setItem('lws_favorites', JSON.stringify(favs));
+                            this.classList.toggle('active');
+                        }
+                    });
+                });
+            }
+
+            function renderCartReview() {
                 var cart = loadCart();
                 var container = document.getElementById('cartReviewList');
                 if (!container) return;
@@ -565,7 +722,7 @@
                     html += '<div class="col-md-5 col-8 mb-3 mb-md-0">';
                     html += '<h5 style="color:#5d33fb; margin-bottom:10px;">' + displayName + '</h5>';
                     html += '<p class="mb-1"><small>ID: ' + k + '</small></p>';
-                    
+
                     if (qualifiesForDiscount) {
                         html += '<p class="mb-1">';
                         html += 'Cena za ks: <span class="price-original">€' + unitPrice.toFixed(2) + '</span> ';
@@ -580,11 +737,11 @@
                         html += '<p class="mb-1">Množstvo: <strong>' + qtyVal + '</strong></p>';
                         html += '<p class="mb-0">Suma: <strong style="font-size:18px;">€' + lineTotal.toFixed(2) + '</strong></p>';
                     }
-                    
+
                     html += '</div>';
                     html += '<div class="col-md-5 col-12 text-md-end">';
                     html += '<div class="btn-group mb-2" role="group">';
-                    html += '<button type="button" class="btn btn-sm btn-outline-secondary qty-dec" data-id="' + k + '" title="Znížiť množstvo">-</button>';
+                    html += '<button type="button" class="btn btn-sm btn-outline-secondary qty-dec" data-id="' + k + '" title="Znížiť množstvo">−</button>';
                     html += '<span class="btn btn-sm btn-light disabled">' + qtyVal + '</span>';
                     html += '<button type="button" class="btn btn-sm btn-outline-secondary qty-inc" data-id="' + k + '" title="Zvýšiť množstvo">+</button>';
                     html += '</div><br>';
@@ -618,7 +775,8 @@
                             delete cartNow[id];
                             saveCart(cartNow);
                         }
-                        render();
+                        renderProducts();
+                        renderCartReview();
                         if (window.lwsRenderCartHeader) window.lwsRenderCartHeader();
                     });
                 });
@@ -655,13 +813,15 @@
             document.getElementById('clear-cart-btn').addEventListener('click', function () {
                 if (confirm('Naozaj chcete vyprázdniť celý košík?')) {
                     localStorage.removeItem(STORAGE_KEY);
-                    render();
+                    renderProducts();
+                    renderCartReview();
                     if (window.lwsRenderCartHeader) window.lwsRenderCartHeader();
                 }
             });
 
             // Initial render
-            render();
+            renderProducts();
+            renderCartReview();
         })();
     </script>
 }

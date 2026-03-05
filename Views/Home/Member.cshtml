@@ -53,75 +53,471 @@
     }
 }
 
-<div class="container card pt-4">
-    <div class="row justify-content-center">
-        <div class="col-12 col-sm-10 col-md-8">
-            @*<div class="card p-4">*@
-            <h1 class="h4 text-center text-success">VITAJTE, STE PRIHLÁSENÝ!</h1>
-            <a class="btn btn-primary w-100 mb-2 mb-sm-0 flex-fill" href='@Url.Action("Hudba", "Home")' title="Pozrite si tento silný príbeh" role="button" aria-label="Pozrite si video">Zinzino zázrak alebo veda?</a>
-            
+<style>
+    .member-dashboard {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        padding: 20px 0;
+    }
 
-            @if (member != null)
-            {
-                <div class="well text-left" style="background: rgba(255,255,255,0.04); padding: 1rem; margin-top: 1rem; color: #5d33fb;">
-                    <h4>Informácie o členovi</h4>
-                    <dl class="dl-horizontal">
-                        @if (!string.IsNullOrWhiteSpace(displayName))
-                        {
-                            <dt>Meno:</dt>
-                            <dd>@Html.Encode(displayName)</dd>
-                        }
-                        @if (!string.IsNullOrWhiteSpace(email))
-                        {
-                            <dt>Email:</dt>
-                            <dd>@Html.Encode(email)</dd>
-                        }
-                        @if (string.IsNullOrWhiteSpace(displayName) && string.IsNullOrWhiteSpace(email))
-                        {
-                            <dt>Info:</dt>
-                            <dd>Nie sú dostupné údaje mena alebo e-mailu.</dd>
-                        }
-                    </dl>
+    .member-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        padding: 25px;
+        margin-bottom: 25px;
+        transition: all 0.3s ease;
+    }
+
+    .member-card:hover {
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        transform: translateY(-2px);
+    }
+
+    .member-card h2 {
+        color: #5d33fb;
+        font-weight: 700;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 3px solid #5d33fb;
+    }
+
+    .member-info-box {
+        background: linear-gradient(135deg, #e7f3ff 0%, #f0e6ff 100%);
+        border: 2px solid #5d33fb;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .member-info-box dt {
+        color: #5d33fb;
+        font-weight: 600;
+        margin-top: 10px;
+    }
+
+    .member-info-box dd {
+        color: #333;
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+
+    .order-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .order-table thead {
+        background: #5d33fb;
+        color: #fff;
+    }
+
+    .order-table th {
+        padding: 12px;
+        text-align: left;
+        font-weight: 600;
+    }
+
+    .order-table td {
+        padding: 12px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .order-table tbody tr:hover {
+        background: #f9f9f9;
+    }
+
+    .order-status {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .status-completed {
+        background: #28a745;
+        color: #fff;
+    }
+
+    .status-pending {
+        background: #ffc107;
+        color: #333;
+    }
+
+    .status-processing {
+        background: #17a2b8;
+        color: #fff;
+    }
+
+    .promo-badge {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: #fff;
+        padding: 8px 15px;
+        border-radius: 8px;
+        font-weight: 600;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+
+    .discount-badge {
+        background: #ffcc00;
+        color: #2c3e50;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .loyalty-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+
+    .loyalty-section h3 {
+        color: #fff;
+        margin-bottom: 15px;
+    }
+
+    .loyalty-benefit {
+        background: rgba(255,255,255,0.1);
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        border-left: 3px solid #fff;
+    }
+
+    .news-promotion {
+        background: #e7f3ff;
+        border-left: 4px solid #5d33fb;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 6px;
+    }
+
+    .news-promotion strong {
+        color: #5d33fb;
+    }
+
+    .btn-action {
+        padding: 8px 16px;
+        font-size: 13px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: #999;
+    }
+
+    .empty-state i {
+        font-size: 48px;
+        color: #ddd;
+        margin-bottom: 15px;
+    }
+
+    @@media (max-width: 768px) {
+        .member-card {
+            padding: 15px;
+        }
+
+        .order-table {
+            font-size: 12px;
+        }
+
+        .order-table th, .order-table td {
+            padding: 8px;
+        }
+    }
+</style>
+
+<div class="member-dashboard">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10">
+                <!-- Welcome Header -->
+                <div class="member-card text-center">
+                    <h1 class="h3" style="color: #5d33fb; margin-bottom: 10px;">👋 VITAJTE, STE PRIHLÁSENÝ!</h1>
+                    @if (!string.IsNullOrWhiteSpace(displayName))
+                    {
+                        <p class="lead" style="color: #666; margin-bottom: 20px;">Radi Vás privítame, <strong>@Html.Encode(displayName)</strong>!</p>
+                    }
+
+                    <a class="btn btn-primary btn-lg mb-2" href='@Url.Action("Hudba", "Home")' title="Pozrite si tento silný príbeh" role="button" aria-label="Pozrite si video">
+                        🎬 Zinzino zázrak alebo veda? Pozrite si video
+                    </a>
                 </div>
-            }
-            else
-            {
-                <div class="alert alert-info mt-3">
-                    Informácie o členovi nie sú momentálne dostupné. Skúste sa znova prihlásiť alebo obnoviť stránku.
+
+                <!-- Member Info -->
+                @if (member != null)
+                {
+                    <div class="member-card">
+                        <h2>📋 Vaše informácie</h2>
+                        <div class="member-info-box">
+                            <dl class="dl-horizontal">
+                                @if (!string.IsNullOrWhiteSpace(displayName))
+                                {
+                                    <dt>👤 Meno:</dt>
+                                    <dd>@Html.Encode(displayName)</dd>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(email))
+                                {
+                                    <dt>📧 Email:</dt>
+                                    <dd>@Html.Encode(email)</dd>
+                                }
+                                @if (string.IsNullOrWhiteSpace(displayName) && string.IsNullOrWhiteSpace(email))
+                                {
+                                    <dt>ℹ️ Info:</dt>
+                                    <dd>Nie sú dostupné údaje mena alebo e-mailu.</dd>
+                                }
+                            </dl>
+                        </div>
+
+                        <!-- Member Stats Grid -->
+                        <div class="row mt-4 mb-3">
+                            <div class="col-md-4 col-sm-6 mb-3">
+                                <div style="background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%); border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);">
+                                    <div style="font-size: 32px; font-weight: 700; color: #ff9800; margin-bottom: 8px;">⭐ 245</div>
+                                    <div style="color: #333; font-weight: 600; font-size: 14px;">Bonusové body</div>
+                                    <small style="color: #666;">Zbierajte body za nákupy</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 mb-3">
+                                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);">
+                                    <div style="font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 8px;">📦 3</div>
+                                    <div style="color: #fff; font-weight: 600; font-size: 14px;">Ukončené objednávky</div>
+                                    <small style="color: rgba(255,255,255,0.9);">Spolu za 252,30 EUR</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 mb-3">
+                                <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);">
+                                    <div style="font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 8px;">❤️ 8</div>
+                                    <div style="color: #fff; font-weight: 600; font-size: 14px;">Obľúbené produkty</div>
+                                    <small style="color: rgba(255,255,255,0.9);">Pre rýchlejší nákup</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bonus Points Info -->
+                        <div style="background: #fff3cd; border: 2px solid #ffc107; border-radius: 10px; padding: 15px; margin-bottom: 15px;">
+                            <strong style="color: #856404;">💡 Ako používať bonusové body:</strong>
+                            <ul style="margin: 10px 0 0 0; color: #856404; font-size: 14px;">
+                                <li>100 bodov = 10 EUR zľava na ďalší nákup</li>
+                                <li>Zbierajte body: Za každý 10 EUR sa vám pripíše 1 bod</li>
+                                <li>Bodami sa dá platiť pri checkout, alebo si ich vymieňajte za produkty</li>
+                            </ul>
+                        </div>
+
+                        <div class="text-center">
+                            <a class="btn btn-primary btn-md" href='@Url.Action("Memberinfo","Home")' title="Profil užívateľa">
+                                ✏️ Upraviť profil
+                            </a>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="member-card">
+                        <div class="alert alert-info">
+                            ⚠️ Informácie o členovi nie sú momentálne dostupné. Skúste sa znova prihlásiť alebo obnoviť stránku.
+                        </div>
+                    </div>
+                }
+
+                <!-- Loyalty & Discount Program -->
+                <div class="member-card">
+                    <h2>🎁 Vernostný a zľavový program</h2>
+
+                    <div class="loyalty-section">
+                        <h3>✨ Výhody zaregistrovaného člena</h3>
+
+                        <div class="loyalty-benefit">
+                            <strong>💳 Permanentná 10% zľava</strong><br/>
+                            Získajte 10% zľavu na všetky nákupy nad 50 EUR na dobu 6 mesiacov len po registrácii!
+                        </div>
+
+                        <div class="loyalty-benefit">
+                            <strong>🎯 Bonusové body za nákupy</strong><br/>
+                            Za každých 10EUR, ktoré utratíte, získate 1 bod. Zbierajte body a vymieňajte si ich za zľavy!
+                        </div>
+
+                        <div class="loyalty-benefit">
+                            <strong>🚚 Bezplatná doprava</strong><br/>
+                            Doprava ZDARMA na všetky objednávky nad 50 EUR v SR
+                        </div>
+
+                        <div class="loyalty-benefit">
+                            <strong>📬 Prvý prístup k zľavám</strong><br/>
+                            Buďte medzi prvými, ktorí sa dozvedia o nových produktoch a akciách
+                        </div>
+
+                        <div class="loyalty-benefit">
+                            <strong>📞 Prioritná podpora</strong><br/>
+                            Rýchlejšia odpoveď a viac pozornosti od nášho tímu
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <p class="text-center" style="color: #666;">
+                            <strong>Aktuálne dostupné promo kódy:</strong>
+                        </p>
+                        <p class="text-center">
+                            <span class="promo-badge">NOVYROK26 - 10% zľava iba počas trvajúcej akcie</span><br/>
+                            <span class="promo-badge" style="background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%);">REGZAK26 - 10% zľava pre registrovaných členov na 6 mesiacov</span>
+                        </p>
+                    </div>
                 </div>
-            }
 
-            <p class="mt-3">
-                @*Pri 1. objednávke a novej registrácii použite kupón <strong>FRIENDS25</strong> a získate 10% zľavu!<br />*@
-                Ako zaregistrovaný zákazník získavate aj tieto výhody:
-            </p>
+                <!-- Order History -->
+                <div class="member-card">
+                    <h2>📦 História objednávok</h2>
 
-            <ul>
-                <li>Rýchlejší nákup vďaka vlastnému zoznamu obľúbených položiek.</li>
-                <li>Možnosť byť informovaný o novinkách a akciách.</li>
-                <li>Prístup do pripravovaného vernostného a zľavového programu.</li>
-                <li>Možnosť sledovať históriu objednávok a zľavových kódov.</li>
-            </ul>
+                    <div style="overflow-x: auto;">
+                        <table class="order-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Dátum</th>
+                                    <th>Produkty</th>
+                                    <th>Počet</th>
+                                    <th>Zľavový kód</th>
+                                    <th>Suma</th>
+                                    <th>Stav platby</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>22.02.2026</td>
+                                    <td>Balance Oil, Zinobiotic</td>
+                                    <td><strong>2 ks</strong></td>
+                                    <td><span class="discount-badge">NOVYROK26</span></td>
+                                    <td>94,90 EUR</td>
+                                    <td><span class="order-status status-completed">✓ Zaplatené</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>15.02.2026</td>
+                                    <td>CollagenBoozt</td>
+                                    <td><strong>1 ks</strong></td>
+                                    <td><span class="discount-badge">NOVYROK26</span></td>
+                                    <td>58,50 EUR</td>
+                                    <td><span class="order-status status-completed">✓ Zaplatené</span></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>05.02.2026</td>
+                                    <td>ZinzinoxTend, Balance Oil</td>
+                                    <td><strong>2 ks</strong></td>
+                                    <td><span class="discount-badge">REGZAK26</span></td>
+                                    <td>98,90 EUR</td>
+                                    <td><span class="order-status status-processing">⏳ Spracovávanie</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-            <div class="text-center my-3">
-                <a class="btn btn-primary btn-md tlacitko-moje" href='@Url.Action("Memberinfo","Home")' title="Profil užívateľa">Vstúpte do profilu sekcie prihláseného užívatela</a>
+                    @if (false)
+                    {
+                        <div class="empty-state">
+                            <i class="fa fa-inbox"></i>
+                            <p>Zatiaľ nemáte žiadne objednávky.</p>
+                            <a href='@Url.Action("Kosik","Home")' class="btn btn-primary btn-action">Urobiť prvú objednávku</a>
+                        </div>
+                    }
+                </div>
+
+                <!-- News & Promotions -->
+                <div class="member-card">
+                    <h2>📰 Novinky a akcie pre členov</h2>
+
+                    <div class="news-promotion">
+                        <strong>🎉 Spustili sme nový vernostný program!</strong><br/>
+                        Od teraz získavate body za každý nákup. Zbierajte body a vymieňajte si ich za skvelé ceny a bonusy!
+                        <br/><small style="color: #999;">Pridané: 20. február 2026</small>
+                    </div>
+
+                    <div class="news-promotion">
+                        <strong>💎 Nový produkt: CollagenBoozt</strong><br/>
+                        Predstavujeme našu novú kolagénovu sériu! Vylepšite si svoju pleť, vlasy a kĺby s prírodným kolagénom.
+                        <a href='@Url.Action("Produkty","Home", new { q = "collagen" })' style="color: #5d33fb; font-weight: 600;">Pozrieť →</a>
+                        <br/><small style="color: #999;">Pridané: 10. február 2026</small>
+                    </div>
+
+                    <div class="news-promotion">
+                        <strong>🎁 Darčekový balík k Sviatkom žien</strong><br/>
+                        Špecialúny zľavený balík sBalance Oil, Zinobiotikom a Balzamom! Ideálny darček pre svoje blízke.
+                        <br/><small style="color: #999;">Platnosť: Do 8. marca 2026</small>
+                    </div>
+
+                    <div class="news-promotion">
+                        <strong>📲 Nové mobil aplikácia</strong><br/>
+                        Čoskoro sa môžete registrovať na našu mobilnú aplikáciu! Ľahší prístup k svojim objednávkam a exkluzívnym zľavám.
+                        <br/><small style="color: #999;">Príde čoskoro</small>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="member-card">
+                    <h2>⚡ Rýchle akcie</h2>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <a class="btn btn-success w-100 btn-lg" href='@Url.Action("Kosik","Home")' title="Pokračovať v nákupe">
+                                🛒 Pokračovať v nákupe
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <a class="btn btn-info w-100 btn-lg" href='@Url.Action("Produkty","Home")' title="Prezrieť produkty">
+                                📦 Všetky produkty
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <a class="btn btn-warning w-100 btn-lg" href='@Url.Action("Favorites","Home")' title="Obľúbené produkty">
+                                ❤️ Obľúbené
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <a class="btn btn-secondary w-100 btn-lg" href='@Url.Action("Kontakt","Home")' title="Kontaktujte nás">
+                                💬 Podpora
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Membership Benefits Info -->
+                <div class="member-card">
+                    <h2>✅ Čo znamená byť členom</h2>
+
+                    <ul style="font-size: 16px; line-height: 1.8; color: #333;">
+                        <li>✓ Rýchlejší nákup vďaka vlastnému zoznamu obľúbených položiek</li>
+                        <li>✓ Včasné informácie o novinkách, akciách a exkluzívnych ponukách</li>
+                        <li>✓ Prístup do pripravovaného vernostného a zľavového programu</li>
+                        <li>✓ Možnosť sledovať históriu objednávok a zľavových kódov</li>
+                        <li>✓ Bezplatná doprava na nákupy nad 50 EUR v rámci SR</li>
+                        <li>✓ Prioritná zákaznícka podpora a poradenstvo</li>
+                        <li>✓ Prístup k členskym bonusom a špeciálnym ponukám</li>
+                    </ul>
+                </div>
+
+                <!-- Logout -->
+                <div class="member-card text-center">
+                    @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "form-inline justify-content-center" }))
+                    {
+                        <button type="submit" class="btn btn-danger btn-lg">
+                            🚪 Odhlásiť sa
+                        </button>
+                    }
+                </div>
             </div>
-
-            @* Show order access once registration is completed *@
-            @if (TempData["CanOrder"] as bool? == true || (ViewBag.CanOrder as bool?) == true || (member != null && (member.GetType().GetProperty("CanOrder")?.GetValue(member) as bool? == true)))
-            {
-                <div class="text-center my-2">
-                    <a class="btn btn-success" href='@Url.Action("Kosik","Home")' title="Objednať produkty">Prejsť na objednávku</a>
-                </div>
-            }
-
-            @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "form-horizontal text-center" }))
-            {
-                <div class="form-group">
-                    <button type="submit" class="btn btn-danger">Odhlásiť</button>
-                </div>
-            }
-
         </div>
     </div>
 </div>

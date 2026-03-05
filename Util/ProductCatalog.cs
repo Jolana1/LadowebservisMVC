@@ -17,15 +17,15 @@ namespace LadowebservisMVC.Util
         private static readonly Dictionary<string, ProductInfo> productsById = new Dictionary<string, ProductInfo>
         {
             { "0", new ProductInfo { Id = "0", Name = "BalanceTest", Price = 195.00m, Image = "/Image/BalanceTest.png", Stock = 0 } },
-            { "1", new ProductInfo { Id = "1", Name = "BalanceOil+ Orange (300ml) ", Price = 55.00m, Image = "/Image/BalanceOil.png", Stock = 2 } },
+            { "1", new ProductInfo { Id = "1", Name = "BalanceOil+ Orange (300ml) ", Price = 61.00m, Image = "/Image/BalanceOil.png", Stock = 2 } },
             { "2", new ProductInfo { Id = "2", Name = "Zinobiotic", Price = 40.00m, Image = "/Image/Zinobiotic2025.png", Stock = 3 } },
             { "3", new ProductInfo { Id = "3", Name = "ZinzinoXtend", Price = 44.00m, Image = "/Image/ZinzinoXtend.png", Stock = 0 } },
             // Additional products - add images under /Image or adjust paths as needed
             { "4", new ProductInfo { Id = "4", Name = "BalanceOil+ Orange (100ml)", Price = 25.00m, Image = "/Image/BalanceOil orange 100ml.png", Stock = 2 } },
             { "5", new ProductInfo { Id = "5", Name = "Vitamin D Test", Price = 65.00m, Image = "/Image/VitaminDTest.png", Stock = 0 } },
             { "6", new ProductInfo { Id = "6", Name = "Davkovacie pohare", Price = 15.00m, Image = "/Image/Davkovacie pohare.png", Stock = 1 } },
-            { "7", new ProductInfo { Id = "7", Name = "Balzam", Price = 4.0m, Image = "/Image/Balzam.png", Stock = 1 } },
-            { "8", new ProductInfo { Id = "8", Name = "CollagenBoozt", Price = 85.00m, Image = "/Image/CollagenBoozt.png", Stock = 1 } }
+            { "7", new ProductInfo { Id = "7", Name = "Balzam", Price = 3.0m, Image = "/Image/Balzam.png", Stock = 1 } },
+            { "8", new ProductInfo { Id = "8", Name = "CollagenBoozt", Price = 65.00m, Image = "/Image/CollagenBoozt.png", Stock = 1 } }
 
         };
 
