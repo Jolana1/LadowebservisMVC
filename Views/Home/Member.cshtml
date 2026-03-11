@@ -102,6 +102,84 @@
         margin-bottom: 10px;
     }
 
+    /* ===== VIDEO SECTION ===== */
+    .video-hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        padding: 40px 20px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        text-align: center;
+    }
+
+    .video-hero-section h1 {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .video-hero-section p {
+        font-size: 16px;
+        margin-bottom: 20px;
+        opacity: 0.95;
+        line-height: 1.6;
+    }
+
+    .video-button-container {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+
+    .btn-video-play {
+        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+        color: #fff !important;
+        padding: 14px 32px;
+        font-size: 16px;
+        font-weight: 700;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+    }
+
+    .btn-video-play:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+        color: #fff !important;
+    }
+
+    .btn-video-info {
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff !important;
+        padding: 14px 32px;
+        font-size: 16px;
+        font-weight: 700;
+        border: 2px solid #fff;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .btn-video-info:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-3px);
+        color: #fff !important;
+    }
+
     .order-table {
         width: 100%;
         border-collapse: collapse;
@@ -221,17 +299,209 @@
         margin-bottom: 15px;
     }
 
+    /* ===== STATS GRID ===== */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin: 25px 0;
+    }
+
+    .stat-card {
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .stat-value {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .stat-title {
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    .stat-subtitle {
+        font-size: 12px;
+    }
+
+    /* ===== RESPONSIVE ===== */
     @@media (max-width: 768px) {
+        .member-dashboard {
+            padding: 10px 0;
+        }
+
         .member-card {
             padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .member-card h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .video-hero-section {
+            padding: 25px 15px;
+            margin-bottom: 15px;
+        }
+
+        .video-hero-section h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .video-hero-section p {
+            font-size: 14px;
+        }
+
+        .video-button-container {
+            gap: 10px;
+        }
+
+        .btn-video-play,
+        .btn-video-info {
+            padding: 10px 20px;
+            font-size: 14px;
+            flex: 1;
+            min-width: 140px;
         }
 
         .order-table {
             font-size: 12px;
         }
 
-        .order-table th, .order-table td {
+        .order-table th,
+        .order-table td {
             padding: 8px;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+        }
+
+        .loyalty-benefit {
+            padding: 10px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .news-promotion {
+            padding: 12px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .member-card {
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .member-card h2 {
+            font-size: 16px;
+            border-bottom: 2px solid #5d33fb;
+            padding-bottom: 10px;
+        }
+
+        .video-hero-section {
+            padding: 20px 12px;
+            margin-bottom: 12px;
+        }
+
+        .video-hero-section h1 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .video-hero-section p {
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .video-button-container {
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .btn-video-play,
+        .btn-video-info {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 13px;
+        }
+
+        .order-table {
+            font-size: 11px;
+        }
+
+        .order-table th,
+        .order-table td {
+            padding: 6px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .stat-title {
+            font-size: 13px;
+        }
+
+        .stat-subtitle {
+            font-size: 11px;
+        }
+
+        .btn.w-100 {
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        h1.h3 {
+            font-size: 18px !important;
+        }
+
+        .loyalty-section {
+            padding: 15px;
+        }
+
+        .loyalty-benefit {
+            padding: 8px;
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        .news-promotion {
+            padding: 10px;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        ul {
+            padding-left: 20px;
+            font-size: 14px;
+        }
+
+        ul li {
+            margin-bottom: 5px;
         }
     }
 </style>
@@ -245,12 +515,30 @@
                     <h1 class="h3" style="color: #5d33fb; margin-bottom: 10px;">👋 VITAJTE, STE PRIHLÁSENÝ!</h1>
                     @if (!string.IsNullOrWhiteSpace(displayName))
                     {
-                        <p class="lead" style="color: #666; margin-bottom: 20px;">Radi Vás privítame, <strong>@Html.Encode(displayName)</strong>!</p>
+                        <p class="lead" style="color: #666; margin-bottom: 0;">Radi Vás privítame, <strong>@Html.Encode(displayName)</strong>!</p>
                     }
+                </div>
 
-                    <a class="btn btn-primary btn-lg mb-2" href='@Url.Action("Hudba", "Home")' title="Pozrite si tento silný príbeh" role="button" aria-label="Pozrite si video">
-                        🎬 Zinzino zázrak alebo veda? Pozrite si video
-                    </a>
+                <!-- Video Hero Section -->
+                <div class="video-hero-section">
+                    <h1>🎬 Zázrak alebo Veda? Objavte Pravdu o Zinzine!</h1>
+                    <p>
+                        Pozerajte si náš fascinujúci dokumentárny film o tom, ako Zinzino mení životy ľudí 
+                        po celom svete. Zistite vedecké dôkazy za našimi produktami a zažite transformáciu 
+                        v reálnych prípadoch našich spokojných zákazníkov.
+                    </p>
+                    <p style="font-size: 14px; opacity: 0.85; margin-bottom: 0;">
+                        ⏱️ Trvanie: 45 minút | 📺 Dostupné v češtine a slovenčine | 🌍 Inspirujúce príbehy
+                    </p>
+
+                    <div class="video-button-container">
+                        <a href='@Url.Action("Hudba", "Home")' class="btn-video-play" title="Pozrite si fascinujúci príbeh">
+                            <i class="fa fa-play-circle"></i> Spustiť Film
+                        </a>
+                        <a href='@Url.Action("Produkty","Home")' class="btn-video-info" title="Pozrite si produkty spomínané vo filme">
+                            <i class="fa fa-box"></i> Pozrieť Produkty
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Member Info -->
@@ -279,27 +567,21 @@
                         </div>
 
                         <!-- Member Stats Grid -->
-                        <div class="row mt-4 mb-3">
-                            <div class="col-md-4 col-sm-6 mb-3">
-                                <div style="background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%); border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);">
-                                    <div style="font-size: 32px; font-weight: 700; color: #ff9800; margin-bottom: 8px;">⭐ 245</div>
-                                    <div style="color: #333; font-weight: 600; font-size: 14px;">Bonusové body</div>
-                                    <small style="color: #666;">Zbierajte body za nákupy</small>
-                                </div>
+                        <div class="stats-grid">
+                            <div class="stat-card" style="background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%); box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);">
+                                <div class="stat-value" style="color: #ff9800;">⭐ 245</div>
+                                <div class="stat-title" style="color: #333;">Bonusové body</div>
+                                <small class="stat-subtitle" style="color: #666;">Zbierajte body za nákupy</small>
                             </div>
-                            <div class="col-md-4 col-sm-6 mb-3">
-                                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);">
-                                    <div style="font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 8px;">📦 3</div>
-                                    <div style="color: #fff; font-weight: 600; font-size: 14px;">Ukončené objednávky</div>
-                                    <small style="color: rgba(255,255,255,0.9);">Spolu za 252,30 EUR</small>
-                                </div>
+                            <div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);">
+                                <div class="stat-value" style="color: #fff;">📦 3</div>
+                                <div class="stat-title" style="color: #fff;">Ukončené objednávky</div>
+                                <small class="stat-subtitle" style="color: rgba(255,255,255,0.9);">Spolu za 252,30 EUR</small>
                             </div>
-                            <div class="col-md-4 col-sm-6 mb-3">
-                                <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);">
-                                    <div style="font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 8px;">❤️ 8</div>
-                                    <div style="color: #fff; font-weight: 600; font-size: 14px;">Obľúbené produkty</div>
-                                    <small style="color: rgba(255,255,255,0.9);">Pre rýchlejší nákup</small>
-                                </div>
+                            <div class="stat-card" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);">
+                                <div class="stat-value" style="color: #fff;">❤️ 8</div>
+                                <div class="stat-title" style="color: #fff;">Obľúbené produkty</div>
+                                <small class="stat-subtitle" style="color: rgba(255,255,255,0.9);">Pre rýchlejší nákup</small>
                             </div>
                         </div>
 
@@ -308,7 +590,7 @@
                             <strong style="color: #856404;">💡 Ako používať bonusové body:</strong>
                             <ul style="margin: 10px 0 0 0; color: #856404; font-size: 14px;">
                                 <li>100 bodov = 10 EUR zľava na ďalší nákup</li>
-                                <li>Zbierajte body: Za každý 10 EUR sa vám pripíše 1 bod</li>
+                                <li>Zbierajte body: Za každý 100 EUR sa vám pripíše 10 bodov</li>
                                 <li>Bodami sa dá platiť pri checkout, alebo si ich vymieňajte za produkty</li>
                             </ul>
                         </div>

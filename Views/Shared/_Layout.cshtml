@@ -606,18 +606,258 @@
             width: 320px; 
             max-width: 90vw;
             height: calc(100% - 90px); 
-            background: #fff; 
-            box-shadow: 0 2px 12px rgba(0,0,0,0.3); 
+            background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+            box-shadow: -4px 0 20px rgba(0,0,0,0.15); 
             z-index: 1050; 
             transition: right 0.25s ease-in-out; 
             overflow-y: auto; 
             -webkit-overflow-scrolling: touch;
-            padding: 1rem;
-            border-radius: 8px 0 0 8px;
+            padding: 0;
+            border-radius: 0;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
         }
         #side-cart.open { right: 0; }
-        
+
+        /* Side Cart Header */
+        #side-cart-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 15px;
+            flex-shrink: 0;
+            border-bottom: 2px solid rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+        }
+
+        #side-cart-header h4 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Side Cart Content */
+        #side-cart-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        /* Products Grid in Side Cart - REMOVED */
+        #side-cart-products {
+            display: none !important;
+        }
+
+        /* Cart Items in Side Cart */
+        #cart-items-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        #cart-items-list .list-group-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 10px;
+            border: none;
+            background: #fff;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            border-left: 3px solid #5d33fb;
+        }
+
+        #cart-items-list .list-group-item:hover {
+            background: #f9f9f9;
+            box-shadow: 0 2px 8px rgba(93, 51, 251, 0.1);
+        }
+
+        /* Cart Summary Section */
+        #cart-summary {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 2px solid #5d33fb;
+            flex-shrink: 0;
+        }
+
+        #cart-summary strong {
+            font-size: 14px;
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        #total-amount {
+            color: #28a745;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        #total-discount {
+            font-size: 12px;
+            color: #5d33fb;
+            margin-top: 6px;
+            font-weight: 600;
+        }
+
+        /* Chatbot Styling */
+        #side-cart-chat {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 0 15px 15px 15px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        .side-cart-chat {
+            transition: all 0.3s ease-in-out;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .side-cart-chat.hidden-by-exit-intent {
+            opacity: 0.5;
+            pointer-events: none;
+            filter: blur(2px);
+        }
+
+        #chat-header {
+            color: #fff;
+            font-weight: 700;
+            font-size: 13px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        #chat-messages {
+            background: rgba(255,255,255,0.95);
+            border-radius: 6px;
+            padding: 10px;
+            height: 180px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .chat-message {
+            margin: 6px 0;
+            padding: 6px 8px;
+            border-radius: 4px;
+            animation: slideIn 0.3s ease;
+        }
+
+        .chat-message.bot {
+            background: #e7f3ff;
+            color: #084298;
+            border-left: 3px solid #084298;
+        }
+
+        .chat-message.user {
+            background: #e7f7e7;
+            color: #155724;
+            border-left: 3px solid #28a745;
+        }
+
+        @@keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-input-group {
+            display: flex;
+            gap: 6px;
+        }
+
+        .chat-input-group input {
+            flex: 1;
+            padding: 6px 8px;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 4px;
+            font-size: 12px;
+            background: rgba(255,255,255,0.95);
+            color: #333;
+        }
+
+        .chat-input-group input:focus {
+            outline: none;
+            border-color: #5d33fb;
+            box-shadow: 0 0 0 2px rgba(93, 51, 251, 0.1);
+        }
+
+        .chat-input-group button {
+            padding: 6px 12px;
+            background: #fff;
+            color: #667eea;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.3s ease;
+            min-width: 40px;
+        }
+
+        .chat-input-group button:hover {
+            background: #f0f0f0;
+            transform: scale(1.05);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Enhanced Close Button */
+        .btn-cart-close {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: #fff !important;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+            flex-shrink: 0;
+        }
+
+        .btn-cart-close:hover {
+            background: linear-gradient(135deg, #ee5a6f 0%, #ff6b6b 100%);
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4);
+            color: #fff !important;
+        }
+
+        .btn-cart-close:active {
+            transform: scale(0.95);
+        }
+
+        .btn-cart-close i {
+            font-size: 24px;
+            color: #fff;
+        }
+
         #cart-overlay { 
             display: none; 
             position: fixed; 
@@ -629,10 +869,10 @@
             z-index: 1040; 
         }
         #cart-overlay.open { display: block; }
-        
+
         .cart-toggle-btn { margin-left: .5rem; }
         .cart-badge { background: #d9534f; color: #fff; padding: 3px 7px; border-radius: 12px; }
-        
+
         /* Tablet (769px - 991px) */
         @@media (min-width: 769px) and (max-width: 991px) {
             #side-cart {
@@ -640,9 +880,40 @@
                 right: -300px;
                 top: 65px;
                 height: calc(100% - 75px);
-                padding: 0.9rem;
             }
             #side-cart.open { right: 0; }
+
+            #side-cart-header {
+                padding: 12px;
+            }
+
+            #side-cart-header h4 {
+                font-size: 16px;
+            }
+
+            #side-cart-content {
+                padding: 12px;
+            }
+
+            /* Products grid hidden on tablet */
+            #side-cart-products {
+                display: none !important;
+            }
+
+            .btn-cart-close {
+                width: 38px;
+                height: 38px;
+                min-width: 38px;
+                font-size: 22px;
+            }
+
+            .btn-cart-close i {
+                font-size: 22px;
+            }
+
+            #chat-messages {
+                height: 160px;
+            }
         }
 
         /* Mobile Responsive (≤768px) */
@@ -653,11 +924,60 @@
                 right: -100%;
                 max-width: 100vw;
                 height: calc(100% - 56px);
-                padding: 0.8rem;
-                border-radius: 0;
-                margin: 0;
             } 
-            #side-cart.open { right: 0; } 
+            #side-cart.open { right: 0; }
+
+            #side-cart-header {
+                padding: 12px;
+            }
+
+            #side-cart-header h4 {
+                font-size: 16px;
+            }
+
+            #side-cart-content {
+                padding: 12px;
+            }
+
+            /* Products grid hidden on mobile */
+            #side-cart-products {
+                display: none !important;
+            }
+
+            #cart-summary {
+                margin: 10px 12px;
+            }
+
+            #side-cart-chat {
+                margin: 0 12px 12px 12px;
+                padding: 10px;
+            }
+
+            #chat-messages {
+                height: 150px;
+                font-size: 11px;
+            }
+
+            .chat-input-group {
+                gap: 4px;
+            }
+
+            .chat-input-group input,
+            .chat-input-group button {
+                font-size: 11px;
+            }
+
+            .btn-cart-close {
+                width: 42px;
+                height: 42px;
+                min-width: 42px;
+                font-size: 24px;
+                box-shadow: 0 4px 16px rgba(255, 107, 107, 0.35);
+            }
+
+            .btn-cart-close i {
+                font-size: 24px;
+            }
         }
 
         /* Extra Small Mobile (≤576px) */
@@ -668,286 +988,330 @@
                 right: -100%;
                 max-width: 100vw;
                 height: calc(100% - 56px);
-                padding: 0.75rem;
-                border-radius: 0;
-                margin: 0;
             } 
-            #side-cart.open { right: 0; } 
-            #side-cart h4 {
-                font-size: 16px;
-                margin: 0 0 10px 0;
-                word-break: break-word;
-            }
-            #side-cart .side-cart-chat {
-                margin-top: 12px;
-                padding-top: 12px;
-            }
-            #chat-messages {
-                height: 150px !important;
-            }
-            .chat-input-group {
-                gap: 4px !important;
-            }
-            .chat-input-group input,
-            .chat-input-group button {
-                font-size: 11px !important;
-            }
-        }
+            #side-cart.open { right: 0; }
 
-        /* Extra Extra Small (≤480px) */
-        @@media (max-width: 480px) {
-            #side-cart {
-                padding: 0.6rem;
-            }
-            #side-cart h4 {
+            #side-cart-header h4 {
                 font-size: 14px;
+                margin: 0;
+            }
+
+            #side-cart-content {
+                padding: 10px;
+            }
+
+            /* Products grid hidden on small mobile */
+            #side-cart-products {
+                display: none !important;
+            }
+
+            #cart-summary {
+                padding: 12px;
+                margin: 10px 10px;
+            }
+
+            #side-cart-chat {
+                margin: 0 10px 10px 10px;
+                padding: 8px;
+            }
+
+            #chat-header {
+                font-size: 12px;
                 margin-bottom: 8px;
             }
-            #side-cart .btn {
-                font-size: 12px;
-                padding: 8px 10px;
-            }
+
             #chat-messages {
-                height: 120px !important;
-                font-size: 11px;
-            }
-        }
-
-        /* ===== CART LIST STYLING ===== */
-        #cart-items-list {
-            list-style: none;
-            padding: 0;
-            margin: 0 -1rem;
-            padding: 0 0;
-        }
-
-        #cart-items-list .list-group-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            padding: 8px 1rem;
-            min-height: 60px;
-            border: none;
-            border-bottom: 1px solid #e0e0e0;
-            background: #fff;
-            transition: background-color 0.2s ease;
-        }
-
-        #cart-items-list .list-group-item:last-child {
-            border-bottom: none;
-        }
-
-        #cart-items-list .list-group-item:hover {
-            background-color: #f9f9f9;
-        }
-
-        #cart-items-list .list-group-item.empty-cart {
-            justify-content: center;
-            min-height: 100px;
-            border: none;
-        }
-
-        /* ===== CART ITEM IMAGES STYLING ===== */
-        .cart-item-image {
-            width: 48px;
-            height: 34px;
-            aspect-ratio: 1.4 / 1;
-            object-fit: cover;
-            border-radius: 4px;
-            border: 1px solid #e0e0e0;
-            flex-shrink: 0;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .cart-item-image:hover {
-            border-color: #5d33fb;
-            box-shadow: 0 2px 6px rgba(93, 51, 251, 0.2);
-            transform: scale(1.05);
-        }
-
-        /* Tablet (769px - 991px) */
-        @@media (min-width: 769px) and (max-width: 991px) {
-            #cart-items-list .list-group-item {
-                padding: 7px 0.9rem;
-                gap: 7px;
+                height: 140px;
+                font-size: 10px;
+                padding: 8px;
             }
 
-            .cart-item-image {
+            .chat-message {
+                margin: 4px 0;
+                padding: 4px 6px;
+                font-size: 10px;
+            }
+
+            .chat-input-group {
+                gap: 3px;
+            }
+
+            .chat-input-group input {
+                padding: 5px 6px;
+                font-size: 10px;
+            }
+
+            .chat-input-group button {
+                padding: 5px 8px;
+                font-size: 10px;
+                min-width: 35px;
+            }
+
+            .btn-cart-close {
                 width: 44px;
-                height: 31px;
-            }
-        }
-
-        /* Mobile Responsive (≤768px) */
-        @@media (max-width: 768px) {
-            #cart-items-list .list-group-item {
-                padding: 6px 0.8rem;
-                min-height: 55px;
-                gap: 6px;
+                height: 44px;
+                min-width: 44px;
+                font-size: 26px;
             }
 
-            .cart-item-image {
-                width: 40px;
-                height: 28px;
-                border-radius: 3px;
-            }
-        }
-
-        /* Extra Small Mobile (≤576px) */
-        @@media (max-width: 576px) {
-            #cart-items-list {
-                margin: 0 -0.75rem;
-            }
-
-            #cart-items-list .list-group-item {
-                padding: 6px 0.75rem;
-                min-height: 52px;
-                flex-wrap: wrap;
-                align-content: flex-start;
-            }
-
-            .cart-item-image {
-                width: 36px;
-                height: 25px;
-            }
-
-            .btn-xs {
-                padding: 2px 4px;
-                font-size: 9px;
-                min-width: 18px;
+            .btn-cart-close i {
+                font-size: 26px;
             }
         }
 
         /* Extra Extra Small (≤480px) */
         @@media (max-width: 480px) {
-            #cart-items-list .list-group-item {
-                padding: 5px 0.6rem;
-                min-height: 50px;
-                gap: 4px;
+            #side-cart-header h4 {
+                font-size: 13px;
             }
 
-            .cart-item-image {
-                width: 32px;
-                height: 23px;
+            /* Products grid hidden */
+            #side-cart-products {
+                display: none !important;
             }
-        }
 
-        /* ===== BUTTON STYLING FOR CART ITEMS ===== */
-        .btn-xs {
-            padding: 3px 6px;
-            font-size: 11px;
-            line-height: 1.4;
-            border-radius: 3px;
-            min-width: 24px;
-            text-align: center;
-            transition: all 0.2s ease;
-        }
-
-        .btn-danger {
-            background-color: #d9534f;
-            border-color: #ac2925;
-            color: #fff;
-        }
-
-        .btn-danger:hover {
-            background-color: #c9302c;
-            border-color: #ac2925;
-            color: #fff;
-            transform: scale(1.08);
-            box-shadow: 0 2px 6px rgba(217, 83, 79, 0.3);
-        }
-
-        .btn-danger:active,
-        .btn-danger:focus {
-            background-color: #ac2925;
-            border-color: #8b211e;
-            color: #fff;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-danger.disabled {
-            opacity: 0.65;
-            cursor: not-allowed;
-            background-color: #d9534f;
-            border-color: #ac2925;
-        }
-
-        /* Mobile responsive button sizing */
-        @@media (max-width: 768px) {
-            .btn-xs {
-                padding: 2px 5px;
-                font-size: 10px;
-                min-width: 22px;
+            .btn-cart-close {
+                width: 42px;
+                height: 42px;
+                min-width: 42px;
+                font-size: 24px;
             }
         }
 
-        @@media (max-width: 576px) {
-            .btn-xs {
-                padding: 2px 5px;
-                font-size: 10px;
-                min-width: 20px;
-            }
-        }
-
-        /* ===== FOOTER STYLING - MATCH NAVBAR ===== */
+        /* ===== FOOTER STYLING - PROFESSIONAL & RESPONSIVE ===== */
         .site-footer {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-top: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 -4px 20px rgba(102, 126, 234, 0.25);
             color: #fff;
-            padding: 40px 20px;
+            padding: 30px 20px 15px;
             margin-top: 60px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .site-footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .site-footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .site-footer-section h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin: 0 0 12px 0;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 8px;
+        }
+
+        .site-footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .site-footer-section li {
+            margin: 6px 0;
         }
 
         .site-footer a {
-            color: #fff;
+            color: rgba(255, 255, 255, 0.9);
             text-decoration: none;
             transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .site-footer a:hover {
-            color: rgba(255, 255, 255, 0.8);
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-        }
-
-        .site-footer .list-inline li {
             color: #fff;
-            margin: 8px 15px;
+            transform: translateX(2px);
         }
 
-        .site-footer .list-inline li abbr {
-            color: rgba(255, 255, 255, 0.9);
+        /* Payment Methods Section */
+        .payment-methods {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: 10px 0 0 0;
         }
 
-        .site-footer p {
+        .payment-icon {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            padding: 6px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .payment-icon:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .payment-icon img {
+            height: 24px;
+            width: auto;
+        }
+
+        .payment-icon i {
+            font-size: 20px;
+            color: #fff;
+        }
+
+        /* Contact Info */
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin: 8px 0;
             color: rgba(255, 255, 255, 0.95);
         }
 
-        .site-footer .w3-text-white {
-            color: #fff !important;
+        .contact-info-item i {
+            font-size: 14px;
+            margin-top: 2px;
+            flex-shrink: 0;
         }
 
-        .site-footer i {
-            color: #fff;
-            margin-right: 5px;
+        .contact-info-item a {
+            color: rgba(255, 255, 255, 0.9);
         }
 
-        /* Footer responsive adjustments */
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .social-links a {
+            background: rgba(255, 255, 255, 0.15);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .social-links a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* Footer Bottom */
+        .site-footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 15px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 12px;
+        }
+
+        .site-footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
+
+        .site-footer-links a {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 12px;
+        }
+
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 12px;
+        }
+
+        /* Responsive */
+        @@media (max-width: 1024px) {
+            .site-footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+
         @@media (max-width: 768px) {
             .site-footer {
-                padding: 30px 15px;
+                padding: 25px 15px 12px;
                 margin-top: 40px;
             }
 
-            .site-footer .list-inline {
-                flex-direction: column;
-                text-align: center;
+            .site-footer-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
 
-            .site-footer .list-inline li {
-                display: block;
-                margin: 10px 0;
+            .site-footer-section h4 {
+                font-size: 13px;
+                margin-bottom: 10px;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .payment-methods {
+                justify-content: center;
+            }
+
+            .site-footer-links {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+
+        @@media (max-width: 480px) {
+            .site-footer {
+                padding: 20px 12px 10px;
+            }
+
+            .site-footer-section h4 {
+                font-size: 12px;
+            }
+
+            .site-footer a,
+            .contact-info-item {
+                font-size: 12px;
+            }
+
+            .payment-icon {
+                padding: 5px 8px;
+            }
+
+            .payment-icon img {
+                height: 20px;
+            }
+
+            .social-links a {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+
+            .footer-copyright {
+                font-size: 11px;
             }
         }
 
@@ -1368,59 +1732,82 @@
     <!-- Side cart panel (moved out of nav) -->
     <div id="cart-overlay" onclick="closeCart()"></div>
     <aside id="side-cart" aria-hidden="true" aria-label="Shopping cart">
-        <div class="d-flex justify-content-between align-items-center">
-            <h4><i class="fa fa-shopping-cart" aria-hidden="true"></i> Tvoj zoznam produktov </h4>
-            <button type="button" class="btn btn-sm btn-link" onclick="closeCart()" aria-label="Close cart"><i class="fa fa-times"></i></button>
+        <!-- Header -->
+        <div id="side-cart-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <h4><i class="fa fa-shopping-cart" aria-hidden="true"></i> Tvoj Košík</h4>
+                <button type="button" class="btn-cart-close" onclick="closeCart()" aria-label="Close cart" title="Zatvoriť panel">
+                    <i class="fa fa-times-circle" aria-hidden="true"></i>
+                </button>
+            </div>
         </div>
 
-        <p class="small"></p>
-        <span id="cart-items-badge" style="display:none"></span>
+        <!-- Content Area -->
+        <div id="side-cart-content">
+            <!-- Cart Items Section -->
+            <div id="cart-items-section" style="margin-bottom: 15px;">
+                <h5 style="color: #5d33fb; font-weight: 700; font-size: 13px; margin: 0 0 10px 0;">🛒 V Košíku</h5>
+                <ul id="cart-items-list" class="list-group">
+                    <!-- Cart items rendered by cart.js -->
+                </ul>
+            </div>
 
-        <ul id="cart-items-list" class="list-group mb-2">
-        </ul>
+            <!-- Cart Summary -->
+            <div id="cart-summary">
+                <strong>💰 Celková Suma:</strong>
+                <div style="font-size: 16px; color: #28a745; font-weight: 700; margin: 8px 0;">
+                    €<span id="total-amount">0.00</span>
+                </div>
+                <div id="total-discount" style="font-size: 12px; color: #5d33fb; margin-top: 6px;"></div>
+            </div>
 
-        <div>
-            <strong>👉Celková suma je: €<span id="total-amount">0.00</span></strong>
-            <div id="total-discount" style="font-size: 0.9em; color: #5d33fb; margin-top: 6px;"></div>
-        </div>
+            <!-- Action Buttons -->
+            <div style="display: flex; gap: 8px; margin-bottom: 12px; flex-direction: column;">
+                <a class="btn btn-outline-primary" href="/Home/Kosik?checkout=1" style="padding: 10px; font-size: 13px; font-weight: 600; border-color: #5d33fb; color: #5d33fb; text-align: center;">
+                    ✓ Skontrolovať Vozík
+                </a>
+                <a class="btn btn-outline-secondary" href='@Url.Action("Produkty","Home")' style="padding: 10px; font-size: 13px; font-weight: 600; border-color: #17a2b8; color: #17a2b8; text-align: center;">
+                    🔍 Pozrieť Všetky Produkty
+                </a>
+            </div>
 
-        <br />
-
-        <a class="btn btn-outline-primary" href="/Home/Kosik?checkout=1" role="button" title="Skontrolovať čo sa nachádza v mojom vozíku">Skontrolovať vozík</a>
-        <br />
-        <!-- Available products (compact) -->
-        <div class="mini-products">
-            <a class="btn btn-outline-primary" href='@Url.Action("Produkty","Home")' aria-label="Prezrieť všetky produkty" style="border-width:2px; border-color:#5d33fb; color:#5d33fb;">
-                🔍 Prezrieť ponuku všetkých produktov
-            </a>
-            <br />
-            <script async
-                    src="https://js.stripe.com/v3/buy-button.js">
-            </script>
-
+            <!-- Stripe Buy Button -->
+            <script async src="https://js.stripe.com/v3/buy-button.js"></script>
             <stripe-buy-button buy-button-id="buy_btn_1SgujHHrPMzQ1ua8771vUUL4"
-                               publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
+                               publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3"
+                               style="margin-bottom: 12px;">
             </stripe-buy-button>
-        </div>
-        <br />
-        <!-- Chat Section (rendered by chat-ui.js) -->
-        <div id="side-cart-chat-container" class="side-cart-chat"></div>
 
-        <!-- Quick Contact Info -->
-        <div style="margin-top: 10px; padding: 10px; background: #f0f0f0; border-radius: 6px; font-size: 11px; color: #666; line-height: 1.4;">
-            <p style="margin: 0 0 4px 0;"><strong>📞 Tel:</strong> +421917952432</p>
-            <p style="margin: 0 0 4px 0;"><strong>📧 Email:</strong> <a href="mailto:info@ladowebservis.sk" style="color: #5d33fb; text-decoration: none;">info@ladowebservis.sk</a></p>
-            <p style="margin: 0;">⏰ Pracovný čas: Po-Pia 9:00-19:00</p>
-        </div>
+            <!-- Chat Section -->
+            <div id="side-cart-chat" class="side-cart-chat">
+                <div id="chat-header">
+                    <i class="fa fa-comments"></i> Poradenstvo
+                </div>
+                <div id="chat-messages" style="background: rgba(255,255,255,0.95); border-radius: 6px; padding: 10px; height: 180px; overflow-y: auto; margin-bottom: 10px; font-size: 12px; line-height: 1.4;">
+                    <!-- Messages rendered by chat-ui.js -->
+                </div>
+                <div class="chat-input-group">
+                    <input type="text" id="chat-input" placeholder="Napíšte správu..." aria-label="Chat input" style="flex: 1; padding: 6px 8px; border: 1px solid rgba(0,0,0,0.1); border-radius: 4px; font-size: 12px; background: rgba(255,255,255,0.95); color: #333;">
+                    <button id="chat-send-btn" onclick="sendChatMessage()" style="padding: 6px 12px; background: #fff; color: #667eea; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 11px; transition: all 0.3s ease; min-width: 40px;">
+                        <i class="fa fa-send"></i>
+                    </button>
+                </div>
+            </div>
 
+            <!-- Quick Contact Info -->
+            <div style="margin-top: 12px; padding: 10px; background: #f0f0f0; border-radius: 6px; font-size: 11px; color: #666; line-height: 1.4;">
+                <p style="margin: 0 0 4px 0;"><strong>📞 Tel:</strong> +421917952432</p>
+                <p style="margin: 0 0 4px 0;"><strong>📧 Email:</strong> <a href="mailto:info@ladowebservis.sk" style="color: #5d33fb; text-decoration: none;">info@ladowebservis.sk</a></p>
+                <p style="margin: 0;">⏰ Po-Pia 9:00-19:00</p>
+            </div>
 
-        <!-- Payment procedure help thumbnail: clicking opens enlarged image via Fancybox (included in layout) -->
-        <div class="text-center mb-3" style="margin-top: 15px;">
-            <p class="small text-black">Potrebujete pomoc s platbou? Kliknite na pomocný obrázok pre návod postupných krokov ako jednoducho postupovať a prejsť ku platbe cez našu platobnú bránu Stripe.</p>
-            <a data-fancybox="payment-help" data-caption="Payment procedure" href="@Url.Content("~/Image/Postup platby.png")" aria-label="Open payment procedure image">
-                <img src="@Url.Content("~/Image/Postup platby.png")" alt="Payment procedure" class="img-thumbnail" style="max-width:100px;cursor:pointer;" />
-            </a>
-            <br>
+            <!-- Payment Help -->
+            <div class="text-center" style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #e0e0e0;">
+                <p style="font-size: 11px; color: #666; margin: 0 0 8px 0;">Pomoc s platbou:</p>
+                <a data-fancybox="payment-help" data-caption="Postup platby" href="@Url.Content("~/Image/Postup platby.png")" aria-label="Open payment procedure image">
+                    <img src="@Url.Content("~/Image/Postup platby.png")" alt="Payment procedure" style="max-width: 80px; cursor: pointer; border-radius: 4px; border: 1px solid #e0e0e0;">
+                </a>
+            </div>
         </div>
     </aside>
 
@@ -1491,7 +1878,7 @@
                 <div class="item">
                     <img src="~/Image/skusenosti.jpg" alt="Skúsenosti a Wellness" style="width:2560px;height:539px;" title="Wellness produkty a skúsenosti s Zinzino">
                     <div class="carousel-caption">
-                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">✨ Ponúkame kvalitné produkty od spoločnosti Zinzino</p>
+                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">✨ Inspire change in life - Poskytujeme prvotriedne a vedecky overené výživové doplnky, produkty na starostlivosť o pleť a výrobky pre lepší životný štýl.</p>
                     </div>
                 </div>
 
@@ -1531,47 +1918,105 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer class="site-footer footer-compact">
-            <div class="w3-center w3-text-white cner-fluid" id="footer">
-                <div class="footer-contact">
-                    <img src="~/Image/LWSlogo.jpg" class="img-thumbnail" alt="" title="Ladowebservis intro" />
+        <footer class="site-footer">
+            <div class="site-footer-container">
+                <!-- Footer Grid -->
+                <div class="site-footer-grid">
+                    <!-- About Section -->
+                    <div class="site-footer-section">
+                        <h4>O Nás</h4>
+                        <p style="margin: 0; color: rgba(255, 255, 255, 0.9);">
+                            Ladowebservis - Oficiálny partner Zinzino. Ponúkame zdravotné produkty, IT služby a webové riešenia.
+                        </p>
+                        <p style="margin: 8px 0 0 0; font-size: 12px;">
+                            <img src="~/Image/LWSlogo.jpg" alt="LWS Logo" style="height: 30px; margin-top: 8px; border-radius: 4px;">
+                        </p>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="site-footer-section">
+                        <h4>Rýchle Odkazy</h4>
+                        <ul>
+                            <li><a href='@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })' title="Domovská stránka">🏠 Domov</a></li>
+                            <li><a href='@Url.Action("Produkty","Home")' title="Eshop">🛒 Produkty</a></li>
+                            <li><a href='@Url.Action("Login","Home")' title="Prihlásenie">👤 Prihlásenie</a></li>
+                            <li><a href='@Url.Action("Registracia","Home")' title="Registrácia">✍️ Registrácia</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="site-footer-section">
+                        <h4>Kontakt</h4>
+                        <div class="contact-info-item">
+                            <i class="fa fa-phone"></i>
+                            <div>
+                                <div>+421907151293</div>
+                                <div>+421917952432</div>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <i class="fa fa-envelope"></i>
+                            <div>
+                                <div><a href="mailto:info@ladowebservis.sk">info@ladowebservis.sk</a></div>
+                                <div><a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a></div>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <i class="fa fa-clock-o"></i>
+                            <span>Po-Pia: 9:00-19:00</span>
+                        </div>
+                    </div>
+
+                    <!-- Payment Methods -->
+                    <div class="site-footer-section">
+                        <h4>Platobné Metódy</h4>
+                        <div class="payment-methods">
+                            <div class="payment-icon" title="Stripe">
+                                <i class="fa fa-credit-card"></i>
+                            </div>
+                            <div class="payment-icon" title="Bezpečná platba">
+                                <i class="fa fa-lock"></i>
+                            </div>
+                            <div class="payment-icon" title="Prevod">
+                                <i class="fa fa-exchange"></i>
+                            </div>
+                            <div class="payment-icon" title="PayPal">
+                                <i class="fa fa-paypal"></i>
+                            </div>
+                        </div>
+                        <div style="margin-top: 12px; font-size: 12px; color: rgba(255, 255, 255, 0.85);">
+                            ✅ Bezpečná & Rýchla Platba
+                        </div>
+                    </div>
                 </div>
 
-                <address class="mt-2 mb-2">
-                    <a href='@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })' class="w3-text-white" title="Domov">🌐 Web: www.ladowebservis.sk/zdravie</a>
-                </address>
+                <!-- Social Links & Bottom -->
+                <div style="text-align: center; margin-top: 15px;">
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/vladimír-kseni%C4%8D/" target="_blank" title="LinkedIn" aria-label="LinkedIn">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                        <a href="https://soundcloud.com/lado-8" target="_blank" title="SoundCloud" aria-label="SoundCloud">
+                            <i class="fa fa-soundcloud"></i>
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=61587109352410" target="_blank" title="Facebook" aria-label="Facebook">
+                            <i class="fa fa-facebook-official"></i>
+                        </a>
+                    </div>
+                </div>
 
-                <ul class="list-inline">
-                    <li><abbr title="Telefón">📞 Telefón:</abbr> <span>+421907151293 alebo +421917952432</span></li>
-                    <li><abbr title="Technická podpora">📧 Podpora:</abbr> <a href="mailto:podpora@ladowebservis.sk" class="w3-text-white">podpora@ladowebservis.sk</a></li>
-                    <li><abbr title="Informácie">ℹ️ Info:</abbr> <a href="mailto:info@ladowebservis.sk" class="w3-text-white">info@ladowebservis.sk</a></li>
-                </ul>
-
-                <p class="mt-2 mb-2">
-                    <img src="~/Image/pagePiling-plugin.gif" class="img-rounded" alt="Ladowebservis logo" title="Ladowebservis" style="width:95px;height:38px;" />
-                </p>
-
-                <p class="mb-2">
-                    <a href='@Url.Action("ReturnPolicy","Home")' class="w3-text-white" title="Zásady vrátenia tovaru">Zásady vrátenia tovaru</a>
-                </p>
-                <p class="mb-2">
-                    <a href='@Url.Action("Gdpr","Home")' class="w3-text-white" title="Ochrana osobných údajov (GDPR)">Ochrana osobných údajov (GDPR)</a>
-                </p>
-                <p class="mb-2">
-                    <a href='@Url.Action("ObchodnePodmienky","Home")'
-                       class="w3-text-white" title="Obchodné podmienky">
-                        Obchodné podmienky
-                    </a>
-                </p>
-
-                <p class="small mb-2"><i class='fa fa-heart'></i> Your satisfaction is our priority.</p>
-                <p class="small">© LadoWebServis @DateTime.Today.Year – oficiálny partner Zinzino</p>
-
-                <p class="mt-2">
-                    <a href="https://www.linkedin.com/in/vladimír-kseni%C4%8D/" target="_blank" aria-label="LinkedIn"><i class="fa fa-linkedin w3-hover-text-white"></i></a>
-                    <a href="https://soundcloud.com/lado-8" target="_blank" aria-label="SoundCloud" class="ml-2"><i class="fa fa-soundcloud w3-hover-text-white"></i></a>
-                    <a href="https://www.facebook.com/profile.php?id=61587109352410" target="_blank" aria-label="Facebook" class="ml-2"><i class="fa fa-facebook-official w3-hover-text-white"></i></a>
-                </p>
+                <!-- Footer Bottom -->
+                <div class="site-footer-bottom">
+                    <div class="site-footer-links">
+                        <a href='@Url.Action("ReturnPolicy","Home")' title="Zásady vrátenia">Zásady vrátenia</a>
+                        <a href='@Url.Action("Gdpr","Home")' title="GDPR">Ochrana údajov</a>
+                        <a href='@Url.Action("ObchodnePodmienky","Home")' title="Obchodné podmienky">Obchodné podmienky</a>
+                    </div>
+                    <div class="footer-copyright">
+                        <p style="margin: 0;">© LadoWebServis @DateTime.Today.Year – Oficiálny partner Zinzino</p>
+                        <p style="margin: 4px 0 0 0;">❤️ Vaša spokojnosť je naša priorita</p>
+                    </div>
+                </div>
             </div>
         </footer>
 

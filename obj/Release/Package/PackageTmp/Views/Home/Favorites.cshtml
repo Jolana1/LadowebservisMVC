@@ -1,76 +1,671 @@
-@{
-    ViewBag.Title = "Ob��ben� produkty";
+﻿@{
+    ViewBag.Title = "Obľúbené produkty";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container-fluid card py-4">
-    <div class="row justify-content-center">
-        <div class="col-xs-12 col-sm-10 col-md-8">
-            <h2 class="mb-3 text-center" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">Tvoj zoznam ob��ben�ch produktov</h2>
-            <p class="text-center" style="color: #5d33fb; margin-bottom: 1rem;">Tu n�jdete produkty, ktor� ste si ozna�ili ako ob��ben�. M��ete ich prida� + do ko��ka, zv��i� mno�stvo alebo odstr�ni� x zo zoznamu.</p>
+<style>
+    /* ===== PAGE CONTAINER ===== */
+    .favorites-page {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        padding: 40px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-            <ul id="favoritesList" class="list-group mb-1">
-                <!-- Favorites populated by cart.js -> window.lwsRenderFavorites() -->
+    .favorites-page .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* ===== HERO SECTION ===== */
+    .favorites-hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        padding: 40px 20px;
+        border-radius: 12px;
+        text-align: center;
+        margin-bottom: 40px;
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+
+    .favorites-hero h1 {
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        letter-spacing: 1px;
+    }
+
+    .favorites-hero p {
+        font-size: 16px;
+        opacity: 0.95;
+        margin-bottom: 0;
+    }
+
+    /* ===== CARD SECTIONS ===== */
+    .favorites-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin-bottom: 40px;
+    }
+
+    .favorites-card h2 {
+        color: #5d33fb;
+        font-weight: 700;
+        margin-bottom: 25px;
+        font-size: 28px;
+        padding-bottom: 15px;
+        border-bottom: 3px solid #5d33fb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .favorites-card h2 span {
+        font-size: 28px;
+    }
+
+    .favorites-card > p {
+        text-align: center;
+    }
+
+    /* ===== PRODUCT GRID ===== */
+    .favorites-products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+        margin-bottom: 25px;
+        justify-items: center;
+    }
+
+    .fav-product-card {
+        background: #fff;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .fav-product-card:hover {
+        border-color: #5d33fb;
+        box-shadow: 0 8px 25px rgba(93, 51, 251, 0.15);
+        transform: translateY(-5px);
+    }
+
+    .fav-product-card.is-favorite {
+        border-color: #ff6b6b;
+        background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+    }
+
+    .fav-product-image-wrapper {
+        position: relative;
+        padding: 20px;
+        background: #f9f9f9;
+        text-align: center;
+        min-height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .fav-product-image {
+        max-width: 100%;
+        max-height: 120px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .fav-heart-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 36px;
+        height: 36px;
+        background: #ff6b6b;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid #fff;
+    }
+
+    .fav-heart-badge:hover {
+        transform: scale(1.2);
+        box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4);
+    }
+
+    .fav-product-content {
+        padding: 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .fav-product-name {
+        color: #5d33fb;
+        font-weight: 700;
+        font-size: 16px;
+        margin-bottom: 10px;
+        flex: 1;
+    }
+
+    .fav-product-price {
+        color: #28a745;
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+    .fav-product-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .fav-btn {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+    }
+
+    .fav-btn-add {
+        background: #28a745;
+        color: #fff;
+    }
+
+    .fav-btn-add:hover {
+        background: #218838;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+    }
+
+    .fav-btn-remove {
+        background: #ff6b6b;
+        color: #fff;
+    }
+
+    .fav-btn-remove:hover {
+        background: #ee5a6f;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+    }
+
+    /* ===== EMPTY STATE ===== */
+    .empty-favorites {
+        text-align: center;
+        padding: 60px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .empty-favorites-icon {
+        font-size: 72px;
+        margin-bottom: 20px;
+        opacity: 0.8;
+        display: block;
+    }
+
+    .empty-favorites h3 {
+        color: #5d33fb;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .empty-favorites p {
+        color: #666;
+        margin-bottom: 30px;
+        max-width: 400px;
+    }
+
+    /* ===== FAVORITES LIST ===== */
+    #favoritesList {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .favorite-item {
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        border-left: 4px solid #ff6b6b;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        transition: all 0.3s ease;
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .favorite-item:hover {
+        background: #f0f0f0;
+        box-shadow: 0 4px 12px rgba(255, 107, 107, 0.15);
+    }
+
+    .favorite-item img {
+        max-width: 80px;
+        max-height: 80px;
+        object-fit: contain;
+        border-radius: 6px;
+    }
+
+    .favorite-item-info {
+        flex: 1;
+    }
+
+    .favorite-item-name {
+        color: #5d33fb;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .favorite-item-price {
+        color: #28a745;
+        font-weight: 600;
+    }
+
+    /* ===== ACTION BUTTONS ===== */
+    .action-buttons {
+        display: flex;
+        gap: 12px;
+        margin-top: 30px;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .action-btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .action-btn-primary {
+        background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(93, 51, 251, 0.3);
+    }
+
+    .action-btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(93, 51, 251, 0.4);
+        color: #fff;
+    }
+
+    .action-btn-secondary {
+        background: #f0f0f0;
+        color: #5d33fb;
+        border: 2px solid #5d33fb;
+    }
+
+    .action-btn-secondary:hover {
+        background: #5d33fb;
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @@media (max-width: 768px) {
+        .favorites-page {
+            padding: 20px 10px;
+        }
+
+        .favorites-hero {
+            padding: 30px 15px;
+            margin-bottom: 30px;
+        }
+
+        .favorites-hero h1 {
+            font-size: 28px;
+        }
+
+        .favorites-card {
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .favorites-card h2 {
+            font-size: 24px;
+        }
+
+        .favorites-products-grid {
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .favorite-item {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .action-buttons {
+            gap: 8px;
+        }
+
+        .action-btn {
+            padding: 10px 16px;
+            font-size: 13px;
+            flex: 1;
+            min-width: 120px;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .favorites-hero h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .favorites-hero p {
+            font-size: 14px;
+        }
+
+        .favorites-card h2 {
+            font-size: 20px;
+            gap: 8px;
+        }
+
+        .favorites-card h2 span {
+            font-size: 24px;
+        }
+
+        .favorites-products-grid {
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .fav-product-card {
+            border-width: 1px;
+        }
+
+        .fav-product-image-wrapper {
+            padding: 15px;
+            min-height: 120px;
+        }
+
+        .fav-product-content {
+            padding: 15px;
+        }
+
+        .fav-product-name {
+            font-size: 14px;
+        }
+
+        .fav-product-price {
+            font-size: 18px;
+        }
+
+        .action-btn {
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+    }
+</style>
+
+<div class="favorites-page">
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="favorites-hero">
+            <h1>❤️ Vaše Obľúbené Produkty ❤️</h1>
+            <p>Spravujte si svoj zoznam obľúbených produktov a rýchlo ich pridajte do košíka</p>
+        </div>
+
+        <!-- Available Products Section -->
+        <div class="favorites-card">
+            <h2><span>📦</span> Dostupné produkty</h2>
+            <p style="color: #666; margin-bottom: 25px;">
+                Kliknite na srdce ❤️ aby ste si označili produkty ako obľúbené. Vaš zoznam obľúbených sa automaticky uloží.
+            </p>
+            <div class="favorites-products-grid" id="productsGrid">
+                <!-- Products loaded by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Favorites List Section -->
+        <div class="favorites-card">
+            <h2><span>✨</span> Váš Zoznam Obľúbených</h2>
+            <p style="color: #666; margin-bottom: 25px;">
+                Tu sú všetky produkty, ktoré ste si označili ako obľúbené. Môžete ich rýchlo pridať do košíka.
+            </p>
+
+            <ul id="favoritesList" class="mb-4">
+                <!-- Favorites populated by JavaScript -->
             </ul>
 
-            <div class="text-center">
-                <a href='@Url.Action("Produkty","Home")' class="btn btn-primary btn-sm">Ponuka produktov</a>
-                <a href='@Url.Action("Kosik","Home")' class="btn btn-default btn-sm" style="margin-left:.5rem;">Sp� do ko��ka</a>
-                <button type="button"
-                        class="btn btn-primary btn-xsm"
-                        style="margin-left:.5rem;"
-                        onclick="openSideCart()">
-                    Skontrolova� polo�ky v ko��ku
-                </button>
+            <div id="emptyFavoritesMessage" style="display: none;">
+                <div class="empty-favorites">
+                    <div class="empty-favorites-icon">❤️</div>
+                    <h3>Žiadne obľúbené produkty</h3>
+                    <p>Zatiaľ ste si neoznačili žiadne produkty ako obľúbené.<br>Prejdite na sekciu dostupných produktov vyššie a kliknite na srdce pri produktoch, ktoré vás zaujímajú.</p>
+                </div>
             </div>
+        </div>
 
-            <p class="small text-center" style="color: #5d33fb; margin-top: 2rem;">Tip: pou�ite tla�idl� + a x na �pravu ob��ben�ch produktov.</p>
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <a href='@Url.Action("Produkty","Home")' class="action-btn action-btn-secondary">
+                <i class="fa fa-shopping-bag"></i> Všetky Produkty
+            </a>
+            <a href='@Url.Action("Kosik","Home")' class="action-btn action-btn-primary">
+                <i class="fa fa-shopping-cart"></i> Prejsť do Košíka
+            </a>
+            <button type="button" class="action-btn action-btn-secondary" onclick="openSideCart()">
+                <i class="fa fa-eye"></i> Moje Položky
+            </button>
         </div>
     </div>
 </div>
 
-<style>
-    /* Make favorite list buttons smaller and compact */
-    #favoritesList .btn-add-cart,
-    #favoritesList .btn-remove-fav,
-    #favoritesList .btn-dec-qty {
-        padding: 1px 4px;
-        font-size: 13px;
-        line-height: 1.1;
-    }
-</style>
-
 @section scripts {
     <script>
-        function openSideCart() {
-            try {
-                var cart = document.getElementById('side-cart');
-                var overlay = document.getElementById('cart-overlay');
-                if (!cart || !overlay) return;
-                cart.classList.add('open');
-                overlay.classList.add('open');
-                cart.setAttribute('aria-hidden', 'false');
-                overlay.setAttribute('aria-hidden', 'false');
-                cart.focus();
-            } catch (e) { }
-        }
+        (function () {
+            var FAVORITES_KEY = 'lws_favorites';
+            var CART_KEY = 'lws_cart_v1';
 
-        document.addEventListener('DOMContentLoaded', function () {
-            try {
-                if (window.lwsRenderFavorites) {
-                    window.lwsRenderFavorites();
-                    setTimeout(function () {
-                        var el = document.getElementById('favoritesList');
-                        if (el && el.children.length === 0) {
-                            el.innerHTML = '<li class="list-group-item text-center">�iadne ob��ben� produkty.</li>';
-                        }
-                    }, 150);
-                } else {
-                    var el = document.getElementById('favoritesList');
-                    if (el) el.innerHTML = '<li class="list-group-item text-center">�iadne ob��ben� produkty.</li>';
+            function loadFavorites() {
+                try {
+                    return JSON.parse(localStorage.getItem(FAVORITES_KEY) || '{}');
+                } catch (e) {
+                    return {};
                 }
-            } catch (e) { }
-        });
+            }
+
+            function saveFavorites(favs) {
+                try {
+                    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favs));
+                } catch (e) { }
+            }
+
+            function loadCart() {
+                try {
+                    return JSON.parse(localStorage.getItem(CART_KEY) || '{}');
+                } catch (e) {
+                    return {};
+                }
+            }
+
+            function saveCart(cart) {
+                try {
+                    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+                } catch (e) { }
+            }
+
+            function toggleFavorite(productId, productName, productImage, productPrice) {
+                var favs = loadFavorites();
+                if (favs[productId]) {
+                    delete favs[productId];
+                } else {
+                    favs[productId] = {
+                        name: productName,
+                        image: productImage,
+                        price: productPrice
+                    };
+                }
+                saveFavorites(favs);
+                renderProducts();
+                renderFavorites();
+            }
+
+            function addToCart(productId) {
+                var cart = loadCart();
+                if (!cart[productId]) {
+                    cart[productId] = { quantity: 1, image: '' };
+                } else {
+                    cart[productId].quantity += 1;
+                }
+                saveCart(cart);
+                if (window.lwsRenderCartHeader) window.lwsRenderCartHeader();
+            }
+
+            function renderProducts() {
+                var catalog = window.__lws_products || {};
+                var container = document.getElementById('productsGrid');
+                var favs = loadFavorites();
+
+                if (!container) return;
+                container.innerHTML = '';
+
+                var allProducts = Array.isArray(catalog) ? catalog : Object.values(catalog);
+
+                allProducts.forEach(function (p) {
+                    if (!p || !p.Id) return;
+
+                    var id = p.Id.toString().trim();
+                    var name = p.Name || 'Unknown';
+                    var price = parseFloat(p.Price) || 0;
+                    var image = p.Image || '/Image/placeholder.png';
+                    var isFav = !!favs[id];
+
+                    var col = document.createElement('div');
+                    var html = '<div class="fav-product-card' + (isFav ? ' is-favorite' : '') + '">';
+                    html += '<div class="fav-product-image-wrapper">';
+                    html += '<img src="' + image + '" alt="' + name + '" class="fav-product-image">';
+                    html += '<button class="fav-heart-badge" onclick="window.toggleFav(\'' + id + '\', \'' + name.replace(/'/g, "\\'") + '\', \'' + image.replace(/'/g, "\\'") + '\', ' + price + ')" title="' + (isFav ? 'Odstrániť zo zoznamu' : 'Pridať do zoznamu') + '">';
+                    html += isFav ? '❤️' : '🤍';
+                    html += '</button>';
+                    html += '</div>';
+                    html += '<div class="fav-product-content">';
+                    html += '<div class="fav-product-name">' + name + '</div>';
+                    html += '<div class="fav-product-price">€' + price.toFixed(2) + '</div>';
+                    html += '<div class="fav-product-actions">';
+                    html += '<button class="fav-btn fav-btn-add" onclick="window.addFavToCart(\'' + id + '\')" title="Pridať do košíka"><i class="fa fa-cart-plus"></i> Košík</button>';
+                    html += '<a href="/Home/Produkty?q=' + encodeURIComponent(name) + '" class="fav-btn fav-btn-add" style="background: #17a2b8; text-decoration: none;" title="Zobraziť detail"><i class="fa fa-info-circle"></i> Detail</a>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '</div>';
+                    col.innerHTML = html;
+                    container.appendChild(col);
+                });
+            }
+
+            function renderFavorites() {
+                var favs = loadFavorites();
+                var container = document.getElementById('favoritesList');
+                var emptyMsg = document.getElementById('emptyFavoritesMessage');
+
+                if (!container) return;
+
+                var hasFavs = Object.keys(favs).length > 0;
+                container.innerHTML = '';
+
+                if (!hasFavs) {
+                    emptyMsg.style.display = 'block';
+                    container.style.display = 'none';
+                } else {
+                    emptyMsg.style.display = 'none';
+                    container.style.display = 'block';
+
+                    Object.keys(favs).forEach(function (id) {
+                        var fav = favs[id];
+                        var li = document.createElement('li');
+                        li.className = 'favorite-item';
+
+                        var html = '';
+                        if (fav.image) {
+                            html += '<img src="' + fav.image + '" alt="' + fav.name + '">';
+                        }
+                        html += '<div class="favorite-item-info">';
+                        html += '<div class="favorite-item-name">' + fav.name + '</div>';
+                        html += '<div class="favorite-item-price">€' + (fav.price || 0).toFixed(2) + '</div>';
+                        html += '</div>';
+                        html += '<div style="display: flex; gap: 8px;">';
+                        html += '<button class="fav-btn fav-btn-add" onclick="window.addFavToCart(\'' + id + '\')" title="Pridať do košíka"><i class="fa fa-cart-plus"></i> Do košíka</button>';
+                        html += '<button class="fav-btn fav-btn-remove" onclick="window.removeFav(\'' + id + '\')" title="Odstrániť zo zoznamu"><i class="fa fa-trash"></i> Odstrániť</button>';
+                        html += '</div>';
+
+                        li.innerHTML = html;
+                        container.appendChild(li);
+                    });
+                }
+            }
+
+            window.toggleFav = toggleFavorite;
+            window.addFavToCart = addToCart;
+            window.removeFav = function (id) {
+                var favs = loadFavorites();
+                if (favs[id]) {
+                    delete favs[id];
+                    saveFavorites(favs);
+                    renderProducts();
+                    renderFavorites();
+                }
+            };
+
+            window.openSideCart = function () {
+                try {
+                    var cart = document.getElementById('side-cart');
+                    var overlay = document.getElementById('cart-overlay');
+                    if (!cart || !overlay) return;
+                    cart.classList.add('open');
+                    overlay.classList.add('open');
+                    cart.setAttribute('aria-hidden', 'false');
+                    overlay.setAttribute('aria-hidden', 'false');
+                    cart.focus();
+                } catch (e) { }
+            };
+
+            document.addEventListener('DOMContentLoaded', function () {
+                renderProducts();
+                renderFavorites();
+            });
+        })();
     </script>
 }
 

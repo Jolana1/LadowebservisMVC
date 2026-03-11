@@ -4,14 +4,21 @@
 }
 
 <style>
+    /* ===== PAGE BACKGROUND ===== */
+    .itservis-page {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        padding: 40px 0;
+    }
+
     .itservis-hero {
-        background: linear-gradient(135deg, #5d33fb 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: #fff;
         padding: 60px 20px;
         text-align: center;
         border-radius: 12px;
-        margin-bottom: 40px;
-        box-shadow: 0 10px 40px rgba(93, 51, 251, 0.3);
+        margin-bottom: 50px;
+        box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
     }
 
     .itservis-hero h1 {
@@ -19,14 +26,22 @@
         font-weight: 700;
         margin-bottom: 20px;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        letter-spacing: 0.5px;
     }
 
     .itservis-hero .lead {
         font-size: 18px;
         margin-bottom: 15px;
         line-height: 1.6;
+        opacity: 0.98;
     }
 
+    .itservis-hero p {
+        font-size: 14px;
+        opacity: 0.9;
+    }
+
+    /* ===== SERVICE CARD ===== */
     .service-card {
         background: #fff;
         border-radius: 12px;
@@ -35,11 +50,14 @@
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         transition: all 0.3s ease;
         border-left: 5px solid #5d33fb;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
     .service-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(93, 51, 251, 0.15);
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(93, 51, 251, 0.2);
     }
 
     .service-card h3 {
@@ -49,38 +67,55 @@
         font-size: 20px;
     }
 
+    .service-card p {
+        color: #666;
+        flex: 1;
+        line-height: 1.6;
+    }
+
     .service-icon {
         font-size: 36px;
         margin-bottom: 15px;
+        display: inline-block;
     }
 
+    /* ===== SERVICE LIST ===== */
     .service-list {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        background: linear-gradient(135deg, #e7f3ff 0%, #f0f0f0 100%);
         border-radius: 12px;
-        padding: 30px;
-        margin-bottom: 30px;
+        padding: 40px;
+        margin-bottom: 50px;
+        border-left: 5px solid #5d33fb;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
     }
 
     .service-list h2 {
         color: #5d33fb;
         font-weight: 700;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
         padding-bottom: 15px;
         border-bottom: 3px solid #5d33fb;
+        font-size: 28px;
     }
 
     .service-list ul {
         list-style: none;
         padding: 0;
+        margin: 0;
     }
 
     .service-list li {
-        padding: 12px 0;
-        padding-left: 35px;
+        padding: 15px 0;
+        padding-left: 40px;
         position: relative;
         color: #333;
         font-size: 16px;
         line-height: 1.6;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .service-list li:last-child {
+        border-bottom: none;
     }
 
     .service-list li:before {
@@ -89,28 +124,32 @@
         left: 0;
         color: #28a745;
         font-weight: 700;
-        font-size: 20px;
+        font-size: 22px;
+        line-height: 1.5;
     }
 
+    /* ===== PRICING CARDS ===== */
     .pricing-cards {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 25px;
-        margin-bottom: 40px;
+        margin-bottom: 50px;
     }
 
     .pricing-card {
         background: #fff;
         border-radius: 12px;
-        padding: 25px;
+        padding: 35px 25px;
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         text-align: center;
         transition: all 0.3s ease;
         border-top: 4px solid #5d33fb;
+        display: flex;
+        flex-direction: column;
     }
 
     .pricing-card:hover {
-        transform: translateY(-8px);
+        transform: translateY(-10px);
         box-shadow: 0 15px 40px rgba(93, 51, 251, 0.2);
     }
 
@@ -122,329 +161,526 @@
     }
 
     .pricing-card .price {
-        font-size: 28px;
-        color: #5d33fb;
+        font-size: 36px;
+        color: #28a745;
         font-weight: 700;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
 
     .pricing-card .description {
         color: #666;
         font-size: 14px;
         margin-bottom: 20px;
-        line-height: 1.5;
+        line-height: 1.6;
+        flex: 1;
     }
 
+    /* ===== PROCESS CARD ===== */
     .process-card {
         background: #fff;
         border-radius: 12px;
-        padding: 25px;
+        padding: 30px;
         margin-bottom: 20px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
         border-left: 5px solid #28a745;
+        transition: all 0.3s ease;
+    }
+
+    .process-card:hover {
+        box-shadow: 0 8px 25px rgba(40, 167, 69, 0.15);
     }
 
     .process-number {
-        display: inline-block;
-        background: #5d33fb;
+        display: inline-flex;
+        background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
         color: #fff;
-        width: 40px;
-        height: 40px;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
         text-align: center;
-        line-height: 40px;
+        align-items: center;
+        justify-content: center;
         font-weight: 700;
-        font-size: 18px;
+        font-size: 20px;
         margin-right: 15px;
         margin-bottom: 10px;
+        box-shadow: 0 4px 12px rgba(93, 51, 251, 0.3);
     }
 
     .process-card h4 {
         color: #5d33fb;
         font-weight: 700;
-        margin-top: 10px;
+        margin-top: 5px;
         margin-bottom: 10px;
+        font-size: 18px;
+        display: inline-block;
     }
 
     .process-card p {
         color: #666;
-        margin: 0;
+        margin: 10px 0 0 0;
+        line-height: 1.6;
     }
 
+    /* ===== CONTACT SECTION ===== */
     .contact-section {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: #fff;
-        padding: 40px;
+        padding: 50px 40px;
         border-radius: 12px;
-        margin-bottom: 40px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        margin-bottom: 50px;
+        box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
     }
 
     .contact-section h2 {
         color: #fff;
         font-weight: 700;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
+        font-size: 28px;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        padding-bottom: 20px;
     }
 
     .contact-item {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 15px;
+        background: rgba(255, 255, 255, 0.12);
+        padding: 20px;
         border-radius: 8px;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
         border-left: 3px solid #fff;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+
+    .contact-item:hover {
+        background: rgba(255, 255, 255, 0.18);
+        transform: translateX(5px);
     }
 
     .contact-item strong {
         color: #fff;
         display: block;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
+        font-size: 16px;
     }
 
     .contact-item a {
         color: #fff;
         text-decoration: none;
         font-weight: 600;
+        font-size: 15px;
     }
 
     .contact-item a:hover {
         text-decoration: underline;
+        opacity: 0.9;
     }
 
+    .contact-item p {
+        margin: 8px 0 0 0;
+        line-height: 1.6;
+    }
+
+    /* ===== CTA BUTTONS ===== */
     .cta-button {
-        background: #28a745;
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
         color: #fff !important;
-        padding: 15px 40px;
+        padding: 14px 32px;
         font-size: 16px;
         font-weight: 700;
         border-radius: 8px;
         text-decoration: none;
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+    }
+
+    .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4);
+        color: #fff !important;
+    }
+
+    .cta-button.secondary {
+        background: linear-gradient(135deg, #17a2b8 0%, #20a8a8 100%);
+        box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+    }
+
+    .cta-button.secondary:hover {
+        box-shadow: 0 8px 20px rgba(23, 162, 184, 0.4);
+    }
+
+    /* ===== SECTION TITLE ===== */
+    .section-title {
+        color: #5d33fb;
+        font-weight: 700;
+        margin-bottom: 35px;
+        padding-bottom: 15px;
+        border-bottom: 3px solid #5d33fb;
+        font-size: 28px;
+        text-align: center;
+    }
+
+    /* ===== ALERT BOX ===== */
+    .info-alert {
+        background: linear-gradient(135deg, #e7f3ff 0%, #f0f0f0 100%);
+        border-left: 4px solid #5d33fb;
+        border-radius: 8px;
+        padding: 30px;
+        margin-bottom: 50px;
+        box-shadow: 0 5px 15px rgba(93, 51, 251, 0.1);
+    }
+
+    .info-alert h5 {
+        color: #5d33fb;
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .info-alert ul {
+        margin-bottom: 0;
+        padding-left: 20px;
+    }
+
+    .info-alert li {
+        color: #333;
+        margin-bottom: 10px;
+        line-height: 1.6;
+    }
+
+    .info-alert li:last-child {
+        margin-bottom: 0;
+    }
+
+    /* ===== BACK BUTTON ===== */
+    .back-button-section {
+        text-align: center;
+        padding: 30px 0;
+    }
+
+    .back-button {
+        background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+        color: #fff !important;
+        padding: 14px 32px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 8px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
         transition: all 0.3s ease;
         border: none;
     }
 
-    .cta-button:hover {
-        background: #218838;
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+    .back-button:hover {
+        background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(90, 98, 104, 0.3);
         color: #fff !important;
     }
 
-    .section-title {
-        color: #5d33fb;
-        font-weight: 700;
-        margin-bottom: 25px;
-        padding-bottom: 15px;
-        border-bottom: 3px solid #5d33fb;
-        font-size: 28px;
-    }
-
+    /* ===== RESPONSIVE ===== */
     @@media (max-width: 768px) {
+        .itservis-page {
+            padding: 20px 0;
+        }
+
+        .itservis-hero {
+            padding: 40px 15px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+        }
+
         .itservis-hero h1 {
             font-size: 28px;
+            margin-bottom: 15px;
         }
 
         .itservis-hero .lead {
             font-size: 16px;
         }
 
-        .service-card {
-            padding: 20px;
+        .service-list {
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+
+        .service-list h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .service-list li {
+            padding: 12px 0;
+            padding-left: 35px;
+            font-size: 15px;
         }
 
         .pricing-cards {
             grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
         }
 
         .contact-section {
-            padding: 25px;
+            padding: 30px 20px;
+            margin-bottom: 40px;
+        }
+
+        .contact-section h2 {
+            font-size: 24px;
+        }
+
+        .contact-item {
+            padding: 15px;
+            margin-bottom: 15px;
         }
 
         .section-title {
-            font-size: 22px;
+            font-size: 24px;
+            margin-bottom: 25px;
+        }
+
+        .cta-button {
+            padding: 12px 24px;
+            font-size: 15px;
+            width: 100%;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .info-alert {
+            padding: 20px;
+            margin-bottom: 40px;
+        }
+
+        .info-alert h5 {
+            font-size: 16px;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .itservis-hero h1 {
+            font-size: 24px;
+        }
+
+        .itservis-hero .lead {
+            font-size: 15px;
+        }
+
+        .service-card {
+            padding: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 18px;
+        }
+
+        .process-number {
+            width: 44px;
+            height: 44px;
+            font-size: 18px;
+        }
+
+        .section-title {
+            font-size: 20px;
         }
     }
 </style>
 
-<div class="container" style="padding: 20px 0;">
-    <!-- Hero Section -->
-    <div class="itservis-hero">
-        <h1>💻 IT Služby pre Váš digitálny svet</h1>
-        <p class="lead">Profesionálna podpora a riešenia pre domácnosti a menšie firmy</p>
-        <p style="font-size: 14px; opacity: 0.9;">Rýchla diagnostika, kvalitná oprava, odborné poradenstvo</p>
-    </div>
+<div class="itservis-page">
+    <div class="container" style="padding: 20px;">
+        <!-- Hero Section -->
+        <div class="itservis-hero">
+            <h1>💻 IT Služby pre Váš Digitálny Svet</h1>
+            <p class="lead">Profesionálna podpora a riešenia pre domácnosti a menšie firmy</p>
+            <p>Rýchla diagnostika • Kvalitná oprava • Odborné poradenstvo</p>
+        </div>
 
-    <!-- What We Offer -->
-    <div class="service-list">
-        <h2>📋 Čo ponúkame</h2>
-        <ul>
-            <li>Diagnostika a opravy PC, smartfónov a notebookov</li>
-            <li>Inštalácia a aktualizácia operačných systémov a softvéru</li>
-            <li>Nastavenie a optimalizácia počítačov pre rýchlejší a stabilnejší chod</li>
-            <li>Poradenstvo pri výbere hardvéru a zostavení PC zostáv</li>
-            <li>Základné sieťové nastavenia (Wi‑Fi, router, domáca sieť)</li>
-            <li>Odstraňovanie malvéru a vírusov, bezpečnostné aktualizácie</li>
-            <li>Zálohovanie údajov a obnova stratených súborov</li>
-            <li>Technická podpora a poradenstvo cez telefón alebo email</li>
-        </ul>
-    </div>
+        <!-- What We Offer -->
+        <div class="service-list">
+            <h2>📋 Čo Ponúkame</h2>
+            <ul>
+                <li>Diagnostika a opravy PC, smartfónov a notebookov</li>
+                <li>Inštalácia a aktualizácia operačných systémov a softvéru</li>
+                <li>Nastavenie a optimalizácia počítačov pre rýchlejší a stabilnejší chod</li>
+                <li>Poradenstvo pri výbere hardvéru a zostavení PC zostáv</li>
+                <li>Základné sieťové nastavenia (Wi‑Fi, router, domáca sieť)</li>
+                <li>Odstraňovanie malvéru a vírusov, bezpečnostné aktualizácie</li>
+                <li>Zálohovanie údajov a obnova stratených súborov</li>
+                <li>Technická podpora a poradenstvo cez telefón alebo email</li>
+            </ul>
+        </div>
 
-    <!-- Service Cards Grid -->
-    <h2 class="section-title">🛠️ Naše služby v detaile</h2>
-    <div class="row mb-4">
-        <div class="col-md-6 col-lg-4">
-            <div class="service-card">
-                <div class="service-icon">🖥️</div>
-                <h3>Oprava počítačov</h3>
-                <p>Profesionálna diagnostika a oprava všetkých typov porúch. Od výmeny hardvéru až po softvérové problémy.</p>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="service-card">
-                <div class="service-icon">⚙️</div>
-                <h3>Optimalizácia</h3>
-                <p>Vyčistenie systému, zrýchlenie chodu, odstránenie zbytočných programov a nadbytočných súborov.</p>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="service-card">
-                <div class="service-icon">🔒</div>
-                <h3>Bezpečnosť</h3>
-                <p>Ochrana pred malvérom, vírusmi a kyberutokmi. Aktualizácie bezpečnosti a správa hesiel.</p>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="service-card">
-                <div class="service-icon">📱</div>
-                <h3>Smartfóny & Tablety</h3>
-                <p>Opravy a nastavenia pre iOS a Android zariadenia. Obnova dát a optimalizácia výkonu.</p>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="service-card">
-                <div class="service-icon">🌐</div>
-                <h3>Sieťové služby</h3>
-                <p>Nastavenie Wi‑Fi, správa routerov, domáce siete a bezpečné pripojenia.</p>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="service-card">
-                <div class="service-icon">💾</div>
-                <h3>Zálohy & Obnova</h3>
-                <p>Bezpečné zálohovanie údajov a obnova stratených súborov z rôznych zdrojov.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pricing -->
-    <h2 class="section-title">💰 Približné ceny služieb</h2>
-    <div class="pricing-cards">
-        <div class="pricing-card">
-            <h4>🔍 Diagnostika</h4>
-            <div class="price">20€</div>
-            <div class="description">Podrobná analýza problému a určenie príčiny poruchy bez väčších zásahov.</div>
-            <p style="color: #999; font-size: 12px;">Jednorazová cena</p>
-        </div>
-        <div class="pricing-card">
-            <h4>🔧 Jednoduchá oprava</h4>
-            <div class="price">50€</div>
-            <div class="description">Opravy ako inštalácia OS, inštalácia drivera, vyčistenie, základné nastavenia.</div>
-            <p style="color: #999; font-size: 12px;">Približne 1-2 hodiny práce</p>
-        </div>
-        <div class="pricing-card">
-            <h4>⚡ Komplexné riešenie</h4>
-            <div class="price">100€+</div>
-            <div class="description">Zložitejšie opravy, výmena hardvéru, migrácia systému, pokročilé nastavenia.</div>
-            <p style="color: #999; font-size: 12px;">Individuálny odhad podľa rozsahu</p>
-        </div>
-    </div>
-
-    <!-- Process -->
-    <h2 class="section-title">📞 Postup objednania IT servisu</h2>
-    <div class="row">
-        <div class="col-lg-8 offset-lg-2">
-            <div class="process-card">
-                <span class="process-number">1</span>
-                <h4>Kontaktujte nás</h4>
-                <p>Napíšte nám email na <strong>podpora@ladowebservis.sk</strong> alebo zavolajte na <strong>+421907151293</strong> s krátkym popisom vášho problému.</p>
-            </div>
-
-            <div class="process-card">
-                <span class="process-number">2</span>
-                <h4>Dohodneme si detail</h4>
-                <p>Budeme vás kontaktovať aby sme si ujasnil ďalšie detaily. Dohodneme si čas diagnostiky a predpokladané riešenie.</p>
-            </div>
-
-            <div class="process-card">
-                <span class="process-number">3</span>
-                <h4>Diagnostika a odhad</h4>
-                <p>Vykonáme diagnostiku a spresníme odhad ceny a času realizácie. Vopred si potvrdzujeme postup s Vami.</p>
-            </div>
-
-            <div class="process-card">
-                <span class="process-number">4</span>
-                <h4>Realizácia a podpora</h4>
-                <p>Realizujeme opravu a poskytujeme technickú podporu počas a aj po ukončení práce. Všetko kontrolujeme a testujeme.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Contact Section -->
-    <div class="contact-section">
-        <h2>📧 Ako nás kontaktovať</h2>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="contact-item">
-                    <strong>☎️ Telefonicky (iba SK)</strong>
-                    <a href="tel:+421907151293">+421907151293</a> alebo
-                    <a href="tel:+421917952432">+421917952432</a>
+        <!-- Service Cards Grid -->
+        <h2 class="section-title">🛠️ Naše Služby v Detaile</h2>
+        <div class="row mb-5">
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="service-icon">🖥️</div>
+                    <h3>Oprava Počítačov</h3>
+                    <p>Profesionálna diagnostika a oprava všetkých typov porúch. Od výmeny hardvéru až po softvérové problémy.</p>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="contact-item">
-                    <strong>📧 Email</strong>
-                    <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a>
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="service-icon">⚙️</div>
+                    <h3>Optimalizácia</h3>
+                    <p>Vyčistenie systému, zrýchlenie chodu, odstránenie zbytočných programov a nadbytočných súborov.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="service-icon">🔒</div>
+                    <h3>Bezpečnosť</h3>
+                    <p>Ochrana pred malvérom, vírusmi a kyberutokmi. Aktualizácie bezpečnosti a správa hesiel.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3>Smartfóny & Tablety</h3>
+                    <p>Opravy a nastavenia pre iOS a Android zariadenia. Obnova dát a optimalizácia výkonu.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="service-icon">🌐</div>
+                    <h3>Sieťové Služby</h3>
+                    <p>Nastavenie Wi‑Fi, správa routerov, domáce siete a bezpečné pripojenia.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="service-icon">💾</div>
+                    <h3>Zálohy & Obnova</h3>
+                    <p>Bezpečné zálohovanie údajov a obnova stratených súborov z rôznych zdrojov.</p>
                 </div>
             </div>
         </div>
-        <div style="margin-top: 20px;">
-            <div class="contact-item">
-                <strong>💬 Kontaktný formulár</strong>
-                <p>Použite <a href='@Url.Action("Kontakt","Home")'>kontaktný formulár na našej stránke</a> a my vás budeme kontaktovať v čo najkratšom čase.</p>
+
+        <!-- Pricing -->
+        <h2 class="section-title">💰 Približné Ceny Služieb</h2>
+        <div class="pricing-cards">
+            <div class="pricing-card">
+                <h4>🔍 Diagnostika</h4>
+                <div class="price">20€</div>
+                <div class="description">Podrobná analýza problému a určenie príčiny poruchy bez väčších zásahov.</div>
+                <p style="color: #999; font-size: 12px; margin-top: auto;">Jednorazová cena</p>
+            </div>
+            <div class="pricing-card">
+                <h4>🔧 Jednoduchá Oprava</h4>
+                <div class="price">50€</div>
+                <div class="description">Opravy ako inštalácia OS, inštalácia drivera, vyčistenie, základné nastavenia.</div>
+                <p style="color: #999; font-size: 12px; margin-top: auto;">Približne 1-2 hodiny práce</p>
+            </div>
+            <div class="pricing-card">
+                <h4>⚡ Komplexné Riešenie</h4>
+                <div class="price">100€+</div>
+                <div class="description">Zložitejšie opravy, výmena hardvéru, migrácia systému, pokročilé nastavenia.</div>
+                <p style="color: #999; font-size: 12px; margin-top: auto;">Individuálny odhad podľa rozsahu</p>
             </div>
         </div>
-    </div>
 
-    <!-- Additional Info -->
-    <div class="row mb-4">
-        <div class="col-lg-8 offset-lg-2">
-            <div class="alert alert-info" style="border-left: 4px solid #5d33fb; background: #e7f3ff; border-radius: 8px;">
-                <h5 style="color: #5d33fb; margin-top: 0;">ℹ️ Dôležité informácie</h5>
-                <ul style="margin-bottom: 0;">
-                    <li>Ceny sú orientačné a môžu sa líšiť v závislosti od rozsahu zásahu</li>
-                    <li>Všetky väčšie úkony realizujeme s Vašim súhlasom a odhadu ceny</li>
-                    <li>Poskytujeme záruky na vykonanú prácu (zvyčajne 30 dní)</li>
-                    <li>Ponúkame diskusie na pravidelné údržby a podporu</li>
-                    <li>V prípade potreby emergency služieb nás kontaktujte - reagujeme rýchlo</li>
-                </ul>
+        <!-- Process -->
+        <h2 class="section-title">📞 Postup Objednania IT Servisu</h2>
+        <div class="row mb-5">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="process-card">
+                    <span class="process-number">1</span>
+                    <h4>Kontaktujte Nás</h4>
+                    <p>Napíšte nám email na <strong>podpora@ladowebservis.sk</strong> alebo zavolajte na <strong>+421907151293</strong> s krátkym popisom vášho problému.</p>
+                </div>
+
+                <div class="process-card">
+                    <span class="process-number">2</span>
+                    <h4>Dohodneme si Detail</h4>
+                    <p>Budeme vás kontaktovať aby sme si ujasnil ďalšie detaily. Dohodneme si čas diagnostiky a predpokladané riešenie.</p>
+                </div>
+
+                <div class="process-card">
+                    <span class="process-number">3</span>
+                    <h4>Diagnostika a Odhad</h4>
+                    <p>Vykonáme diagnostiku a spresníme odhad ceny a času realizácie. Vopred si potvrdzujeme postup s Vami.</p>
+                </div>
+
+                <div class="process-card">
+                    <span class="process-number">4</span>
+                    <h4>Realizácia a Podpora</h4>
+                    <p>Realizujeme opravu a poskytujeme technickú podporu počas a aj po ukončení práce. Všetko kontrolujeme a testujeme.</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- CTA Buttons -->
-    <div class="text-center mb-4">
-        <a href='@Url.Action("Kontakt","Home")' class="cta-button" style="margin-right: 15px;">
-            📝 Napíšte nám
-        </a>
-        <a href="tel:+421907151293" class="cta-button" style="background: #17a2b8;">
-            ☎️ Zavolajte nám
-        </a>
-    </div>
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <h2>📧 Ako Nás Kontaktovať</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="contact-item">
+                        <strong>☎️ Telefonicky (SK)</strong>
+                        <a href="tel:+421907151293">+421907151293</a> alebo
+                        <a href="tel:+421917952432">+421917952432</a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="contact-item">
+                        <strong>📧 Email</strong>
+                        <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="contact-item">
+                        <strong>💬 Kontaktný Formulár</strong>
+                        <p>Použite <a href='@Url.Action("Kontakt","Home")'>kontaktný formulár na našej stránke</a> a my vás budeme kontaktovať v čo najkratšom čase.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <!-- Back Button -->
-    <div class="text-center">
-        <a href="@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })" class="btn btn-outline-primary btn-lg">
-            ← Späť na úvod
-        </a>
+        <!-- Additional Info -->
+        <div class="row mb-5">
+            <div class="col-lg-10 offset-lg-1">
+                <div class="info-alert">
+                    <h5>ℹ️ Dôležité Informácie</h5>
+                    <ul>
+                        <li>Ceny sú orientačné a môžu sa líšiť v závislosti od rozsahu zásahu</li>
+                        <li>Všetky väčšie úkony realizujeme s Vašim súhlasom a odhadu ceny</li>
+                        <li>Poskytujeme záruky na vykonanú prácu (zvyčajne 30 dní)</li>
+                        <li>Ponúkame diskusie na pravidelné údržby a podporu</li>
+                        <li>V prípade potreby emergency služieb nás kontaktujte - reagujeme rýchlo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="text-center">
+                    <a href='@Url.Action("Kontakt","Home")' class="cta-button">
+                        <i class="fa fa-pencil"></i> Napíšte Nám
+                    </a>
+                    <a href="tel:+421907151293" class="cta-button secondary" style="margin-left: 12px;">
+                        <i class="fa fa-phone"></i> Zavolajte Nám
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back Button -->
+        <div class="back-button-section">
+            <a href="@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })" class="back-button">
+                <i class="fa fa-arrow-left"></i> Späť na Úvod
+            </a>
+        </div>
     </div>
 </div>

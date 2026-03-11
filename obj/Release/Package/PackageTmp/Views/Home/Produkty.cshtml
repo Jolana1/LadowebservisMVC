@@ -49,6 +49,41 @@
         box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
     }
 
+    .product-card.is-favorited {
+        border: 2px solid #ff6b6b;
+    }
+
+    .product-heart-btn {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background: none;
+        border: none;
+        font-size: 28px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 15;
+    }
+
+    .product-heart-btn:hover {
+        transform: scale(1.2);
+    }
+
+    .product-heart-btn.favorited {
+        animation: heartBeat 0.3s ease;
+    }
+
+    @@keyframes heartBeat {
+        0% { transform: scale(1); }
+        25% { transform: scale(1.3); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1.2); }
+    }
+
     .product-badge {
         position: absolute;
         top: 20px;
@@ -178,6 +213,31 @@
         background: #4a2fb5;
         transform: translateY(-2px);
         box-shadow: 0 8px 20px rgba(93, 51, 251, 0.4);
+    }
+
+    .btn-view-cart {
+        flex: 1;
+        background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+        color: #fff;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-width: 200px;
+    }
+
+    .btn-view-cart:hover {
+        background: linear-gradient(135deg, #138496 0%, #0e6674 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(23, 162, 184, 0.4);
+        color: #fff;
     }
 
     /* ========== PRODUCT IMAGE ========== */
@@ -363,6 +423,8 @@
 
     <!-- Product 1: BalanceOil+ Orange 300ml (55€ → 49.50€) -->
     <section class="product-card products" id="product-1" data-product-id="1" data-product-name="BalanceOil" data-product-aliases="balance oil,balanceoil,balance oil orange,orange" data-product-image='@Url.Content("~/Image/BalanceOil.png")'>
+        <button class="product-heart-btn" onclick="toggleProductFavorite(event, '1', 'BalanceOil', '@Url.Content("~/Image/BalanceOil.png")', 54.90)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+
         <span class="product-badge discount">-10% ZĽAVA</span>
 
         <div class="product-header">
@@ -390,10 +452,13 @@
                 <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
                     <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
                 </a>
-            <button type="button" class="btn-add-cart add-to-cart" data-id="1">
-                <i class="fa fa-shopping-cart"></i> Pridať do košíka
-            </button>
-        </div>
+                <button type="button" class="btn-add-cart add-to-cart" data-id="1">
+                    <i class="fa fa-shopping-cart"></i> Pridať do košíka
+                </button>
+                <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať položky v košíku">
+                    <i class="fa fa-eye"></i> Košík
+                </button>
+            </div>
 
         <div class="product-image-container">
             <a data-fancybox="gallery" href='@Url.Content("~/Image/BalanceOil.png")'>
@@ -411,7 +476,8 @@
 
     <!-- Product 6: Dávkovacie poháre (15€) -->
     <section class="product-card products" id="product-6" data-product-id="6" data-product-name="Davkovacie pohare" data-product-aliases="dávkovacie poháre,davkovacie pohare,pohare,pohár,pohare 10ks" data-product-image='@Url.Content("~/Image/Davkovacie pohare.png")'>
-        
+        <button class="product-heart-btn" onclick="toggleProductFavorite(event, '6', 'Davkovacie pohare', '@Url.Content("~/Image/Davkovacie pohare.png")', 15.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+
         <div class="product-header">
             <h2>🥤 Dávkovacie poháre (10ks)</h2>
         </div>
@@ -428,11 +494,11 @@
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
                 <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
             </a>
-            @*<a href="https://buy.stripe.com/YOUR_STRIPE_LINK_PRODUCT_6" class="btn-stripe" target="_blank">
-            <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
-        </a>*@
             <button type="button" class="btn-add-cart add-to-cart" data-id="6">
                 <i class="fa fa-shopping-cart"></i> Pridať do košíka
+            </button>
+            <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať položky v košíku">
+                <i class="fa fa-eye"></i> Košík
             </button>
         </div>
 
@@ -450,7 +516,8 @@
 
     <!-- Product 2: Zinobiotic (40€) -->
     <section class="product-card products" id="product-2" data-product-id="2" data-product-name="Zinobiotic" data-product-aliases="zinobiotic,probiotika,probiotiká" data-product-image='@Url.Content("~/Image/Zinobiotic2025.png")'>
-        
+        <button class="product-heart-btn" onclick="toggleProductFavorite(event, '2', 'Zinobiotic', '@Url.Content("~/Image/Zinobiotic2025.png")', 40.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+
         <div class="product-header">
             <h2>🦠 Zinobiotic+</h2>
         </div>
@@ -467,11 +534,11 @@
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
                 <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
             </a>
-            @*<a href="https://buy.stripe.com/YOUR_STRIPE_LINK_PRODUCT_2" class="btn-stripe" target="_blank">
-            <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
-        </a>*@
             <button type="button" class="btn-add-cart add-to-cart" data-id="2">
                 <i class="fa fa-shopping-cart"></i> Pridať do košíka
+            </button>
+            <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať položky v košíku">
+                <i class="fa fa-eye"></i> Košík
             </button>
         </div>
 
@@ -491,7 +558,8 @@
 
     <!-- Product 3: ZinzinoXtend (44€) -->
     <section class="product-card products" id="product-3" data-product-id="3" data-product-name="ZinzinoXtend" data-product-aliases="zinzino xtend,xtend,imunita" data-product-image='@Url.Content("~/Image/ZinzinoXtend.png")'>
-        
+        <button class="product-heart-btn" onclick="toggleProductFavorite(event, '3', 'ZinzinoXtend', '@Url.Content("~/Image/ZinzinoXtend.png")', 44.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+
         <div class="product-header">
             <h2>💪 Zinzino Xtend</h2>
         </div>
@@ -508,11 +576,11 @@
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
                 <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
             </a>
-            @*<a href="https://buy.stripe.com/YOUR_STRIPE_LINK_PRODUCT_3" class="btn-stripe" target="_blank">
-            <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
-        </a>*@
             <button type="button" class="btn-add-cart add-to-cart" data-id="3">
                 <i class="fa fa-shopping-cart"></i> Pridať do košíka
+            </button>
+            <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať položky v košíku">
+                <i class="fa fa-eye"></i> Košík
             </button>
         </div>
 
@@ -532,7 +600,8 @@
 
     <!-- Product 4: BalanceOil 100ml (25€) -->
     <section class="product-card products" id="product-4" data-product-id="4" data-product-name="BalanceOil orange 100ml" data-product-aliases="balance oil 100ml,balanceoil 100ml,100ml,orange 100ml" data-product-image='@Url.Content("~/Image/BalanceOil orange 100ml.png")'>
-        
+        <button class="product-heart-btn" onclick="toggleProductFavorite(event, '4', 'BalanceOil orange 100ml', '@Url.Content("~/Image/BalanceOil orange 100ml.png")', 25.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+
         <div class="product-header">
             <h2>💊 BalanceOil+ Orange 100ml</h2>
         </div>
@@ -549,11 +618,11 @@
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
                 <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
             </a>
-            @*<a href="https://buy.stripe.com/YOUR_STRIPE_LINK_PRODUCT_4" class="btn-stripe" target="_blank">
-            <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
-        </a>*@
             <button type="button" class="btn-add-cart add-to-cart" data-id="4">
                 <i class="fa fa-shopping-cart"></i> Pridať do košíka
+            </button>
+            <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať položky v košíku">
+                <i class="fa fa-eye"></i> Košík
             </button>
         </div>
 
@@ -573,6 +642,8 @@
 
     <!-- Product 5: Vitamin D Test (65€ → 58.50€) -->
     <section class="product-card products" id="product-5" data-product-id="5" data-product-name="Vitamin D Test" data-product-aliases="vitamin d,vitamin d test,vitamind,test" data-product-image='@Url.Content("~/Image/VitaminDTest.png")'>
+        <button class="product-heart-btn" onclick="toggleProductFavorite(event, '5', 'Vitamin D Test', '@Url.Content("~/Image/VitaminDTest.png")', 58.50)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+
         <span class="product-badge discount">-10% ZĽAVA</span>
         
         <div class="product-header">
@@ -597,17 +668,17 @@
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
                 <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
             </a>
-            @*<a href="https://buy.stripe.com/YOUR_STRIPE_LINK_PRODUCT_5" class="btn-stripe" target="_blank">
-            <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
-        </a>*@
             <button type="button" class="btn-add-cart add-to-cart" data-id="5">
                 <i class="fa fa-shopping-cart"></i> Pridať do košíka
+            </button>
+            <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať položky v košíku">
+                <i class="fa fa-eye"></i> Košík
             </button>
         </div>
 
         <div class="product-image-container">
             <a data-fancybox="gallery" href='@Url.Content("~/Image/VitaminDTest.png")'>
-                <img src='@Url.Content("~/Image/VitaminDTest.png")' alt="Vitamin D Test">
+                <img src='@Url.Content("~/Image/VitaminDTest.png")' alt="Test">
             </a>
         </div>
 
@@ -621,6 +692,8 @@
 
     <!-- Product 0: BalanceTest (195€ → 175.50€) -->
     <section class="product-card products" id="product-0" data-product-id="0" data-product-name="BalanceTest" data-product-aliases="balancetest,balance test,test" data-product-image='@Url.Content("~/Image/BalanceTest.png")'>
+        <button class="product-heart-btn" onclick="toggleProductFavorite(event, '0', 'BalanceTest', '@Url.Content("~/Image/BalanceTest.png")', 175.50)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+
         <span class="product-badge discount">-10% ZĽAVA</span>
         
         <div class="product-header">
@@ -648,11 +721,11 @@
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
                 <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
             </a>
-            @*<a href="https://buy.stripe.com/YOUR_STRIPE_LINK_PRODUCT_0" class="btn-stripe" target="_blank">
-            <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
-        </a>*@
             <button type="button" class="btn-add-cart add-to-cart" data-id="0">
                 <i class="fa fa-shopping-cart"></i> Pridať do košíka
+            </button>
+            <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať položky v košíku">
+                <i class="fa fa-eye"></i> Košík
             </button>
         </div>
 
@@ -676,6 +749,8 @@
 
     <!-- Product 8: CollagenBoozt (85€ → 76.50€) -->
     <section class="product-card products" id="product-8" data-product-id="8" data-product-name="CollagenBoozt" data-product-aliases="collagen,kolagen,collaboozt" data-product-image='@Url.Content("~/Image/CollagenBoozt.png")'>
+        <button class="product-heart-btn" onclick="toggleProductFavorite(event, '8', 'CollagenBoozt', '@Url.Content("~/Image/CollagenBoozt.png")', 58.50)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+
         <span class="product-badge new">🔥 NOVINKA!</span>
         <span class="product-badge discount" style="top: 60px;">-10% ZĽAVA</span>
         
@@ -701,11 +776,11 @@
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
                 <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
             </a>
-            @*<a href="https://buy.stripe.com/prod_TtBw1MdfQ985Ki" class="btn-stripe" target="_blank">
-            <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
-        </a>*@
             <button type="button" class="btn-add-cart add-to-cart" data-id="8">
                 <i class="fa fa-shopping-cart"></i> Pridať do košíka
+            </button>
+            <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať položky v košíku">
+                <i class="fa fa-eye"></i> Košík
             </button>
         </div>
 
@@ -725,7 +800,8 @@
 
     <!-- Product 7: Balzam (3€) -->
     <section class="product-card products" id="product-7" data-product-id="7" data-product-name="Balzam" data-product-aliases="balzam,balm,oriflame balzam,balsam" data-product-image='@Url.Content("~/Image/Balzam.png")'>
-        
+        <button class="product-heart-btn" onclick="toggleProductFavorite(event, '7', 'Balzam', '@Url.Content("~/Image/Balzam.png")', 3.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+
         <div class="product-header">
             <h2>💄 Balzam na pery</h2>
         </div>
@@ -742,11 +818,11 @@
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
                 <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
             </a>
-            @*<a href="https://buy.stripe.com/YOUR_STRIPE_LINK_PRODUCT_7" class="btn-stripe" target="_blank">
-            <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
-        </a>*@
             <button type="button" class="btn-add-cart add-to-cart" data-id="7">
                 <i class="fa fa-shopping-cart"></i> Pridať do košíka
+            </button>
+            <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať položky v košíku">
+                <i class="fa fa-eye"></i> Košík
             </button>
         </div>
 
@@ -776,6 +852,86 @@
 
 @section scripts {
     <script>
+        function openSideCart() {
+            try {
+                var cart = document.getElementById('side-cart');
+                var overlay = document.getElementById('cart-overlay');
+                if (!cart || !overlay) return;
+                cart.classList.add('open');
+                overlay.classList.add('open');
+                cart.setAttribute('aria-hidden', 'false');
+                overlay.setAttribute('aria-hidden', 'false');
+                cart.focus();
+            } catch (e) { }
+        }
+
+        // Favorites functionality
+        (function () {
+            var FAVORITES_KEY = 'lws_favorites';
+
+            function loadFavorites() {
+                try {
+                    return JSON.parse(localStorage.getItem(FAVORITES_KEY) || '{}');
+                } catch (e) {
+                    return {};
+                }
+            }
+
+            function saveFavorites(favs) {
+                try {
+                    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favs));
+                } catch (e) { }
+            }
+
+            function updateProductFavoriteStatus() {
+                var favs = loadFavorites();
+                var products = document.querySelectorAll('section.products');
+
+                products.forEach(function (p) {
+                    var productId = p.getAttribute('data-product-id');
+                    var heartBtn = p.querySelector('.product-heart-btn');
+                    var isFavorited = !!favs[productId];
+
+                    if (heartBtn) {
+                        heartBtn.textContent = isFavorited ? '❤️' : '🤍';
+                        heartBtn.title = isFavorited ? 'Odstrániť z obľúbených' : 'Pridať do obľúbených';
+                    }
+
+                    if (isFavorited) {
+                        p.classList.add('is-favorited');
+                    } else {
+                        p.classList.remove('is-favorited');
+                    }
+                });
+            }
+
+            window.toggleProductFavorite = function (event, productId, productName, productImage, productPrice) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                var favs = loadFavorites();
+
+                if (favs[productId]) {
+                    delete favs[productId];
+                } else {
+                    favs[productId] = {
+                        name: productName,
+                        image: productImage,
+                        price: parseFloat(productPrice)
+                    };
+                }
+
+                saveFavorites(favs);
+                updateProductFavoriteStatus();
+            };
+
+            // Initialize on page load
+            document.addEventListener('DOMContentLoaded', function () {
+                updateProductFavoriteStatus();
+            });
+        })();
+
+        // Search functionality
         (function () {
             // Configuration
             var SEARCH_CONFIG = {

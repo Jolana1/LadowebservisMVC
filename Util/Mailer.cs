@@ -217,7 +217,7 @@ namespace LadowebservisMVC.Util
                     mail.From = new MailAddress("info@ladowebservis.sk", "ladowebservis.sk");
                     mail.To.Add(customerEmail);
                     mail.Bcc.Add("info@ladowebservis.sk");
-                    mail.Subject = "Kolagén za zdravie a krásu - špeciálna zľava k Sviatku žien";
+                    mail.Subject = "Ďakujeme! Pozrite si našu ponuku produktov pre zdravie";
                     mail.SubjectEncoding = Encoding.UTF8;
                     mail.BodyEncoding = Encoding.UTF8;
                     mail.IsBodyHtml = true;
@@ -238,7 +238,6 @@ namespace LadowebservisMVC.Util
         .product-image {{ max-width: 150px; height: auto; border-radius: 6px; margin: 10px 0; }}
         .product-title {{ color: #5d33fb; font-weight: bold; font-size: 16px; margin: 10px 0; }}
         .price {{ color: #28a745; font-weight: bold; font-size: 18px; margin: 10px 0; }}
-        .price-old {{ text-decoration: line-through; color: #999; margin-right: 10px; }}
         .features {{ color: #666; font-size: 13px; margin: 10px 0; line-height: 1.6; }}
         .features li {{ margin: 5px 0; }}
         .promo-badge {{ background: #ffcc00; color: #2c3e50; padding: 10px 20px; border-radius: 8px; font-weight: bold; display: inline-block; margin: 15px 0; }}
@@ -251,45 +250,22 @@ namespace LadowebservisMVC.Util
 <body>
     <div class='container'>
         <div class='header'>
-            <h1>✨ Kolagén pre krásu k Sviatku žien ✨</h1>
+            <h1>✨ Vitajte v Ladowebservis! ✨</h1>
         </div>
 
         <p>Dobrý deň {nameSafe},</p>
         <p>Ďakujeme, že ste nás kontaktovali! 💚</p>
-        <p>K Sviatku žien Vám chceme ponúknuť špeciálnu ponuku na produkty pre Vašu krásu a zdravie.</p>
-
-        <!-- CollagenBoozt Product -->
-        <div class='product-section'>
-            <div class='section-title'>💎 Hlavný produkt: COLLAGEN BOOZT</div>
-            <div class='product-card'>
-                <div style='text-align: center;'>
-                    <img src='https://ladowebservis.sk/Image/CollagenBoozt.png' alt='CollagenBoozt' class='product-image'>
-                </div>
-                <div class='product-title'>COLLAGEN BOOZT - Prírodný kolagén</div>
-                <div>
-                    <span class='price-old'>Pôvodná cena: 65,00 EUR</span>
-                    <span class='price'>Akciová cena: 58,50 EUR (-10%)</span>
-                </div>
-                <p>Prémiový kolagénový nápoj od Zinzino s vitamínmi a minerálmi pre zdravú pleť, silné vlasy a pružné kĺby.</p>
-                <ul class='features'>
-                    <li>✓ 5000mg morského kolagénu na porciu</li>
-                    <li>✓ Vitamín C a Zinok pre podporu tvorby kolagénu</li>
-                    <li>✓ Hyalurónová kyselina pre hydratáciu pokožky</li>
-                    <li>✓ Biotin a Selen pre zdravé vlasy a nechty</li>
-                    <li>✓ Podpora kĺbov a pohyblivosti</li>
-                </ul>
-                <a href='https://ladowebservis.sk/Home/Produkty?q=collagen' class='button'>👉 Pozrieť a objednať</a>
-            </div>
-        </div>
+        <p>S radosťou Vám predstavujeme našu ponuku kvalitných produktov pre zdravie a wellness.</p>
 
         <!-- Promo Code -->
         <div style='text-align: center;'>
             <p><span class='promo-badge'>🎁 PROMO KÓD: {promoCode} = 10% ZĽAVA</span></p>
+            <p>Na všetky objednávky nad 50 EUR!</p>
         </div>
 
-        <!-- Additional Products -->
+        <!-- Featured Products -->
         <div class='product-section'>
-            <div class='section-title'>🌟 Ďalšie odporúčané produkty</div>
+            <div class='section-title'>🌟 Odporúčané produkty</div>
 
             <!-- Balance Oil -->
             <div class='product-card'>
@@ -297,7 +273,8 @@ namespace LadowebservisMVC.Util
                     <img src='https://ladowebservis.sk/Image/BalanceOil.png' alt='Balance Oil' class='product-image'>
                 </div>
                 <div class='product-title'>💊 Balance Oil - Omega 3</div>
-                <p>Pre zdravé srdce a mozog. Krása začína zvnútra vďaka dobrému zdraviu!</p>
+                <p>Prírodný Omega-3 olej pre zdravé srdce a mozog. Esenciálne mastné kyseliny pre vaše zdravie.</p>
+                <p><strong>Výhody:</strong> Podporuje srdcové zdravie, zlepšuje mozkovú funkciu, mení sa v kĺboch</p>
                 <a href='https://ladowebservis.sk/Home/Produkty?q=balance' class='button'>Pozrieť →</a>
             </div>
 
@@ -307,8 +284,20 @@ namespace LadowebservisMVC.Util
                     <img src='https://ladowebservis.sk/Image/Zinobiotic2025.png' alt='Zinobiotic' class='product-image'>
                 </div>
                 <div class='product-title'>🔬 Zinobiotic - Prémiové probiotiká</div>
-                <p>Pre zdravé trávenie. Zdravá pokožka závisí na zdravom trávení!</p>
+                <p>Moderné probiotiká s klinicky študovanými bakteriálnymi kmeňmi pre zdravý tráviaci systém.</p>
+                <p><strong>Výhody:</strong> Zdravé trávenie, silná imunita, zdravá pokožka zvnútra</p>
                 <a href='https://ladowebservis.sk/Home/Produkty?q=zinobiotic' class='button'>Pozrieť →</a>
+            </div>
+
+            <!-- Collagen Boozt -->
+            <div class='product-card'>
+                <div style='text-align: center;'>
+                    <img src='https://ladowebservis.sk/Image/CollagenBoozt.png' alt='CollagenBoozt' class='product-image'>
+                </div>
+                <div class='product-title'>💎 Collagen Boozt - Prírodný kolagén</div>
+                <p>Prémiový kolagénový nápoj s vitamínmi pre zdravú pleť, silné vlasy a pružné kĺby.</p>
+                <p><strong>Výhody:</strong> Krása pokožky, silné vlasy a nechty, zdravé kĺby</p>
+                <a href='https://ladowebservis.sk/Home/Produkty?q=collagen' class='button'>Pozrieť →</a>
             </div>
         </div>
 
@@ -340,24 +329,10 @@ namespace LadowebservisMVC.Util
                 <li>✅ Prístup k členskému zľavovému programu</li>
                 <li>✅ 10% zľava na nákupy nad 50 EUR (6 mesiacov)</li>
                 <li>✅ Rýchlejší nákup vďaka uloženým produktom</li>
-                <li>✅ Bezplatná doprava v rámci SK</li>
+                <li>✅ Bezplatná doprava v rámci SR</li>
                 <li>✅ Prioritná zákaznícka podpora</li>
             </ul>
             <a href='https://ladowebservis.sk/Home/Registracia' class='button'>Zaregistrovať sa</a>
-        </div>
-
-        <!-- How to Order -->
-        <div class='product-section'>
-            <div class='section-title'>🛒 Ako objednať - 6 krokov</div>
-            <ol class='features'>
-                <li><strong>Vyberte si produkty</strong> do košíka</li>
-                <li><strong>Prejdite na platbu:</strong> <a href='https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk'>Stripe platba</a></li>
-                <li><strong>Zadajte kód:</strong> {promoCode}</li>
-                <li><strong>Kliknite na</strong> 'Použiť kupón'</li>
-                <li><strong>Zľava sa automaticky odpočíta</strong></li>
-                <li><strong>Vyplňte údaje a dokončite objednávku</strong></li>
-            </ol>
-            <a href='https://ladowebservis.sk/Home/Kosik' class='button'>🛒 Skontrolovať košík</a>
         </div>
 
         <!-- Contact Section -->

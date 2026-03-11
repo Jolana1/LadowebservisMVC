@@ -31,40 +31,68 @@
         }, 15);
     };
 
-    // ===== CHAT FUNCTIONALITY =====
+    // ===== IMPROVED CHAT FUNCTIONALITY =====
     const autoResponses = {
-        'cena': '💰 <strong>Cenové informácie:</strong><br>Naše produkty majú konkurenčné ceny. Ceny nájdete na stránke Produkty. Pre zľavový balík: kód NOVYROK26.',
-        'doprava': '🚚 <strong>Doprava:</strong><br>• Bezplatne nad 50€ v SR<br>• Doba: 3-7 pracovných dní<br>• Vývodný čas: Ut-Pia<br>• Poistená a sledovaná',
-        'platba': '💳 <strong>Platba:</strong><br>Bezpečná platba cez Stripe. Všetky údaje sú šifrované a chránené.',
-        'vratenie': '↩️ <strong>Vrátenie:</strong><br>• 120 dní<br>• Bezpodmienečne<br>• Bez skrytých poplatkov',
-        'produkty': '🛍️ <strong>Produkty:</strong><br>✓ BalanceOil - Omega-3<br>✓ Zinobiotic - Probiotiká<br>✓ CollagenBoozt - Kolagén<br>✓ Vitamin D Test',
-        'balanceoil': '⭐ <strong>BalanceOil:</strong><br>Prírodné Omega-3. Zdravé srdce a mozog. Dostupné v rôznych formách.',
-        'zlava': '🎁 <strong>NOVYROK26:</strong><br>10% zľava na vybrané produkty',
-        'kontakt': '📞 <strong>Kontakt:</strong><br>☎️ +421917952432<br>📧 info@ladowebservis.sk<br>Po-Pia 9:00-17:00',
-        'pomoc': '❓ <strong>Ako pomôcť?</strong><br>💰 cena | 🚚 doprava | 💳 platba<br>🛍️ produkty | 🎁 zľava | 📞 kontakt'
+        'cena': '💰 <strong>Cenové informácie:</strong><br>Naše produkty majú konkurenčné ceny. Všetky ceny nájdete na stránke Produkty. Skúste kód NOVYROK26 pre zľavu!',
+        'doprava': '🚚 <strong>Doprava:</strong><br>• ✓ Bezplatne nad 50€ v SR<br>• ✓ Doba: 3-7 pracovných dní<br>• ✓ Poistená a sledovaná',
+        'platba': '💳 <strong>Bezpečná Platba:</strong><br>Používame Stripe - bezpečnú platobnú bránu. Všetky vaše údaje sú šifrované.',
+        'vratenie': '↩️ <strong>Vrátenie Tovarov:</strong><br>• ✓ 120 dní na vrátenie<br>• ✓ Bez otázok<br>• ✓ Bezplatne',
+        'produkty': '🛍️ <strong>Naša Ponuka:</strong><br>BalanceOil | Zinobiotic | CollagenBoozt | Vitamin D Test',
+        'balanceoil': '⭐ <strong>BalanceOil:</strong><br>Prírodný Omega-3 olej. Podporuje srdce, mozog a zrak. Dostupný: 300ml.',
+        'zlava': '🎁 <strong>Zľava NOVYROK26:</strong><br>10% zľava na produkty nad 50€. Použite pri checkout!',
+        'kontakt': '📞 <strong>Kontaktujte Nás:</strong><br>☎️ +421917952432<br>📧 info@ladowebservis.sk<br>⏰ Po-Pia: 9:00-17:00',
+        'pomoc': '❓ <strong>Ako ti pomôžem?</strong><br>Napíš: cena, doprava, platba, produkty, zľava, vratenie alebo kontakt',
+        'bonusové body': '⭐ <strong>Bonusové Body:</strong><br>Za každých €10 nákupu dostaneš 1 bod. 100 bodov = €10 zľava!',
+        'program': '🎯 <strong>Vernostný Program:</strong><br>Zbieraj body, získavaj zľavy a exkluzívne ponuky!'
+    };
+
+    // Generate products grid for side cart - REMOVED
+    function renderSideCartProducts() {
+        // Products section has been removed from side cart
+        return;
+    }
+
+    // Add product to cart - REMOVED
+    window.addProductToCart = function(productId) {
+        // Products section has been removed from side cart
+        return;
+    };
+
+    // Send chat message
+    window.sendChatMessage = function() {
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.getElementById('chat-messages');
+
+        if (!chatInput || !chatMessages) return;
+
+        const message = chatInput.value.trim();
+        if (!message) return;
+
+        // Add user message
+        const userDiv = document.createElement('div');
+        userDiv.className = 'chat-message user';
+        userDiv.innerHTML = '<strong>👤 Vy:</strong> ' + escapeHtml(message);
+        chatMessages.appendChild(userDiv);
+
+        chatInput.value = '';
+        chatInput.focus();
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        // Simulate bot typing
+        setTimeout(function() {
+            const response = getAutoResponse(message);
+            const botDiv = document.createElement('div');
+            botDiv.className = 'chat-message bot';
+            botDiv.innerHTML = '<strong>🤖 Support:</strong> ' + response;
+            chatMessages.appendChild(botDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 300);
     };
 
     function escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
-    }
-
-    function addMessage(text, sender = 'user') {
-        const chatMessages = document.getElementById('chat-messages');
-        if (!chatMessages) return;
-
-        const messageDiv = document.createElement('div');
-        messageDiv.style.marginBottom = '8px';
-
-        if (sender === 'user') {
-            messageDiv.innerHTML = '<div style="background: #5d33fb; color: #fff; border-radius: 6px; padding: 8px; margin-left: 20px; word-wrap: break-word;"><strong style="font-size:11px;">Ty:</strong> ' + escapeHtml(text) + '</div>';
-        } else {
-            messageDiv.innerHTML = '<div style="background: #e7f3ff; border-radius: 6px; padding: 8px; border-left: 4px solid #5d33fb; margin-right: 20px; font-size: 11px; line-height: 1.4;"><strong style="color: #5d33fb;">Support:</strong> ' + text + '</div>';
-        }
-
-        chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
     function getAutoResponse(input) {
@@ -75,96 +103,45 @@
             return autoResponses[query];
         }
 
-        // Partial match
+        // Partial match - check each keyword
         for (const key in autoResponses) {
             if (query.includes(key)) {
                 return autoResponses[key];
             }
         }
 
+        // Czech/Slovak aliases
+        if (query.includes('peniaze') || query.includes('penize')) return autoResponses['cena'];
+        if (query.includes('vzorka') || query.includes('vzorky')) return autoResponses['produkty'];
+        if (query.includes('porada')) return autoResponses['pomoc'];
+
         // Default response
-        return 'Ďakujem za otázku! Môžem ti pomôcť s: 💰 cenou, 🚚 dopravou, 💳 platbou, 🛍️ produktami, 🎁 zľavou alebo 📞 kontaktom.';
+        return '😊 Pomôžem ti rád! Napíš niečo z: <strong>cena, doprava, platba, produkty, zľava, vratenie, kontakt</strong>';
     }
 
-    function sendMessage() {
+    // Initialize chat when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        // Products section has been removed - no need to render
+
+        // Add enter key support to chat input
         const chatInput = document.getElementById('chat-input');
-        if (!chatInput) return;
-
-        const message = chatInput.value.trim();
-        if (!message) return;
-
-        addMessage(message, 'user');
-        chatInput.value = '';
-        chatInput.focus();
-
-        // Simulate bot typing delay
-        setTimeout(function () {
-            const response = getAutoResponse(message);
-            addMessage(response, 'bot');
-        }, 400);
-    }
-
-    // ===== RENDER CHAT UI =====
-    function initializeChatUI() {
-        const container = document.getElementById('side-cart-chat-container');
-        if (!container) return;
-
-        // Build chat HTML dynamically
-        container.className = 'side-cart-chat';
-        container.innerHTML = `
-            <h5 style="margin-top: 15px; margin-bottom: 10px; color: #5d33fb;">💬 Podpora</h5>
-
-            <!-- Chat Messages Container -->
-            <div id="chat-messages" style="background: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 6px; padding: 8px; height: 200px; overflow-y: auto; margin-bottom: 8px; font-size: 12px;">
-                <div style="text-align: center; color: #999; padding: 10px;">
-                    Ahoj! 👋 Ako ti môžem pomôcť?
-                </div>
-            </div>
-
-            <!-- Chat Input Group -->
-            <div class="chat-input-group" style="display: flex; gap: 6px; margin-bottom: 10px;">
-                <input id="chat-input"
-                       type="text"
-                       class="form-control"
-                       placeholder="Napíš otázku..."
-                       style="font-size: 12px; padding: 6px;"
-                       aria-label="Chat message input" />
-                <button id="chat-send-btn"
-                        class="btn btn-sm btn-primary"
-                        style="font-size: 12px; padding: 6px 10px; white-space: nowrap;"
-                        aria-label="Send message">
-                    <i class="fa fa-send" aria-hidden="true"></i>
-                </button>
-            </div>
-
-            <!-- Quick Help Section -->
-            <div style="background: #e7f3ff; padding: 8px; border-radius: 4px; border-left: 3px solid #5d33fb; font-size: 11px; color: #333; line-height: 1.4;">
-                <p style="margin: 0 0 6px 0;"><strong style="color: #5d33fb;">Skratky:</strong></p>
-                <p style="margin: 2px 0;">💰 cena | 🚚 doprava | 💳 platba</p>
-                <p style="margin: 2px 0;">🛍️ produkty | 🎁 zľava | 📞 kontakt</p>
-            </div>
-        `;
-
-        // Attach event listeners after rendering
-        const chatSendBtn = document.getElementById('chat-send-btn');
-        const chatInput = document.getElementById('chat-input');
-
-        if (chatSendBtn) {
-            chatSendBtn.addEventListener('click', sendMessage);
-        }
-
         if (chatInput) {
-            chatInput.addEventListener('keypress', function (e) {
+            chatInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
-                    sendMessage();
+                    sendChatMessage();
                 }
             });
         }
-    }
 
-    // Initialize when DOM is ready
-    document.addEventListener('DOMContentLoaded', function () {
-        initializeChatUI();
+        // Display welcome message
+        const chatMessages = document.getElementById('chat-messages');
+        if (chatMessages && chatMessages.children.length === 0) {
+            const welcomeDiv = document.createElement('div');
+            welcomeDiv.className = 'chat-message bot';
+            welcomeDiv.innerHTML = '<strong>🤖 Support:</strong> Ahoj! 👋 Ako ti môžem pomôcť? Napíš <strong>pomoc</strong> pre ponuku otázok.';
+            chatMessages.appendChild(welcomeDiv);
+        }
     });
+
 })();
