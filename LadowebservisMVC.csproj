@@ -598,7 +598,6 @@
     <Compile Include="Util\TextTemplateParam.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\DB.sql" />
     <Content Include="App_Data\_dbEshop.sql" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />

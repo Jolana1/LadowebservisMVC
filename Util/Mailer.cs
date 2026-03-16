@@ -274,7 +274,7 @@ namespace LadowebservisMVC.Util
                 </div>
                 <div class='product-title'>💊 Balance Oil - Omega 3</div>
                 <p>Prírodný Omega-3 olej pre zdravé srdce a mozog. Esenciálne mastné kyseliny pre vaše zdravie.</p>
-                <p><strong>Výhody:</strong> Podporuje srdcové zdravie, zlepšuje mozkovú funkciu, mení sa v kĺboch</p>
+                <p><strong>Výhody:</strong> Podporuje srdcovocievne zdravie, zlepšuje mozgovú funkciu.Obsahuje vysoký obsah Omega3 mastných kyselín a vitamínu D3.Podporuje normálne hladiny triglyceridov v krvi, normálny krvný tlak a normálne hladiny vápnika v krvi.</p>
                 <a href='https://ladowebservis.sk/Home/Produkty?q=balance' class='button'>Pozrieť →</a>
             </div>
 
@@ -285,7 +285,7 @@ namespace LadowebservisMVC.Util
                 </div>
                 <div class='product-title'>🔬 Zinobiotic - Prémiové probiotiká</div>
                 <p>Moderné probiotiká s klinicky študovanými bakteriálnymi kmeňmi pre zdravý tráviaci systém.</p>
-                <p><strong>Výhody:</strong> Zdravé trávenie, silná imunita, zdravá pokožka zvnútra</p>
+                <p><strong>Výhody:</strong> Zdravé trávenie, silná imunita, pomáha udržiavať optimálnu hladinu cholesterolu vo vašom tele.</p>
                 <a href='https://ladowebservis.sk/Home/Produkty?q=zinobiotic' class='button'>Pozrieť →</a>
             </div>
 
