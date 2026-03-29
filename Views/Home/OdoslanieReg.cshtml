@@ -3,23 +3,237 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-center" style="padding-top:2rem;padding-bottom:2rem;">
-            <div class="well" style="background:transparent;border:none;">
-                <div class="alert alert-success" role="alert" style="background:rgba(93,51,251,0.06);border-color:rgba(93,51,251,0.25);color:#fff;">
-                    <h2 style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb;margin-top:0;">Ďakujeme za registráciu</h2>
-                    <p style="color:#ffffff;margin:0.5rem 0 0;">Vaša registrácia a správa boli úspešne odoslané.</p>
-                    <p style="color:#ffffff;margin:0.5rem 0 0;">Your message has been sent successfully. Thank you for your registration.</p>
-                </div>
+<style>
+    /* ========== SUCCESS PAGE STYLES (Registration) ========== */
+    .success-container {
+        max-width: 800px;
+        margin: 60px auto;
+        padding: 0 20px;
+    }
 
-                <div class="btn-group" role="group" aria-label="Akcie po registracii" style="margin-top:1rem;">
-                    <a href="@Url.Action("Zdravie","Home")" class="btn btn-primary" role="button">Späť na úvod</a>
-                    <a href="@Url.Action("MemberInfo","Home")" class="btn btn-default" role="button">Prejsť do členskej sekcie</a>
-                </div>
+    .success-box {
+        background: linear-gradient(135deg, #f0fff4 0%, #e8f5e9 100%);
+        border: 3px solid #28a745;
+        border-radius: 12px;
+        padding: 60px 40px;
+        text-align: center;
+        box-shadow: 0 15px 40px rgba(40, 167, 69, 0.2);
+        animation: slideUp 0.6s ease;
+        position: relative;
+        overflow: hidden;
+    }
 
-                <p class="small" style="color:#ddd;margin-top:1rem;">Ak potrebujete pomoc, kontaktujte nás cez formulár alebo e‑mail.</p>
-            </div>
+        .success-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(40, 167, 69, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(40, 167, 69, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .success-box > * {
+            position: relative;
+            z-index: 1;
+        }
+
+    @@keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .success-icon {
+        font-size: 80px;
+        color: #28a745;
+        margin-bottom: 20px;
+        display: inline-block;
+        animation: checkmark 0.8s ease;
+    }
+
+    @@keyframes checkmark {
+        0% {
+            transform: scale(0) rotate(-45deg);
+        }
+
+        50% {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        100% {
+            transform: scale(1) rotate(0deg);
+        }
+    }
+
+    .success-box h2 {
+        color: #28a745;
+        font-size: 36px;
+        font-weight: 700;
+        margin: 0 0 15px 0;
+        line-height: 1.3;
+    }
+
+    .success-subtitle {
+        color: #555;
+        font-size: 18px;
+        margin: 15px 0 25px 0;
+        line-height: 1.6;
+    }
+
+    .success-message {
+        background: #fff;
+        border-left: 4px solid #28a745;
+        padding: 25px;
+        border-radius: 8px;
+        margin: 30px 0;
+        text-align: left;
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.1);
+    }
+
+        .success-message h4 {
+            color: #28a745;
+            margin: 0 0 15px 0;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .success-message p {
+            color: #555;
+            margin: 10px 0;
+            font-size: 15px;
+        }
+
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 35px;
+    }
+
+    .btn-action {
+        padding: 15px 35px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+    .btn-action-primary {
+        background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+        color: #fff;
+    }
+
+        .btn-action-primary:hover {
+            background: linear-gradient(135deg, #4a2fb5 0%, #3a1fa5 100%);
+            color: #fff;
+        }
+
+    .btn-action-secondary {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: #fff;
+    }
+
+        .btn-action-secondary:hover {
+            background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);
+            color: #fff;
+        }
+
+    @@media (max-width: 768px) {
+        .success-box {
+            padding: 40px 25px;
+        }
+
+        .success-icon {
+            font-size: 60px;
+        }
+
+        .success-box h2 {
+            font-size: 28px;
+        }
+
+        .action-buttons {
+            flex-direction: column;
+        }
+
+        .btn-action {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .success-message {
+            text-align: center;
+            border-left: none;
+            border-top: 4px solid #28a745;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .success-container {
+            margin: 40px auto;
+        }
+
+        .success-box {
+            padding: 30px 20px;
+        }
+
+        .success-icon {
+            font-size: 50px;
+        }
+
+        .success-box h2 {
+            font-size: 24px;
+        }
+
+        .success-subtitle {
+            font-size: 16px;
+        }
+
+        .btn-action {
+            padding: 12px 24px;
+            font-size: 14px;
+        }
+    }
+</style>
+
+<div class="success-container">
+    <div class="success-box">
+        <div class="success-icon">✓</div>
+        <h2>Registrácia bola úspešná!</h2>
+        <p class="success-subtitle">
+            Ďakujeme za registráciu. Na váš email sme poslali potvrdenie.
+        </p>
+
+        <div class="success-message">
+            <h4>Čo ďalej?</h4>
+            <p>✓ Prihláste sa a využite členské výhody</p>
+            <p>✓ Pozrite si produkty a použite zľavový kód v košíku</p>
+            <p>✓ V prípade otázok nám napíšte – radi poradíme</p>
+        </div>
+
+        <div class="action-buttons">
+            <a href="@Url.Action("Zdravie","Home")" class="btn-action btn-action-primary">Späť na Domov</a>
+            <a href="@Url.Action("Login","Home")" class="btn-action btn-action-secondary">Prihlásiť sa</a>
         </div>
     </div>
 </div>

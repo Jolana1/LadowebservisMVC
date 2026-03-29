@@ -491,6 +491,25 @@ namespace LadowebservisMVC.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public ActionResult DownloadEbookFile()
+        {
+            try
+            {
+                var filePath = Server.MapPath("~/App_Data/MailAttachment.pdf");
+                if (string.IsNullOrWhiteSpace(filePath) || !System.IO.File.Exists(filePath))
+                {
+                    return HttpNotFound();
+                }
+
+                return File(filePath, "application/pdf", "Ebook_Pat_prirodzenych_ciest_k_vacsej_energii.pdf");
+            }
+            catch
+            {
+                return HttpNotFound();
+            }
+        }
+
         // Error page with proper error handling
         public ActionResult Error()
         {

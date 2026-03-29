@@ -598,7 +598,6 @@
     <Compile Include="Util\TextTemplateParam.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\_dbEshop.sql" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -1030,12 +1029,6 @@
     <Content Include="Views\Home\OdoslanieSpravy.cshtml" />
     <Content Include="Views\Home\RegistraciaOdoslana.cshtml" />
     <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="styles\bootstrap\bootstrap-grid.css.map" />
@@ -1061,6 +1054,7 @@
     <Content Include="Views\Home\ReturnPolicy.cshtml" />
     <Content Include="Views\Home\Gdpr.cshtml" />
     <Content Include="Views\Home\Unsubscribe.cshtml" />
+    <Content Include="Views\Home\DownloadEbook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Image\corepack\dist\lib\" />

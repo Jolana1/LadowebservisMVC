@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Zdravie v rovnováhe - Začnite Novým rokom 2026";
+    ViewBag.Title = "Zdravie v rovnováhe - Začnite svoj reštart zdravia";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,45 +12,146 @@
     .hero-section {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: #fff;
-        padding: 60px 20px;
+        padding: 80px 20px;
         text-align: center;
         border-radius: 12px;
         margin-bottom: 40px;
         box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        position: relative;
+        overflow: hidden;
     }
 
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-section > * {
+            position: relative;
+            z-index: 1;
+        }
+
         .hero-section h1 {
-            font-size: 42px;
+            font-size: 48px;
             font-weight: 700;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            line-height: 1.3;
         }
 
-        .hero-section .lead {
-            font-size: 20px;
-            margin-bottom: 30px;
-            line-height: 1.6;
+    .hero-subtitle {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        opacity: 0.95;
+    }
+
+    .hero-tagline {
+        font-size: 18px;
+        margin-bottom: 30px;
+        opacity: 0.9;
+        font-style: italic;
+    }
+
+    .hero-offer-highlight {
+        background: rgba(255, 255, 255, 0.15);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        padding: 20px 30px;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        margin: 20px auto;
+        display: inline-block;
+        max-width: 500px;
+        backdrop-filter: blur(10px);
+    }
+
+    .urgency-timer {
+        display: inline-block;
+        background: rgba(255, 107, 107, 0.9);
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 700;
+        margin-top: 10px;
+        animation: pulse 2s infinite;
+    }
+
+    @@keyframes pulse {
+        0%, 100% {
+            opacity: 1;
         }
+
+        50% {
+            opacity: 0.8;
+        }
+    }
 
     .cta-primary {
-        background: #28a745;
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
         color: #fff !important;
-        padding: 18px 40px;
+        padding: 18px 50px;
         font-size: 18px;
         font-weight: 700;
         border-radius: 8px;
         text-decoration: none;
         display: inline-block;
-        box-shadow: 0 8px 20px rgba(40,167,69,0.3);
+        box-shadow: 0 8px 20px rgba(40,167,69,0.4);
         transition: all 0.3s ease;
         border: none;
         cursor: pointer;
+        position: relative;
+        overflow: hidden;
     }
 
+        .cta-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.3s ease;
+        }
+
+        .cta-primary:hover::before {
+            left: 100%;
+        }
+
         .cta-primary:hover {
-            background: #218838;
+            background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);
             transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(40,167,69,0.4);
+            box-shadow: 0 12px 30px rgba(40,167,69,0.5);
+            color: #fff !important;
+        }
+
+    .cta-secondary {
+        background: #ff9800;
+        color: #fff !important;
+        padding: 14px 40px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 8px;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: 0 6px 18px rgba(255, 152, 0, 0.4);
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+        .cta-secondary:hover {
+            background: #ff7c00;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 152, 0, 0.5);
             color: #fff !important;
         }
 
@@ -130,22 +231,79 @@
     .urgency-banner {
         background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
         color: #fff;
-        padding: 20px;
+        padding: 25px;
         text-align: center;
         border-radius: 8px;
         margin: 30px 0;
         font-weight: 600;
         font-size: 18px;
-        box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+        box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        animation: slideDown 0.5s ease;
+    }
+
+    @@keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .urgency-banner strong {
+        font-size: 20px;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .urgency-subtext {
+        font-size: 14px;
+        opacity: 0.95;
     }
 
     .special-offer-box {
         background: linear-gradient(135deg, #fff5e6 0%, #ffe0b2 100%);
         border: 3px solid #ff9800;
         border-radius: 12px;
-        padding: 40px;
-        box-shadow: 0 10px 30px rgba(255, 152, 0, 0.2);
+        padding: 50px;
+        box-shadow: 0 15px 40px rgba(255, 152, 0, 0.25);
         margin-bottom: 40px;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .special-offer-box::before {
+            content: '🎁';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.08;
+            right: -30px;
+            top: -30px;
+            transform: rotate(-15deg);
+        }
+
+        .special-offer-box * {
+            position: relative;
+            z-index: 1;
+        }
+
+    .offer-header {
+        color: #ff9800;
+        font-weight: 700;
+        margin-bottom: 30px;
+        font-size: 28px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.08);
+    }
+
+    .offer-subtitle {
+        color: #d97706;
+        font-size: 16px;
+        margin-bottom: 20px;
+        font-weight: 600;
     }
 
     .product-feature-list {
@@ -209,12 +367,12 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.12);
         }
 
-    .step-item strong {
-        color: #5d33fb;
-        font-size: 18px;
-        display: block;
-        margin-bottom: 10px;
-    }
+        .step-item strong {
+            color: #5d33fb;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 10px;
+        }
 
     .guarantee-box {
         background: linear-gradient(135deg, #e7f3ff 0%, #f0e6ff 100%);
@@ -234,16 +392,16 @@
         border-left: 4px solid #5d33fb;
     }
 
-    .faq-item h4 {
-        color: #5d33fb;
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
+        .faq-item h4 {
+            color: #5d33fb;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
 
-    .faq-item p {
-        color: #666;
-        margin: 0;
-    }
+        .faq-item p {
+            color: #666;
+            margin: 0;
+        }
 
     .trust-badges {
         background: #f8f9fa;
@@ -254,32 +412,134 @@
         font-size: 14px;
     }
 
-    .container {
-        max-width: 1200px;
+    /* Match layout sizing behavior with Produkty page */
+    .zdravie-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+        margin-top: 30px;
     }
 
-    @@media (max-width: 768px) {
-        .hero-section h1 {
+    @@media (max-width: 1200px) {
+        .special-offer-box {
+            padding: 35px;
+        }
+
+        .hero-section {
+            padding: 60px 20px;
+        }
+
+            .hero-section h1 {
+                font-size: 40px;
+            }
+
+        .offer-header {
+            font-size: 24px;
+        }
+    }
+
+    @@media (max-width: 992px) {
+        .special-offer-box {
+            padding: 30px;
+        }
+
+        .offer-header {
+            font-size: 22px;
+        }
+
+        .product-feature-list {
+            font-size: 15px;
+            text-align: left;
+        }
+
+            .product-feature-list li {
+                margin-bottom: 8px;
+            }
+
+        .section-title {
             font-size: 28px;
         }
 
-        .hero-section .lead {
+        .cta-primary {
+            padding: 16px 40px;
             font-size: 16px;
         }
 
-        .section-title {
-            font-size: 26px;
+        .cta-secondary {
+            padding: 12px 30px;
+            font-size: 15px;
+            margin-left: 5px;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .hero-section {
+            padding: 50px 15px;
+            margin-bottom: 30px;
+        }
+
+            .hero-section h1 {
+                font-size: 26px;
+                margin-bottom: 15px;
+            }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .hero-tagline {
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .hero-offer-highlight {
+            padding: 15px 20px;
+            font-size: 14px;
+            margin: 15px auto;
         }
 
         .cta-primary {
             padding: 14px 30px;
-            font-size: 16px;
+            font-size: 14px;
             width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .cta-secondary {
+            padding: 12px 25px;
+            font-size: 13px;
+            width: 100%;
+            margin-left: 0;
+        }
+
+        .section-title {
+            font-size: 24px;
         }
 
         .special-offer-box {
             padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
         }
+
+        .offer-header {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .offer-subtitle {
+            font-size: 14px;
+        }
+
+        .product-feature-list {
+            font-size: 14px;
+            text-align: left;
+        }
+
+            .product-feature-list li {
+                margin-bottom: 6px;
+            }
 
         .benefit-card {
             padding: 20px;
@@ -295,113 +555,441 @@
 
         .stat-item {
             min-width: 100%;
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 40px;
         }
 
         .urgency-banner {
             font-size: 14px;
             padding: 15px;
+            margin: 20px 0;
+        }
+
+            .urgency-banner strong {
+                font-size: 16px;
+                margin-bottom: 8px;
+            }
+
+        .urgency-subtext {
+            font-size: 12px;
         }
 
         .process-steps {
             grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .step-item {
+            padding: 20px;
         }
 
         .guarantee-box {
             padding: 25px;
         }
-    }
 
-    @@media (max-width: 576px) {
-        .hero-section {
-            padding: 40px 15px;
+        .problem-card {
+            padding: 20px;
+            margin-bottom: 15px;
         }
 
-        .hero-section h1 {
-            font-size: 24px;
+        .problem-icon {
+            font-size: 36px;
         }
 
-        .section-title {
-            font-size: 22px;
+        .faq-item {
+            padding: 20px;
+            margin-bottom: 15px;
         }
 
         h3 {
             font-size: 18px;
         }
 
-        .special-offer-box {
-            padding: 20px;
-            border-width: 2px;
+        .trust-badges {
+            padding: 15px;
+            font-size: 12px;
         }
 
-        .product-feature-list {
+        .urgency-timer {
+            font-size: 12px;
+            padding: 8px 15px;
+            margin-top: 8px;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .hero-section {
+            padding: 35px 12px;
+            margin-bottom: 20px;
+        }
+
+            .hero-section h1 {
+                font-size: 22px;
+                margin-bottom: 10px;
+            }
+
+        .hero-subtitle {
             font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .hero-tagline {
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .hero-offer-highlight {
+            padding: 12px 15px;
+            font-size: 12px;
+            margin: 12px auto;
+        }
+
+        .section-title {
+            font-size: 20px;
         }
 
         .cta-primary {
-            font-size: 14px;
+            font-size: 13px;
             padding: 12px 20px;
+            margin-bottom: 8px;
         }
+
+        .cta-secondary {
+            font-size: 12px;
+            padding: 10px 18px;
+        }
+
+        .special-offer-box {
+            padding: 20px;
+            border-width: 2px;
+            margin-bottom: 20px;
+        }
+
+        .offer-header {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .offer-subtitle {
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .product-feature-list {
+            font-size: 13px;
+        }
+
+            .product-feature-list li {
+                margin-bottom: 5px;
+            }
 
         .benefit-card {
             padding: 15px;
         }
 
+        .benefit-icon {
+            font-size: 32px;
+        }
+
         .stat-number {
-            font-size: 36px;
+            font-size: 32px;
+        }
+
+        .problem-card {
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .problem-icon {
+            font-size: 32px;
+        }
+
+        .step-item {
+            padding: 15px;
+        }
+
+            .step-item strong {
+                font-size: 15px;
+            }
+
+            .step-item p {
+                font-size: 13px;
+            }
+
+        .faq-item {
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+
+            .faq-item h4 {
+                font-size: 14px;
+            }
+
+            .faq-item p {
+                font-size: 12px;
+            }
+
+        .guarantee-box {
+            padding: 20px;
+        }
+
+            .guarantee-box h3 {
+                font-size: 16px;
+            }
+
+            .guarantee-box p {
+                font-size: 14px;
+            }
+
+        .trust-badges {
+            padding: 12px;
+            font-size: 11px;
+        }
+
+        .urgency-banner {
+            font-size: 12px;
+            padding: 12px;
+            margin: 15px 0;
+        }
+
+            .urgency-banner strong {
+                font-size: 14px;
+            }
+
+            .urgency-banner > div {
+                font-size: 13px;
+            }
+
+        .urgency-timer {
+            font-size: 11px;
+            padding: 6px 12px;
+            margin-top: 6px;
+        }
+
+        h3 {
+            font-size: 16px;
+        }
+
+        .zdravie-container {
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-top: 20px;
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .hero-section {
+            padding: 30px 10px;
+        }
+
+            .hero-section h1 {
+                font-size: 20px;
+                line-height: 1.3;
+            }
+
+        .hero-subtitle {
+            font-size: 14px;
+        }
+
+        .hero-tagline {
+            font-size: 12px;
+        }
+
+        .hero-offer-highlight {
+            padding: 10px 12px;
+            font-size: 11px;
+            margin: 10px auto;
+        }
+
+        .section-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .cta-primary {
+            font-size: 12px;
+            padding: 10px 15px;
+        }
+
+        .cta-secondary {
+            font-size: 11px;
+            padding: 8px 15px;
+        }
+
+        .special-offer-box {
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .offer-header {
+            font-size: 16px;
+        }
+
+        .price-badge {
+            font-size: 14px;
+            padding: 6px 15px;
+        }
+
+        .urgency-banner {
+            font-size: 11px;
+            padding: 10px;
+        }
+
+        .zdravie-container {
+            padding-left: 8px;
+            padding-right: 8px;
+            margin-top: 15px;
         }
     }
 </style>
 
-<div class="container mt-5">
+<div class="zdravie-container">
     <!-- ===== HERO SECTION ===== -->
     <div class="hero-section mb-5">
-        <h1>🚀 Inspire change in life - Poskytujeme prvotriedne a vedecky overené výživové doplnky. Začnite Svoj Reštart </h1>
-        <p class="lead">Objavte, čo Vášmu telu chýba a obnovte prirodzenú rovnováhu</p>
-        <p style="font-size: 18px; opacity: 0.95;">Vedecky overené riešenie s 95% úspešnosťou</p>
+        <h1>🚀 Inspire Change in Life - Zdravie Vo Vašich Rukách</h1>
+        <p class="hero-subtitle">Vedecky Overené Riešenie s 95% Úspešnosťou</p>
+        <p class="hero-tagline">"Obnovte Prirodzenú Rovnováhu Vášho Tela Bez Chémie"</p>
+
+        <div class="hero-offer-highlight">
+            ✨ <strong>BALANCE BALÍK</strong> - Komplexné 120-dňové riešenie pre zdravie
+        </div>
+
+        <div>
+            <a href="@Url.Action("Produkty","Home")" class="cta-primary">
+                <i class="fa fa-shopping-cart"></i> ZAČNITE TERAZ - 10% ZĽAVA
+            </a>
+            <a href="#special-offer" class="cta-secondary">
+                <i class="fa fa-info-circle"></i> Zásady Ponuky
+            </a>
+        </div>
+
+        <div class="urgency-timer">
+            ⏱️ Ponuka platná: do 30.4.2026 alebo do vyčerpania zásob
+        </div>
     </div>
 
     <!-- ===== URGENCY BANNER ===== -->
     <div class="urgency-banner">
-        ⏰ LIMITOVANÁ PONUKA: Iba prvých 50 zákazníkov dostane 10% zľavu na Balance balík + DARČEK ZDARMA
-        <br/><small style="opacity: 0.9;">Platnosť: do 20.3.2026 alebo do vyčerpania zásob</small>
+        <strong>⚠️ LIMITOVANÁ PONUKA!</strong>
+        <div style="font-size: 16px; margin: 10px 0;">
+            Iba prvých 50 zákazníkov dostane:
+            <br>✅ 10% ZĽAVU na Balance balík
+            <br>✅ BALZAM ZDARMA
+            <br>✅ DOPRAVU ZDARMA
+        </div>
+        <div class="urgency-subtext">
+            Stav zásob: <strong id="stockCounter">48 balíkov</strong> - Rýchlo sa vypredáva! ⚡
+        </div>
     </div>
 
     <!-- ===== MAIN OFFER ===== -->
     <div class="row mb-5">
         <div class="col-12">
-            <div class="special-offer-box">
-                <h2 class="text-center" style="color: #ff9800; font-weight: 700; margin-bottom: 25px;">
+            <div class="special-offer-box" id="special-offer">
+                <h2 class="offer-header text-center">
                     🎁 BALANCE BALÍK - KOMPLEXNÉ RIEŠENIE PRE ZDRAVIE
                 </h2>
+                <p class="offer-subtitle text-center">
+                    ✅ Všetko čo potrebujete na 120 dní komplexnej starostlivosti o zdravie
+                </p>
 
                 <div class="row align-items-center">
                     <div class="col-md-6 text-center mb-4 mb-md-0">
-                        <div style="background: #fff; padding: 20px; border-radius: 10px;">
+                        <div style="background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
                             <img src="~/Image/BalanceOil.png" alt="Balance Oil" class="img-fluid" style="max-width: 200px; border-radius: 8px; margin-bottom: 15px;">
-                            <h4 style="color: #ff9800;">Balance Oil + Zinobiotic + ZinzinoxTend</h4>
-                            <p style="color: #666; font-size: 14px;">120 dní komplexnej starostlivosti</p>
+                            <h4 style="color: #ff9800; font-weight: 700;">Balance Oil + Zinobiotic + ZinzinoXtend + CollagenBoozt</h4>
+                            <p style="color: #d97706; font-size: 14px; font-weight: 600;">Limitovaná edícia - Platnosť do 30.4.2026</p>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <ul class="product-feature-list">
-                            <li>✅ <strong>Balance Oil 300ml</strong> - Omega 3 (hodnota 61€)</li>
-                            <li>✅ <strong>Zinobiotic</strong> - Probiotiká (hodnota 40€)</li>
-                            <li>✅ <strong>ZinzinoxTend</strong> - Imunita + výživa (hodnota 44€)</li>
-                            <li>✅ <strong>CollagenBoozt</strong> - Pleť + kĺby (-10%, 58,50€)</li>
-                            <li>✅ <strong>BONUS:</strong> Balzam ZDARMA</li>
-                            <li>✅ <strong>Doprava ZDARMA</strong> v SR</li>
-                            <li>✅ <strong>Osobné poradenstvo</strong></li>
+                        <ul class="product-feature-list" style="text-align: left;">
+                            <li>✅ <strong>Balance Oil 300ml</strong> - Omega 3 (Pôvodná hodnota: 61€)</li>
+                            <li>✅ <strong>Zinobiotic</strong> - Probiotiká (Pôvodná hodnota: 40€)</li>
+                            <li>✅ <strong>ZinzinoXtend</strong> - Imunita + výživa (Pôvodná hodnota: 44€)</li>
+                            <li>✅ <strong>CollagenBoozt</strong> - Pleť + kĺby (Pôvodná hodnota: 65€)</li>
+                            <li style="color: #28a745; font-weight: 700; font-size: 16px;">🎁 <strong>BONUS: Balzam ZDARMA</strong> (Hodnota: 3€)</li>
+                            <li style="color: #28a745; font-weight: 700;">🚚 <strong>Doprava ZDARMA</strong> v SR</li>
+                            <li style="color: #5d33fb; font-weight: 700;">👤 <strong>Zarábajte Body za Nákupy</strong> Každý úspešný nákup = Body do Vášho reg.konta!Príklad: Pri nákupe za 210€ získate 21€ v bodoch</li>
+
                         </ul>
                     </div>
                 </div>
 
-                <div class="text-center mt-4">
+                <div class="text-center mt-4" style="padding: 30px; background: rgba(255,255,255,0.6); border-radius: 8px;">
                     <div style="margin-bottom: 20px;">
                         <span class="price-badge">PROMO KÓD: NOVYROK26 = 10% ZĽAVA</span>
                     </div>
-                    <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" target="_blank" class="cta-primary">
-                        🛒 ÁNO, CHCEM BALANCE BALÍK S BONUSOM!
+
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: #ff9800; margin: 15px 0; font-weight: 700;">
+                            CELKOVÁ HODNOTA BALÍKA: <span style="font-size: 28px;">213€</span>
+                        </h3>
+                        <p style="color: #d97706; font-size: 16px; font-weight: 600;">
+                            Vaša cena: <span style="font-size: 24px; color: #28a745;">210€</span> (Ušetríte 3€)
+                        </p>
+                    </div>
+
+                    <div style="margin-bottom: 25px; padding: 15px; background: rgba(40, 167, 69, 0.1); border-radius: 6px; border: 2px dashed #28a745;">
+                        <p style="color: #28a745; font-weight: 700; margin: 0; font-size: 16px;">
+                            ✅ Plus 10% ZĽAVA kódom <strong>NOVYROK26</strong> = Ušetríte dodatočne 21,00€!<br>
+                            <strong style="font-size: 18px; color: #ff6b6b;">Finálna cena: 189,00€</strong>
+                        </p>
+                    </div>
+
+
+
+                    <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
+                        <i class="fa fa-credit-card"></i>🚀 ÁNO! CHCEM BALANCE BALÍK S BONUSOM - KÚPIŤ TERAZ
                     </a>
+                    <p style="color: #666; font-size: 13px; margin-top: 15px;">
+                        ✅ 30-dňová záruka vrátenia peňazí | 🚚 Bezplatná doprava | 📧 Osobná podpora
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FEATURED PRODUCT: ZinzinoXtend ===== -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="section-title">💪 Imunita & Výživa: ZinzinoXtend</h2>
+        </div>
+        <div class="col-12">
+            <div class="special-offer-box" style="background: linear-gradient(135deg, #f0fff4 0%, #e8f5e9 100%); border-color: #28a745;">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 col-md-6 text-center mb-4 mb-md-0">
+                        <img src="~/Image/ZinzinoXtend.png" alt="ZinzinoXtend" class="img-fluid" style="max-width: 250px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.15);">
+                    </div>
+                    <div class="col-lg-7 col-md-6">
+                        <h3 style="color: #28a745; font-weight: 700;">💊 ZinzinoXtend</h3>
+                        <p style="font-size: 18px; color: #2c3e50; margin-bottom: 20px;">
+                            Kompletný imunitný a výživový doplnok s <strong>23 vitamínmi a minerálmi</strong> pre silnú imunitu a zdravie.
+                        </p>
+                        <ul style="font-size: 16px; color: #2c3e50; line-height: 1.8; list-style: none; padding-left: 0;">
+                            <li>🛡️ <strong>23 Vitamínov & Minerálov</strong> pre silnú imunitu</li>
+                            <li>🌿 <strong>Prírodné Ingrediencie</strong> z organických zdrojov</li>
+                            <li>⚡ <strong>Energia & Vitalita</strong> po celý deň</li>
+                            <li>🧠 <strong>Kognitívna Funkcia</strong> - podpora mozgu</li>
+                            <li>🦴 <strong>Silné Kosti</strong> - vápnik a vitamín D</li>
+                        </ul>
+                        <div class="mt-4">
+                            <p style="font-size: 20px; margin-bottom: 10px;">
+                                <span style="text-decoration: line-through; color: #999;">Pôvodná cena: 44,00€</span>
+                            </p>
+                            <p style="font-size: 28px; color: #28a745; font-weight: 700; margin-bottom: 15px;">
+                                Akciová cena s kódom NOVYROK26: 39,60€ <span style="font-size: 18px; color: #ff9800;">(ušetríte 4,40€)</span>
+                            </p>
+                            <a href='@Url.Action("Produkty","Home", new { q = "xtend" })' class="cta-primary" style="background: #28a745;">
+                                🛒 Chcem ZinzinoXtend
+                            </a>
+                        </div>
+                        <p style="font-size: 13px; color: #666; margin-top: 15px;">
+                            ✅ 30-dňová záruka vrátenia | 🚚 Bezplatná doprava | 📧 Osobná podpora
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -441,6 +1029,9 @@
                                 🛒 Chcem iba CollagenBoozt
                             </a>
                         </div>
+                        <p style="font-size: 13px; color: #666; margin-top: 15px;">
+                            ✅ 30-dňová záruka vrátenia | 🚚 Bezplatná doprava | 📧 Osobná podpora
+                        </p>
                     </div>
                 </div>
             </div>
@@ -705,7 +1296,7 @@
                     s našimi vedecky overenými produktami
                 </p>
                 <p style="font-size: 16px; opacity: 0.9; margin-bottom: 25px;">
-                    ⏰ Ponuka platí iba do vyčerpania zásob alebo do 20.3.2026
+                    ⏰ Ponuka platná: do 30.4.2026 alebo do vyčerpania zásob
                 </p>
                 <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" target="_blank" class="cta-primary">
                     🛒 ÁNO, CHCEM BALANCE BALÍK TERAZ!
@@ -728,6 +1319,84 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Stock counter animation - simulates real-time stock depletion
+    (function() {
+        var initialStock = 50;
+        var currentStock = 48;
+        var stockCounter = document.getElementById('stockCounter');
+
+        // Simulate stock depletion every few minutes
+        function updateStock() {
+            if (currentStock > 5) {
+                currentStock = Math.max(5, currentStock - Math.floor(Math.random() * 3));
+                if (stockCounter) {
+                    stockCounter.textContent = currentStock + ' balíkov';
+
+                    // Add urgency if stock is low
+                    if (currentStock <= 10) {
+                        stockCounter.style.color = '#ff6b6b';
+                        stockCounter.style.fontWeight = '700';
+                    }
+                }
+            }
+        }
+
+        // Update stock every 5-10 minutes
+        setInterval(updateStock, Math.random() * 300000 + 300000);
+
+        // Animate hero buttons on page load
+        window.addEventListener('load', function() {
+            var buttons = document.querySelectorAll('.cta-primary, .cta-secondary');
+            buttons.forEach(function(btn, index) {
+                setTimeout(function() {
+                    btn.style.animation = 'slideDown 0.5s ease';
+                }, index * 200);
+            });
+        });
+
+        // Smooth scroll to offer section
+        var offerLink = document.querySelector('a[href="#special-offer"]');
+        if (offerLink) {
+            offerLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                var target = document.getElementById('special-offer');
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

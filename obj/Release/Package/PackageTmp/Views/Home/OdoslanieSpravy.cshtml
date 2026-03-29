@@ -2,45 +2,469 @@
     ViewBag.Title = "OdoslanieSpravy";
 }
 
-<!--<div class="container card pt-4">
-    <div class="row justify-content-center">
-        <div class="col-12 col-sm-10 col-md-8 col-lg-6">
-            <div class="card text-center p-4">
-                <h2 class="mb-3">
-                    Správa bola odoslaná. Ďakujeme za váš e‑mail.
-                    <br />
-                    <small class="text-muted">Your message has been successfully sent.</small>
-                </h2>-->
+<style>
+    /* ========== SUCCESS PAGE STYLES ========== */
+    .success-container {
+        max-width: 800px;
+        margin: 60px auto;
+        padding: 0 20px;
+    }
 
-                @*<p class="mb-3">
-                    <a href='@Url.Action("DownloadEbook", "Home")' class="btn btn-secondary btn-sm mb-2">Stiahnuť e‑book (PDF)</a>
-                </p>*@
+    /* Success Box */
+    .success-box {
+        background: linear-gradient(135deg, #f0fff4 0%, #e8f5e9 100%);
+        border: 3px solid #28a745;
+        border-radius: 12px;
+        padding: 60px 40px;
+        text-align: center;
+        box-shadow: 0 15px 40px rgba(40, 167, 69, 0.2);
+        animation: slideUp 0.6s ease;
+        position: relative;
+        overflow: hidden;
+    }
 
-                <!--<p>
-                    <a href='@Url.Action("Zdravie","Home",new {area = "Ladowebservis"})' class="btn btn-primary btn-md tlacitko-moje">Späť na úvod</a>
-                </p>
-            </div>
+        .success-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(40, 167, 69, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(40, 167, 69, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .success-box > * {
+            position: relative;
+            z-index: 1;
+        }
+
+    @@keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .success-icon {
+        font-size: 80px;
+        color: #28a745;
+        margin-bottom: 20px;
+        display: inline-block;
+        animation: checkmark 0.8s ease;
+    }
+
+    @@keyframes checkmark {
+        0% {
+            transform: scale(0) rotate(-45deg);
+        }
+
+        50% {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        100% {
+            transform: scale(1) rotate(0deg);
+        }
+    }
+
+    .success-box h2 {
+        color: #28a745;
+        font-size: 36px;
+        font-weight: 700;
+        margin: 0 0 15px 0;
+        line-height: 1.3;
+    }
+
+    .success-subtitle {
+        color: #555;
+        font-size: 18px;
+        margin: 15px 0 25px 0;
+        line-height: 1.6;
+    }
+
+    /* What Happens Next */
+    .success-message {
+        background: #fff;
+        border-left: 4px solid #28a745;
+        padding: 25px;
+        border-radius: 8px;
+        margin: 30px 0;
+        text-align: left;
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.1);
+    }
+
+        .success-message h4 {
+            color: #28a745;
+            margin: 0 0 15px 0;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .success-message p {
+            color: #555;
+            margin: 10px 0;
+            font-size: 15px;
+        }
+
+    /* Action Buttons */
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 35px;
+    }
+
+    .btn-action {
+        padding: 15px 35px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+    .btn-action-primary {
+        background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+        color: #fff;
+    }
+
+        .btn-action-primary:hover {
+            background: linear-gradient(135deg, #4a2fb5 0%, #3a1fa5 100%);
+            color: #fff;
+        }
+
+    .btn-action-secondary {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: #fff;
+    }
+
+        .btn-action-secondary:hover {
+            background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);
+            color: #fff;
+        }
+
+    .btn-action-tertiary {
+        background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+        color: #fff;
+    }
+
+        .btn-action-tertiary:hover {
+            background: linear-gradient(135deg, #138496 0%, #0e6674 100%);
+            color: #fff;
+        }
+
+    /* Next Steps */
+    .next-steps {
+        background: linear-gradient(135deg, #e7f3ff 0%, #d0e8ff 100%);
+        border: 2px solid #5d33fb;
+        border-radius: 12px;
+        padding: 40px;
+        margin-top: 50px;
+    }
+
+        .next-steps h3 {
+            color: #5d33fb;
+            font-size: 22px;
+            margin: 0 0 25px 0;
+            font-weight: 700;
+        }
+
+    .steps-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 25px;
+    }
+
+    .step-item {
+        text-align: center;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+        .step-item:hover {
+            transform: translateY(-3px);
+            background: #fff;
+            box-shadow: 0 6px 16px rgba(93, 51, 251, 0.15);
+        }
+
+    .step-number {
+        background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+        color: #fff;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        margin: 0 auto 15px;
+        font-size: 20px;
+        box-shadow: 0 4px 12px rgba(93, 51, 251, 0.3);
+    }
+
+    .step-title {
+        color: #5d33fb;
+        font-weight: 700;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .step-description {
+        color: #555;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    /* Info Box */
+    .info-box {
+        background: #fff;
+        border-left: 4px solid #17a2b8;
+        padding: 25px;
+        border-radius: 8px;
+        margin-top: 25px;
+        color: #555;
+        font-size: 14px;
+        line-height: 1.7;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+        .info-box strong {
+            color: #17a2b8;
+            font-weight: 700;
+        }
+
+    .contact-box {
+        background: linear-gradient(135deg, #fff8e6 0%, #ffe0b2 100%);
+        border: 2px solid #ff9800;
+        border-radius: 8px;
+        padding: 25px;
+        margin-top: 25px;
+        color: #555;
+    }
+
+        .contact-box h4 {
+            color: #ff9800;
+            font-weight: 700;
+            margin: 0 0 15px 0;
+            font-size: 16px;
+        }
+
+        .contact-box p {
+            margin: 8px 0;
+        }
+
+        .contact-box a {
+            color: #5d33fb;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+            .contact-box a:hover {
+                text-decoration: underline;
+            }
+
+    /* Benefits List */
+    .benefits-list {
+        list-style: none;
+        padding: 0;
+        margin: 15px 0 0 0;
+    }
+
+        .benefits-list li {
+            padding: 10px 0;
+            color: #555;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+            .benefits-list li:last-child {
+                border-bottom: none;
+            }
+
+            .benefits-list li strong {
+                color: #28a745;
+            }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .success-box {
+            padding: 40px 25px;
+        }
+
+        .success-icon {
+            font-size: 60px;
+        }
+
+        .success-box h2 {
+            font-size: 28px;
+        }
+
+        .action-buttons {
+            flex-direction: column;
+        }
+
+        .btn-action {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .steps-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .next-steps {
+            padding: 30px 20px;
+        }
+
+        .success-message {
+            text-align: center;
+            border-left: none;
+            border-top: 4px solid #28a745;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .success-container {
+            margin: 40px auto;
+        }
+
+        .success-box {
+            padding: 30px 20px;
+        }
+
+        .success-icon {
+            font-size: 50px;
+        }
+
+        .success-box h2 {
+            font-size: 24px;
+        }
+
+        .success-subtitle {
+            font-size: 16px;
+        }
+
+        .btn-action {
+            padding: 12px 24px;
+            font-size: 14px;
+        }
+
+        .info-box {
+            font-size: 13px;
+        }
+    }
+</style>
+
+<div class="success-container">
+    <!-- Success Message -->
+    <div class="success-box">
+        <div class="success-icon">✓</div>
+        <h2>Správa bola odoslaná!</h2>
+        <p class="success-subtitle">
+            Ďakujeme vám za vašu správu. Budeme ju čítať a budeme vám odpovedať čoskoro.
+        </p>
+
+        <!-- What Happens Next -->
+        <div class="success-message">
+            <h4>Čo sa bude ďalej diať?</h4>
+            <p>✓ Vaša správa bola úspešne prijatá naším tímom</p>
+            <p>✓ Odpoveď poskytneme do 24 hodín pracovného dňa</p>
+            <p>✓ Budeme vám písať na emailovú adresu, ktorú ste uviedli</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <a href="@Url.Action("Zdravie","Home")" class="btn-action btn-action-primary">
+                Späť na Domov
+            </a>
+            <a href="@Url.Action("Produkty","Home")" class="btn-action btn-action-secondary">
+                Pozrieť Produkty
+            </a>
+            <a href="@Url.Action("Registracia","Home")" class="btn-action btn-action-tertiary">
+                Registrácia
+            </a>
         </div>
     </div>
-</div>-->
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-center" style="padding-top:2rem;padding-bottom:2rem;">
-            <div class="well" style="background:transparent;border:none;">
-                <div class="alert alert-success" role="alert" style="background:rgba(93,51,251,0.06);border-color:rgba(93,51,251,0.25);color:#fff;">
-                    <h2 style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb;margin-top:0;">Ďakujeme za správu..</h2>
-                    <p style="color:#ffffff;margin:0.5rem 0 0;">Vaša správa bola úspešne odoslaná.Nezabudnite sa zaregistrovať a mať ďalšie zľavy na produkty ako verný zákazník.</p>
-                    <p style="color:#ffffff;margin:0.5rem 0 0;">Your message has been sent successfully. Thank you!</p>
-                </div>
 
-                <div class="btn-group" role="group" aria-label="Akcie po registracii" style="margin-top:1rem;">
-                    <a href="@Url.Action("Zdravie","Home")" class="btn btn-primary" role="button">Späť na úvod</a>
-                    <a href="@Url.Action("Registracia","Home")" class="btn btn-default" role="button">Registrácia</a>
-                    <a href="@Url.Action("Produkty","Home")" class="btn btn-primary" role="button">Produkty-ponuka</a>
-                </div>
+    <!-- Next Steps Section -->
+    <div class="next-steps">
+        <h3>Ďalšie Kroky</h3>
 
-                <p class="small" style="color:#ddd;margin-top:1rem;">Ak potrebujete pomoc, kontaktujte nás cez formulár alebo e‑mail.</p>
+        <div class="steps-grid">
+            <div class="step-item">
+                <div class="step-number">1</div>
+                <div class="step-title">Prečítajte si Odpoveď</div>
+                <div class="step-description">Skontrolujte si email a nájdite našu odpoveď</div>
+            </div>
+            <div class="step-item">
+                <div class="step-number">2</div>
+                <div class="step-title">Zaregistrujte sa</div>
+                <div class="step-description">Získajte ďalšie zľavy na všetky produkty</div>
+            </div>
+            <div class="step-item">
+                <div class="step-number">3</div>
+                <div class="step-title">Nakupujte Teraz</div>
+                <div class="step-description">Objednajte si svoje obľúbené produkty</div>
+            </div>
+            <div class="step-item">
+                <div class="step-number">4</div>
+                <div class="step-title">Zbierajte Body</div>
+                <div class="step-description">Zarábajte 1% body na každom nákupe</div>
             </div>
         </div>
+
+        <!-- Info Box -->
+        <div class="info-box">
+            <strong>Tip:</strong> Ak nepríde naša odpoveď do 24 hodín, skontrolujte si spam folder alebo nás kontaktujte cez WhatsApp: <strong>+421907151293</strong>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="contact-box">
+        <h4>Potrebujete pomoc?</h4>
+        <p>Kontaktujte nás priamo:</p>
+        <ul class="benefits-list">
+            <li><strong>Email:</strong> <a href="mailto:info@ladowebservis.sk">info@ladowebservis.sk</a></li>
+            <li><strong>Telefon/WhatsApp:</strong> +421907151293</li>
+            <li><strong>Pracovne Doby:</strong> Pondelok - Piatok: 9:00 - 17:00</li>
+        </ul>
+    </div>
+
+    <!-- Trust Section -->
+    <div class="info-box" style="border-color: #28a745; background: linear-gradient(135deg, #f0fff4 0%, #e8f5e9 100%);">
+        <strong style="color: #28a745;">Vaše Benefits:</strong>
+        <ul class="benefits-list">
+            <li>
+                <strong>30-dňová záruka vrátenia peňazí</strong> - Ak nebudete spokojní, vrátime vám peniaze, čítajte zásady vrátenia peňazí
+            </li>
+            <li>
+                <strong>Bezplatná doprava</strong> - V rámci Slovenskej republiky na objednávky nad 55 EUR
+            </li>
+            <li>
+                <strong>Osobná podpora</strong> - Náš tím je tu na pomoc
+            </li>
+            <li>
+                <strong>100% Certifikované produkty</strong> - Všetky produkty od overených dodávateľov
+            </li>
+        </ul>
     </div>
 </div>
