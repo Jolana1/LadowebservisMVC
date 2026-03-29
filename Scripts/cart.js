@@ -117,6 +117,34 @@
         }
     }
 
+    function isZinzinoXtend(key, catalog) {
+        try {
+            if (!key) return false;
+            if (String(key).toLowerCase() === 'zinzinoxtend') return true;
+            if (String(key) === '3') return true; // catalog id for ZinzinoXtend in ProductCatalog
+
+            if (catalog && catalog[key] && catalog[key].Name && String(catalog[key].Name).toLowerCase() === 'zinzinoxtend') {
+                return true;
+            }
+
+            if (catalog) {
+                for (var k in catalog) {
+                    if (!Object.prototype.hasOwnProperty.call(catalog, k)) continue;
+                    var val = catalog[k];
+                    if (val && val.Id != null && String(val.Id) === String(key) && val.Name && String(val.Name).toLowerCase() === 'zinzinoxtend') {
+                        return true;
+                    }
+                }
+            }
+        } catch (e) { }
+        return false;
+    }
+
+    function qualifiesForTenPercentDiscount(key, lineBase, catalog) {
+        // Rule: 10% discount for line totals > 50€ OR always for product ZinzinoXtend
+        return (lineBase > 50) || isZinzinoXtend(key, catalog);
+    }
+
     // compute subtotal, total quantity, discount (10% only for products with line total > 50), and total
     function getCartTotals(cart) {
         const catalog = getCatalog();
@@ -141,10 +169,7 @@
             if (!price) price = (productPrices && productPrices.get) ? productPrices.get(key) || 0 : 0;
             const line = price * q;
             subtotal += line;
-            // 10% discount only when line amount (price * quantity) > 50€
-            if (line > 50) {
-                discount += line * 0.10;
-            }
+            if (qualifiesForTenPercentDiscount(key, line, catalog)) discount += line * 0.10;
         });
 
         const total = subtotal - discount;
@@ -201,7 +226,7 @@
             else unitPrice = (productPrices && productPrices.get) ? productPrices.get(key) || 0 : 0;
 
             const lineBase = unitPrice * (item.quantity || 0);
-            const qualifiesForDiscount = lineBase > 50;
+            const qualifiesForDiscount = qualifiesForTenPercentDiscount(key, lineBase, catalog);
 
             var baseLine = lineBase;
             var lineTotal = qualifiesForDiscount
@@ -470,7 +495,7 @@
             priceSpan.style.marginLeft = 'auto';
             priceSpan.style.fontWeight = '600';
             const price = parseFloat(item.Price) || 0;
-            const qualifiesForDiscountFav = price > 50;
+            const qualifiesForDiscountFav = (price > 50) || (item && item.Name && String(item.Name).toLowerCase() === 'zinzinoxtend') || String(id).toLowerCase() === 'zinzinoxtend' || String(id) === '3';
             let discountedPriceText;
             if (qualifiesForDiscountFav) {
                 const discountedPrice = (price * 0.9).toFixed(2);

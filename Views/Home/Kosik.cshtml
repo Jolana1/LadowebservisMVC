@@ -448,7 +448,7 @@
                 <div class="col-auto"><strong id="cartSubtotal">€0.00</strong></div>
             </div>
             <div class="row" id="discountRow" style="display: none;">
-                <div class="col text-end" style="color:#28a745;">Zľava 10% (produkty nad 50€):</div>
+                <div class="col text-end" style="color:#28a745;">Zľava 10% (na vybrané produkty):</div>
                 <div class="col-auto" style="color:#28a745;"><strong id="cartDiscount">-€0.00</strong></div>
             </div>
             <div class="row">
@@ -538,7 +538,7 @@
 
     <!-- Footer Section with Action Buttons -->
     <div style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 40px 20px; border-radius: 12px; text-align: center; margin-top: 40px;">
-        <h3 style="color: #5d33fb; margin-bottom: 15px; font-size: 24px; font-weight: 700;">📦 Táto Sekcia sa Neustále Rozširuje</h3>
+        <h3 style="color: #5d33fb; margin-bottom: 15px; font-size: 24px; font-weight: 700;">📦 Táto Sekcia sa bude rozširovať o nové produkty a služby</h3>
         <p style="color: #555; margin-bottom: 30px; font-size: 16px;">Ďakujeme za pochopenie a dôveru v naše produkty!</p>
 
         <div class="footer-action-buttons">
@@ -608,8 +608,9 @@
                     var unit = getProductPrice(k);
                     var line = unit * q;
                     subtotal += line;
-                    // 10% discount when line amount > 50€
-                    if (line > 50) {
+                    // 10% discount when line amount > 50€ OR product is ZinzinoXtend
+                    var isXtend = (String(k) === '3') || (String(k).toLowerCase() === 'zinzinoxtend');
+                    if ((line > 50) || isXtend) {
                         discount += line * 0.10;
                     }
                 });
@@ -667,7 +668,7 @@
                     var price = parseFloat(p.Price) || 0;
                     var image = p.Image || '/Image/placeholder.png';
 
-                    var qualifiesForDiscount = price > 50;
+                    var qualifiesForDiscount = (price > 50) || (name && name.toLowerCase && name.toLowerCase() === 'zinzinoxtend') || (id === '3');
                     var discountedPrice = qualifiesForDiscount ? price * 0.9 : price;
 
                     var cartItem = cart[id];
@@ -819,7 +820,7 @@
                     var unitPrice = getProductPrice(k);
                     var qtyVal = item.quantity || 0;
                     var baseLine = unitPrice * qtyVal;
-                    var qualifiesForDiscount = baseLine > 50;
+                    var qualifiesForDiscount = (baseLine > 50) || (String(k) === '3') || (displayName && displayName.toLowerCase && displayName.toLowerCase() === 'zinzinoxtend');
                     var discountAmount = qualifiesForDiscount ? baseLine * 0.10 : 0;
                     var lineTotal = baseLine - discountAmount;
 
@@ -899,6 +900,11 @@
                 var discountEl = document.getElementById('cartDiscount');
                 var totalEl = document.getElementById('cartTotal');
                 var discountRow = document.getElementById('discountRow');
+
+                if (!totalsSection || !subtotalEl || !totalEl || !discountRow || !discountEl) {
+                    // Missing totals elements in DOM; avoid crashing the whole page.
+                    return;
+                }
 
                 if (hasItems) {
                     totalsSection.style.display = 'block';
