@@ -384,7 +384,7 @@
             <div class="ebook-preview">
                 <div class="ebook-preview-icon">📘</div>
                 <h3>Bezplatný E-book</h3>
-                <p>Poďalšie poznatky o zdraví a energii, ktoré si môžete prečítať kedykoľvek</p>
+                <p>Prečítajte si krátke ďalšie poznatky o zdraví a energii, ktoré si môžete nájsť v tomto e-booku</p>
             </div>
 
             <!-- Contact Info -->
@@ -401,18 +401,18 @@
                     <div class="contact-item-text">
                         <strong>Telefón</strong>
                         +421917952432
-                    </div>
+           
                 </div>
             </div>
 
             <!-- Info Box -->
             <div class="ebook-info">
                 <i class="fa fa-info-circle" aria-hidden="true"></i>
-                <strong>Ako funguje:</strong> Máte dve možnosti:
+                <strong>Ako funguje:</strong> Máte dve možnosti na výber:
                 <br />
-                1) <strong>Stiahnuť e‑book ihneď</strong> (PDF)
+                1) <strong>Stiahnuť e‑book ihneď tu a teraz</strong> (PDF)
                 <br />
-                2) <strong>Poslať e‑book emailom</strong> – odporúčame po registrácii (budete mať výhody a zľavové kódy)
+                2) <strong>Poslať e‑book emailom</strong> -po registrácii (budete mať výhody a zľavové kódy)
             </div>
 
             <div style="text-align:center; margin: 0 0 20px 0;">
@@ -424,39 +424,19 @@
                 </div>
             </div>
 
-            <!-- Contact Form -->
-            @using (Html.BeginForm("DownloadEbook", "Home", FormMethod.Post, new { @class = "moj-formular", enctype = "multipart/form-data", id = "ebookForm" }))
-            {
-                @Html.ValidationSummary(true, "Chyba pri spracovaní formulára. Prosím opravte nižšie uvedené chyby:")
-                @Html.AntiForgeryToken()
+           
+            <!-- Registration CTA (redirect to registration on click) -->
+            <div class="ebook-info" style="margin-top: 20px;">
+                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                <strong>Chcete e‑book aj emailom?</strong> Zaregistrujte sa ako nový člen – po registrácii získate výhody a budeme Vás môcť informovať o zľavových kódoch.
+            </div>
 
-                <div class="form-item">
-                    @Html.LabelFor(m => m.Name, new { @class = "" })
-                    <span class="required">*</span>
-                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Napr. Jozef Varga", required = "required", maxlength = "100" })
-                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "field-validation-error" })
-                </div>
-
-                <div class="form-item">
-                    @Html.LabelFor(m => m.Email, new { @class = "" })
-                    <span class="required">*</span>
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @type = "email", placeholder = "vasa@emailovaadrasa.sk", required = "required", maxlength = "100" })
-                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "field-validation-error" })
-                </div>
-
-                <div class="form-item">
-                    @Html.LabelFor(m => m.Sprava, "Vaša správa (voliteľné)")
-                    @Html.TextAreaFor(m => m.Sprava, new { @class = "form-control", placeholder = "Povedzte nám niečo o sebe alebo svoje otázky...", rows = "4", maxlength = "500" })
-                    @Html.ValidationMessageFor(m => m.Sprava, "", new { @class = "field-validation-error" })
-                </div>
-
-                <div class="form-item">
-                    @Html.LabelFor(m => m.Captcha, "Bezpečnostný kód")
-                    <span class="required">*</span>
-                    @Html.TextBoxFor(m => m.Captcha, new { @class = "form-control", placeholder = "Napíšte bezpečnostný kód", required = "required", autocomplete = "off", maxlength = "10" })
-                    @Html.ValidationMessageFor(m => m.Captcha, "", new { @class = "field-validation-error" })
-                    <small style="color: #999; margin-top: 6px; display: block;"><i class="fa fa-shield" aria-hidden="true"></i> Pre ochranu pred spamom</small>
-                </div>
+            <div class="submit" style="margin-top: 15px;">
+                <a id="submitButton" class="btn btn-submit" href="@Url.Action("Registracia", "Home")" aria-label="Registrácia nového člena" style="text-decoration: none; display: inline-block;">
+                    <i class="fa fa-user-plus" aria-hidden="true"></i> Registrácia nového člena
+                </a>
+            </div>
+                    </div>
 
                 <!-- Privacy Notice -->
                 <div class="privacy-notice">
@@ -465,13 +445,8 @@
                     <a href='@Url.Action("Gdpr","Home")' target="_blank">Prečítajte si našu GDPR politiku</a>.
                 </div>
 
-                <!-- Submit Button -->
-                <div class="submit">
-                    <button type="submit" id="submitButton" class="btn btn-submit" aria-label="Odoslať žiadosť o e-book">
-                        <i class="fa fa-envelope" aria-hidden="true"></i> Poslať e‑book na email
-                    </button>
-                </div>
-            }
+              
+            
         </div>
     </div>
 </div>
