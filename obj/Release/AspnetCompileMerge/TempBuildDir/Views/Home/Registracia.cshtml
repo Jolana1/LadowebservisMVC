@@ -1,0 +1,461 @@
+﻿@using LadowebservisMVC.Models
+@model RegisterModel
+
+<style>
+    /* ========== REGISTRATION PAGE STYLES ========== */
+    .reg-container {
+        max-width: 1000px;
+        margin: 30px auto;
+        padding: 20px;
+    }
+
+    /* Hero Header */
+    .reg-hero {
+        background: linear-gradient(135deg, #5d33fb 0%, #764ba2 100%);
+        color: #fff;
+        padding: 50px 30px;
+        border-radius: 12px;
+        text-align: center;
+        margin-bottom: 40px;
+        box-shadow: 0 10px 30px rgba(93, 51, 251, 0.3);
+    }
+
+    .reg-hero h1 {
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0 0 15px 0;
+        line-height: 1.4;
+    }
+
+    .reg-hero p {
+        font-size: 16px;
+        margin: 10px 0;
+        opacity: 0.95;
+    }
+
+    .reg-hero-contact {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+    }
+
+    .reg-hero-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+    .reg-hero-item i {
+        font-size: 20px;
+    }
+
+    /* Benefits Section */
+    .benefits-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+
+    .benefit-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 30px 20px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border-top: 4px solid #5d33fb;
+    }
+
+    .benefit-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(93, 51, 251, 0.15);
+    }
+
+    .benefit-card.points-card {
+        border-top-color: #28a745;
+        background: linear-gradient(135deg, #f0fff4 0%, #e8f5e9 100%);
+    }
+
+    .benefit-card.discount-card {
+        border-top-color: #ffc107;
+        background: linear-gradient(135deg, #fffef5 0%, #fff8e1 100%);
+    }
+
+    .benefit-card.support-card {
+        border-top-color: #17a2b8;
+        background: linear-gradient(135deg, #f0f8ff 0%, #e0f7ff 100%);
+    }
+
+    .benefit-icon {
+        font-size: 40px;
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    .benefit-card h3 {
+        color: #5d33fb;
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .benefit-card.points-card h3 {
+        color: #28a745;
+    }
+
+    .benefit-card.discount-card h3 {
+        color: #ffc107;
+    }
+
+    .benefit-card.support-card h3 {
+        color: #17a2b8;
+    }
+
+    .benefit-card p {
+        color: #666;
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    /* Form Section */
+    .registration-form-section {
+        background: #fff;
+        border-radius: 12px;
+        padding: 40px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .registration-form-section h2 {
+        color: #5d33fb;
+        font-size: 28px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .registration-form-section .subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 30px;
+        font-size: 14px;
+    }
+
+    /* Form Styling */
+    .moj-formular .form-group {
+        margin-bottom: 20px;
+    }
+
+    .moj-formular label {
+        font-weight: 600;
+        color: #5d33fb;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .moj-formular .form-control {
+        border: 2px solid #e0e0e0;
+        border-radius: 6px;
+        padding: 12px 15px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+    .moj-formular .form-control:focus {
+        border-color: #5d33fb;
+        box-shadow: 0 0 0 3px rgba(93, 51, 251, 0.1);
+        outline: none;
+    }
+
+    .moj-formular textarea.form-control {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    /* Form Row */
+    .form-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    /* Buttons */
+    .tlacitko-moje {
+        background: linear-gradient(135deg, #5d33fb 0%, #764ba2 100%);
+        border: none;
+        padding: 14px 40px;
+        font-weight: 700;
+        font-size: 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(93, 51, 251, 0.3);
+    }
+
+    .tlacitko-moje:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(93, 51, 251, 0.4);
+        color: #fff;
+    }
+
+    .btn-secondary {
+        background: #17a2b8;
+        border: none;
+        padding: 14px 40px;
+        font-weight: 700;
+        font-size: 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+    }
+
+    .btn-secondary:hover {
+        background: #138496;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(23, 162, 184, 0.4);
+        color: #fff;
+    }
+
+    .form-button-group {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
+
+    /* Points Info */
+    .points-info-box {
+        background: linear-gradient(135deg, #f0fff4 0%, #e8f5e9 100%);
+        border: 2px solid #28a745;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 30px;
+    }
+
+    .points-info-box h3 {
+        color: #28a745;
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+    .points-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .points-list li {
+        padding: 10px 0 10px 35px;
+        position: relative;
+        color: #555;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .points-list li:before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #28a745;
+        font-weight: 700;
+        font-size: 18px;
+    }
+
+    /* Validation Summary */
+    .validation-summary-errors {
+        background: #f8d7da;
+        border: 2px solid #f5c6cb;
+        color: #721c24;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .reg-hero {
+            padding: 30px 20px;
+        }
+
+        .reg-hero h1 {
+            font-size: 24px;
+        }
+
+        .reg-hero-contact {
+            gap: 15px;
+        }
+
+        .registration-form-section {
+            padding: 25px;
+        }
+
+        .form-button-group {
+            flex-direction: column;
+        }
+
+        .form-button-group button,
+        .form-button-group a {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="reg-container">
+    <!-- Hero Header -->
+    <div class="reg-hero">
+        <h1>✨ Zaregistrujte sa a získajte Výhody 💚</h1>
+        <p>Registráciou sa stanete členom nášho klubu a budete mať prístup k exkluzívnym zľavám, bodom a prioritnej podpore!</p>
+
+        <div class="reg-hero-contact">
+            <div class="reg-hero-item">
+                <i class="fa fa-envelope"></i>
+                <span>info@ladowebservis.sk</span>
+            </div>
+            <div class="reg-hero-item">
+                <i class="fa fa-phone"></i>
+                <span>+421917952432</span>
+            </div>
+            <div class="reg-hero-item">
+                <i class="fa fa-clock-o"></i>
+                <span>Po-Pia 9:00-17:00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Benefits Section -->
+    <div class="benefits-section">
+        <!-- Points Card -->
+        <div class="benefit-card points-card">
+            <span class="benefit-icon">⭐</span>
+            <h3>Zbierajte Body</h3>
+            <p>Každý nákup = 1% v bodoch. Body sa pripisujú automaticky a môžete ich použiť na zľavy pri ďalšom nákupe.</p>
+        </div>
+
+        <!-- Discount Card -->
+        <div class="benefit-card discount-card">
+            <span class="benefit-icon">🎁</span>
+            <h3>Špeciálne Zľavy</h3>
+            <p>Ako člen máte 10% zľavu na nákupy nad 50€ počas 6 mesiacov plus dodatočné sezónne ponuky.</p>
+        </div>
+
+        <!-- Support Card -->
+        <div class="benefit-card support-card">
+            <span class="benefit-icon">💬</span>
+            <h3>Prioritná Podpora</h3>
+            <p>Rýchlejší response čas, osobný poradca a bezplatnú dopravu pre objednávky v rámci Slovenska.</p>
+        </div>
+    </div>
+
+    <!-- Points Information -->
+    <div class="points-info-box">
+        <h3><i class="fa fa-star"></i> Ako Fungujú Body?</h3>
+        <ul class="points-list">
+            <li><strong>Automatické zaraďovanie:</strong> Bez akéhokoľvek dodatočného kroku - po zaplatení objednávky sa body pripočítajú automaticky</li>
+            <li><strong>1% z nákupu:</strong> Pri nákupe za 100€ získate 10€ v bodoch, bez limitu</li>
+            <li><strong>Okamžité použitie:</strong> Body môžete použiť pri ďalšom nákupe ako priamu zľavu</li>
+            <li><strong>Bez straty:</strong> Body sa nepoužívajú, neexpirujú - sú vaše čím dlhšie ich máte</li>
+            <li><strong>Transparentnosť:</strong> Všetky body vidíte vo svojom účte s úplnou históriou</li>
+        </ul>
+    </div>
+
+    <!-- Registration Form -->
+    <div class="registration-form-section">
+        <h2>📝 Registračný Formulár</h2>
+        <p class="subtitle">Vyplňte prosím vaše údaje. Všetky polia sú povinné.</p>
+
+                @using (Html.BeginForm("OdoslanieReg", "Home", FormMethod.Post, new { @class = "form-horizontal moj-formular" }))
+                {
+                    @Html.ValidationSummary(true, "Údaje boli neúspešné. Prosím opravte chyby a skúste to znovu.")
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Vaše krstné meno" })
+                        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Priezvisko, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Priezvisko, new { @class = "form-control", placeholder = "Vaše priezvisko" })
+                        @Html.ValidationMessageFor(m => m.Priezvisko, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Phone, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "Vaše telefónne číslo" })
+                        @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Adresa, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Adresa, new { @class = "form-control", placeholder = "Vaša ulica a číslo" })
+                        @Html.ValidationMessageFor(m => m.Adresa, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-12 col-md-6">
+                            @Html.LabelFor(m => m.City, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = "Vaše mesto alebo obec" })
+                            @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-12 col-md-6">
+                            @Html.LabelFor(m => m.Captcha, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Captcha, new { @class = "form-control", placeholder = "Potvrďte email" })
+                            @Html.ValidationMessageFor(m => m.Captcha, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Váš e-mail" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Vytvorte si heslo" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Text, new { @class = "control-label" })
+                        @Html.TextAreaFor(m => m.Text, new { @class = "form-control", placeholder = "Sem napíšte správu registrácia je ok", style = "height:100px" })
+                        @Html.ValidationMessageFor(m => m.Text, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group d-flex justify-content-between align-items-center">
+                        <button type="submit" class="btn btn-primary tlacitko-moje">
+                            <i class="fa fa-user-plus"></i> Zaregistrovať
+                        </button>
+                        <a href="@Url.Action("Login","Home")" class="btn btn-secondary">
+                            <i class="fa fa-sign-in"></i> Späť na Prihlásenie
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Info Section at Bottom -->
+        <div style="margin-top: 40px; text-align: center;">
+            <div class="alert alert-info" style="background: linear-gradient(135deg, #e7f3ff 0%, #d0e8ff 100%); border-color: #5d33fb; border-radius: 12px;">
+                <h4 style="color: #5d33fb; margin-top: 0;"><i class="fa fa-question-circle"></i> Máte otázky?</h4>
+                <p style="margin: 10px 0;">
+                    <strong>Kontaktujte nás:</strong><br>
+                    📧 <a href="mailto:info@ladowebservis.sk" style="color: #5d33fb; text-decoration: underline;">info@ladowebservis.sk</a> | 
+                    📞 <a href="tel:+421917952432" style="color: #5d33fb; text-decoration: underline;">+421917952432</a>
+                </p>
+                <p style="margin: 0; font-size: 13px; color: #666;">Náš tím je tu aby vám pomohol od pondelka do piatka od 9:00 do 17:00.</p>
+            </div>
+        </div>
+    
+
+

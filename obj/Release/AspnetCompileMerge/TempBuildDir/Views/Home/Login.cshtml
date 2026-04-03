@@ -1,0 +1,95 @@
+﻿@using LadowebservisMVC.Models
+@model LoginModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="container card pt-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+            @*<div class="card">*@
+                <h1 class="h5 text-center" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">Pre vstup do členskej sekcie musíte zadať váš email a heslo alebo sa môžete zaregistrovať ako nový člen</h1>
+
+                @using (Html.BeginForm("Member", "Home", FormMethod.Post, new { @class = "form-horizontal moj-formular" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Email, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Váš e-mail (používaný ako prihlasovacie meno)", autocomplete = "email" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Password, new { @class = "control-label" })
+
+                        <div class="d-flex align-items-center">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Vaše heslo", id = "Password", autocomplete = "current-password", style = "flex:1 1 auto;" })
+
+                            <button type="button" id="togglePassword" class="btn btn-outline-secondary ml-2" aria-label="Zobraziť alebo skryť heslo" title="Zobraziť alebo skryť heslo" style="flex:0 0 auto;">
+                                <!-- eye icon (show) -->
+                                <svg id="toggleIcon" xmlns="http://www.w3.org/2000/svg" width="5" height="5" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8z"/>
+                                    <circle cx="8" cy="8" r="2.5"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group d-flex justify-content-between align-items-center mt-3">
+                        <button type="submit" class="btn btn-primary tlacitko-moje">Prihlásiť sa</button>
+                        <a href="@Url.Action("Registracia", "Home")" class="btn btn-outline-secondary btn-sm">Registrovať sa / Zabudnuté heslo</a>
+                    </div>
+                }
+
+                <div class="text-center mt-3">
+                    <a href="@Url.Action("Zdravie","Home",new {area = "Ladowebservis"})" class="btn btn-primary btn-md tlacitko-moje">Späť na úvod</a>
+                </div>
+            </div>
+        </div>
+    </div>
+@*</div>*@
+
+<script>
+    (function(){
+        var btn = document.getElementById('togglePassword');
+        if (!btn) return;
+        var icon = document.getElementById('toggleIcon');
+
+        // SVGs for show/hide
+        var showSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">' +
+                      '<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8z"/>' +
+                      '<circle cx="8" cy="8" r="2.5"/>' +
+                      '</svg>';
+
+        var hideSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">' +
+                      '<path d="M13.359 11.238l1.403 1.403L1.64 1.92 0.236 3.323l2.03 2.03A8.42 8.42 0 0 0 0 8s3 5.5 8 5.5c1.66 0 3.195-.4 4.533-1.103l.826.826L13.36 11.238z"/>' +
+                      '<path d="M4.646 6.354a3 3 0 0 0 4.243 4.243"/>' +
+                      '</svg>';
+
+        // initialize with show icon
+        btn.innerHTML = showSvg;
+
+        btn.addEventListener('click', function(){
+            var pwd = document.getElementById('Password');
+            if (!pwd) return;
+            if (pwd.type === 'password'){
+                pwd.type = 'text';
+                btn.setAttribute('aria-pressed', 'true');
+                btn.innerHTML = hideSvg;
+                btn.title = 'Skryť heslo';
+            } else {
+                pwd.type = 'password';
+                btn.setAttribute('aria-pressed', 'false');
+                btn.innerHTML = showSvg;
+                btn.title = 'Zobraziť heslo';
+            }
+            pwd.focus();
+        });
+    })();
+</script>

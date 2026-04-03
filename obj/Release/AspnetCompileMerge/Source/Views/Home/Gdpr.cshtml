@@ -1,0 +1,51 @@
+@{
+    ViewBag.Title = "Ochrana osobnıch údajov (GDPR)";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container card py-4">
+    <h2 class="mb-3" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">Ochrana osobnıch údajov (GDPR)</h2>
+
+    <p>
+        Tento web spracúva osobné údaje v súlade s platnou legislatívou EÚ a SR o ochrane osobnıch údajov (GDPR).
+    </p>
+
+    <h4>Aké údaje spracúvame</h4>
+    <ul>
+        <li>kontaktné údaje z kontaktného formulára (meno, email, predmet, správa),</li>
+        <li>údaje nevyhnutné na vybavenie objednávky (meno, adresa, email, telefón),</li>
+        <li>technické údaje o návšteve webu (cookies, IP adresa, prehliadaè) na zlepšovanie sluieb a štatistiku.</li>
+    </ul>
+
+    <h4>Na akı úèel údaje pouívame</h4>
+    <ul>
+        <li>odpovedanie na vaše otázky a poiadavky zaslané prostredníctvom kontaktného formulára,</li>
+        <li>spracovanie a doruèenie objednávok produktov a sluieb,</li>
+        <li>údrba a zlepšovanie funkènosti webu a bezpeènosti sluieb.</li>
+    </ul>
+
+    <h4>Ako dlho údaje uchovávame</h4>
+    <p>
+        Údaje uchovávame len po dobu nevyhnutnú na splnenie úèelu, na ktorı boli získané, resp. po dobu vyadovanú zákonom.
+    </p>
+
+    <h4>Vaše práva</h4>
+    <ul>
+        <li>právo na prístup k osobnım údajom,</li>
+        <li>právo na opravu alebo doplnenie údajov,</li>
+        <li>právo na vymazanie („právo by zabudnutı“) v prípadoch stanovenıch zákonom,</li>
+        <li>právo na obmedzenie spracúvania,</li>
+        <li>právo namieta proti spracúvaniu,</li>
+        <li>právo poda sanos na Úrad na ochranu osobnıch údajov SR.</li>
+    </ul>
+
+    <h4>Kontaktné údaje prevádzkovate¾a</h4>
+    <p>
+        V prípade otázok alebo uplatnenia vašich práv nás môete kontaktova na emailovej adrese
+        <a href="mailto:info@ladowebservis.sk">info@ladowebservis.sk</a> alebo <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a>.
+    </p>
+
+    <p>
+        <a href="@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })" class="btn btn-primary btn-md tlacitko-moje">Spä na úvod</a>
+    </p>
+</div>

@@ -280,6 +280,120 @@
         color: #5d33fb;
     }
 
+    /* ===== NEWS & PROMOTIONS ===== */
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 16px;
+        margin-top: 10px;
+    }
+
+    .news-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        border: 2px solid #f0f0f0;
+        padding: 16px;
+        transition: all 0.25s ease;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+        .news-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(93,51,251,0.35);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
+    .news-card-title {
+        font-weight: 800;
+        color: #5d33fb;
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.4;
+    }
+
+    .news-card-text {
+        color: #555;
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .news-meta {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 2px;
+    }
+
+    .news-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        border: 1px solid rgba(0,0,0,0.06);
+        background: #f8f9fa;
+        color: #333;
+    }
+
+    .news-tag.promo {
+        background: linear-gradient(135deg, #fff8e6 0%, #ffe0b2 100%);
+        color: #7a4b00;
+        border-color: rgba(255,152,0,0.35);
+    }
+
+    .news-tag.info {
+        background: linear-gradient(135deg, #e7f3ff 0%, #d0e8ff 100%);
+        color: #0b4f8a;
+        border-color: rgba(23,162,184,0.25);
+    }
+
+    .news-actions {
+        margin-top: auto;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .news-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 13px;
+        transition: all 0.25s ease;
+        border: 1px solid rgba(93,51,251,0.18);
+        color: #5d33fb;
+        background: rgba(93,51,251,0.06);
+    }
+
+        .news-link:hover {
+            background: rgba(93,51,251,0.10);
+            transform: translateY(-1px);
+            text-decoration: none;
+        }
+
+    .news-link.primary {
+        color: #fff;
+        border: none;
+        background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+        box-shadow: 0 4px 12px rgba(93, 51, 251, 0.25);
+    }
+
+        .news-link.primary:hover {
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(93, 51, 251, 0.35);
+        }
+
     .btn-action {
         padding: 8px 16px;
         font-size: 13px;
@@ -506,8 +620,6 @@
     }
 </style>
 
-<div class="member-dashboard">
-    <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-lg-10">
                 <!-- Welcome Header -->
@@ -520,16 +632,14 @@
                 </div>
 
                 <!-- Video Hero Section -->
+
                 <div class="video-hero-section">
                     <h1>🎬 Zázrak alebo Veda? Objavte Pravdu o Zinzine!</h1>
-                    <p>
-                        Pozerajte si náš fascinujúci dokumentárny film o tom, ako Zinzino mení životy ľudí 
-                        po celom svete. Zistite vedecké dôkazy za našimi produktami a zažite transformáciu 
-                        v reálnych prípadoch našich spokojných zákazníkov.
-                    </p>
-                    <p style="font-size: 14px; opacity: 0.85; margin-bottom: 0;">
-                        ⏱️ Trvanie: 45 minút | 📺 Dostupné v češtine a slovenčine | 🌍 Inspirujúce príbehy
-                    </p>
+                    <p>Pozrite si video a potom si pozrite produkty, ktoré odporúčame.</p>
+
+                    <div style="max-width: 800px; margin: 0 auto; border-radius: 10px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.15);">
+                        <iframe style="width: 100%; height: 500px;" src="https://videos.sproutvideo.com/embed/d390d3b31911ecc15a/eeb65011d6e6ae23?autoplay=0" title="Video Zinzino" frameborder="0" allowfullscreen></iframe>
+                    </div>
 
                     <div class="video-button-container">
                         <a href='@Url.Action("Hudba", "Home")' class="btn-video-play" title="Pozrite si fascinujúci príbeh">
@@ -620,7 +730,7 @@
 
                         <div class="loyalty-benefit">
                             <strong>💳 Permanentná 10% zľava</strong><br/>
-                            Získajte 10% zľavu na všetky nákupy nad 50 EUR na dobu 6 mesiacov len po registrácii!
+                            Získajte 10% zľavu na vybrané akciové produkty na dobu 6 mesiacov len po registrácii!
                         </div>
 
                         <div class="loyalty-benefit">
@@ -718,29 +828,56 @@
                 <div class="member-card">
                     <h2>📰 Novinky a akcie pre členov</h2>
 
-                    <div class="news-promotion">
-                        <strong>🎉 Spustili sme nový vernostný program!</strong><br/>
-                        Od teraz získavate body za každý nákup. Zbierajte body a vymieňajte si ich za skvelé ceny a bonusy!
-                        <br/><small style="color: #999;">Pridané: 20. február 2026</small>
-                    </div>
+                    <div class="news-grid">
+                        <div class="news-card">
+                            <h3 class="news-card-title">🎉 Vernostný program je aktívny</h3>
+                            <p class="news-card-text">Získavajte body za každý nákup a uplatnite ich ako zľavu pri ďalšej objednávke.</p>
+                            <div class="news-meta">
+                                <span class="news-tag info"><i class="fa fa-star"></i> Body & výhody</span>
+                                <span class="news-tag"><i class="fa fa-calendar"></i> 20.02.2026</span>
+                            </div>
+                            <div class="news-actions">
+                                <a class="news-link primary" href='@Url.Action("Kosik","Home")'><i class="fa fa-shopping-cart"></i> Prejsť do košíka</a>
+                                <a class="news-link" href='@Url.Action("Memberinfo","Home")'><i class="fa fa-user"></i> Profil</a>
+                            </div>
+                        </div>
 
-                    <div class="news-promotion">
-                        <strong>💎 Nový produkt: CollagenBoozt</strong><br/>
-                        Predstavujeme našu novú kolagénovu sériu! Vylepšite si svoju pleť, vlasy a kĺby s prírodným kolagénom.
-                        <a href='@Url.Action("Produkty","Home", new { q = "collagen" })' style="color: #5d33fb; font-weight: 600;">Pozrieť →</a>
-                        <br/><small style="color: #999;">Pridané: 10. február 2026</small>
-                    </div>
+                        <div class="news-card">
+                            <h3 class="news-card-title">🏷️ Promo kódy pre členov</h3>
+                            <p class="news-card-text">Použite <strong>NOVYROK26</strong> alebo členský kód <strong>REGZAK26</strong> pri platbe a získajte 10% zľavu.</p>
+                            <div class="news-meta">
+                                <span class="news-tag promo"><i class="fa fa-ticket"></i> Zľava 10%</span>
+                                <span class="news-tag"><i class="fa fa-lock"></i> Len pre členov</span>
+                            </div>
+                            <div class="news-actions">
+                                <a class="news-link primary" href='@Url.Action("Produkty","Home")'><i class="fa fa-box"></i> Pozrieť produkty</a>
+                                <a class="news-link" href='@Url.Action("Kosik","Home")'><i class="fa fa-credit-card"></i> Uplatniť v košíku</a>
+                            </div>
+                        </div>
 
-                    <div class="news-promotion">
-                        <strong>🎁 Darčekový balík k Sviatkom žien</strong><br/>
-                        Špecialúny zľavený balík sBalance Oil, Zinobiotikom a Balzamom! Ideálny darček pre svoje blízke.
-                        <br/><small style="color: #999;">Platnosť: Do 8. marca 2026</small>
-                    </div>
+                        <div class="news-card">
+                            <h3 class="news-card-title">💪 ZinzinoXtend teraz so zľavou</h3>
+                            <p class="news-card-text">Vybraný produkt <strong>ZinzinoXtend</strong> sa zobrazuje s -10% zľavou aj v košíku a sidecarte.</p>
+                            <div class="news-meta">
+                                <span class="news-tag promo"><i class="fa fa-percent"></i> -10%</span>
+                                <span class="news-tag"><i class="fa fa-check"></i> Aktivované</span>
+                            </div>
+                            <div class="news-actions">
+                                <a class="news-link primary" href='@Url.Action("Produkty","Home", new { q = "xtend" })'><i class="fa fa-search"></i> Otvoriť produkt</a>
+                                <a class="news-link" href='@Url.Action("Kosik","Home")'><i class="fa fa-eye"></i> Skontrolovať košík</a>
+                            </div>
+                        </div>
 
-                    <div class="news-promotion">
-                        <strong>📲 Nové mobil aplikácia</strong><br/>
-                        Čoskoro sa môžete registrovať na našu mobilnú aplikáciu! Ľahší prístup k svojim objednávkam a exkluzívnym zľavám.
-                        <br/><small style="color: #999;">Príde čoskoro</small>
+                        <div class="news-card">
+                            <h3 class="news-card-title">📲 Mobilná aplikácia (pripravujeme)</h3>
+                            <p class="news-card-text">Pripravujeme jednoduchší prístup k objednávkam, zľavám a novinkám priamo v mobile.</p>
+                            <div class="news-meta">
+                                <span class="news-tag info"><i class="fa fa-mobile"></i> Čoskoro</span>
+                            </div>
+                            <div class="news-actions">
+                                <a class="news-link" href='@Url.Action("Kontakt","Home")'><i class="fa fa-envelope"></i> Dajte nám feedback</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -801,5 +938,5 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
+

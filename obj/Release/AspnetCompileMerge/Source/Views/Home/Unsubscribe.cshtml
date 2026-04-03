@@ -1,0 +1,335 @@
+﻿@{
+    ViewBag.Title = "Unsubscribe";
+}
+
+<style>
+    /* ========== UNSUBSCRIBE PAGE STYLES ========== */
+    .unsubscribe-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        min-height: calc(100vh - 200px);
+    }
+
+    /* ========== HERO SECTION ========== */
+    .unsubscribe-hero {
+        background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+        color: #fff;
+        padding: 50px 30px;
+        border-radius: 12px;
+        text-align: center;
+        margin-bottom: 40px;
+        box-shadow: 0 10px 30px rgba(93, 51, 251, 0.3);
+    }
+
+    .unsubscribe-hero i {
+        font-size: 64px;
+        margin-bottom: 20px;
+        opacity: 0.9;
+    }
+
+    .unsubscribe-hero h1 {
+        font-size: 36px;
+        font-weight: 700;
+        margin: 0 0 15px 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .unsubscribe-hero p {
+        font-size: 18px;
+        opacity: 0.95;
+        margin: 0;
+    }
+
+    /* ========== CONTENT CARD ========== */
+    .unsubscribe-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        margin-bottom: 30px;
+    }
+
+    .unsubscribe-card h2 {
+        color: #5d33fb;
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0 0 20px 0;
+    }
+
+    .unsubscribe-card p {
+        color: #555;
+        font-size: 16px;
+        line-height: 1.8;
+        margin-bottom: 20px;
+    }
+
+    /* ========== STATUS MESSAGE ========== */
+    .status-success {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: #fff;
+        padding: 25px;
+        border-radius: 8px;
+        text-align: center;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+    }
+
+    .status-success i {
+        font-size: 48px;
+        margin-bottom: 15px;
+    }
+
+    .status-success h3 {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0 0 10px 0;
+    }
+
+    .status-success p {
+        font-size: 16px;
+        margin: 0;
+        opacity: 0.95;
+    }
+
+    /* ========== INFO BOXES ========== */
+    .info-box {
+        background: #f8f9fa;
+        border-left: 4px solid #5d33fb;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .info-box h4 {
+        color: #5d33fb;
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0 0 10px 0;
+    }
+
+    .info-box ul {
+        margin: 0;
+        padding-left: 20px;
+    }
+
+    .info-box ul li {
+        color: #555;
+        padding: 5px 0;
+    }
+
+    /* ========== BUTTONS ========== */
+    .btn-primary-custom {
+        background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+        color: #fff;
+        padding: 15px 40px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(93, 51, 251, 0.3);
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-primary-custom:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(93, 51, 251, 0.4);
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .btn-secondary-custom {
+        background: #f8f9fa;
+        color: #5d33fb;
+        padding: 15px 40px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        border: 2px solid #5d33fb;
+    }
+
+    .btn-secondary-custom:hover {
+        background: #5d33fb;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .button-group {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
+
+    /* ========== FEEDBACK SECTION ========== */
+    .feedback-section {
+        background: #fff3cd;
+        border: 2px solid #ffc107;
+        border-radius: 8px;
+        padding: 25px;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .feedback-section h4 {
+        color: #856404;
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0 0 15px 0;
+    }
+
+    .feedback-section p {
+        color: #856404;
+        margin-bottom: 15px;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @@media (max-width: 768px) {
+        .unsubscribe-container {
+            padding: 15px;
+        }
+
+        .unsubscribe-hero {
+            padding: 35px 20px;
+        }
+
+        .unsubscribe-hero h1 {
+            font-size: 28px;
+        }
+
+        .unsubscribe-hero i {
+            font-size: 48px;
+        }
+
+        .unsubscribe-card {
+            padding: 25px 20px;
+        }
+
+        .button-group {
+            flex-direction: column;
+        }
+
+        .btn-primary-custom,
+        .btn-secondary-custom {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="unsubscribe-container">
+    @{
+        var email = Request.QueryString["email"] ?? "";
+        var emailSafe = System.Web.HttpUtility.HtmlEncode(email);
+        var hasEmail = !string.IsNullOrWhiteSpace(email);
+    }
+
+    <!-- Hero Section -->
+    <div class="unsubscribe-hero">
+        <i class="fa fa-envelope-o"></i>
+        <h1>Odhlásenie z odberu</h1>
+        <p>Správa emailových preferencií</p>
+    </div>
+
+    @if (hasEmail)
+    {
+        <!-- Success Message -->
+        <div class="status-success">
+            <i class="fa fa-check-circle"></i>
+            <h3>✅ Úspešne odhlásené!</h3>
+            <p>Email <strong>@emailSafe</strong> bol odhlásený z marketingových emailov.</p>
+        </div>
+    }
+
+    <!-- Main Content Card -->
+    <div class="unsubscribe-card">
+        <h2>📧 Čo sa zmenilo?</h2>
+        
+        <p>
+            @if (hasEmail)
+            {
+                <text>Váš email <strong>@emailSafe</strong> bol úspešne odstránený z nášho zoznamu pre marketingové a propagačné emaily.</text>
+            }
+            else
+            {
+                <text>Ak sa chcete odhlásiť z nášho newslettra a marketingových emailov, kliknite na odkaz v emaile, ktorý ste dostali.</text>
+            }
+        </p>
+
+        <!-- What You'll Still Receive -->
+        <div class="info-box">
+            <h4>✅ Stále budete dostávať:</h4>
+            <ul>
+                <li><strong>Potvrdenia objednávok</strong> - informácie o vašich nákupoch</li>
+                <li><strong>Sledovanie zásielok</strong> - stav doručenia vašich produktov</li>
+                <li><strong>Faktúry a účty</strong> - finančné dokumenty</li>
+                <li><strong>Dôležité oznámenia</strong> - zmeny v službách, bezpečnostné upozornenia</li>
+            </ul>
+        </div>
+
+        <!-- What You Won't Receive -->
+        <div class="info-box" style="border-left-color: #dc3545;">
+            <h4 style="color: #dc3545;">❌ Už nebudete dostávať:</h4>
+            <ul>
+                <li>Marketingové a propagačné emaily</li>
+                <li>Novinky o produktoch a zľavách</li>
+                <li>Newsletter s tipmi a radami</li>
+                <li>Špeciálne ponuky pre zákazníkov</li>
+            </ul>
+        </div>
+
+        <p style="margin-top: 30px;">
+            <strong>Poznámka:</strong> Zmeny sa prejavia do 48 hodín. Ak napriek tomu dostanete marketingový email, 
+            kontaktujte nás na <a href="mailto:info@ladowebservis.sk" style="color: #5d33fb;">info@ladowebservis.sk</a>.
+        </p>
+    </div>
+
+    <!-- Feedback Section -->
+    <div class="feedback-section">
+        <h4>💭 Pomôžte nám zlepšiť sa</h4>
+        <p>Prečo ste sa odhlásili? Vaša spätná väzba nám pomôže poskytovať lepšie služby.</p>
+        <a href="@Url.Action("Kontakt","Home")" class="btn-secondary-custom">
+            <i class="fa fa-comment"></i> Poslať spätnú väzbu
+        </a>
+    </div>
+
+    <!-- Changed Your Mind? -->
+    <div class="unsubscribe-card" style="text-align: center; background: linear-gradient(135deg, #e7f3ff 0%, #c3e3ff 100%);">
+        <h2>🤔 Zmenili ste názor?</h2>
+        <p>
+            Chceli by ste sa znovu prihlásiť na odber? Radi vás budeme informovať o novinkách, 
+            akciách a špeciálnych ponukách.
+        </p>
+        <a href="@Url.Action("Kontakt","Home")" class="btn-primary-custom">
+            <i class="fa fa-envelope"></i> Znovu sa prihlásiť
+        </a>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="button-group">
+        <a href="@Url.Action("Zdravie","Home",new {area = "Ladowebservis"})" class="btn-primary-custom">
+            <i class="fa fa-home"></i> Späť na úvod
+        </a>
+        <a href="@Url.Action("Produkty","Home")" class="btn-secondary-custom">
+            <i class="fa fa-shopping-cart"></i> Zobraziť produkty
+        </a>
+        <a href="@Url.Action("Kontakt","Home")" class="btn-secondary-custom">
+            <i class="fa fa-phone"></i> Kontaktovať nás
+        </a>
+    </div>
+
+    <!-- Footer Note -->
+    <div style="text-align: center; margin: 40px 0 20px; color: #999; font-size: 14px;">
+        <p>
+            <i class="fa fa-lock"></i> Vaše údaje sú v bezpečí a nebudú zdieľané s tretími stranami.<br>
+            <a href="@Url.Action("Gdpr","Home")" style="color: #5d33fb;">Prečítajte si naše zásady ochrany osobných údajov</a>
+        </p>
+    </div>
+</div>

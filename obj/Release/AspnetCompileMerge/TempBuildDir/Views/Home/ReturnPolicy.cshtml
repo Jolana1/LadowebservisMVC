@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Zásady vrátenia tovaru";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container card py-4">
+    <h2 class="mb-3" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">
+        Zásady vrátenia tovaru
+    </h2>
+
+    <p class="small text-muted">
+        Posledná aktualizácia: @DateTime.Today.ToString("dd.MM.yyyy")
+    </p>
+
+    <hr />
+
+    <h4>Lehota na vrátenie</h4>
+    <p>
+        Tovar je možné vrátiť do 14 dní od doručenia bez udania dôvodu
+        v súlade s platnou legislatívou EÚ a SR.
+    </p>
+
+    <h4>Podmienky</h4>
+    <ul>
+        <li>Tovar musí byť nepoškodený, kompletný a ideálne v pôvodnom balení.</li>
+        <li>Otvorené alebo použité potravinové doplnky nie je možné vrátiť, pokiaľ nie sú vadné.</li>
+        <li>Pri každom vrátení je potrebné predložiť doklad o kúpe (faktúru alebo potvrdenie objednávky).</li>
+    </ul>
+
+    <h4>Postup vrátenia</h4>
+    <ol>
+        <li>
+            Kontaktujte nás na adrese
+            <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a>
+            a uveďte číslo objednávky, názov produktu a dôvod vrátenia.
+        </li>
+        <li>
+            Po obdržaní vašej žiadosti vám potvrdíme adresu a pokyny na zaslanie tovaru.
+        </li>
+        <li>
+            Tovar bezpečne zabaľte a odošlite. Po prijatí a kontrole tovaru vám v primeranej lehote
+            vrátime peniaze rovnakou platobnou metódou, ak sa nedohodneme inak.
+        </li>
+    </ol>
+
+    <h4>Náklady na dopravu</h4>
+    <p>
+        Pri vrátení bez vady hradí náklady na dopravu zákazník. Pri preukázanej vade produktu
+        znášame náklady na dopravu my.
+    </p>
+
+    <h4>Reklamácie a vadný tovar</h4>
+    <p>
+        Ak bol produkt pri prevzatí alebo krátko po ňom vadný, kontaktujte nás ihneď.
+        Postup reklamácie a ďalšie pokyny vám poskytneme e‑mailom.
+    </p>
+
+    <h4>Kontakt</h4>
+    <p>
+        Telefón: +421907151293<br />
+        E‑mail: <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a>
+    </p>
+
+    <p>
+        <a href="@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })"
+           class="btn btn-primary btn-md tlacitko-moje">
+            Späť na úvod
+        </a>
+    </p>
+</div>

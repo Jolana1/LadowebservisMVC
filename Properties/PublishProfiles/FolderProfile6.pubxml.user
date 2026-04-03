@@ -3,7 +3,7 @@
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\kseni\source\repos\LadowebservisMVC\LadowebservisMVC-16.3.26\publish</_PublishTargetUrl>
-    <History>True|2026-03-28T15:04:25.7038083Z||;True|2026-03-24T23:10:22.8135311+01:00||;</History>
+    <History>False|2026-04-03T10:46:36.3932197Z||;True|2026-03-28T16:04:25.7038083+01:00||;True|2026-03-24T23:10:22.8135311+01:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -15,6 +15,12 @@
     </File>
     <File Include="bin/Antlr3.Runtime.pdb">
       <publishTime>09/10/2013 17:29:20</publishTime>
+    </File>
+    <File Include="bin/App_global.asax.compiled">
+      <publishTime>04/03/2026 13:04:07</publishTime>
+    </File>
+    <File Include="bin/App_global.asax.dll">
+      <publishTime>04/03/2026 13:04:07</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>06/16/2024 22:46:24</publishTime>
@@ -29,10 +35,10 @@
       <publishTime>10/29/2024 18:47:24</publishTime>
     </File>
     <File Include="bin/LadowebservisMVC.dll">
-      <publishTime>03/28/2026 16:04:21</publishTime>
+      <publishTime>04/03/2026 13:05:08</publishTime>
     </File>
     <File Include="bin/LadowebservisMVC.pdb">
-      <publishTime>03/28/2026 16:04:21</publishTime>
+      <publishTime>04/03/2026 13:05:08</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Antiforgery.dll">
       <publishTime>11/12/2018 18:33:18</publishTime>
@@ -1693,6 +1699,9 @@
     <File Include="Microsoft.DiaSymReader.Native.x86.dll">
       <publishTime>12/04/2017 18:36:44</publishTime>
     </File>
+    <File Include="PrecompiledApp.config">
+      <publishTime>04/03/2026 13:04:00</publishTime>
+    </File>
     <File Include="Scripts/bootstrap.bundle.js">
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
@@ -1733,7 +1742,7 @@
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Scripts/cart.js">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>03/29/2026 15:45:42</publishTime>
     </File>
     <File Include="Scripts/chat-ui.js">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1844,7 +1853,7 @@
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Views/Home/DownloadEbook.cshtml">
-      <publishTime>03/28/2026 15:21:30</publishTime>
+      <publishTime>04/03/2026 12:18:36</publishTime>
     </File>
     <File Include="Views/Home/Error.cshtml">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1865,19 +1874,19 @@
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Views/Home/Kontakt.cshtml">
-      <publishTime>03/28/2026 15:18:28</publishTime>
+      <publishTime>03/29/2026 15:19:02</publishTime>
     </File>
     <File Include="Views/Home/Kosik.cshtml">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>03/29/2026 15:56:45</publishTime>
     </File>
     <File Include="Views/Home/Login.cshtml">
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Views/Home/Member.cshtml">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>04/03/2026 12:38:49</publishTime>
     </File>
     <File Include="Views/Home/Memberinfo.cshtml">
-      <publishTime>03/25/2026 20:34:06</publishTime>
+      <publishTime>04/03/2026 12:03:58</publishTime>
     </File>
     <File Include="Views/Home/ObchodnePodmienky.cshtml">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1886,7 +1895,7 @@
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Views/Home/OdoslanieReg.cshtml">
-      <publishTime>03/28/2026 15:50:59</publishTime>
+      <publishTime>03/29/2026 14:08:31</publishTime>
     </File>
     <File Include="Views/Home/OdoslanieSpravy.cshtml">
       <publishTime>03/25/2026 20:19:40</publishTime>
@@ -1895,7 +1904,7 @@
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Views/Home/Produkty.cshtml">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>03/29/2026 16:02:45</publishTime>
     </File>
     <File Include="Views/Home/Registracia.cshtml">
       <publishTime>03/23/2026 19:16:48</publishTime>
@@ -1910,10 +1919,10 @@
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Views/Home/Zdravie.cshtml">
-      <publishTime>03/24/2026 21:17:53</publishTime>
+      <publishTime>04/03/2026 12:07:34</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>03/28/2026 15:42:04</publishTime>
+      <publishTime>04/03/2026 11:47:56</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>03/24/2026 19:13:11</publishTime>

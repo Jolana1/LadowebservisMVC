@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Obchodné Podmienky";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container card py-4">
+    <h2 class="mb-3" style="color:#ffffff;text-shadow:1px 1px 4px #5d33fb">
+        Obchodné podmienky
+    </h2>
+
+    <p class="small text-muted">
+        Posledná aktualizácia: @DateTime.Today.ToString("dd.MM.yyyy")
+    </p>
+
+    <hr />
+
+    <h4>1. Všeobecné ustanovenia</h4>
+    <p>
+        Tieto obchodné podmienky upravujú právne vzťahy medzi prevádzkovateľom
+        LadoWebServis a zákazníkmi pri nákupe produktov a využívaní služieb
+        prostredníctvom tejto webovej stránky.
+    </p>
+
+    <h4>2. Objednávka a uzatvorenie zmluvy</h4>
+    <ul>
+        <li>Objednávku môžete vytvoriť prostredníctvom nákupného košíka na stránke.</li>
+        <li>Zmluva je uzatvorená potvrdením objednávky z našej strany (e‑mail s potvrdením/prijatím objednávky).</li>
+        <li>Vyhradzujeme si právo objednávku odmietnuť v prípade nesprávnych alebo neúplných údajov.</li>
+    </ul>
+
+    <h4>3. Ceny a platobné podmienky</h4>
+    <p>
+        Všetky ceny sú uvedené v EUR a môžu zahŕňať DPH (ak je to uvedené).
+        Aktuálne ceny produktov sú zobrazené pri jednotlivých položkách v katalógu.
+    </p>
+    <ul>
+        <li>Platba môže prebiehať prostredníctvom online platby (napr. Stripe) alebo iným dohodnutým spôsobom.</li>
+        <li>V prípade akcií a zliav platia podmienky uvedené pri konkrétnej kampani (napr. kupón FRIENDS25).</li>
+    </ul>
+
+    <h4>4. Dodacie podmienky</h4>
+    <p>
+        Spôsob a približná doba dodania sú uvedené pri jednotlivých produktoch alebo v potvrdení objednávky.
+        O prípadných zmenách alebo omeškaní vás budeme informovať e‑mailom.
+    </p>
+
+    <h4>5. Právo na odstúpenie od zmluvy</h4>
+    <p>
+        Spotrebiteľ má právo odstúpiť od zmluvy bez udania dôvodu do 14 dní od doručenia tovaru
+        v súlade s platnou legislatívou EÚ a SR. Podrobnosti sú uvedené na stránke
+        <a href="@Url.Action("ReturnPolicy","Home")">Zásady vrátenia tovaru</a>.
+    </p>
+
+    <h4>6. Reklamácie a zodpovednosť za vady</h4>
+    <p>
+        Postup pri reklamácii vadného tovaru a zodpovednosť za vady sa riadia príslušnými právnymi
+        predpismi a sú bližšie popísané v časti o reklamáciách na stránke Zásady vrátenia tovaru.
+        V prípade problému nás kontaktujte na
+        <a href="mailto:podpora@ladowebservis.sk">podpora@ladowebservis.sk</a>.
+    </p>
+
+    <h4>7. Ochrana osobných údajov</h4>
+    <p>
+        Spracúvanie osobných údajov sa riadi zásadami na stránke
+        <a href="@Url.Action("Gdpr","Home")">Ochrana osobných údajov (GDPR)</a>.
+        Odporúčame, aby ste sa s nimi oboznámili pred dokončením objednávky.
+    </p>
+
+    <h4>8. Záverečné ustanovenia</h4>
+    <p>
+        Prevádzkovateľ si vyhradzuje právo tieto obchodné podmienky priebežne aktualizovať.
+        Aktuálna verzia je vždy zverejnená na tejto stránke. Pokračovaním v používaní stránky
+        a odoslaním objednávky súhlasíte s týmito podmienkami.
+    </p>
+
+    <p>
+        V prípade otázok nás môžete kontaktovať prostredníctvom e‑mailu
+        <a href="mailto:info@ladowebservis.sk">info@ladowebservis.sk</a>
+        alebo na adrese uvedenej v časti Kontakt.
+    </p>
+
+    <p>
+        <a href="@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })"
+           class="btn btn-primary btn-md tlacitko-moje">
+            Späť na úvod
+        </a>
+    </p>
+</div>
