@@ -119,7 +119,8 @@ namespace LadowebservisMVC.Controllers
                 try
                 {
                     Mailer mailer = new Mailer();
-                    mailer.OdoslanieSpravy(model);
+                    // Contact form should send only the user's message (no e-book attachment)
+                    mailer.OdoslanieKontaktSpravy(model);
                     return View();
                 }
                 catch (Exception ex)

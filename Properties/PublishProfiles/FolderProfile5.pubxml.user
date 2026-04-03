@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\kseni\source\repos\LadowebservisMVC\publish</_PublishTargetUrl>
-    <History>True|2026-04-03T11:11:38.9562902Z||;</History>
+    <History>True|2026-04-03T20:23:23.9636992Z||;True|2026-04-03T13:11:38.9562902+02:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -13,10 +13,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
-      <publishTime>09/10/2013 17:29:20</publishTime>
+      <publishTime>10/09/2013 17:29:20</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.pdb">
-      <publishTime>09/10/2013 17:29:20</publishTime>
+      <publishTime>10/09/2013 17:29:20</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>06/16/2024 22:46:24</publishTime>
@@ -31,28 +31,28 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/29/2024 18:47:24</publishTime>
     </File>
     <File Include="bin/LadowebservisMVC.dll">
-      <publishTime>04/03/2026 13:11:35</publishTime>
+      <publishTime>04/03/2026 22:23:20</publishTime>
     </File>
     <File Include="bin/LadowebservisMVC.pdb">
-      <publishTime>04/03/2026 13:11:35</publishTime>
+      <publishTime>04/03/2026 22:23:20</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Antiforgery.dll">
-      <publishTime>11/12/2018 18:33:18</publishTime>
+      <publishTime>12/11/2018 18:33:18</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Authentication.Abstractions.dll">
-      <publishTime>11/12/2018 18:29:06</publishTime>
+      <publishTime>12/11/2018 18:29:06</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Authentication.Core.dll">
-      <publishTime>11/12/2018 18:29:10</publishTime>
+      <publishTime>12/11/2018 18:29:10</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Authorization.dll">
       <publishTime>10/29/2024 14:29:36</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Authorization.Policy.dll">
-      <publishTime>11/12/2018 18:39:32</publishTime>
+      <publishTime>12/11/2018 18:39:32</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Cors.dll">
-      <publishTime>11/12/2018 18:38:58</publishTime>
+      <publishTime>12/11/2018 18:38:58</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Cryptography.Internal.dll">
       <publishTime>06/14/2024 19:28:24</publishTime>
@@ -61,100 +61,100 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/14/2024 19:28:22</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.DataProtection.dll">
-      <publishTime>11/12/2018 18:32:54</publishTime>
+      <publishTime>12/11/2018 18:32:54</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Diagnostics.Abstractions.dll">
-      <publishTime>11/12/2018 18:38:16</publishTime>
+      <publishTime>12/11/2018 18:38:16</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Hosting.Abstractions.dll">
-      <publishTime>11/12/2018 18:30:22</publishTime>
+      <publishTime>12/11/2018 18:30:22</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Hosting.Server.Abstractions.dll">
-      <publishTime>11/12/2018 18:30:20</publishTime>
+      <publishTime>12/11/2018 18:30:20</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Html.Abstractions.dll">
-      <publishTime>11/12/2018 18:28:42</publishTime>
+      <publishTime>12/11/2018 18:28:42</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Http.Abstractions.dll">
-      <publishTime>11/12/2018 18:29:00</publishTime>
+      <publishTime>12/11/2018 18:29:00</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Http.dll">
       <publishTime>01/25/2019 00:18:54</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Http.Extensions.dll">
-      <publishTime>11/12/2018 18:29:06</publishTime>
+      <publishTime>12/11/2018 18:29:06</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Http.Features.dll">
       <publishTime>04/16/2022 00:18:18</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.JsonPatch.dll">
-      <publishTime>11/12/2018 18:28:34</publishTime>
+      <publishTime>12/11/2018 18:28:34</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Localization.dll">
-      <publishTime>11/12/2018 18:39:20</publishTime>
+      <publishTime>12/11/2018 18:39:20</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Metadata.dll">
       <publishTime>10/29/2024 14:28:18</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Mvc.Abstractions.dll">
-      <publishTime>11/12/2018 18:40:10</publishTime>
+      <publishTime>12/11/2018 18:40:10</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Mvc.ApiExplorer.dll">
-      <publishTime>11/12/2018 18:40:14</publishTime>
+      <publishTime>12/11/2018 18:40:14</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Mvc.Core.dll">
       <publishTime>04/20/2019 01:24:44</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Mvc.Cors.dll">
-      <publishTime>11/12/2018 18:40:16</publishTime>
+      <publishTime>12/11/2018 18:40:16</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Mvc.DataAnnotations.dll">
-      <publishTime>11/12/2018 18:40:14</publishTime>
+      <publishTime>12/11/2018 18:40:14</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Mvc.dll">
-      <publishTime>11/12/2018 18:40:34</publishTime>
+      <publishTime>12/11/2018 18:40:34</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Mvc.Formatters.Json.dll">
-      <publishTime>11/12/2018 18:40:14</publishTime>
+      <publishTime>12/11/2018 18:40:14</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Mvc.Localization.dll">
-      <publishTime>11/12/2018 18:40:28</publishTime>
+      <publishTime>12/11/2018 18:40:28</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Mvc.Razor.dll">
-      <publishTime>11/12/2018 18:40:28</publishTime>
+      <publishTime>12/11/2018 18:40:28</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Mvc.Razor.Extensions.dll">
-      <publishTime>11/12/2018 18:29:32</publishTime>
+      <publishTime>12/11/2018 18:29:32</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Mvc.RazorPages.dll">
-      <publishTime>04/20/2019 01:25:00</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Mvc.TagHelpers.dll">
-      <publishTime>11/12/2018 18:40:30</publishTime>
+      <publishTime>12/11/2018 18:40:30</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Mvc.ViewFeatures.dll">
-      <publishTime>11/12/2018 18:40:26</publishTime>
+      <publishTime>12/11/2018 18:40:26</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Razor.dll">
-      <publishTime>11/12/2018 18:29:26</publishTime>
+      <publishTime>12/11/2018 18:29:26</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Razor.Language.dll">
-      <publishTime>11/12/2018 18:29:28</publishTime>
+      <publishTime>12/11/2018 18:29:28</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Razor.Runtime.dll">
-      <publishTime>11/12/2018 18:29:32</publishTime>
+      <publishTime>12/11/2018 18:29:32</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.ResponseCaching.Abstractions.dll">
-      <publishTime>11/12/2018 18:37:50</publishTime>
+      <publishTime>12/11/2018 18:37:50</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Routing.Abstractions.dll">
-      <publishTime>11/12/2018 18:38:16</publishTime>
+      <publishTime>12/11/2018 18:38:16</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Routing.dll">
       <publishTime>01/25/2019 00:19:26</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.WebUtilities.dll">
-      <publishTime>11/12/2018 18:29:00</publishTime>
+      <publishTime>12/11/2018 18:29:00</publishTime>
     </File>
     <File Include="bin/Microsoft.Bcl.AsyncInterfaces.dll">
       <publishTime>04/15/2025 20:03:50</publishTime>
@@ -166,25 +166,25 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/30/2018 18:29:02</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeAnalysis.CSharp.pdb">
-      <publishTime>05/01/2018 01:03:46</publishTime>
+      <publishTime>01/05/2018 01:03:46</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeAnalysis.dll">
       <publishTime>04/30/2018 18:29:02</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeAnalysis.pdb">
-      <publishTime>05/01/2018 01:03:14</publishTime>
+      <publishTime>01/05/2018 01:03:14</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeAnalysis.Razor.dll">
-      <publishTime>11/12/2018 18:29:30</publishTime>
+      <publishTime>12/11/2018 18:29:30</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
-      <publishTime>03/05/2023 23:41:40</publishTime>
+      <publishTime>05/03/2023 23:41:40</publishTime>
     </File>
     <File Include="bin/Microsoft.DiaSymReader.Native.amd64.dll">
-      <publishTime>12/04/2017 18:36:44</publishTime>
+      <publishTime>04/12/2017 18:36:44</publishTime>
     </File>
     <File Include="bin/Microsoft.DiaSymReader.Native.x86.dll">
-      <publishTime>12/04/2017 18:36:44</publishTime>
+      <publishTime>04/12/2017 18:36:44</publishTime>
     </File>
     <File Include="bin/Microsoft.DotNet.PlatformAbstractions.dll">
       <publishTime>05/15/2018 23:01:34</publishTime>
@@ -214,7 +214,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/15/2025 20:13:46</publishTime>
     </File>
     <File Include="bin/Microsoft.Extensions.Configuration.Json.dll">
-      <publishTime>04/15/2025 20:14:00</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/Microsoft.Extensions.Configuration.UserSecrets.dll">
       <publishTime>04/15/2025 20:14:10</publishTime>
@@ -253,10 +253,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/15/2025 20:14:14</publishTime>
     </File>
     <File Include="bin/Microsoft.Extensions.Localization.Abstractions.dll">
-      <publishTime>11/12/2018 18:39:16</publishTime>
+      <publishTime>12/11/2018 18:39:16</publishTime>
     </File>
     <File Include="bin/Microsoft.Extensions.Localization.dll">
-      <publishTime>11/12/2018 18:39:20</publishTime>
+      <publishTime>12/11/2018 18:39:20</publishTime>
     </File>
     <File Include="bin/Microsoft.Extensions.Logging.Abstractions.dll">
       <publishTime>04/15/2025 20:11:34</publishTime>
@@ -292,10 +292,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/15/2025 20:12:24</publishTime>
     </File>
     <File Include="bin/Microsoft.Extensions.WebEncoders.dll">
-      <publishTime>11/12/2018 18:28:40</publishTime>
+      <publishTime>12/11/2018 18:28:40</publishTime>
     </File>
     <File Include="bin/Microsoft.Net.Http.Headers.dll">
-      <publishTime>11/12/2018 18:28:58</publishTime>
+      <publishTime>12/11/2018 18:28:58</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>05/28/2022 00:39:10</publishTime>
@@ -307,7 +307,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/22/2017 12:01:20</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>03/08/2023 07:09:56</publishTime>
+      <publishTime>08/03/2023 07:09:56</publishTime>
     </File>
     <File Include="bin/Polly.Core.dll">
       <publishTime>09/26/2024 18:40:40</publishTime>
@@ -343,7 +343,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2022 06:33:12</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
-      <publishTime>02/15/2022 06:36:00</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.Scripting.dll">
       <publishTime>02/15/2022 06:38:34</publishTime>
@@ -361,10 +361,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2022 06:21:10</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.DiaSymReader.Native.amd64.dll">
-      <publishTime>10/05/2021 02:47:54</publishTime>
+      <publishTime>05/10/2021 02:47:54</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.DiaSymReader.Native.x86.dll">
-      <publishTime>10/05/2021 02:49:46</publishTime>
+      <publishTime>05/10/2021 02:49:46</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.Managed.Core.CurrentVersions.targets">
       <publishTime>02/15/2022 06:33:08</publishTime>
@@ -433,7 +433,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/15/2025 20:12:40</publishTime>
     </File>
     <File Include="bin/System.Memory.dll">
-      <publishTime>05/08/2022 05:31:02</publishTime>
+      <publishTime>08/05/2022 05:31:02</publishTime>
     </File>
     <File Include="bin/System.Numerics.Vectors.dll">
       <publishTime>05/15/2018 15:29:44</publishTime>
@@ -457,7 +457,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/19/2020 20:46:28</publishTime>
     </File>
     <File Include="bin/System.Text.Encoding.CodePages.dll">
-      <publishTime>11/05/2016 05:57:20</publishTime>
+      <publishTime>05/11/2016 05:57:20</publishTime>
     </File>
     <File Include="bin/System.Text.Encodings.Web.dll">
       <publishTime>04/15/2025 20:11:16</publishTime>
@@ -475,10 +475,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/20/2023 22:33:58</publishTime>
     </File>
     <File Include="bin/System.Web.Mvc.dll">
-      <publishTime>10/20/2023 22:34:00</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/System.Web.Optimization.dll">
-      <publishTime>02/11/2014 15:26:04</publishTime>
+      <publishTime>11/02/2014 15:26:04</publishTime>
     </File>
     <File Include="bin/System.Web.Razor.dll">
       <publishTime>10/20/2023 22:33:48</publishTime>
@@ -1690,10 +1690,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Microsoft.DiaSymReader.Native.amd64.dll">
-      <publishTime>12/04/2017 18:36:44</publishTime>
+      <publishTime>04/12/2017 18:36:44</publishTime>
     </File>
     <File Include="Microsoft.DiaSymReader.Native.x86.dll">
-      <publishTime>12/04/2017 18:36:44</publishTime>
+      <publishTime>04/12/2017 18:36:44</publishTime>
     </File>
     <File Include="Scripts/bootstrap.bundle.js">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1846,7 +1846,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Views/Home/DownloadEbook.cshtml">
-      <publishTime>04/03/2026 12:18:36</publishTime>
+      <publishTime>03/04/2026 12:18:36</publishTime>
     </File>
     <File Include="Views/Home/Error.cshtml">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1876,10 +1876,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Views/Home/Member.cshtml">
-      <publishTime>04/03/2026 12:38:49</publishTime>
+      <publishTime>03/04/2026 12:38:49</publishTime>
     </File>
     <File Include="Views/Home/Memberinfo.cshtml">
-      <publishTime>04/03/2026 12:03:58</publishTime>
+      <publishTime>03/04/2026 12:03:58</publishTime>
     </File>
     <File Include="Views/Home/ObchodnePodmienky.cshtml">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1912,10 +1912,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Views/Home/Zdravie.cshtml">
-      <publishTime>04/03/2026 12:07:34</publishTime>
+      <publishTime>03/04/2026 12:07:34</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>04/03/2026 11:47:56</publishTime>
+      <publishTime>03/04/2026 11:47:56</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>03/24/2026 19:13:11</publishTime>

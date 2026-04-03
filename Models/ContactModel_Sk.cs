@@ -42,6 +42,9 @@ namespace LadowebservisMVC.Controllers.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
+        // Optional: client-side cart snapshot (JSON from localStorage) for cart reminder emails
+        public string CartJson { get; set; }
+
         public bool TexTemplate()
         {
             List<TextTemplateParam> paramList = new List<TextTemplateParam>
@@ -54,8 +57,8 @@ namespace LadowebservisMVC.Controllers.Models
                 };
 
             Mailer mailer = new Mailer();
-            // pass null to ensure Mailer still attaches the App_Data/MailAttachment.pdf
-            mailer.OdoslanieSpravy(this, null);
+            // Contact template should send only the user's message (no e-book attachment)
+            mailer.OdoslanieKontaktSpravy(this);
 
             return true;
         }

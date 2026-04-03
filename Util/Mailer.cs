@@ -8,6 +8,7 @@ using System.IO;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Web.Script.Serialization;
 
 namespace LadowebservisMVC.Util
 {
@@ -68,6 +69,313 @@ namespace LadowebservisMVC.Util
             if (string.IsNullOrWhiteSpace(customerEmail)) return string.Empty;
             var encoded = HttpUtility.UrlEncode(customerEmail);
             return $"{UnsubscribeBaseUrl}?email={encoded}&token=marketing";
+        }
+
+        /// <summary>
+        /// Contact form email (no e-book attachment). Sends the user's message to site inbox.
+        /// </summary>
+        public void OdoslanieKontaktSpravy(ContactModel_Sk model)
+        {
+            if (model == null) return;
+
+            var email = (model.Email ?? string.Empty).ToLowerInvariant();
+            var name = (model.Name ?? string.Empty);
+
+            if (IsEmailBlocked(email, name))
+            {
+                return;
+            }
+
+            using (var mail = new MailMessage())
+            {
+                mail.From = new MailAddress("info@ladowebservis.sk", "ladowebservis.sk");
+                mail.Headers["X-Mailer"] = "https://ladowebservis.sk/kontakt";
+                mail.Subject = "Kontaktný formulár – nová správa";
+                mail.IsBodyHtml = false;
+                mail.SubjectEncoding = Encoding.UTF8;
+                mail.BodyEncoding = Encoding.UTF8;
+
+                // Send to site inbox
+                mail.To.Add("info@ladowebservis.sk");
+
+                // Set Reply-To to the customer's email when valid
+                if (!string.IsNullOrWhiteSpace(model.Email))
+                {
+                    try
+                    {
+                        var _ = new MailAddress(model.Email);
+                        mail.ReplyToList.Add(new MailAddress(model.Email));
+                    }
+                    catch
+                    {
+                        // ignore invalid reply-to
+                    }
+                }
+
+                mail.Body = string.Format(
+                    "Nová správa z kontaktného formulára:\r\n\r\nMeno: {0}\r\nEmail: {1}\r\n\r\nSpráva:\r\n{2}\r\n",
+                    model.Name,
+                    model.Email,
+                    model.Text);
+
+                using (var client = new SmtpClient("email.active24.com"))
+                {
+                    client.EnableSsl = true;
+                    client.Port = 587;
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential("info@ladowebservis.sk", "a98HdiBMYNRH");
+                    client.Send(mail);
+                }
+            }
+
+            // Send a separate, nice Easter promo email to the customer (if they provided an email)
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(model?.Email))
+                {
+                    SendEasterPromoEmail(model.Email, model.Name, model.CartJson);
+                }
+            }
+            catch
+            {
+                // ignore promo email errors
+            }
+        }
+
+        private sealed class CartItem
+        {
+            public int quantity { get; set; }
+            public string image { get; set; }
+        }
+
+        private static List<string> TryBuildCartLines(string cartJson)
+        {
+            var result = new List<string>();
+            if (string.IsNullOrWhiteSpace(cartJson)) return result;
+
+            try
+            {
+                var serializer = new JavaScriptSerializer();
+                var dict = serializer.Deserialize<Dictionary<string, CartItem>>(cartJson);
+                if (dict == null || dict.Count == 0) return result;
+
+                foreach (var kv in dict)
+                {
+                    var key = kv.Key;
+                    var qty = kv.Value != null ? kv.Value.quantity : 0;
+                    if (qty <= 0) continue;
+
+                    // Try to map localStorage key to product name
+                    string displayName = key;
+                    try
+                    {
+                        if (ProductCatalog.TryGetById(key, out var p) && p != null)
+                        {
+                            displayName = p.Name;
+                        }
+                        else if (ProductCatalog.TryGetByName(key, out var p2) && p2 != null)
+                        {
+                            displayName = p2.Name;
+                        }
+                    }
+                    catch { }
+
+                    result.Add($"• {displayName} × {qty}");
+                }
+            }
+            catch
+            {
+                return result;
+            }
+
+            return result;
+        }
+
+        private void SendEasterPromoEmail(string customerEmail, string customerName, string cartJson)
+        {
+            if (string.IsNullOrWhiteSpace(customerEmail)) return;
+
+            // Validate email
+            try { var _ = new MailAddress(customerEmail); } catch { return; }
+
+            var nameSafe = string.IsNullOrWhiteSpace(customerName) ? "" : HttpUtility.HtmlEncode(customerName).Trim();
+            var promoCode = "NOVYROK26";
+            var memberCode = "REGZAK26";
+
+            var cartLines = TryBuildCartLines(cartJson) ?? new List<string>();
+            string cartHtml;
+            if (cartLines.Count == 0)
+            {
+                cartHtml = "<p style='margin:0;color:#666;'>🛒 V košíku momentálne nemáte žiadne položky.</p>";
+            }
+            else
+            {
+                var cartItemsHtml = string.Join("<br/>", cartLines.Select(HttpUtility.HtmlEncode));
+                cartHtml = "<p style='margin:0 0 10px 0;color:#333;font-weight:800;'>🛒 Máte v košíku:</p>" +
+                           "<div style='background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:12px;'>" +
+                           "<div style='color:#333;font-size:14px;line-height:1.7;'>" + cartItemsHtml + "</div>" +
+                           "</div>";
+            }
+
+            using (var mail = new MailMessage())
+            {
+                mail.From = new MailAddress("info@ladowebservis.sk", "ladowebservis.sk");
+                mail.To.Add(customerEmail);
+                mail.Bcc.Add("info@ladowebservis.sk");
+                mail.Subject = "🐣 Veľkonočná ponuka – 10% zľava na produkty (kódy " + promoCode + "/" + memberCode + ")";
+                mail.SubjectEncoding = Encoding.UTF8;
+                mail.BodyEncoding = Encoding.UTF8;
+                mail.IsBodyHtml = true;
+
+                var productsUrl = "https://ladowebservis.sk/Home/Produkty";
+                var cartUrl = "https://ladowebservis.sk/Home/Kosik";
+                var registerUrl = "https://ladowebservis.sk/Home/Registracia";
+                var unsubscribeUrl = GetUnsubscribeUrl(customerEmail);
+
+                mail.Body = $@"<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <style>
+    body {{ font-family: Arial, sans-serif; background:#f5f7fa; color:#333; margin:0; padding:0; }}
+    .wrap {{ padding: 18px; }}
+    .container {{ max-width: 650px; margin: 0 auto; background:#fff; border-radius: 12px; overflow:hidden; box-shadow: 0 10px 40px rgba(0,0,0,.10); }}
+    .header {{ background: linear-gradient(135deg,#5d33fb 0%,#4a2fb5 100%); color:#fff; padding: 26px 20px; text-align:center; }}
+    .header h1 {{ margin:0; font-size: 22px; line-height:1.4; }}
+    .content {{ padding: 22px 20px; }}
+    .pill {{ display:inline-block; padding:10px 14px; border-radius: 999px; font-weight: 800; background: linear-gradient(135deg,#ffeb3b 0%,#ffc107 100%); color:#2c3e50; }}
+    .box {{ background:#f8f9fa; border: 1px solid #e6e6e6; border-radius: 12px; padding: 16px; margin: 16px 0; }}
+    .title {{ color:#5d33fb; font-weight: 900; font-size: 16px; margin: 0 0 10px 0; }}
+    .btn {{ display:inline-block; text-decoration:none; font-weight: 800; padding: 12px 16px; border-radius: 10px; margin-right: 10px; margin-top: 10px; }}
+    .btn-primary {{ background: #5d33fb; color:#fff !important; }}
+    .btn-secondary {{ background: #17a2b8; color:#fff !important; }}
+    .muted {{ color:#777; font-size: 12px; line-height:1.6; }}
+    ul {{ margin: 10px 0 0 18px; padding:0; }}
+    li {{ margin: 6px 0; }}
+    code {{ background: #fff; border: 1px solid #eee; padding: 3px 8px; border-radius: 8px; font-weight: 800; }}
+    .footer {{ padding: 16px 20px; background:#fafafa; border-top:1px solid #eee; }}
+
+    /* Email-friendly product grid */
+    .prod-table {{ width:100%; border-collapse:collapse; margin-top: 10px; }}
+    .prod-td {{ width:50%; vertical-align:top; padding:10px; }}
+    .prod-card {{ background:#fff; border:1px solid #e6e6e6; border-radius:12px; padding:12px; }}
+    .prod-row {{ display:block; }}
+    .prod-img {{ width:72px; height:auto; border-radius:10px; display:block; }}
+    .prod-name {{ font-weight:900; color:#333; margin:8px 0 2px 0; font-size:14px; }}
+    .prod-note {{ margin:0; color:#666; font-size:12px; line-height:1.5; }}
+  </style>
+</head>
+<body>
+  <div class='wrap'>
+    <div class='container'>
+      <div class='header'>
+        <h1>🐣 Veľkonočná ponuka pre zdravie a energiu</h1>
+      </div>
+      <div class='content'>
+        <p>Dobrý deň {nameSafe},</p>
+        <p>Ďakujeme za Vašu správu. 💚</p>
+
+        <div style='text-align:center; margin: 14px 0 4px 0;'>
+          <span class='pill'>🎁 10% zľava – použite kód <code>{promoCode}</code></span>
+        </div>
+        <p style='text-align:center; margin: 10px 0 0 0; color:#555;'>
+          Registrovaní členovia môžu použiť aj kód <code>{memberCode}</code> (6 mesiacov).
+        </p>
+
+        <div class='box'>
+          <div class='title'>🌿 Tipy na top produkty (s fotkami)</div>
+
+          <table class='prod-table' role='presentation'>
+            <tr>
+              <td class='prod-td'>
+                <div class='prod-card'>
+                  <img class='prod-img' src='https://ladowebservis.sk/Image/BalanceOil.png' alt='BalanceOil+' />
+                  <div class='prod-name'>💊 BalanceOil+</div>
+                  <p class='prod-note'>Omega‑3 + vitamín D3 pre srdce, mozog a imunitu.</p>
+                </div>
+              </td>
+              <td class='prod-td'>
+                <div class='prod-card'>
+                  <img class='prod-img' src='https://ladowebservis.sk/Image/Zinobiotic2025.png' alt='Zinobiotic+' />
+                  <div class='prod-name'>🦠 Zinobiotic+</div>
+                  <p class='prod-note'>Podpora črevného mikrobiómu a rovnováhy.</p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class='prod-td'>
+                <div class='prod-card'>
+                  <img class='prod-img' src='https://ladowebservis.sk/Image/ZinzinoXtend.png' alt='ZinzinoXtend' />
+                  <div class='prod-name'>💪 ZinzinoXtend</div>
+                  <p class='prod-note'>23 vitamínov a minerálov pre energiu a imunitu.</p>
+                </div>
+              </td>
+              <td class='prod-td'>
+                <div class='prod-card'>
+                  <img class='prod-img' src='https://ladowebservis.sk/Image/CollagenBoozt.png' alt='CollagenBoozt' />
+                  <div class='prod-name'>✨ CollagenBoozt</div>
+                  <p class='prod-note'>Kolagén pre pleť, vlasy a kĺby (10‑dňová rutina).</p>
+                </div>
+              </td>
+            </tr>
+          </table>
+
+          <a class='btn btn-primary' href='{productsUrl}'>📦 Pozrieť produkty</a>
+        </div>
+
+        <div class='box'>
+          <div class='title'>💄 Oriflame – kozmetika a katalóg</div>
+          <p style='margin:0;color:#555;'>Parfumy, krémy a starostlivosť o pleť. Ak chcete poradiť, odpíšte na tento email.</p>
+          <a class='btn btn-secondary' href='https://sk.oriflame.com/products/digital-catalogue-current?store=SK-vladimirksenic'>📖 Otvoriť katalóg</a>
+          <a class='btn btn-primary' href='mailto:info@ladowebservis.sk'>✉️ Napísať zoznam produktov</a>
+        </div>
+
+        <div class='box'>
+          <div class='title'>💻 IT služby (rýchla pomoc)</div>
+          <ul>
+            <li>🔧 Opravy a údržba PC / notebookov</li>
+            <li>⚡ Zrýchlenie a optimalizácia počítača</li>
+            <li>🌐 Web / e‑shop – úpravy a správa</li>
+            <li>🧩 Inštalácia softvéru, odstránenie vírusov</li>
+          </ul>
+          <p style='margin:10px 0 0 0;color:#555;'><strong>Kontakt:</strong> <a href='mailto:podpora@ladowebservis.sk'>podpora@ladowebservis.sk</a> alebo +421917952432</p>
+        </div>
+
+        <div class='box'>
+          <div class='title'>🛒 Pripomienka košíka</div>
+          {cartHtml}
+          <a class='btn btn-secondary' href='{cartUrl}'>👀 Skontrolovať košík</a>
+        </div>
+
+        <div class='box'>
+          <div class='title'>✨ Chcete členské výhody?</div>
+          <p style='margin:0;color:#555;'>Po registrácii získate výhody a zľavové kódy – plus rýchlejší nákup.</p>
+          <a class='btn btn-primary' href='{registerUrl}'>📝 Registrácia</a>
+        </div>
+
+        <p style='margin: 18px 0 0 0; font-weight: 800;'>S pozdravom,<br/>Tím ladowebservis.sk 💚</p>
+      </div>
+      <div class='footer'>
+        <div class='muted'>
+          Ak si neželáte dostávať ďalšie ponuky a novinky, <a href='{unsubscribeUrl}'>kliknite sem</a>.<br/>
+          Stále budete dostávať informácie o svojich objednávkach.
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>";
+
+                using (var client = new SmtpClient("email.active24.com"))
+                {
+                    client.EnableSsl = true;
+                    client.Port = 587;
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential("info@ladowebservis.sk", "a98HdiBMYNRH");
+                    client.Send(mail);
+                }
+            }
         }
 
         /// <summary>
