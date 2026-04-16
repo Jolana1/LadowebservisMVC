@@ -1055,6 +1055,8 @@
     <Content Include="Views\Home\Gdpr.cshtml" />
     <Content Include="Views\Home\Unsubscribe.cshtml" />
     <Content Include="Views\Home\DownloadEbook.cshtml" />
+    <Content Include="Views\Server\Cancel.cshtml" />
+    <Content Include="Views\Server\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Image\corepack\dist\lib\" />

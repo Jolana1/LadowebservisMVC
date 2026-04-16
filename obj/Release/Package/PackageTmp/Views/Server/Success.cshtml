@@ -1,0 +1,21 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Platba úspešná";
+}
+
+<div class="container" style="padding:30px 15px;">
+    <div class="card p-4" style="border-radius:12px;">
+        <h2 style="margin-top:0; color:#28a745; font-weight:800;">✅ Platba úspešná</h2>
+        <p>Ďakujeme za Vašu objednávku. Potvrdenie platby sme Vám poslali emailom.</p>
+
+        @if (ViewBag.SessionId != null)
+        {
+            <p class="text-muted" style="font-size:12px;">Session: <code>@ViewBag.SessionId</code></p>
+        }
+
+        <p style="margin-top:20px;">
+            <a class="btn btn-primary" href="@Url.Action("Produkty", "Home")">Pokračovať na produkty</a>
+            <a class="btn btn-secondary" href="@Url.Action("Kosik", "Home")" style="margin-left:10px;">Späť do košíka</a>
+        </p>
+    </div>
+</div>

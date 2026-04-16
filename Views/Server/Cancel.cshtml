@@ -1,0 +1,16 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Platba zrušená";
+}
+
+<div class="container" style="padding:30px 15px;">
+    <div class="card p-4" style="border-radius:12px;">
+        <h2 style="margin-top:0; color:#dc3545; font-weight:800;">❌ Platba zrušená</h2>
+        <p>Platba nebola dokončená. Produkty zostali vo Vašom košíku.</p>
+
+        <p style="margin-top:20px;">
+            <a class="btn btn-primary" href="@Url.Action("Kosik", "Home")">Späť do košíka</a>
+            <a class="btn btn-secondary" href="@Url.Action("Produkty", "Home")" style="margin-left:10px;">Pokračovať na produkty</a>
+        </p>
+    </div>
+</div>

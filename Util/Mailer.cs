@@ -9,6 +9,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Web.Script.Serialization;
+using Stripe.Checkout;
 
 namespace LadowebservisMVC.Util
 {
@@ -45,7 +46,10 @@ namespace LadowebservisMVC.Util
             "zuyev-vadik@bk.ru",
             "asurering@gmail.com",
             "spacepapes@aol.com",
-            "1821977ek@gmail.com"
+            "1821977ek@gmail.com",
+            "imqxswtz@tacoblastmail.com",
+            "slod@unipegasobra.com",
+            "tcrepe-tech@laposte.net"
         };
 
         // Pattern to detect suspicious phone number patterns (e.g., +1.8...Bitcoin)
@@ -69,6 +73,135 @@ namespace LadowebservisMVC.Util
             if (string.IsNullOrWhiteSpace(customerEmail)) return string.Empty;
             var encoded = HttpUtility.UrlEncode(customerEmail);
             return $"{UnsubscribeBaseUrl}?email={encoded}&token=marketing";
+        }
+
+        public void SendPaymentConfirmationEmail(Session session, string customerEmail, string customerName = null)
+        {
+            if (string.IsNullOrWhiteSpace(customerEmail) || session == null) return;
+            try { var _ = new MailAddress(customerEmail); } catch { return; }
+
+            var nameSafe = string.IsNullOrWhiteSpace(customerName) ? "" : HttpUtility.HtmlEncode(customerName).Trim();
+            var promoCode = "NOVYROK26";
+
+            // Build line items list (if expanded)
+            var itemsHtml = "";
+            try
+            {
+                if (session.LineItems != null && session.LineItems.Data != null && session.LineItems.Data.Count > 0)
+                {
+                    var lines = session.LineItems.Data.Select(li =>
+                    {
+                        var desc = HttpUtility.HtmlEncode(li.Description ?? li.Price?.Product?.Name ?? "Produkt");
+                        var qty = li.Quantity ?? 1;
+                        var amount = ((decimal)li.AmountTotal) / 100m;
+                        return $"<tr><td style='padding:8px 0;'>{desc}</td><td style='padding:8px 0; text-align:center;'>{qty}</td><td style='padding:8px 0; text-align:right;'>€{amount:0.00}</td></tr>";
+                    });
+                    itemsHtml = string.Join("", lines);
+                }
+            }
+            catch { }
+
+            var totalEur = ((decimal)session.AmountTotal) / 100m;
+            var productsUrl = "https://ladowebservis.sk/Home/Produkty";
+            var cartUrl = "https://ladowebservis.sk/Home/Kosik";
+            var unsubscribeUrl = GetUnsubscribeUrl(customerEmail);
+
+            using (var mail = new MailMessage())
+            {
+                mail.From = new MailAddress("info@ladowebservis.sk", "ladowebservis.sk");
+                mail.To.Add(customerEmail);
+                mail.Bcc.Add("info@ladowebservis.sk");
+                mail.Subject = "✅ Potvrdenie platby – ďakujeme za objednávku";
+                mail.SubjectEncoding = Encoding.UTF8;
+                mail.BodyEncoding = Encoding.UTF8;
+                mail.IsBodyHtml = true;
+
+                mail.Body = $@"<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <style>
+    body {{ font-family: Arial, sans-serif; background:#f5f7fa; color:#333; margin:0; padding:0; }}
+    .wrap {{ padding: 18px; }}
+    .container {{ max-width: 650px; margin: 0 auto; background:#fff; border-radius: 12px; overflow:hidden; box-shadow: 0 10px 40px rgba(0,0,0,.10); }}
+    .header {{ background: linear-gradient(135deg,#28a745 0%,#20c997 100%); color:#fff; padding: 26px 20px; text-align:center; }}
+    .header h1 {{ margin:0; font-size: 22px; line-height:1.4; }}
+    .content {{ padding: 22px 20px; }}
+    .box {{ background:#f8f9fa; border: 1px solid #e6e6e6; border-radius: 12px; padding: 16px; margin: 16px 0; }}
+    .title {{ color:#28a745; font-weight: 900; font-size: 16px; margin: 0 0 10px 0; }}
+    .btn {{ display:inline-block; text-decoration:none; font-weight: 800; padding: 12px 16px; border-radius: 10px; margin-right: 10px; margin-top: 10px; }}
+    .btn-primary {{ background: #5d33fb; color:#fff !important; }}
+    .btn-secondary {{ background: #17a2b8; color:#fff !important; }}
+    code {{ background: #fff; border: 1px solid #eee; padding: 3px 8px; border-radius: 8px; font-weight: 800; }}
+    table {{ width:100%; border-collapse: collapse; }}
+    th {{ text-align:left; padding:8px 0; border-bottom:1px solid #e0e0e0; color:#555; font-size:13px; }}
+    td {{ border-bottom:1px dashed #eaeaea; font-size:14px; }}
+    .footer {{ padding: 16px 20px; background:#fafafa; border-top:1px solid #eee; color:#777; font-size:12px; line-height:1.6; }}
+  </style>
+</head>
+<body>
+  <div class='wrap'>
+    <div class='container'>
+      <div class='header'>
+        <h1>✅ Platba úspešná – ďakujeme!</h1>
+      </div>
+      <div class='content'>
+        <p>Dobrý deň {nameSafe},</p>
+        <p>
+          Vaša platba bola úspešne prijatá. 
+          <strong>Ďakujeme za objednávku</strong> – pripravujeme ju na spracovanie.
+        </p>
+
+        <div class='box'>
+          <div class='title'>🧾 Súhrn platby</div>
+          <p style='margin:0; color:#555;'>ID platby: <code>{HttpUtility.HtmlEncode(session.Id)}</code></p>
+          <p style='margin:8px 0 0 0; font-weight:900; font-size:18px;'>Spolu: €{totalEur:0.00}</p>
+        </div>
+
+        <div class='box'>
+          <div class='title'>📦 Zakúpené položky</div>
+          <table role='presentation'>
+            <thead>
+              <tr>
+                <th>Položka</th>
+                <th style='text-align:center;'>Ks</th>
+                <th style='text-align:right;'>Suma</th>
+              </tr>
+            </thead>
+            <tbody>
+              {(string.IsNullOrWhiteSpace(itemsHtml) ? "<tr><td colspan='3' style='padding:10px 0;color:#666;'>Položky nie sú dostupné.</td></tr>" : itemsHtml)}
+            </tbody>
+          </table>
+          <a class='btn btn-secondary' href='{productsUrl}'>🛍️ Ďalšie produkty</a>
+          <a class='btn btn-primary' href='{cartUrl}'>🛒 Košík</a>
+        </div>
+
+        <div class='box'>
+          <div class='title'>🐣 Veľkonočná akcia</div>
+          <p style='margin:0;color:#555;'>Nezabudnite – môžete použiť kód <code>{promoCode}</code> a získať 10% zľavu na vybrané produkty.</p>
+        </div>
+
+        <p style='margin: 18px 0 0 0; font-weight: 800;'>S pozdravom,<br/>Tím ladowebservis.sk 💚</p>
+      </div>
+      <div class='footer'>
+        Ak si neželáte dostávať ďalšie ponuky a novinky, <a href='{unsubscribeUrl}'>kliknite sem</a>.<br/>
+        Stále budete dostávať informácie o svojich objednávkach.
+      </div>
+    </div>
+  </div>
+</body>
+</html>";
+
+                using (var client = new SmtpClient("email.active24.com"))
+                {
+                    client.EnableSsl = true;
+                    client.Port = 587;
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential("info@ladowebservis.sk", "a98HdiBMYNRH");
+                    client.Send(mail);
+                }
+            }
         }
 
         /// <summary>
@@ -222,7 +355,7 @@ namespace LadowebservisMVC.Util
                 mail.From = new MailAddress("info@ladowebservis.sk", "ladowebservis.sk");
                 mail.To.Add(customerEmail);
                 mail.Bcc.Add("info@ladowebservis.sk");
-                mail.Subject = "🐣 Veľkonočná ponuka – 10% zľava na produkty (kódy " + promoCode + "/" + memberCode + ")";
+                mail.Subject = "💚 Jarná ponuka pre zdravie a energiu (kódy " + promoCode + "/" + memberCode + ")";
                 mail.SubjectEncoding = Encoding.UTF8;
                 mail.BodyEncoding = Encoding.UTF8;
                 mail.IsBodyHtml = true;
@@ -270,11 +403,11 @@ namespace LadowebservisMVC.Util
   <div class='wrap'>
     <div class='container'>
       <div class='header'>
-        <h1>🐣 Veľkonočná ponuka pre zdravie a energiu</h1>
+        <h1>💚 Jarná ponuka pre zdravie a energiu</h1>
       </div>
       <div class='content'>
         <p>Dobrý deň {nameSafe},</p>
-        <p>Ďakujeme za Vašu správu. 💚</p>
+        <p>Ďakujeme za Vašu správu. </p>
 
         <div style='text-align:center; margin: 14px 0 4px 0;'>
           <span class='pill'>🎁 10% zľava – použite kód <code>{promoCode}</code></span>

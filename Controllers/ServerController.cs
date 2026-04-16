@@ -4,6 +4,12 @@ using System.Web.Mvc;
 using Stripe;
 using Stripe.Checkout;
 using System.Data.Entity; // Add this namespace for Entity Framework
+using System;
+using System.Configuration;
+using System.IO;
+using System.Net;
+using System.Text;
+using LadowebservisMVC.Util;
 //using Umbraco.Web.Mvc;
 //using LadowebservisMVC.lib.Models; // Adjust the namespace according to your project structure
 //using LadowebservisMVC.lib.Repositories; // Adjust the namespace according to your project structure
@@ -130,7 +136,13 @@ namespace LadowebservisMVC.Controllers
             if (product == null)
                 return Json(new { success = false, message = "Product not found." });
 
-            StripeConfiguration.ApiKey = "pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3";
+            var stripeSecret = ConfigurationManager.AppSettings["Stripe:SecretKey"];
+            StripeConfiguration.ApiKey = stripeSecret;
+
+            if (string.IsNullOrWhiteSpace(stripeSecret) || stripeSecret.StartsWith("pk_", StringComparison.OrdinalIgnoreCase) || stripeSecret.IndexOf("YOUR_SECRET", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return Json(new { success = false, message = "Stripe SecretKey is not configured." });
+            }
 
             var options = new SessionCreateOptions
             {
@@ -152,7 +164,7 @@ namespace LadowebservisMVC.Controllers
                     },
                 },
                 Mode = "payment",
-                SuccessUrl = Url.Action("Success", "Server", null, Request.Url.Scheme),
+                SuccessUrl = Url.Action("Success", "Server", null, Request.Url.Scheme) + "?session_id={CHECKOUT_SESSION_ID}",
                 CancelUrl = Url.Action("Cancel", "Server", null, Request.Url.Scheme),
             };
             var service = new SessionService();
@@ -163,12 +175,81 @@ namespace LadowebservisMVC.Controllers
 
         public ActionResult Success()
         {
+            // Payment confirmation email is sent by Stripe webhook (more reliable).
+            ViewBag.SessionId = Request?["session_id"];
             return View();
         }
 
         public ActionResult Cancel()
         {
             return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult StripeWebhook()
+        {
+            var json = string.Empty;
+            try
+            {
+                using (var reader = new StreamReader(Request.InputStream))
+                {
+                    json = reader.ReadToEnd();
+                }
+
+                var stripeSignature = Request.Headers["Stripe-Signature"];
+                var webhookSecret = ConfigurationManager.AppSettings["Stripe:WebhookSecret"]; 
+                var stripeSecret = ConfigurationManager.AppSettings["Stripe:SecretKey"]; 
+
+                if (string.IsNullOrWhiteSpace(webhookSecret) || string.IsNullOrWhiteSpace(stripeSignature))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                StripeConfiguration.ApiKey = stripeSecret;
+                var stripeEvent = EventUtility.ConstructEvent(json, stripeSignature, webhookSecret);
+
+                if (stripeEvent == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                if (string.Equals(stripeEvent.Type, "checkout.session.completed", StringComparison.OrdinalIgnoreCase))
+                {
+                    var session = stripeEvent.Data.Object as Session;
+                    if (session != null)
+                    {
+                        try
+                        {
+                            var sessionService = new SessionService();
+                            var full = sessionService.Get(session.Id, new SessionGetOptions
+                            {
+                                Expand = new List<string> { "line_items" }
+                            });
+
+                            var email = full?.CustomerDetails?.Email ?? session.CustomerDetails?.Email;
+                            var name = full?.CustomerDetails?.Name ?? session.CustomerDetails?.Name;
+
+                            if (!string.IsNullOrWhiteSpace(email) && string.Equals(full?.PaymentStatus, "paid", StringComparison.OrdinalIgnoreCase))
+                            {
+                                var mailer = new Mailer();
+                                mailer.SendPaymentConfirmationEmail(full, email, name);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            System.Diagnostics.Trace.TraceError($"Stripe webhook processing error: {ex}");
+                        }
+                    }
+                }
+
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.TraceError($"Stripe webhook error: {ex}");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
     }
 
