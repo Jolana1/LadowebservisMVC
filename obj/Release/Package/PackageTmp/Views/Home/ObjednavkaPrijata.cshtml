@@ -1,0 +1,40 @@
+@{
+    ViewBag.Title = "ObjednavkaPrijata";
+
+    var msg = (ViewBag.OrderSentMessage as string) ?? "✅Objednávka bola prijatá.";
+    var name = (ViewBag.OrderSentName as string) ?? "";
+    var email = (ViewBag.OrderSentEmail as string) ?? "";
+    var total = (ViewBag.OrderSentGrandTotal as string) ?? "";
+}
+
+<div class="success-container" style="max-width: 800px; margin: 60px auto; padding: 0 20px;">
+    <div class="success-box" style="background: #f0fff4; border: 3px solid #28a745; border-radius: 12px; padding: 40px 30px; text-align:center; box-shadow: 0 12px 30px rgba(40, 167, 69, 0.15);">
+        <div style="font-size: 64px; margin-bottom: 10px;">✅</div>
+        <h2 style="margin-top:0; color:#28a745;">Objednávka prijatá</h2>
+        <p style="font-size: 16px; color:#555;"></p>
+
+        <div style="background:#fff; border-radius: 8px; padding: 20px; margin: 25px 0; text-align:left; border-left: 4px solid #28a745;">
+            <h4 style="margin-top:0; color:#28a745;">Súhrn</h4>
+
+            @if (!string.IsNullOrWhiteSpace(name))
+            {
+                <p>Meno: <strong>@name</strong></p>
+            }
+            @if (!string.IsNullOrWhiteSpace(email))
+            {
+                <p>Email: <strong>@email</strong></p>
+            }
+            @if (!string.IsNullOrWhiteSpace(total))
+            {
+                <p>Suma na úhradu: <strong>€@total</strong></p>
+            }
+
+            <p style="margin-top:15px;"><strong>Ďalší krok:</strong> Skontrolujte e‑mail (aj SPAM) pre údaje k platbe.</p>
+        </div>
+
+        <p style="margin: 0;">
+            <a class="btn btn-primary" href="@Url.Action("Status", "Home")">Zobraziť status</a>
+            <a class="btn btn-default" href="@Url.Action("Produkty", "Home")" style="margin-left:10px;">Späť na produkty</a>
+        </p>
+    </div>
+</div>

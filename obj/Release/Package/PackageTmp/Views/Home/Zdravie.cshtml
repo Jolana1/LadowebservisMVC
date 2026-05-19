@@ -1,4 +1,4 @@
-﻿@{
+﻿﻿@{
     ViewBag.Title = "Zdravie v rovnováhe";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -6,17 +6,125 @@
 <style>
     /* Sales Page Styles */
     body {
-        background: #f8f9fa;
+        background: transparent;
+    }
+
+    .zdravie-container {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 10px 20px 30px;
+        margin-top: 12px;
+    }
+
+    .zdravie-container section,
+    .zdravie-container .row,
+    .zdravie-container .special-offer-box,
+    .zdravie-container .it-callout,
+    .zdravie-container .urgency-banner,
+    .zdravie-container .guarantee-box,
+    .zdravie-container .trust-badges {
+        margin-bottom: 32px;
+    }
+
+    .cta-tertiary {
+        background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+        color: #fff !important;
+        padding: 14px 40px;
+        font-size: 16px;
+        font-weight: 700;
+        border-radius: 12px;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: 0 10px 26px rgba(23, 162, 184, 0.22);
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+        .cta-tertiary:hover {
+            background: linear-gradient(135deg, #138496 0%, #0f6674 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(23, 162, 184, 0.45);
+            color: #fff !important;
+        }
+
+    .it-callout {
+        background: linear-gradient(135deg, #ffffff 0%, #f7f9ff 100%);
+        border-radius: 18px;
+        padding: 35px;
+        box-shadow: 0 14px 36px rgba(36, 50, 74, 0.10);
+        border: 1px solid rgba(93, 51, 251, 0.12);
+        border-left: 5px solid #17a2b8;
+        margin: 35px 0 45px 0;
+    }
+
+    .it-callout h2 {
+        margin-top: 0;
+        color: #17a2b8;
+        font-weight: 800;
+        font-size: 28px;
+    }
+
+    .it-callout p {
+        color: #5f6f86;
+        margin: 10px 0 0 0;
+        line-height: 1.75;
+        font-size: 15px;
+    }
+
+    .it-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 18px;
+        margin-top: 20px;
+    }
+
+    .it-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 22px;
+        box-shadow: 0 10px 26px rgba(36, 50, 74, 0.08);
+        border: 1px solid rgba(93, 51, 251, 0.10);
+        border-top: 4px solid #17a2b8;
+        transition: all 0.25s ease;
+        height: 100%;
+    }
+
+        .it-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(23, 162, 184, 0.18);
+        }
+
+    .it-card h4 {
+        margin-top: 0;
+        color: #2c3e50;
+        font-weight: 800;
+        font-size: 16px;
+    }
+
+    .it-card .it-icon {
+        font-size: 30px;
+        margin-bottom: 10px;
+        display: inline-block;
+        color: #17a2b8;
+    }
+
+    .it-actions {
+        margin-top: 22px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
     }
 
     .hero-section {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: #fff;
-        padding: 80px 20px;
+        padding: 84px 28px;
         text-align: center;
-        border-radius: 12px;
+        border-radius: 22px;
         margin-bottom: 40px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        box-shadow: 0 20px 50px rgba(93, 51, 251, 0.20);
         position: relative;
         overflow: hidden;
     }
@@ -39,17 +147,17 @@
 
         .hero-section h1 {
             font-size: 48px;
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-            line-height: 1.3;
+            line-height: 1.2;
         }
 
     .hero-subtitle {
         font-size: 22px;
         font-weight: 600;
         margin-bottom: 15px;
-        opacity: 0.95;
+        opacity: 0.96;
     }
 
     .hero-tagline {
@@ -57,13 +165,16 @@
         margin-bottom: 30px;
         opacity: 0.9;
         font-style: italic;
+        max-width: 760px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .hero-offer-highlight {
         background: rgba(255, 255, 255, 0.15);
         border: 2px solid rgba(255, 255, 255, 0.3);
         padding: 20px 30px;
-        border-radius: 10px;
+        border-radius: 14px;
         font-size: 16px;
         font-weight: 600;
         margin: 20px auto;
@@ -99,10 +210,10 @@
         padding: 18px 50px;
         font-size: 18px;
         font-weight: 700;
-        border-radius: 8px;
+        border-radius: 12px;
         text-decoration: none;
         display: inline-block;
-        box-shadow: 0 8px 20px rgba(40,167,69,0.4);
+        box-shadow: 0 12px 28px rgba(40,167,69,0.28);
         transition: all 0.3s ease;
         border: none;
         cursor: pointer;
@@ -138,10 +249,10 @@
         padding: 14px 40px;
         font-size: 16px;
         font-weight: 600;
-        border-radius: 8px;
+        border-radius: 12px;
         text-decoration: none;
         display: inline-block;
-        box-shadow: 0 6px 18px rgba(255, 152, 0, 0.4);
+        box-shadow: 0 10px 24px rgba(255, 152, 0, 0.24);
         transition: all 0.3s ease;
         border: none;
         cursor: pointer;
@@ -157,19 +268,21 @@
 
     .section-title {
         color: #5d33fb;
-        font-weight: 700;
+        font-weight: 800;
         margin-bottom: 30px;
         font-size: 36px;
         text-align: center;
+        letter-spacing: -0.02em;
     }
 
     .benefit-card {
         background: #fff;
         padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        border-radius: 16px;
+        box-shadow: 0 10px 28px rgba(36, 50, 74, 0.08);
         margin-bottom: 30px;
         transition: transform 0.3s ease;
+        border: 1px solid rgba(93, 51, 251, 0.10);
         border-top: 4px solid #5d33fb;
     }
 
@@ -187,11 +300,12 @@
     .problem-card {
         background: #fff;
         padding: 25px;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        border-radius: 16px;
+        box-shadow: 0 10px 26px rgba(36, 50, 74, 0.08);
         margin-bottom: 20px;
         text-align: center;
         transition: all 0.3s ease;
+        border: 1px solid rgba(93, 51, 251, 0.08);
     }
 
         .problem-card:hover {
@@ -205,12 +319,13 @@
     }
 
     .testimonial-card {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        background: linear-gradient(135deg, #ffffff 0%, #eef3fb 100%);
         padding: 25px;
-        border-radius: 10px;
+        border-radius: 16px;
         border-left: 4px solid #5d33fb;
         margin-bottom: 20px;
         transition: all 0.3s ease;
+        box-shadow: 0 10px 24px rgba(36, 50, 74, 0.08);
     }
 
         .testimonial-card:hover {
@@ -233,11 +348,11 @@
         color: #fff;
         padding: 25px;
         text-align: center;
-        border-radius: 8px;
+        border-radius: 16px;
         margin: 30px 0;
         font-weight: 600;
         font-size: 18px;
-        box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+        box-shadow: 0 14px 32px rgba(255, 107, 107, 0.24);
         border: 2px solid rgba(255, 255, 255, 0.3);
         animation: slideDown 0.5s ease;
     }
@@ -267,10 +382,10 @@
 
     .special-offer-box {
         background: linear-gradient(135deg, #fff5e6 0%, #ffe0b2 100%);
-        border: 3px solid #ff9800;
-        border-radius: 12px;
+        border: 1px solid rgba(255, 152, 0, 0.30);
+        border-radius: 18px;
         padding: 50px;
-        box-shadow: 0 15px 40px rgba(255, 152, 0, 0.25);
+        box-shadow: 0 18px 42px rgba(255, 152, 0, 0.18);
         margin-bottom: 40px;
         position: relative;
         overflow: hidden;
@@ -330,8 +445,9 @@
         min-width: 200px;
         padding: 30px;
         background: #fff;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        border-radius: 16px;
+        box-shadow: 0 10px 24px rgba(36, 50, 74, 0.08);
+        border: 1px solid rgba(93, 51, 251, 0.08);
     }
 
     .stat-number {
@@ -356,10 +472,11 @@
     .step-item {
         background: #fff;
         padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        border-radius: 16px;
+        box-shadow: 0 10px 24px rgba(36, 50, 74, 0.08);
         border-top: 4px solid #5d33fb;
         transition: all 0.3s ease;
+        border: 1px solid rgba(93, 51, 251, 0.10);
     }
 
         .step-item:hover {
@@ -376,20 +493,21 @@
 
     .guarantee-box {
         background: linear-gradient(135deg, #e7f3ff 0%, #f0e6ff 100%);
-        border: 3px solid #5d33fb;
-        border-radius: 10px;
+        border: 1px solid rgba(93, 51, 251, 0.22);
+        border-radius: 18px;
         padding: 40px;
         text-align: center;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        box-shadow: 0 16px 36px rgba(93, 51, 251, 0.12);
     }
 
     .faq-item {
         background: #fff;
         padding: 25px;
-        border-radius: 10px;
+        border-radius: 16px;
         margin-bottom: 20px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        box-shadow: 0 10px 24px rgba(36, 50, 74, 0.08);
         border-left: 4px solid #5d33fb;
+        border: 1px solid rgba(93, 51, 251, 0.08);
     }
 
         .faq-item h4 {
@@ -404,20 +522,14 @@
         }
 
     .trust-badges {
-        background: #f8f9fa;
-        padding: 20px;
-        border-radius: 10px;
+        background: linear-gradient(135deg, #ffffff 0%, #f4f7fb 100%);
+        padding: 22px;
+        border-radius: 16px;
         text-align: center;
-        color: #999;
+        color: #6d7b90;
         font-size: 14px;
-    }
-
-    /* Match layout sizing behavior with Produkty page */
-    .zdravie-container {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 20px;
-        margin-top: 30px;
+        box-shadow: 0 10px 24px rgba(36, 50, 74, 0.08);
+        border: 1px solid rgba(93, 51, 251, 0.08);
     }
 
     @@media (max-width: 1200px) {
@@ -507,6 +619,13 @@
         }
 
         .cta-secondary {
+            padding: 12px 25px;
+            font-size: 13px;
+            width: 100%;
+            margin-left: 0;
+        }
+
+        .cta-tertiary {
             padding: 12px 25px;
             font-size: 13px;
             width: 100%;
@@ -658,6 +777,11 @@
         }
 
         .cta-secondary {
+            font-size: 12px;
+            padding: 10px 18px;
+        }
+
+        .cta-tertiary {
             font-size: 12px;
             padding: 10px 18px;
         }
@@ -849,9 +973,9 @@
 <div class="zdravie-container">
     <!-- ===== HERO SECTION ===== -->
     <div class="hero-section mb-5">
-        <h1>🚀 Inspire Change in Life - Zdravie Vo Vašich Rukách</h1>
-        <p class="hero-subtitle">Vedecky Overené Riešenie s 95% Úspešnosťou</p>
-        <p class="hero-tagline">"Obnovte Prirodzenú Rovnováhu Vášho Tela Bez Chémie"</p>
+        <h1>🚀 Zdravie vo Vašich rukách</h1>
+        <p class="hero-subtitle">Vedecky Overené Riešenie s 90% Úspešnosťou</p>
+        <p class="hero-tagline">"Obnovte Prirodzenú Rovnováhu Vášho Tela Bez Nebezpečnej Chémie"</p>
 
         <div class="hero-offer-highlight">
             ✨ <strong>BALANCE BALÍK</strong> - Komplexné 120-dňové riešenie pre zdravie
@@ -864,12 +988,58 @@
             <a href="#special-offer" class="cta-secondary">
                 <i class="fa fa-info-circle"></i> Zásady Ponuky
             </a>
+            <a href="@Url.Action("ITservis","Home")" class="cta-tertiary">
+                <i class="fa fa-laptop"></i> IT služby
+            </a>
         </div>
 
         <div class="urgency-timer">
-            ⏱️ Ponuka platná: do 30.4.2026 alebo do vyčerpania zásob
+            ⏱️ Ponuka platná: do 30.7.2026 alebo do vyčerpania zásob
         </div>
     </div>
+     <!-- ===== VIDEO ===== -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="section-title">📺 Pozrite Si Video</h2>
+            <p class="text-center lead" style="color: #666; margin-bottom: 30px;">Ako si zlepšiť zdravie so Zinzinom</p>
+        </div>
+        <div class="col-12">
+            <div style="max-width: 800px; margin: 0 auto; border-radius: 10px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.15);">
+                <iframe style="width: 100%; height: 500px;" src="https://videos.sproutvideo.com/embed/d390d3b31911ecc15a/eeb65011d6e6ae23?autoplay=0" title="Video Zinzino" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    <!-- ===== IT SERVICES CALLOUT>
+    <div class="it-callout">
+        <h2>💻 Potrebujete aj IT služby?</h2>
+        <p>
+            Okrem produktov pre zdravie poskytujeme aj praktické IT služby – web, e‑shop, opravy a poradenstvo.
+            Vyberte si, čo potrebujete, a ozvite sa nám.
+        </p>
+
+        <div class="it-cards">
+            <div class="it-card">
+                <div class="it-icon"><i class="fa fa-globe"></i></div>
+                <h4>Webstránky a e‑shopy</h4>
+                <p>Moderný web, úpravy, rýchlosť, SEO základ, bezpečnosť, nasadenie.</p>
+            </div>
+            <div class="it-card">
+                <div class="it-icon"><i class="fa fa-shield"></i></div>
+                <h4>Bezpečnosť a údržba</h4>
+                <p>Zálohy, aktualizácie, monitoring, odstránenie problémov a incidentov.</p>
+            </div>
+            <div class="it-card">
+                <div class="it-icon"><i class="fa fa-wrench"></i></div>
+                <h4>Servis a poradenstvo</h4>
+                <p>Diagnostika, opravy, nastavenia a odporúčania pre efektívnejší chod.</p>
+            </div>
+        </div>
+
+        <div class="it-actions">
+            <a class="btn btn-primary" href="@Url.Action("ITservis", "Home")">Pozrieť IT služby</a>
+            <a class="btn btn-default" href="@Url.Action("Kontakt", "Home")">Napíšte nám</a>
+        </div>
+    </div ===== -->
 
     <!-- ===== URGENCY BANNER ===== -->
     <div class="urgency-banner">
@@ -878,10 +1048,10 @@
             Iba prvých 50 zákazníkov dostane:
             <br>✅ 10% ZĽAVU na Balance balík
             <br>✅ BALZAM ZDARMA
-            <br>✅ DOPRAVU ZDARMA
+            <br>✅ DOPRAVU CEZ PACKETA ZDARMA v SR IBA NA BALANCE BALÍK
         </div>
         <div class="urgency-subtext">
-            Stav zásob: <strong id="stockCounter">42 balíkov</strong> - Rýchlo sa vypredáva! ⚡
+            Stav zásob: <strong id="stockCounter">10 balíkov</strong> - Rýchlo sa vypredáva! ⚡
         </div>
     </div>
 
@@ -901,7 +1071,7 @@
                         <div style="background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
                             <img src="~/Image/BalanceOil.png" alt="Balance Oil" class="img-fluid" style="max-width: 200px; border-radius: 8px; margin-bottom: 15px;">
                             <h4 style="color: #ff9800; font-weight: 700;">Balance Oil + Zinobiotic + ZinzinoXtend + CollagenBoozt</h4>
-                            <p style="color: #d97706; font-size: 14px; font-weight: 600;">Limitovaná edícia - Platnosť do 30.4.2026</p>
+                            <p style="color: #d97706; font-size: 14px; font-weight: 600;">Limitovaná edícia - Platnosť do 30.6.2026</p>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -911,7 +1081,7 @@
                             <li>✅ <strong>ZinzinoXtend</strong> - Imunita + výživa (Pôvodná hodnota: 44€ teraz 39,60€)</li>
                             <li>✅ <strong>CollagenBoozt</strong> - Pleť + kĺby (Pôvodná hodnota: 65€ teraz 58,50€)</li>
                             <li style="color: #28a745; font-weight: 700; font-size: 16px;">🎁 <strong>BONUS: Balzam ZDARMA</strong> (Hodnota: 3€)</li>
-                            <li style="color: #28a745; font-weight: 700;">🚚 <strong>Doprava ZDARMA</strong> v SR</li>
+                            <li style="color: #28a745; font-weight: 700;">🚚 <strong>Doprava CEZ PACKETA ZDARMA</strong> v SR IBA NA BALANCE BALÍK</li>
                             <li style="color: #5d33fb; font-weight: 700;">👤 <strong>Zarábajte body za</strong> každý úspešný nákup = Body do Vášho reg.konta!Príklad: Pri nákupe za 210€ získate 21€ v bodoch</li>
 
                         </ul>
@@ -945,7 +1115,7 @@
                         <i class="fa fa-credit-card"></i>🚀 ÁNO! CHCEM BALANCE BALÍK S BONUSOM - KÚPIŤ TERAZ
                     </a>
                     <p style="color: #666; font-size: 13px; margin-top: 15px;">
-                        ✅ 30-dňová záruka vrátenia peňazí | 🚚 Bezplatná doprava | 📧 Osobná podpora
+                        ✅ 30-dňová záruka vrátenia peňazí | 🚚 Doprava ako si zvolíte v SR | 📧 Osobná podpora
                     </p>
                 </div>
             </div>
@@ -987,7 +1157,7 @@
                             </a>
                         </div>
                         <p style="font-size: 13px; color: #666; margin-top: 15px;">
-                            ✅ 30-dňová záruka vrátenia | 🚚 Bezplatná doprava | 📧 Osobná podpora
+                            ✅ 30-dňová záruka vrátenia | 🚚 Doprava ako si zvolíte v SR | 📧 Osobná podpora
                         </p>
                     </div>
                 </div>
@@ -1030,7 +1200,7 @@
                             </a>
                         </div>
                         <p style="font-size: 13px; color: #666; margin-top: 15px;">
-                            ✅ 30-dňová záruka vrátenia | 🚚 Bezplatná doprava | 📧 Osobná podpora
+                            ✅ 30-dňová záruka vrátenia | 🚚 Doprava ako si zvolíte v SR | 📧 Osobná podpora
                         </p>
                     </div>
                 </div>
@@ -1187,19 +1357,7 @@
         </div>
     </div>
 
-    <!-- ===== VIDEO ===== -->
-    <!--<div class="row mb-5">
-        <div class="col-12">
-            <h2 class="section-title">📺 Pozrite Si Video</h2>
-            <p class="text-center lead" style="color: #666; margin-bottom: 30px;">Ako si zlepšiť zdravie so Zinzinom</p>
-        </div>
-        <div class="col-12">
-            <div style="max-width: 800px; margin: 0 auto; border-radius: 10px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.15);">
-                <iframe style="width: 100%; height: 500px;" src="https://videos.sproutvideo.com/embed/d390d3b31911ecc15a/eeb65011d6e6ae23?autoplay=0" title="Video Zinzino" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>-->
-
+   
     <!-- ===== SOCIAL PROOF ===== -->
     <div class="row mb-5">
         <div class="col-12">
@@ -1263,7 +1421,7 @@
         <div class="col-md-6 mb-3">
             <div class="faq-item">
                 <h4>Ako funguje doprava?</h4>
-                <p>ZDARMA pri objednávke nad 50€ v rámci SR. Doručíme do 3-7 pracovných dní.</p>
+                <p>Cez Packeta v rámci SR. Doručíme do 3-7 pracovných dní.</p>
             </div>
         </div>
     </div>
@@ -1296,14 +1454,14 @@
                     s našimi vedecky overenými produktami
                 </p>
                 <p style="font-size: 16px; opacity: 0.9; margin-bottom: 25px;">
-                    ⏰ Ponuka platná: do 30.4.2026 alebo do vyčerpania zásob
+                    ⏰ Ponuka platná: do 30.5.2026 alebo do vyčerpania zásob
                 </p>
                 <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" target="_blank" class="cta-primary">
                     🛒 ÁNO, CHCEM BALANCE BALÍK TERAZ!
                 </a>
-                <p style="margin-top: 20px; font-size: 16px;">
-                    Alebo <a href='@Url.Action("DownloadEbook","Home")' style="color: #fff; text-decoration: underline;">si vyžiadajte bezplatný e-book "5 prirodzených ciest k väčšej energii"</a>
-                </p>
+                <a href="@Url.Action("ITservis","Home")" class="cta-tertiary">
+                    💻 Potrebujete aj IT služby?
+                </a>
             </div>
         </div>
     </div>
@@ -1313,7 +1471,7 @@
         <div class="col-12">
             <div class="trust-badges">
                 <p>
-                    🔒 Bezpečná platba Stripe | 🚚 Doprava ZDARMA | 💳 100% záruka vrátenia | 🏆 Oficiálny partner Zinzino
+                    🔒 Bezpečná platba Stripe | 🚚 Doprava cez Packeta | 💳 100% záruka vrátenia | 🏆 Oficiálny partner Zinzino
                 </p>
             </div>
         </div>
@@ -1322,7 +1480,7 @@
 
 <script>
     // Stock counter animation - simulates real-time stock depletion
-    (function() {
+    (function () {
         var initialStock = 50;
         var currentStock = 48;
         var stockCounter = document.getElementById('stockCounter');
@@ -1347,10 +1505,10 @@
         setInterval(updateStock, Math.random() * 300000 + 300000);
 
         // Animate hero buttons on page load
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             var buttons = document.querySelectorAll('.cta-primary, .cta-secondary');
-            buttons.forEach(function(btn, index) {
-                setTimeout(function() {
+            buttons.forEach(function (btn, index) {
+                setTimeout(function () {
                     btn.style.animation = 'slideDown 0.5s ease';
                 }, index * 200);
             });
@@ -1359,7 +1517,7 @@
         // Smooth scroll to offer section
         var offerLink = document.querySelector('a[href="#special-offer"]');
         if (offerLink) {
-            offerLink.addEventListener('click', function(e) {
+            offerLink.addEventListener('click', function (e) {
                 e.preventDefault();
                 var target = document.getElementById('special-offer');
                 if (target) {
@@ -1369,58 +1527,6 @@
         }
     })();
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

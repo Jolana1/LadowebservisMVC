@@ -26,7 +26,9 @@ namespace LadowebservisMVC
             routes.MapRoute("memberinfo", "memberinfo", new { controller = "Home", action = "MemberInfo" });
             routes.MapRoute("registracia-uzivatela", "registracia-uzivatela", new { controller = "Home", action = "Registracia" });
             routes.MapRoute("kosik", "kosik", new { controller = "Home", action = "Kosik" });
-            routes.MapRoute("objednavka", "objednavka", new { controller = "Home", action = "PlacedOrder" });
+            routes.MapRoute("OdoslanaObjednavka", "OdoslanaObjednavka", new { controller = "Home", action = "PlaceOrder" });
+            routes.MapRoute("objednavka-prijata", "objednavka-prijata", new { controller = "Home", action = "ObjednavkaPrijata" });
+             routes.MapRoute("status", "status", new { controller = "Home", action = "Status" });
             routes.MapRoute("hudba", "hudba", new { controller = "Home", action = "Hudba" });
             routes.MapRoute("Obľúbené produkty", "Obľúbené produkty", new { controller = "Home", action = "Favorites" });
             routes.MapRoute("odhlasenie", "odhlasenie", new { controller = "Home", action = "Logout" });
@@ -35,6 +37,9 @@ namespace LadowebservisMVC
             routes.MapRoute("Obchodné podmienky", "Obchodné podmienky", new { controller = "Home", action = "ObchodnePodmienky" });
             routes.MapRoute("Error", "Error", new { controller = "Home", action = "HTTP404" });
             routes.MapRoute("DownloadEbook", "DownloadEbook", new { controller = "Home", action = "DownloadEbook" });
+            
+            
+            
 
 
 

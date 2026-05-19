@@ -4,8 +4,8 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project>
   <PropertyGroup>
-    <_PublishTargetUrl>C:\Users\kseni\source\repos\LadowebservisMVC\publish</_PublishTargetUrl>
-    <History>True|2026-04-11T13:46:16.0620396Z||;True|2026-04-03T22:23:23.9636992+02:00||;True|2026-04-03T13:11:38.9562902+02:00||;</History>
+    <_PublishTargetUrl>C:\Users\kseni\source\repos\LadowebservisMVC\Publish1</_PublishTargetUrl>
+    <History>True|2026-05-19T17:07:19.7915941Z||;True|2026-05-05T22:14:26.0808343+02:00||;True|2026-05-04T18:41:53.5102172+02:00||;False|2026-05-04T18:36:34.0808130+02:00||;True|2026-05-04T17:37:15.0904639+02:00||;True|2026-05-03T21:29:35.3913802+02:00||;True|2026-04-11T15:46:16.0620396+02:00||;True|2026-04-03T22:23:23.9636992+02:00||;True|2026-04-03T13:11:38.9562902+02:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -31,10 +31,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/29/2024 18:47:24</publishTime>
     </File>
     <File Include="bin/LadowebservisMVC.dll">
-      <publishTime>04/11/2026 15:46:11</publishTime>
+      <publishTime>05/19/2026 19:07:16</publishTime>
     </File>
     <File Include="bin/LadowebservisMVC.pdb">
-      <publishTime>04/11/2026 15:46:11</publishTime>
+      <publishTime>05/19/2026 19:07:16</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Antiforgery.dll">
       <publishTime>11/12/2018 18:33:18</publishTime>
@@ -158,6 +158,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="bin/Microsoft.Bcl.AsyncInterfaces.dll">
       <publishTime>04/15/2025 20:03:50</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Bcl.Cryptography.dll">
+      <publishTime>04/17/2026 20:49:30</publishTime>
     </File>
     <File Include="bin/Microsoft.Bcl.TimeProvider.dll">
       <publishTime>11/30/2023 09:28:10</publishTime>
@@ -418,7 +421,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/30/2025 21:18:04</publishTime>
     </File>
     <File Include="bin/System.Buffers.dll">
-      <publishTime>02/19/2020 11:05:18</publishTime>
+      <publishTime>03/19/2025 21:55:38</publishTime>
     </File>
     <File Include="bin/System.Collections.Immutable.dll">
       <publishTime>12/19/2016 13:17:42</publishTime>
@@ -429,26 +432,29 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="bin/System.Diagnostics.DiagnosticSource.dll">
       <publishTime>04/15/2025 20:09:54</publishTime>
     </File>
+    <File Include="bin/System.Formats.Asn1.dll">
+      <publishTime>04/17/2026 20:48:18</publishTime>
+    </File>
     <File Include="bin/System.IO.Pipelines.dll">
       <publishTime>04/15/2025 20:12:40</publishTime>
     </File>
     <File Include="bin/System.Memory.dll">
-      <publishTime>05/08/2022 05:31:02</publishTime>
+      <publishTime>04/04/2025 01:00:54</publishTime>
     </File>
     <File Include="bin/System.Numerics.Vectors.dll">
-      <publishTime>05/15/2018 15:29:44</publishTime>
+      <publishTime>03/19/2025 21:55:42</publishTime>
     </File>
     <File Include="bin/System.Reflection.Metadata.dll">
       <publishTime>12/19/2016 13:20:32</publishTime>
     </File>
     <File Include="bin/System.Runtime.CompilerServices.Unsafe.dll">
-      <publishTime>10/23/2021 01:40:18</publishTime>
+      <publishTime>04/04/2025 01:00:52</publishTime>
     </File>
     <File Include="bin/System.Security.AccessControl.dll">
       <publishTime>03/21/2024 18:14:56</publishTime>
     </File>
     <File Include="bin/System.Security.Cryptography.Xml.dll">
-      <publishTime>04/17/2024 00:25:26</publishTime>
+      <publishTime>04/17/2026 20:50:26</publishTime>
     </File>
     <File Include="bin/System.Security.Permissions.dll">
       <publishTime>05/15/2018 15:29:40</publishTime>
@@ -1735,10 +1741,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Scripts/cart.js">
-      <publishTime>03/29/2026 15:45:42</publishTime>
+      <publishTime>05/05/2026 21:07:38</publishTime>
     </File>
     <File Include="Scripts/chat-ui.js">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>05/06/2026 21:02:56</publishTime>
     </File>
     <File Include="Scripts/checkout.js">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1845,11 +1851,14 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="styles/w31.css">
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
+    <File Include="Views/Home/About.cshtml">
+      <publishTime>05/03/2026 21:26:45</publishTime>
+    </File>
     <File Include="Views/Home/DownloadEbook.cshtml">
       <publishTime>04/03/2026 12:18:36</publishTime>
     </File>
     <File Include="Views/Home/Error.cshtml">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>05/03/2026 21:01:14</publishTime>
     </File>
     <File Include="Views/Home/Favorites.cshtml">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1870,7 +1879,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/29/2026 15:19:02</publishTime>
     </File>
     <File Include="Views/Home/Kosik.cshtml">
-      <publishTime>03/29/2026 15:56:45</publishTime>
+      <publishTime>05/14/2026 21:03:42</publishTime>
     </File>
     <File Include="Views/Home/Login.cshtml">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1884,14 +1893,20 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Views/Home/ObchodnePodmienky.cshtml">
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
+    <File Include="Views/Home/ObjednavkaPrijata.cshtml">
+      <publishTime>05/05/2026 21:55:40</publishTime>
+    </File>
     <File Include="Views/Home/Objednavky.cshtml">
       <publishTime>03/16/2026 12:55:06</publishTime>
+    </File>
+    <File Include="Views/Home/OdoslanaObjednavka.cshtml">
+      <publishTime>05/11/2026 21:07:12</publishTime>
     </File>
     <File Include="Views/Home/OdoslanieReg.cshtml">
       <publishTime>03/29/2026 14:08:31</publishTime>
     </File>
     <File Include="Views/Home/OdoslanieSpravy.cshtml">
-      <publishTime>03/25/2026 20:19:40</publishTime>
+      <publishTime>05/05/2026 20:25:17</publishTime>
     </File>
     <File Include="Views/Home/OrderPlaced.cshtml">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1908,20 +1923,23 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Views/Home/ReturnPolicy.cshtml">
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
+    <File Include="Views/Home/Status.cshtml">
+      <publishTime>05/03/2026 18:39:36</publishTime>
+    </File>
     <File Include="Views/Home/Unsubscribe.cshtml">
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Views/Home/Zdravie.cshtml">
-      <publishTime>04/03/2026 12:07:34</publishTime>
+      <publishTime>05/16/2026 20:41:33</publishTime>
     </File>
     <File Include="Views/Server/Cancel.cshtml">
-      <publishTime>04/11/2026 14:33:56</publishTime>
+      <publishTime>04/28/2026 17:48:12</publishTime>
     </File>
     <File Include="Views/Server/Success.cshtml">
-      <publishTime>04/11/2026 14:33:56</publishTime>
+      <publishTime>04/28/2026 17:48:12</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>04/03/2026 11:47:56</publishTime>
+      <publishTime>05/16/2026 21:32:05</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>03/24/2026 19:13:11</publishTime>
@@ -1930,7 +1948,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/11/2026 13:48:10</publishTime>
+      <publishTime>05/13/2026 21:42:14</publishTime>
     </File>
   </ItemGroup>
 </Project>

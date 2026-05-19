@@ -12,10 +12,57 @@
 
 
 
+
     ]);
 
     const STORAGE_KEY = 'lws_cart_v1';
     const FAV_KEY = 'lws_fav_v1';
+    const SHIPPING_KEY = 'lws_shipping_v1';
+
+    const SHIPPING_METHODS = {
+        zasielkovna: {
+            label: 'Zásielkovňa / Packeta (výdajné miesto)',
+            // fallback tiers (EUR) if server/appSettings not mirrored on client
+            tiers: [
+                { minTotal: 0, price: 3.90 },
+                { minTotal: 50, price: 2.90 },
+                { minTotal: 80, price: 0.00 }
+            ]
+        }
+    };
+
+    function loadShipping() {
+        try {
+            const json = localStorage.getItem(SHIPPING_KEY);
+            return json ? JSON.parse(json) : {};
+        } catch (e) {
+            return {};
+        }
+    }
+
+    function saveShipping(obj) {
+        try {
+            localStorage.setItem(SHIPPING_KEY, JSON.stringify(obj || {}));
+        } catch (e) { }
+    }
+
+    function computeShippingFee(cartTotal, shipping) {
+        try {
+            if (!shipping || !shipping.method) return 0;
+            const m = SHIPPING_METHODS[shipping.method];
+            if (!m || !m.tiers || !m.tiers.length) return 0;
+
+            let fee = 0;
+            for (const t of m.tiers) {
+                if (cartTotal >= (Number(t.minTotal) || 0)) {
+                    fee = Number(t.price) || 0;
+                }
+            }
+            return fee;
+        } catch (e) {
+            return 0;
+        }
+    }
 
     function loadCart() {
         try {
@@ -173,7 +220,12 @@
         });
 
         const total = subtotal - discount;
-        return { subtotal: subtotal, totalQty: totalQty, discount: discount, total: total };
+
+        const shipping = loadShipping();
+        const shippingFee = computeShippingFee(total, shipping);
+        const grandTotal = total + shippingFee;
+
+        return { subtotal: subtotal, totalQty: totalQty, discount: discount, total: total, shippingFee: shippingFee, grandTotal: grandTotal };
     }
 
     function renderCart() {
@@ -183,6 +235,10 @@
         const menuCountEl = document.querySelector('#menu-cart-count');
         const totalAmountEl = document.querySelector('#total-amount');
         const totalDiscountEl = document.querySelector('#total-discount');
+        const shippingAmountEl = document.querySelector('#shipping-amount');
+        const grandTotalEl = document.querySelector('#grand-total-amount');
+        const pickupSummaryEl = document.querySelector('#shipping-pickup-summary');
+        const pickBtn = document.querySelector('#sidecart-pickup-btn');
 
         if (!listEl || !itemsCountEl || !totalAmountEl) return;
 
@@ -375,13 +431,32 @@
         totalAmountEl.setAttribute('data-subtotal', totals.subtotal.toFixed(2));
         // highlight total amount to make it more visible
         if (totalAmountEl.parentNode && totalAmountEl.parentNode.style) {
-            totalAmountEl.parentNode.style.fontWeight = 'bold';
+            totalAmountEl.parentNode.style.fontWeight = 'normal';
             totalAmountEl.parentNode.style.color = 'black';
         }
         if (totalDiscountEl) {
             if (totals.discount > 0) totalDiscountEl.textContent = '(Zľava 10%: -€' + totals.discount.toFixed(2) + ')';
             else totalDiscountEl.textContent = '';
         }
+
+        // Shipping summary in side cart
+        if (shippingAmountEl) shippingAmountEl.textContent = totals.shippingFee.toFixed(2);
+        if (grandTotalEl) grandTotalEl.textContent = totals.grandTotal.toFixed(2);
+
+        try {
+            const ship = loadShipping();
+            if (pickupSummaryEl) {
+                if (ship && ship.method === 'zasielkovna' && ship.pickupPointName) {
+                    pickupSummaryEl.textContent = ship.pickupPointName + (ship.pickupPoint ? (' (' + ship.pickupPoint + ')') : '');
+                } else {
+                    pickupSummaryEl.textContent = '';
+                }
+            }
+            if (pickBtn) {
+                pickBtn.disabled = !(ship && ship.method === 'zasielkovna');
+                pickBtn.title = pickBtn.disabled ? 'Najprv vyberte dopravu Zásielkovňa/Packeta' : 'Prejdite na košík pre výber výdajného miesta';
+            }
+        } catch (e) { }
 
         // ensure favorite icons reflect current state
         renderFavoriteButtons();

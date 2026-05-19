@@ -8,7 +8,7 @@
         !function (f, b, e, v, n, t, s) {
             if (f.fbq) return; n = f.fbq = function () {
                 n.callMethod ?
-                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
             };
             if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
             n.queue = []; t = b.createElement(e); t.async = !0;
@@ -79,6 +79,12 @@
         })();
     </script>
 
+    <!-- Packeta/Zásielkovňa widget config -->
+    <script>
+        window.__packetaApiKey = '@System.Configuration.ConfigurationManager.AppSettings["Packeta:ApiKey"]';
+    </script>
+    <script src="https://widget.packeta.com/v6/www/js/library.js" async></script>
+
     <script type="text/javascript" src="@Url.Content("~/Scripts/cart.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/checkout.js")"></script>
 
@@ -105,6 +111,109 @@
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
     <style>
+        :root {
+            --lws-bg: #f5f7fb;
+            --lws-surface: #ffffff;
+            --lws-surface-soft: #f8fafc;
+            --lws-text: #24324a;
+            --lws-text-muted: #5f6f86;
+            --lws-primary: #5d33fb;
+            --lws-primary-dark: #4a2fb5;
+            --lws-secondary: #17a2b8;
+            --lws-nav-text: #ffffff;
+            --lws-nav-text-soft: #ffffff;
+            --lws-nav-start: #0f172a;
+            --lws-nav-end: #312e81;
+            --lws-nav-glass: rgba(15, 23, 42, 0.78);
+            --lws-border: rgba(93, 51, 251, 0.12);
+            --lws-shadow-sm: 0 8px 22px rgba(36, 50, 74, 0.08);
+            --lws-shadow-md: 0 14px 38px rgba(36, 50, 74, 0.12);
+            --lws-radius: 16px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(180deg, #f7f9fc 0%, #eef2f8 100%);
+            color: var(--lws-text);
+            font-family: 'Montserrat', Arial, sans-serif;
+            line-height: 1.65;
+            letter-spacing: 0.01em;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        p,
+        li,
+        label,
+        input,
+        select,
+        textarea,
+        button {
+            font-size: 15px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--lws-text);
+            line-height: 1.3;
+        }
+
+        a {
+            color: var(--lws-primary);
+            transition: color 0.2s ease, opacity 0.2s ease;
+        }
+
+            a:hover,
+            a:focus {
+                color: var(--lws-primary-dark);
+                text-decoration: none;
+            }
+
+        .body-content {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 28px 20px 0;
+        }
+
+        .body-content > hr {
+            border-top: 1px solid rgba(93, 51, 251, 0.10);
+            margin: 42px 0 30px;
+        }
+
+        .container,
+        .container-fluid,
+        .container-fluid-right {
+            max-width: 100%;
+        }
+
+        .btn,
+        button,
+        input[type="submit"] {
+            border-radius: 10px;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 1px solid rgba(93, 51, 251, 0.16);
+            box-shadow: none;
+            min-height: 42px;
+            color: var(--lws-text);
+        }
+
+            .form-control:focus {
+                border-color: rgba(93, 51, 251, 0.5);
+                box-shadow: 0 0 0 3px rgba(93, 51, 251, 0.12);
+            }
+
+        .alert,
+        .card,
+        .well,
+        .panel {
+            border-radius: 14px;
+        }
+
         /* Make the image fully responsive */
         .carousel-inner img {
             width: 100%;
@@ -175,17 +284,37 @@
         /* Modern Navbar Styles - Enhanced Responsive */
         .navbar {
             min-height: 70px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--lws-nav-start) 0%, #1e293b 42%, var(--lws-nav-end) 100%);
             border: none;
-            border-bottom: 3px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.25);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 14px 32px rgba(15, 23, 42, 0.28);
             padding: 8px 20px;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1030;
             transition: all 0.3s ease;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
         }
+
+            .navbar::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 1px;
+                background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.22) 50%, rgba(255,255,255,0.05) 100%);
+            }
+
+            .navbar::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 55%);
+                pointer-events: none;
+            }
 
         .navbar-brand {
             padding: 12px 0 !important;
@@ -194,7 +323,7 @@
             display: flex;
             align-items: center;
             height: 70px;
-            color: #fff !important;
+            color: var(--lws-nav-text) !important;
             transition: all 0.3s ease;
         }
 
@@ -223,7 +352,7 @@
                 height: 70px;
                 display: flex;
                 align-items: center;
-                color: rgba(0, 0, 0, 0.7) !important;
+                color: var(--lws-nav-text-soft) !important;
             }
 
                 .navbar-nav > li > a::after {
@@ -233,7 +362,7 @@
                     left: 12px;
                     right: 12px;
                     height: 2px;
-                    background: rgba(0, 0, 0, 0.8);
+                    background: rgba(255, 255, 255, 0.95);
                     transform: scaleX(0);
                     transition: transform 0.3s ease;
                 }
@@ -243,9 +372,17 @@
                 }
 
                 .navbar-nav > li > a:hover {
-                    color: rgba(0, 0, 0, 0.95) !important;
-                    background: rgba(255, 255, 255, 0.2);
+                    color: var(--lws-nav-text) !important;
+                    background: rgba(255, 255, 255, 0.12);
                     transform: translateY(-2px);
+                }
+
+                .navbar-nav > li > a:focus,
+                .navbar-nav > li.open > a,
+                .navbar-nav > li.open > a:focus,
+                .navbar-nav > li.open > a:hover {
+                    color: var(--lws-nav-text) !important;
+                    background: rgba(255, 255, 255, 0.14) !important;
                 }
 
         .navbar-right {
@@ -255,24 +392,95 @@
             height: 70px;
         }
 
+        .nav-main-links {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .nav-main-links > li {
+            float: none;
+        }
+
+        .nav-segment-dropdown > a,
+        .nav-main-links > .nav-item > a {
+            border-radius: 12px;
+            font-weight: 700 !important;
+        }
+
+        .nav-segment-dropdown > a .fa,
+        .nav-segment-dropdown > a .glyphicon,
+        .nav-main-links > .nav-item > a .fa,
+        .nav-main-links > .nav-item > a .glyphicon {
+            margin-right: 8px;
+        }
+
+        .nav-translate-item {
+            margin-right: 8px;
+        }
+
+        .nav-utility-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .navbar-quick-search {
+            max-width: 0;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateX(8px);
+            transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease;
+        }
+
+            .navbar-quick-search.is-open {
+                max-width: 260px;
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            .navbar-quick-search .navbar-form {
+                width: 100%;
+            }
+
+            .navbar-quick-search .input-group {
+                display: flex;
+                align-items: stretch;
+                width: 100%;
+            }
+
+            .navbar-quick-search .form-control {
+                min-width: 170px;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+
+            .navbar-quick-search .btn {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+
         .cart-toggle-btn {
             padding: 8px 14px !important;
             font-size: 14px;
-            border-radius: 8px;
+            border-radius: 999px;
             transition: all 0.3s ease;
-            border: 2px solid rgba(0, 0, 0, 0.2) !important;
-            background: rgba(0, 0, 0, 0.05) !important;
-            color: rgba(0, 0, 0, 0.7) !important;
+            border: 1px solid rgba(255, 255, 255, 0.16) !important;
+            background: rgba(255, 255, 255, 0.10) !important;
+            color: var(--lws-nav-text) !important;
             white-space: nowrap;
-            font-weight: 500;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
             .cart-toggle-btn:hover {
-                background: rgba(0, 0, 0, 0.1) !important;
-                border-color: rgba(0, 0, 0, 0.4) !important;
+                background: rgba(255, 255, 255, 0.18) !important;
+                border-color: rgba(255, 255, 255, 0.30) !important;
                 transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-                color: rgba(0, 0, 0, 0.95) !important;
+                box-shadow: 0 10px 24px rgba(15, 23, 42, 0.24);
+                color: var(--lws-nav-text) !important;
             }
 
         .cart-badge {
@@ -292,27 +500,29 @@
 
         /* Dropdown improvements */
         .dropdown-menu {
-            border: none;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            margin-top: 8px;
-            padding: 8px 0;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            background: rgba(15, 23, 42, 0.92);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.28);
+            border-radius: 18px;
+            margin-top: 12px;
+            padding: 10px 0;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
         }
 
             .dropdown-menu > li > a {
                 padding: 12px 20px !important;
                 font-size: 13px;
                 transition: all 0.2s ease;
-                color: rgba(0, 0, 0, 0.75) !important;
+                color: #ffffff !important;
                 border-left: 3px solid transparent;
             }
 
                 .dropdown-menu > li > a:hover {
-                    background: rgba(255, 255, 255, 0.5) !important;
-                    border-left-color: rgba(0, 0, 0, 0.6);
+                    background: rgba(255, 255, 255, 0.10) !important;
+                    border-left-color: rgba(129, 140, 248, 0.95);
                     padding-left: 26px !important;
-                    color: rgba(0, 0, 0, 0.95) !important;
+                    color: #ffffff !important;
                 }
 
                 .dropdown-menu > li > a i,
@@ -328,14 +538,16 @@
         }
 
         .goog-te-gadget-simple {
-            border: 2px solid rgba(0, 0, 0, 0.2) !important;
-            border-radius: 8px !important;
-            background: rgba(0, 0, 0, 0.05) !important;
+            border: 1px solid rgba(255, 255, 255, 0.14) !important;
+            border-radius: 999px !important;
+            background: rgba(255, 255, 255, 0.10) !important;
             padding: 4px 10px !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
             .goog-te-gadget-simple span {
-                color: rgba(0, 0, 0, 0.75) !important;
+                color: #ffffff !important;
                 font-weight: 500;
             }
 
@@ -344,6 +556,10 @@
             .navbar {
                 padding: 0 15px;
                 min-height: 65px;
+            }
+
+            .nav-main-links {
+                gap: 2px;
             }
 
             .navbar-nav > li > a {
@@ -360,6 +576,10 @@
                 padding: 8px 12px !important;
                 font-size: 13px;
             }
+
+            .navbar-quick-search.is-open {
+                max-width: 210px;
+            }
         }
 
         /* Mobile Responsive (≤768px) */
@@ -367,10 +587,15 @@
             .navbar {
                 min-height: 56px;
                 padding: 0 12px;
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
             }
 
             .navbar-brand {
                 height: 56px;
+                margin-right: auto;
+                order: 1;
             }
 
                 .navbar-brand img {
@@ -380,13 +605,36 @@
             .navbar-right {
                 height: 56px;
                 gap: 6px;
+                margin-left: auto;
+                flex-wrap: nowrap;
+                order: 2;
+            }
+
+            .nav-utility-link {
+                width: 34px;
+                height: 34px;
+                padding: 0 !important;
             }
 
             .cart-toggle-btn {
                 padding: 6px 10px !important;
                 font-size: 13px;
-                color: rgba(0, 0, 0, 0.7) !important;
+                color: var(--lws-nav-text) !important;
             }
+
+            .navbar-toggler {
+                order: 2;
+                margin-left: 8px;
+                border-color: rgba(255, 255, 255, 0.28) !important;
+                background: rgba(255, 255, 255, 0.12);
+                border-radius: 12px;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+
+                .navbar-toggler .navbar-toggler-icon {
+                    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,0.92)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+                }
 
             .cart-badge {
                 font-size: 9px;
@@ -402,7 +650,41 @@
                 border-radius: 0 0 10px 10px;
                 max-height: calc(100vh - 56px);
                 overflow-y: auto;
+                width: calc(100% + 24px);
+                order: 3;
+                flex-basis: 100%;
             }
+
+            .navbar-quick-search {
+                position: absolute;
+                top: calc(100% + 8px);
+                right: 12px;
+                left: 12px;
+                max-width: none;
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-8px);
+                z-index: 1035;
+            }
+
+                .navbar-quick-search.is-open {
+                    max-width: none;
+                    opacity: 1;
+                    pointer-events: auto;
+                    transform: translateY(0);
+                }
+
+                .navbar-quick-search .navbar-form {
+                    display: block !important;
+                    background: rgba(255, 255, 255, 0.12);
+                    padding: 8px;
+                    border-radius: 12px;
+                    box-shadow: 0 10px 24px rgba(36, 50, 74, 0.20);
+                }
+
+                .navbar-quick-search .form-control {
+                    min-width: 0;
+                }
 
             .navbar-nav {
                 margin: 0;
@@ -411,6 +693,13 @@
                 .navbar-nav > li {
                     margin: 0;
                     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                }
+
+                .nav-main-links > li,
+                .nav-main-links > .nav-item,
+                .nav-main-links > .dropdown {
+                    display: block;
+                    width: 100%;
                 }
 
                     .navbar-nav > li:last-child {
@@ -423,7 +712,7 @@
                         font-size: 14px;
                         display: flex;
                         align-items: center;
-                        color: rgba(0, 0, 0, 0.8) !important;
+                        color: var(--lws-nav-text-soft) !important;
                     }
 
                         .navbar-nav > li > a::after {
@@ -432,27 +721,33 @@
 
                         .navbar-nav > li > a:hover,
                         .navbar-nav > li > a:focus {
-                            background: rgba(0, 0, 0, 0.1);
+                            background: rgba(255, 255, 255, 0.12);
                             padding-left: 25px !important;
-                            color: rgba(0, 0, 0, 0.95) !important;
+                            color: var(--lws-nav-text) !important;
                         }
 
+            .nav-segment-dropdown > a,
+            .nav-main-links > .nav-item > a {
+                border-radius: 0;
+                justify-content: flex-start;
+            }
+
             .dropdown-menu {
-                background: rgba(0, 0, 0, 0.08);
+                background: rgba(255, 255, 255, 0.08);
                 box-shadow: none;
                 border-radius: 0;
                 margin: 0;
             }
 
                 .dropdown-menu > li > a {
-                    color: rgba(0, 0, 0, 0.8) !important;
+                    color: var(--lws-nav-text-soft) !important;
                     padding: 10px 30px !important;
                     font-size: 13px;
                 }
 
                     .dropdown-menu > li > a:hover {
-                        background: rgba(0, 0, 0, 0.15) !important;
-                        color: rgba(0, 0, 0, 0.95) !important;
+                        background: rgba(255, 255, 255, 0.12) !important;
+                        color: var(--lws-nav-text) !important;
                     }
         }
 
@@ -476,10 +771,20 @@
                 gap: 4px;
             }
 
+            .nav-utility-link {
+                width: 30px;
+                height: 30px;
+            }
+
             .cart-toggle-btn {
                 padding: 6px 8px !important;
                 font-size: 12px;
-                color: rgba(0, 0, 0, 0.7) !important;
+                color: var(--lws-nav-text) !important;
+            }
+
+            .navbar-toggler {
+                padding: 5px 8px;
+                margin-left: 6px;
             }
 
             .cart-badge {
@@ -490,22 +795,33 @@
             .navbar-nav > li > a {
                 padding: 10px 16px !important;
                 font-size: 13px;
-                color: rgba(0, 0, 0, 0.8) !important;
+                color: var(--lws-nav-text-soft) !important;
+            }
+
+            .nav-segment-dropdown > a,
+            .nav-main-links > .nav-item > a {
+                border-radius: 0;
             }
 
             .dropdown-menu > li > a {
                 padding: 8px 24px !important;
                 font-size: 12px;
-                color: rgba(0, 0, 0, 0.8) !important;
+                color: var(--lws-nav-text-soft) !important;
             }
 
             #google_translate_element {
                 padding: 10px 6px;
             }
+
+            .navbar-quick-search {
+                right: 10px;
+                left: 10px;
+            }
         }
 
         /* Accessibility improvements */
         .navbar-nav > li > a:focus,
+        .navbar-brand:focus,
         .cart-toggle-btn:focus {
             outline: 2px solid rgba(255, 255, 255, 0.5);
             outline-offset: 2px;
@@ -635,14 +951,14 @@
             width: 380px;
             max-width: 95vw;
             height: calc(100% - 90px);
-            background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
-            box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+            background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+            box-shadow: -10px 0 35px rgba(36, 50, 74, 0.16);
             z-index: 1050;
             transition: right 0.25s ease-in-out;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             padding: 0;
-            border-radius: 0;
+            border-radius: 18px 0 0 18px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
@@ -675,7 +991,7 @@
         #side-cart-content {
             flex: 1;
             overflow-y: auto;
-            padding: 15px;
+            padding: 18px;
             min-width: 0;
         }
 
@@ -689,7 +1005,7 @@
             list-style: none;
             padding: 0;
             margin: 0;
-            border-bottom: 2px solid #e0e0e0;
+            border-bottom: 1px solid rgba(93, 51, 251, 0.12);
             padding-bottom: 15px;
             margin-bottom: 15px;
         }
@@ -701,16 +1017,17 @@
                 padding: 10px;
                 border: none;
                 background: #fff;
-                border-radius: 6px;
+                border-radius: 12px;
                 margin-bottom: 8px;
                 transition: all 0.3s ease;
                 border-left: 3px solid #5d33fb;
                 align-items: start;
+                box-shadow: 0 4px 14px rgba(36, 50, 74, 0.06);
             }
 
                 #cart-items-list .list-group-item:hover {
-                    background: #f9f9f9;
-                    box-shadow: 0 2px 8px rgba(93, 51, 251, 0.1);
+                    background: #fdfdff;
+                    box-shadow: 0 8px 20px rgba(93, 51, 251, 0.12);
                 }
 
         /* Cart Item Image */
@@ -933,7 +1250,7 @@
                 background: linear-gradient(135deg, #ee5a6f 0%, #ff6b6b 100%);
                 transform: scale(1.1) rotate(90deg);
                 box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4);
-                color: #fff !important;
+                            color: var(--lws-nav-text) !important;
             }
 
             .btn-cart-close:active {
@@ -1815,8 +2132,8 @@
     </button>
 
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light navbar-fixed-top">
-        <a class="navbar-brand image-container img-rounded" href="/Home/Zdravie" title="Domov">
-            <img src="@Url.Content("~/Image/pagePiling-plugin.gif")" alt="Domov" style="height:65px;width:65px;" />
+        <a class="navbar-brand image-container img-rounded" href="/Home/About" title="O Nás">
+            <img src="@Url.Content("~/Image/pagePiling-plugin.gif")" alt="O Nás" style="height:65px;width:65px;" />
         </a>
 
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
@@ -1825,18 +2142,18 @@
         </button>
 
         <a href="/Home/Login"
-           class="btn btn-outline-secondary cart-toggle-btn"
+           class="btn btn-outline-secondary cart-toggle-btn nav-utility-link"
            title="Prihlásenie"
            aria-label="Prihlásenie">
             <i class="fa fa-user"></i>
         </a>
         <!-- Cart toggle button moved to navbar for quick access (badge kept here) -->
         <div class="navbar-right">
-            <a href="/Home/Favorites" class="btn btn-outline-secondary cart-toggle-btn" title="Vaše obľúbené/Uložené produkty" aria-label="Obľúbené produkty">
+            <a href="/Home/Favorites" class="btn btn-outline-secondary cart-toggle-btn nav-utility-link" title="Vaše obľúbené/Uložené produkty" aria-label="Obľúbené produkty">
                 <i class="fa fa-heart"></i>
             </a>
 
-            <button type="button" class="btn btn-outline-secondary cart-toggle-btn" title="Zadaj názov produktu" aria-label="Zadaj názov produktu" onclick="toggleNavSearch()">
+            <button type="button" class="btn btn-outline-secondary cart-toggle-btn nav-utility-link" title="Zadaj názov produktu" aria-label="Zadaj názov produktu" onclick="toggleNavSearch()">
                 <i class="fa fa-search" aria-hidden="true"></i>
             </button>
 
@@ -1854,7 +2171,7 @@
             </span>
 
             <button id="cartToggle"
-                    class="btn btn-outline-secondary cart-toggle-btn"
+                    class="btn btn-outline-secondary cart-toggle-btn nav-utility-link"
                     onclick="toggleCart()"
                     aria-label="Open cart"
                     style="display: flex; flex-direction: column; align-items: center; gap: 2px; position: relative;">
@@ -1864,39 +2181,54 @@
         </div>
 
         <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-            <ul class="nav navbar-nav">
-                <li class="nav-item">
-                    <div id="google_translate_element" class="image-container img-rounded" title="Preklad jazyka">    </div>
+            <ul class="nav navbar-nav nav-main-links">
+                <li class="nav-item nav-translate-item">
+                    <div id="google_translate_element" class="image-container img-rounded" title="Preklad jazyka"></div>
                 </li>
 
-                <li class="nav-item">
-                    <a class="image-container img-rounded fa fa-balance-scale" href="/Home/Produkty" title="Eshop-Ponuka produktov a ich popis">Dosiahnite svoje ciele</a>
-                </li>
-
-                <li class="dropdown">
-                    <a class="dropdown-toggle img-rounded" data-toggle="dropdown" href="#Partners" title="Oriflame a Itservis"><span class="glyphicon glyphicon-briefcase"></span>Partnery</a>
+                <li class="dropdown nav-segment-dropdown">
+                    <a class="dropdown-toggle img-rounded" data-toggle="dropdown" href="#BeautySegment" title="Kozmetika a zdravie">
+                        <span class="fa fa-leaf"></span>Kozmetika &amp; zdravie
+                    </a>
                     <ul class="dropdown-menu">
-                        <li class="active">
-                            <a class="w3-hover-white" href="/Home/ITservis" title="IT služby"><span class="glyphicon glyphicon-wrench"></span>IT Služby</a>
+                        <li>
+                            <a class="w3-hover-white" href="/Home/Zdravie" title="Úvod pre kozmetiku a zdravie"><span class="fa fa-home"></span>Domov pre zdravie</a>
                         </li>
-                        <li class="active">
-                            <a class="w3-hover-white" href="https://sk.oriflame.com/products/digital-catalogue-current?store=SK-vladimirksenic&PageNumber=1" target="_blank" title="Oriflame katalóg">
+                        <li>
+                            <a class="w3-hover-white" href="/Home/Produkty" title="Produkty a kozmetika"><span class="fa fa-heart"></span>Produkty a kozmetika</a>
+                        </li>
+                        <li>
+                            <a class="w3-hover-white" href="/Home/Kosik" title="Košík a objednávka"><span class="fa fa-shopping-cart"></span>Košík a objednávka</a>
+                        </li>
+                        <li>
+                            <a class="w3-hover-white" href="https://sk.oriflame.com/products/digital-catalogue-current?store=SK-vladimirksenic&PageNumber=1" target="_blank" rel="noopener" title="Oriflame katalóg">
                                 <img src="~/Image/sk-oriflame-katalog.png" style="width:58px;height:15px" alt="Oriflame aktuálny katalóg">
-                                Oriflame Katalóg 5/26
+                                Oriflame katalóg
                             </a>
                         </li>
                     </ul>
                 </li>
 
-                <li class="nav-item">
-                    <a class="image-container img-rounded fa fa-money" href="/Home/Kosik" title="Výber produktov a postup platby">Výber produktov</a>
+                <li class="dropdown nav-segment-dropdown">
+                    <a class="dropdown-toggle img-rounded" data-toggle="dropdown" href="#WebSegment" title="Webstránky a IT služby">
+                        <span class="glyphicon glyphicon-briefcase"></span>Webstránky &amp; IT
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="w3-hover-white" href="/Home/ITservis" title="IT služby"><span class="glyphicon glyphicon-wrench"></span>IT služby</a>
+                        </li>
+                        <li>
+                            <a class="w3-hover-white" href="/Home/About" title="Webové služby a informácie o firme"><span class="fa fa-desktop"></span>Webové služby</a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li class="nav-item">
-                    <a class="image-container img-rounded glyphicon glyphicon-envelope" href="/odoslanie-spravy" title="Kontakt">Kontakt</a>
+                    <a class="image-container img-rounded glyphicon glyphicon-envelope" href="/Home/Kontakt" title="Kontakt a podpora">Kontakt</a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="image-container img-rounded glyphicon glyphicon-briefcase" href="/DownloadEbook" title="Ebook zdarma">Ebook zdarma</a>
+                    <a class="image-container img-rounded glyphicon glyphicon-book" href="/Home/DownloadEbook" title="Ebook zdarma">Ebook zdarma</a>
                 </li>
             </ul>
         </div>
@@ -1933,12 +2265,66 @@
                     €<span id="total-amount">0.00</span>
                 </div>
                 <div id="total-discount" style="font-size: 12px; color: #5d33fb; margin-top: 6px;"></div>
+
+                <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #eaeaea;">
+                    <div style="display:flex; justify-content:space-between; font-size: 12px; color:#555;">
+                        <span>🚚 Doprava</span>
+                        <span>€<span id="shipping-amount">0.00</span></span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-size: 13px; font-weight:800; margin-top: 6px;">
+                        <span>Spolu</span>
+                        <span>€<span id="grand-total-amount">0.00</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shipping / pickup location (side cart) -->
+            <div class="card" style="border:1px solid #e6e6e6; border-radius:8px; padding:12px; margin-bottom:12px;">
+                <div style="font-weight:800; color:#5d33fb; margin-bottom: 8px; font-size: 13px;">🚚 Doprava a objednávka</div>
+
+                <div class="form-group" style="margin-bottom:10px;">
+                    <select id="sidecart-shipping-method" class="form-control" onchange="window.lwsSetShippingMethod(this.value)">
+                        <option value="">Vyberte dopravu…</option>
+                        <option value="zasielkovna">Zásielkovňa / Packeta (výdajné miesto)</option>
+                        <option value="courier">Kuriér na adresu</option>
+                        <option value="dpd-courier">DPD kuriér na adresu</option>
+                        <option value="dpd-pickup">DPD odberné miesto</option>
+                    </select>
+                    <small id="sidecart-shipping-help" class="text-muted">Cena dopravy sa prepočíta podľa košíka.</small>
+                </div>
+
+                <div id="sidecart-pickup-panel" style="display:none; margin-top:10px;">
+                    <label id="sidecart-pickup-label" for="sidecart-pickup-code" style="font-size:12px; font-weight:700; color:#5d33fb; display:block; margin-bottom:6px;">Výdajné miesto</label>
+                    <button id="sidecart-pickup-btn" type="button" class="btn btn-info" style="width:100%; font-weight:700; margin-bottom:8px; display:none;">
+                        Vybrať výdajné miesto cez widget
+                    </button>
+                    <input id="sidecart-pickup-code" type="text" class="form-control" placeholder="Kód odberného / výdajného miesta" style="margin-bottom:8px;" />
+                    <input id="sidecart-pickup-name" type="text" class="form-control" placeholder="Názov alebo adresa odberného miesta" />
+                    <small id="sidecart-pickup-help" class="text-muted" style="display:block; margin-top:6px;">Vyberte alebo doplňte miesto doručenia, aby sa správne odoslali údaje v objednávke a e‑maile. DPD funguje iba ako ručné zadanie odberného miesta.</small>
+                </div>
+
+                <div id="sidecart-courier-panel" style="display:none; margin-top:10px;">
+                    <label style="font-size:12px; font-weight:700; color:#5d33fb; display:block; margin-bottom:6px;">Doručovacia adresa</label>
+                    <input id="sidecart-address-line1" type="text" class="form-control" placeholder="Ulica a číslo" style="margin-bottom:8px;" />
+                    <input id="sidecart-address-line2" type="text" class="form-control" placeholder="Byt / poschodie / poznámka (voliteľné)" style="margin-bottom:8px;" />
+                    <div class="row">
+                        <div class="col-xs-7" style="margin-bottom:8px;">
+                            <input id="sidecart-address-city" type="text" class="form-control" placeholder="Mesto" />
+                        </div>
+                        <div class="col-xs-5" style="margin-bottom:8px;">
+                            <input id="sidecart-address-zip" type="text" class="form-control" placeholder="PSČ" />
+                        </div>
+                    </div>
+                    <input id="sidecart-address-country" type="text" class="form-control" placeholder="Krajina" />
+                </div>
+
+                <div id="shipping-pickup-summary" style="margin-top:8px; font-size:12px; color:#555;"></div>
             </div>
 
             <!-- Action Buttons -->
             <div style="display: flex; gap: 8px; margin-bottom: 12px; flex-direction: column;">
                 <a class="btn btn-outline-primary" href="/Home/Kosik?checkout=1" style="padding: 10px; font-size: 13px; font-weight: 600; border-color: #5d33fb; color: #5d33fb; text-align: center;">
-                    ✓ Skontrolovať Vozík
+                    ✓ Skontrolovať a dokončiť objednávku
                 </a>
                 <a class="btn btn-outline-secondary" href='@Url.Action("Produkty","Home")' style="padding: 10px; font-size: 13px; font-weight: 600; border-color: #17a2b8; color: #17a2b8; text-align: center;">
                     🔍 Pozrieť Všetky Produkty
@@ -1975,15 +2361,204 @@
                 <p style="margin: 0;">⏰ Po-Pia 9:00-17:00</p>
             </div>
 
-            <!-- Payment Help -->
-            <div class="text-center" style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #e0e0e0;">
-                <p style="font-size: 11px; color: #666; margin: 0 0 8px 0;">Pomoc s platbou:</p>
-                <a data-fancybox="payment-help" data-caption="Postup platby" href="@Url.Content("~/Image/Postup platby.png")" aria-label="Open payment procedure image">
-                    <img src="@Url.Content("~/Image/Postup platby.png")" alt="Payment procedure" style="max-width: 80px; cursor: pointer; border-radius: 4px; border: 1px solid #e0e0e0;">
-                </a>
-            </div>
-        </div>
+            
     </aside>
+
+    <script>
+        (function () {
+            function loadShipping() {
+                try { return JSON.parse(localStorage.getItem('lws_shipping_v1') || '{}') || {}; } catch (e) { return {}; }
+            }
+
+            function saveShipping(ship) {
+                try { localStorage.setItem('lws_shipping_v1', JSON.stringify(ship || {})); } catch (e) { }
+            }
+
+            function isPickupMethod(method) {
+                return method === 'zasielkovna' || method === 'packeta' || method === 'dpd-pickup';
+            }
+
+            function isCourierMethod(method) {
+                return method === 'courier' || method === 'dpd-courier';
+            }
+
+            function shippingLabel(method) {
+                if (method === 'zasielkovna' || method === 'packeta') return 'Zásielkovňa / Packeta';
+                if (method === 'dpd-pickup') return 'DPD odberné miesto';
+                if (method === 'dpd-courier') return 'DPD kuriér na adresu';
+                if (method === 'courier') return 'Kuriér na adresu';
+                return '';
+            }
+
+            function renderSideCartShippingSummary() {
+                var ship = loadShipping();
+                var method = (ship.method || '').toString();
+
+                var methodSelect = document.getElementById('sidecart-shipping-method');
+                var shippingHelp = document.getElementById('sidecart-shipping-help');
+                var pickupPanel = document.getElementById('sidecart-pickup-panel');
+                var pickupLabel = document.getElementById('sidecart-pickup-label');
+                var pickupHelp = document.getElementById('sidecart-pickup-help');
+                var pickupButton = document.getElementById('sidecart-pickup-btn');
+                var pickupCode = document.getElementById('sidecart-pickup-code');
+                var pickupName = document.getElementById('sidecart-pickup-name');
+                var courierPanel = document.getElementById('sidecart-courier-panel');
+                var address1 = document.getElementById('sidecart-address-line1');
+                var address2 = document.getElementById('sidecart-address-line2');
+                var city = document.getElementById('sidecart-address-city');
+                var zip = document.getElementById('sidecart-address-zip');
+                var country = document.getElementById('sidecart-address-country');
+                var pickupSummary = document.getElementById('shipping-pickup-summary');
+
+                if (methodSelect && methodSelect.value !== method) methodSelect.value = method;
+                if (pickupPanel) pickupPanel.style.display = isPickupMethod(method) ? 'block' : 'none';
+                if (courierPanel) courierPanel.style.display = isCourierMethod(method) ? 'block' : 'none';
+
+                if (pickupLabel) pickupLabel.textContent = method === 'dpd-pickup' ? 'DPD odberné miesto' : 'Výdajné miesto';
+                if (pickupHelp) {
+                    pickupHelp.textContent = method === 'dpd-pickup'
+                        ? 'DPD funguje iba ako ručné zadanie odberného miesta. Zadajte kód a názov alebo adresu DPD odberného miesta.'
+                        : 'Pre Zásielkovňu môžete použiť widget alebo doplniť kód a názov miesta ručne.';
+                }
+                if (pickupButton) pickupButton.style.display = (method === 'zasielkovna' || method === 'packeta') ? 'block' : 'none';
+
+                if (pickupCode && pickupCode.value !== (ship.pickupPoint || '')) pickupCode.value = ship.pickupPoint || '';
+                if (pickupName && pickupName.value !== (ship.pickupPointName || '')) pickupName.value = ship.pickupPointName || '';
+                if (address1 && address1.value !== (ship.addressLine1 || '')) address1.value = ship.addressLine1 || '';
+                if (address2 && address2.value !== (ship.addressLine2 || '')) address2.value = ship.addressLine2 || '';
+                if (city && city.value !== (ship.city || '')) city.value = ship.city || '';
+                if (zip && zip.value !== (ship.zip || '')) zip.value = ship.zip || '';
+                if (country && country.value !== (ship.country || '')) country.value = ship.country || '';
+
+                if (shippingHelp) {
+                    shippingHelp.textContent = method
+                        ? ('Zvolená doprava: ' + shippingLabel(method))
+                        : 'Cena dopravy sa prepočíta podľa košíka.';
+                }
+
+                if (pickupSummary) {
+                    if (isPickupMethod(method)) {
+                        var code = ship.pickupPoint || '';
+                        var name = ship.pickupPointName || '';
+                        pickupSummary.innerHTML = code || name
+                            ? ('<strong>' + shippingLabel(method) + ':</strong> ' + (name || '-') + (code ? (' (' + code + ')') : ''))
+                            : ('<strong>' + shippingLabel(method) + ':</strong> Nevybrané odberné miesto');
+                    } else if (isCourierMethod(method)) {
+                        var line = [ship.addressLine1, ship.addressLine2].filter(Boolean).join(', ');
+                        var place = [ship.zip, ship.city].filter(Boolean).join(' ');
+                        var full = [line, place, ship.country].filter(Boolean).join(', ');
+                        pickupSummary.innerHTML = '<strong>' + shippingLabel(method) + ':</strong> ' + (full || 'Nevyplnená doručovacia adresa');
+                    } else {
+                        pickupSummary.textContent = '';
+                    }
+                }
+            }
+
+            function notifyShippingChange() {
+                try {
+                    if (typeof window.lwsRefreshCheckoutShipping === 'function') window.lwsRefreshCheckoutShipping();
+                } catch (e) { }
+                try {
+                    if (typeof window.lwsRenderCartHeader === 'function') window.lwsRenderCartHeader();
+                } catch (e) { }
+            }
+
+            window.lwsSetShippingMethod = function (method) {
+                var ship = loadShipping();
+                ship.method = method || '';
+
+                if (!isPickupMethod(ship.method)) {
+                    ship.pickupPoint = '';
+                    ship.pickupPointName = '';
+                    ship.pickupPointJson = '';
+                }
+                if (!isCourierMethod(ship.method)) {
+                    ship.addressLine1 = '';
+                    ship.addressLine2 = '';
+                    ship.city = '';
+                    ship.zip = '';
+                    ship.country = '';
+                }
+
+                saveShipping(ship);
+                renderSideCartShippingSummary();
+                notifyShippingChange();
+            };
+
+            window.lwsOpenPacketaWidget = function () {
+                var apiKey = (window.__packetaApiKey || '').toString();
+                if (!apiKey || !window.Packeta || !window.Packeta.Widget || typeof window.Packeta.Widget.pick !== 'function') return;
+
+                window.Packeta.Widget.pick(apiKey, function (point) {
+                    if (!point) return;
+                    var ship = loadShipping();
+                    ship.method = 'zasielkovna';
+                    ship.pickupPoint = point.id || point.code || point.place || '';
+                    ship.pickupPointName = point.name || point.place || point.city || '';
+                    ship.pickupPointJson = JSON.stringify(point);
+                    saveShipping(ship);
+                    renderSideCartShippingSummary();
+                    notifyShippingChange();
+                });
+            };
+
+            window.lwsRefreshShippingSummary = renderSideCartShippingSummary;
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var pickupBtn = document.getElementById('sidecart-pickup-btn');
+                var pickupCode = document.getElementById('sidecart-pickup-code');
+                var pickupName = document.getElementById('sidecart-pickup-name');
+                var address1 = document.getElementById('sidecart-address-line1');
+                var address2 = document.getElementById('sidecart-address-line2');
+                var city = document.getElementById('sidecart-address-city');
+                var zip = document.getElementById('sidecart-address-zip');
+                var country = document.getElementById('sidecart-address-country');
+                var methodSelect = document.getElementById('sidecart-shipping-method');
+
+                function syncPickupInputs() {
+                    var ship = loadShipping();
+                    if (!ship.method) ship.method = 'zasielkovna';
+                    ship.pickupPoint = pickupCode ? (pickupCode.value || '').trim() : '';
+                    ship.pickupPointName = pickupName ? (pickupName.value || '').trim() : '';
+                    saveShipping(ship);
+                    renderSideCartShippingSummary();
+                    notifyShippingChange();
+                }
+
+                function syncCourierInputs() {
+                    var ship = loadShipping();
+                    if (!ship.method) ship.method = 'courier';
+                    ship.addressLine1 = address1 ? (address1.value || '').trim() : '';
+                    ship.addressLine2 = address2 ? (address2.value || '').trim() : '';
+                    ship.city = city ? (city.value || '').trim() : '';
+                    ship.zip = zip ? (zip.value || '').trim() : '';
+                    ship.country = country ? (country.value || '').trim() : '';
+                    saveShipping(ship);
+                    renderSideCartShippingSummary();
+                    notifyShippingChange();
+                }
+
+                if (pickupBtn) pickupBtn.addEventListener('click', window.lwsOpenPacketaWidget);
+                if (pickupCode) pickupCode.addEventListener('input', syncPickupInputs);
+                if (pickupName) pickupName.addEventListener('input', syncPickupInputs);
+                if (address1) address1.addEventListener('input', syncCourierInputs);
+                if (address2) address2.addEventListener('input', syncCourierInputs);
+                if (city) city.addEventListener('input', syncCourierInputs);
+                if (zip) zip.addEventListener('input', syncCourierInputs);
+                if (country) country.addEventListener('input', syncCourierInputs);
+
+                if (methodSelect) {
+                    var ship = loadShipping();
+                    if (!ship.method && methodSelect.value) {
+                        ship.method = methodSelect.value;
+                        saveShipping(ship);
+                    }
+                }
+
+                renderSideCartShippingSummary();
+            });
+        })();
+    </script>
 
     <script>
         function toggleMiniProducts() {
@@ -2119,6 +2694,7 @@
                     <div class="site-footer-section">
                         <h4>Rýchle Odkazy</h4>
                         <ul>
+                            <li><a href='@Url.Action("About","Home")' title="O Nás">ℹ️ O Nás</a></li>
                             <li><a href='@Url.Action("Zdravie","Home", new { area = "Ladowebservis" })' title="Domovská stránka">🏠 Domov</a></li>
                             <li><a href='@Url.Action("Produkty","Home")' title="Eshop">🛒 Produkty</a></li>
                             <li><a href='@Url.Action("Login","Home")' title="Prihlásenie">👤 Prihlásenie</a></li>
@@ -2255,12 +2831,15 @@
 
             var isHidden = (wrap.style.display === 'none' || wrap.style.display === '');
             wrap.style.display = isHidden ? 'inline-block' : 'none';
+            wrap.classList.toggle('is-open', isHidden);
 
             if (isHidden) {
                 input.focus();
                 input.classList.remove('pulse-placeholder');
                 void input.offsetWidth; // restart animation
                 input.classList.add('pulse-placeholder');
+            } else {
+                wrap.classList.remove('is-open');
             }
         }
 

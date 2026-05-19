@@ -1,0 +1,53 @@
+@{
+    ViewBag.Title = "Status";
+
+    var name = (ViewBag.OrderSentName as string) ?? "";
+    var email = (ViewBag.OrderSentEmail as string) ?? "";
+    var total = (ViewBag.OrderSentGrandTotal as string) ?? "";
+}
+
+<div class="container" style="max-width: 900px; margin: 50px auto; padding: 0 15px;">
+    <div class="panel panel-default" style="border-radius: 12px; overflow:hidden;">
+        <div class="panel-heading" style="background: #5d33fb; color: #fff;">
+            <h3 class="panel-title" style="font-weight:700;">Status objednávky</h3>
+        </div>
+        <div class="panel-body">
+            <p>
+                Táto stránka slúži na zobrazenie základného statusu. V tomto projekte zatiaľ nie je databáza objednávok,
+                preto vieme zobraziť iba posledné údaje (ak ste sem prišli hneď po odoslaní objednávky).
+            </p>
+
+            @if (string.IsNullOrWhiteSpace(name) && string.IsNullOrWhiteSpace(email) && string.IsNullOrWhiteSpace(total))
+            {
+                <div class="alert alert-info" style="border-radius: 10px;">
+                    Žiadne údaje o objednávke sa nenašli. Vráťte sa prosím do košíka a odošlite objednávku.
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-success" style="border-radius: 10px;">
+                    <strong>Stav:</strong> Prijatá / čaká na platbu
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Zákazník</h4>
+                        @if (!string.IsNullOrWhiteSpace(name)) { <p>Meno: <strong>@name</strong></p> }
+                        @if (!string.IsNullOrWhiteSpace(email)) { <p>Email: <strong>@email</strong></p> }
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Platba</h4>
+                        @if (!string.IsNullOrWhiteSpace(total)) { <p>Suma: <strong>€@total</strong></p> }
+                        <p>Platba: bankový prevod alebo Stripe (ak bol poslaný link).</p>
+                    </div>
+                </div>
+            }
+
+            <hr />
+            <p style="margin:0;">
+                <a class="btn btn-primary" href="@Url.Action("Kosik", "Home")">Späť do košíka</a>
+                <a class="btn btn-default" href="@Url.Action("Produkty", "Home")" style="margin-left:10px;">Produkty</a>
+            </p>
+        </div>
+    </div>
+</div>

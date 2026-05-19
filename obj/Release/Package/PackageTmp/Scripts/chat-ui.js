@@ -34,11 +34,13 @@
     // ===== IMPROVED CHAT FUNCTIONALITY =====
     const autoResponses = {
         'cena': '💰 <strong>Cenové informácie:</strong><br>Naše produkty majú konkurenčné ceny. Všetky ceny nájdete na stránke Produkty. Skúste kód NOVYROK26 pre zľavu!',
-        'doprava': '🚚 <strong>Doprava:</strong><br>• ✓ Bezplatne nad 50€ v SR<br>• ✓ Doba: 3-7 pracovných dní<br>• ✓ Poistená a sledovaná',
+        'doprava': '🚚 <strong>Doprava:</strong><br>• <strong>Zásielkovňa</strong> (výdajné miesto) alebo <strong>Kuriér</strong> (na adresu)<br>• Cena dopravy sa vypočíta automaticky podľa hodnoty košíka<br>• Po odoslaní objednávky vám príde e‑mail so súhrnom a ďalšími krokmi',
         'platba': '💳 <strong>Bezpečná Platba:</strong><br>Používame Stripe - bezpečnú platobnú bránu. Všetky vaše údaje sú šifrované.',
         'vratenie': '↩️ <strong>Vrátenie Tovarov:</strong><br>• ✓ 120 dní na vrátenie<br>• ✓ Bez otázok<br>• ✓ Bezplatne',
         'produkty': '🛍️ <strong>Naša Ponuka:</strong><br>BalanceOil | Zinobiotic | CollagenBoozt | Vitamin D Test',
         'balanceoil': '⭐ <strong>BalanceOil:</strong><br>Prírodný Omega-3 olej. Podporuje srdce, mozog a zrak. Dostupný: 300ml.',
+        'it servis': '🖥️ <strong>IT servis:</strong><br>• Diagnostika a opravy PC / notebookov<br>• Inštalácia a nastavenie Windows + programov<br>• Odvirovanie, zrýchlenie PC, zálohy<br>• Upgrade komponentov (SSD/RAM) a poradenstvo<br><br>Napíšte stručne problém (napr. „PC sa nezapne“, „je pomalý“, „vírus“) a ozveme sa vám.',
+        'web': '🌐 <strong>Webové služby:</strong><br>• Návrh a tvorba webstránok<br>• Úpravy existujúcich webov, SEO základ<br>• Hosting a technická správa<br><br>Pošlite odkaz na web alebo predstavu a pripravíme návrh riešenia.',
         'zlava': '🎁 <strong>Zľava NOVYROK26:</strong><br>10% zľava na produkty nad 50€. Použite pri checkout!',
         'kontakt': '📞 <strong>Kontaktujte Nás:</strong><br>☎️ +421917952432<br>📧 info@ladowebservis.sk<br>⏰ Po-Pia: 9:00-17:00',
         'pomoc': '❓ <strong>Ako ti pomôžem?</strong><br>Napíš: cena, doprava, platba, produkty, zľava, vratenie alebo kontakt',
@@ -114,6 +116,10 @@
         if (query.includes('peniaze') || query.includes('penize')) return autoResponses['cena'];
         if (query.includes('vzorka') || query.includes('vzorky')) return autoResponses['produkty'];
         if (query.includes('porada')) return autoResponses['pomoc'];
+        if (query.includes('zásielkovna') || query.includes('zasielkovna') || query.includes('packeta')) return autoResponses['doprava'];
+        if (query.includes('kuriér') || query.includes('kurier') || query.includes('adresu') || query.includes('adresa')) return autoResponses['doprava'];
+        if (query.includes('it') || query.includes('servis pc') || query.includes('pc servis') || query.includes('notebook') || query.includes('windows') || query.includes('oprava')) return autoResponses['it servis'];
+        if (query.includes('web') || query.includes('stránka') || query.includes('stranky') || query.includes('webstránka') || query.includes('webstranka') || query.includes('hosting') || query.includes('seo')) return autoResponses['web'];
 
         // Default response
         return '😊 Pomôžem ti rád! Napíš niečo z: <strong>cena, doprava, platba, produkty, zľava, vratenie, kontakt</strong>';

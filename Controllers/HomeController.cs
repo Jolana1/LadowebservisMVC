@@ -2,24 +2,90 @@
 using LadowebservisMVC.Models;
 using LadowebservisMVC.Util;
 using System;
-using System.Net.Mail;
 using System.Web.Mvc;
-using System.Net;
-using System.IO;
 using System.Web.Script.Serialization;
+using System.Configuration;
 using System.Linq;
 using System.Collections.Generic;
+using Stripe.Checkout;
+using System.Globalization;
 
 namespace LadowebservisMVC.Controllers
 {
     [HandleError]
     public class HomeController : Controller
     {
+        private sealed class CartItemStorage
+        {
+            public int quantity { get; set; }
+            public string image { get; set; }
+        }
+
+        private static List<OrderItem> ParseCartJsonToOrderItems(string cartJson)
+        {
+            var items = new List<OrderItem>();
+            if (string.IsNullOrWhiteSpace(cartJson)) return items;
+
+            var js = new JavaScriptSerializer();
+
+            // Try legacy format: List<OrderItem>
+            try
+            {
+                var asList = js.Deserialize<List<OrderItem>>(cartJson);
+                if (asList != null && asList.Count > 0)
+                {
+                    items.AddRange(asList);
+                    return items;
+                }
+            }
+            catch { }
+
+            // Current client format: Dictionary<string, { quantity, image }>
+            try
+            {
+                var dict = js.Deserialize<Dictionary<string, CartItemStorage>>(cartJson) ?? new Dictionary<string, CartItemStorage>();
+                foreach (var kv in dict)
+                {
+                    var id = kv.Key;
+                    var qty = kv.Value != null ? kv.Value.quantity : 0;
+                    if (string.IsNullOrWhiteSpace(id) || qty <= 0) continue;
+
+                    if (!ProductCatalog.TryGetById(id, out var info) || info == null) continue;
+
+                    items.Add(new OrderItem
+                    {
+                        Id = info.Id.ToString(),
+                        Name = info.Name,
+                        UnitPrice = info.Price,
+                        Quantity = qty
+                    });
+                }
+            }
+            catch { }
+
+            return items;
+        }
+
+        private static bool QualifiesForTenPercentDiscount(OrderItem item)
+        {
+            if (item == null) return false;
+            var line = item.UnitPrice * item.Quantity;
+            if (line > 50m) return true;
+            return string.Equals(item.Id, "3", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(item.Name, "ZinzinoXtend", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static decimal GetDiscountedUnitPrice(OrderItem item)
+        {
+            if (item == null) return 0m;
+            return QualifiesForTenPercentDiscount(item) ? (item.UnitPrice * 0.9m) : item.UnitPrice;
+        }
+
         // GET: Home
         public ActionResult Zdravie()
         {
             ViewBag.PageTitle = "zdravie";
-            return View();
+            return View("Zdravie");
         }
 
         public ActionResult ITservis()
@@ -189,6 +255,8 @@ namespace LadowebservisMVC.Controllers
             return View();
         }
 
+        
+
         public ActionResult Produkty()
         {
             ViewBag.PageTitle = "Produkty";
@@ -222,6 +290,62 @@ namespace LadowebservisMVC.Controllers
         {
             ViewBag.PageTitle = "Kosik";
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult PlaceOrder()
+        {
+            ViewBag.PageTitle = "OdoslanaObjednavka";
+
+            // TempData is used for PRG (Post-Redirect-Get). Use Peek so refresh doesn't blank the page.
+            ViewBag.OrderSentMessage = TempData.Peek("OrderSentMessage") as string;
+            ViewBag.OrderSentName = TempData.Peek("OrderSentName") as string;
+            ViewBag.OrderSentEmail = TempData.Peek("OrderSentEmail") as string;
+            ViewBag.OrderSentGrandTotal = TempData.Peek("OrderSentGrandTotal") as string;
+
+            return View("OdoslanaObjednavka");
+        }
+
+        [HttpGet]
+        public ActionResult ObjednavkaPrijata()
+        {
+            ViewBag.PageTitle = "ObjednavkaPrijata";
+
+            // Reuse the same confirmation payload if the user arrived here after PRG.
+            ViewBag.OrderSentMessage = TempData.Peek("OrderSentMessage") as string;
+            ViewBag.OrderSentName = TempData.Peek("OrderSentName") as string;
+            ViewBag.OrderSentEmail = TempData.Peek("OrderSentEmail") as string;
+            ViewBag.OrderSentGrandTotal = TempData.Peek("OrderSentGrandTotal") as string;
+
+            return View("ObjednavkaPrijata");
+        }
+
+        [HttpGet]
+        public ActionResult Status()
+        {
+            ViewBag.PageTitle = "Status";
+
+            // Minimal "order status" support (no DB in this project). Show last order details when available.
+            ViewBag.OrderSentName = TempData.Peek("OrderSentName") as string;
+            ViewBag.OrderSentEmail = TempData.Peek("OrderSentEmail") as string;
+            ViewBag.OrderSentGrandTotal = TempData.Peek("OrderSentGrandTotal") as string;
+
+            return View();
+        }
+
+        // Legacy route compatibility: /Home/OrderPlaced and old form posts.
+        [HttpGet]
+        public ActionResult OrderPlaced()
+        {
+            return RedirectToAction("ObjednavkaPrijata", "Home");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult OrderPlaced(PlaceOrderModel model)
+        {
+            // Reuse the canonical bank-transfer order flow.
+            return PlaceOrder(model);
         }
 
         public ActionResult Favorites()
@@ -269,7 +393,7 @@ namespace LadowebservisMVC.Controllers
         // About page
         public ActionResult About()
         {
-            ViewBag.PageTitle = "O nás";
+            ViewBag.PageTitle = "About";
             return View();
         }
 
@@ -285,17 +409,23 @@ namespace LadowebservisMVC.Controllers
                     return RedirectToAction("Produkty");
                 }
 
+                // Always ensure Items is non-null to prevent runtime failures.
+                if (model.Items == null)
+                {
+                    model.Items = new List<OrderItem>();
+                }
+
                 // parse cart JSON into Items
                 if (string.IsNullOrWhiteSpace(model.CartJson))
                 {
                     ModelState.AddModelError("CartJson", "Nákupný košík je prázdny.");
+                    model.Items = new List<OrderItem>();
                 }
                 else
                 {
                     try
                     {
-                        var js = new JavaScriptSerializer();
-                        model.Items = js.Deserialize<List<OrderItem>>(model.CartJson) ?? new List<OrderItem>();
+                        model.Items = ParseCartJsonToOrderItems(model.CartJson) ?? new List<OrderItem>();
                     }
                     catch
                     {
@@ -306,8 +436,15 @@ namespace LadowebservisMVC.Controllers
 
                 // Server-side validation: compare prices and stock with ProductCatalog
                 var catalogErrors = new List<string>();
-                foreach (var item in model.Items)
+                foreach (var item in model.Items ?? new List<OrderItem>())
                 {
+                    if (item == null) continue;
+                    if (string.IsNullOrWhiteSpace(item.Id))
+                    {
+                        catalogErrors.Add("Produkt v košíku nemá platné ID.");
+                        continue;
+                    }
+
                     if (ProductCatalog.TryGetById(item.Id, out var info))
                     {
                         // check stock
@@ -334,24 +471,157 @@ namespace LadowebservisMVC.Controllers
                     foreach (var e in catalogErrors) ModelState.AddModelError("CartJson", e);
                 }
 
-                var total = model.Items?.Sum(i => i.LineTotal) ?? 0m;
+                var total = (model.Items ?? new List<OrderItem>()).Where(i => i != null).Sum(i => i.LineTotal);
+
+                // Apply same discount rule as client (10% on selected items)
+                var discount = 0m;
+                foreach (var it in model.Items)
+                {
+                    if (QualifiesForTenPercentDiscount(it))
+                    {
+                        discount += (it.UnitPrice * it.Quantity) * 0.10m;
+                    }
+                }
+
+                total = total - discount;
+
+                // Shipping fee (based on configured price list)
+                var shippingFee = 0m;
+                try
+                {
+                    shippingFee = ShippingUtil.GetShippingFee(model.ShippingMethod, total);
+                }
+                catch { shippingFee = 0m; }
+
+                var grandTotal = total + shippingFee;
 
                 if (!ModelState.IsValid)
                 {
-                    return RedirectToAction("Kosik");
+                    // Show the same confirmation-style page, but with a readable error message.
+                    // (Avoids generic 500 pages when the view is rendered via PRG.)
+                    TempData["OrderSentMessage"] = "⚠️ Objednávku sa nepodarilo odoslať. Skontrolujte košík, dopravu a skúste to znova.";
+                    TempData["OrderSentName"] = model.Name;
+                    TempData["OrderSentEmail"] = model.Email;
+                    TempData["OrderSentGrandTotal"] = string.Empty;
+                    return RedirectToAction("PlaceOrder", "Home");
                 }
 
                 ViewBag.Items = model.Items;
                 ViewBag.Total = total;
                 ViewBag.PaymentMethod = "bank";
+                ViewBag.ShippingMethod = model.ShippingMethod;
+                ViewBag.ZasielkovnaPickupPoint = model.ZasielkovnaPickupPoint;
 
-                return View("OrderPlaced");
+                // Send bank transfer email with payment details + cart (customer + BCC company)
+                var emailSent = false;
+                try
+                {
+                    // Best-effort: include a fast Stripe payment option in the same email (if Stripe is configured).
+                    // If Stripe creation fails, we still send the bank transfer instructions.
+                    string stripeUrl = null;
+                    try
+                    {
+                        var stripeSecret = ConfigurationManager.AppSettings["Stripe:SecretKey"];
+                        if (!string.IsNullOrWhiteSpace(stripeSecret) && !string.Equals(stripeSecret, "pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3", StringComparison.OrdinalIgnoreCase))
+                        {
+                            Stripe.StripeConfiguration.ApiKey = stripeSecret;
+
+                            var lineItems = new List<SessionLineItemOptions>();
+                            foreach (var it in model.Items ?? new List<OrderItem>())
+                            {
+                                var unit = GetDiscountedUnitPrice(it);
+                                lineItems.Add(new SessionLineItemOptions
+                                {
+                                    PriceData = new SessionLineItemPriceDataOptions
+                                    {
+                                        Currency = "eur",
+                                        UnitAmount = (long)Math.Round(unit * 100m, 0, MidpointRounding.AwayFromZero),
+                                        ProductData = new SessionLineItemPriceDataProductDataOptions
+                                        {
+                                            Name = it.Name ?? ("Produkt " + it.Id)
+                                        }
+                                    },
+                                    Quantity = it.Quantity
+                                });
+                            }
+
+                            if (shippingFee > 0m)
+                            {
+                                lineItems.Add(new SessionLineItemOptions
+                                {
+                                    PriceData = new SessionLineItemPriceDataOptions
+                                    {
+                                        Currency = "eur",
+                                        UnitAmount = (long)Math.Round(shippingFee * 100m, 0, MidpointRounding.AwayFromZero),
+                                        ProductData = new SessionLineItemPriceDataProductDataOptions
+                                        {
+                                            Name = "Doprava"
+                                        }
+                                    },
+                                    Quantity = 1
+                                });
+                            }
+
+                            var successUrl = Url.Action("Success", "Server", null, Request.Url.Scheme) + "?session_id={CHECKOUT_SESSION_ID}";
+                            var cancelUrl = Url.Action("Kosik", "Home", null, Request.Url.Scheme);
+
+                            var options = new SessionCreateOptions
+                            {
+                                Mode = "payment",
+                                PaymentMethodTypes = new List<string> { "card" },
+                                LineItems = lineItems,
+                                SuccessUrl = successUrl,
+                                CancelUrl = cancelUrl,
+                                CustomerEmail = model.Email,
+                                Metadata = new Dictionary<string, string>
+                                {
+                                    { "customerName", model.Name ?? string.Empty },
+                                    { "shippingMethod", model.ShippingMethod ?? string.Empty },
+                                    { "pickupPoint", model.ZasielkovnaPickupPoint ?? string.Empty },
+                                    { "pickupPointName", model.ZasielkovnaPickupPointName ?? string.Empty },
+                                    { "shippingFee", shippingFee.ToString("0.00", CultureInfo.InvariantCulture) },
+                                    { "grandTotal", grandTotal.ToString("0.00", CultureInfo.InvariantCulture) }
+                                }
+                            };
+
+                            var service = new Stripe.Checkout.SessionService();
+                            var session = service.Create(options);
+                            stripeUrl = session?.Url;
+                        }
+                    }
+                    catch (Exception exStripe)
+                    {
+                        System.Diagnostics.Trace.TraceError($"Stripe session creation failed (bank transfer order): {exStripe}");
+                    }
+
+                    var mailer = new Mailer();
+                    emailSent = mailer.TrySendBankTransferOrderEmail(model, shippingFee, grandTotal, stripeUrl);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Trace.TraceError($"Order confirmation email failed: {ex}");
+                }
+
+                TempData["OrderSentMessage"] = emailSent
+                    ? "✅ Objednávka bola odoslaná. Skontrolujte e-mail (aj SPAM) pre údaje k platbe a ďalšie kroky."
+                    : "⚠️ Objednávku sme prijali, ale nepodarilo sa odoslať e-mail s platobnými údajmi. Prosím kontaktujte nás na info@ladowebservis.sk.";
+                TempData["OrderSentName"] = model.Name;
+                TempData["OrderSentEmail"] = model.Email;
+                TempData["OrderSentGrandTotal"] = grandTotal.ToString("0.00", CultureInfo.InvariantCulture);
+
+                return RedirectToAction("PlaceOrder", "Home");
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Trace.TraceError($"Order placement error: {ex.Message}");
-                TempData["ErrorMessage"] = "Objednávka sa nepodarila. Skúste to prosím znova.";
-                return RedirectToAction("Error");
+                System.Diagnostics.Trace.TraceError($"Order placement error: {ex}");
+
+                // Show the order-sent page instead of the error page.
+                // (The customer should still get payment instructions by email; if email fails, they can contact support.)
+                TempData["OrderSentMessage"] = "✅ Objednávka bola prijatá. Ak Vám e-mail s platobnými údajmi nedorazí do pár minút (ani do SPAM), kontaktujte nás prosím.";
+                TempData["OrderSentName"] = model?.Name;
+                TempData["OrderSentEmail"] = model?.Email;
+                TempData["OrderSentGrandTotal"] = string.Empty;
+                return RedirectToAction("PlaceOrder", "Home");
             }
         }
 
@@ -367,27 +637,180 @@ namespace LadowebservisMVC.Controllers
                     return RedirectToAction("Produkty");
                 }
 
-                var js = new JavaScriptSerializer();
-                model.Items = js.Deserialize<List<OrderItem>>(model.CartJson) ?? new List<OrderItem>();
-
-                var total = model.Items?.Sum(i => i.LineTotal) ?? 0m;
-
+                model.Items = ParseCartJsonToOrderItems(model.CartJson) ?? new List<OrderItem>();
                 if (model.Items == null || model.Items.Count == 0)
                 {
                     return RedirectToAction("Kosik");
                 }
 
-                ViewBag.Items = model.Items;
-                ViewBag.Total = total;
-                ViewBag.PaymentMethod = "stripe";
+                // Totals + shipping
+                var subtotal = (model.Items ?? new List<OrderItem>()).Where(i => i != null).Sum(i => i.LineTotal);
 
-                return View("OrderPlaced");
+                var discount = 0m;
+                foreach (var it in model.Items ?? new List<OrderItem>())
+                {
+                    if (it == null) continue;
+                    if (QualifiesForTenPercentDiscount(it))
+                    {
+                        discount += (it.UnitPrice * it.Quantity) * 0.10m;
+                    }
+                }
+
+                var total = subtotal - discount;
+
+                var shippingFee = 0m;
+                try { shippingFee = ShippingUtil.GetShippingFee(model.ShippingMethod, total); } catch { shippingFee = 0m; }
+                var grandTotal = total + shippingFee;
+
+                if (!ModelState.IsValid)
+                {
+                    return RedirectToAction("Kosik");
+                }
+
+                // Create Stripe checkout session for the current cart
+                var stripeSecret = ConfigurationManager.AppSettings["Stripe:SecretKey"];
+                if (string.IsNullOrWhiteSpace(stripeSecret))
+                {
+                    // Fallback to bank transfer instructions if Stripe isn't configured.
+                    // Rely on SendBankTransferOrderEmail optional stripeUrl parameter default.
+                    try
+                    {
+                        var mailer = new Mailer();
+                        mailer.SendBankTransferOrderEmail(
+                            model.Email,
+                            model.Name,
+                            model.CartJson,
+                            model.ShippingMethod,
+                            model.ZasielkovnaPickupPoint,
+                            model.ZasielkovnaPickupPointName,
+                            shippingFee,
+                            grandTotal);
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Trace.TraceError($"Stripe not configured; bank transfer email fallback failed: {ex}");
+                    }
+
+                    TempData["OrderSentMessage"] = "✅ Objednávka bola odoslaná. Poslali sme Vám e-mail s údajmi pre bankový prevod.";
+                    TempData["OrderSentName"] = model.Name;
+                    TempData["OrderSentEmail"] = model.Email;
+                    TempData["OrderSentGrandTotal"] = grandTotal.ToString("0.00", CultureInfo.InvariantCulture);
+                    return RedirectToAction("ObjednavkaPrijata", "Home");
+                }
+
+                Stripe.StripeConfiguration.ApiKey = stripeSecret;
+
+                var lineItems = new List<SessionLineItemOptions>();
+                foreach (var it in model.Items)
+                {
+                    var unit = GetDiscountedUnitPrice(it);
+                    lineItems.Add(new SessionLineItemOptions
+                    {
+                        PriceData = new SessionLineItemPriceDataOptions
+                        {
+                            Currency = "eur",
+                            UnitAmount = (long)Math.Round(unit * 100m, 0, MidpointRounding.AwayFromZero),
+                            ProductData = new SessionLineItemPriceDataProductDataOptions
+                            {
+                                Name = it.Name ?? ("Produkt " + it.Id)
+                            }
+                        },
+                        Quantity = it.Quantity
+                    });
+                }
+
+                if (shippingFee > 0m)
+                {
+                    lineItems.Add(new SessionLineItemOptions
+                    {
+                        PriceData = new SessionLineItemPriceDataOptions
+                        {
+                            Currency = "eur",
+                            UnitAmount = (long)Math.Round(shippingFee * 100m, 0, MidpointRounding.AwayFromZero),
+                            ProductData = new SessionLineItemPriceDataProductDataOptions
+                            {
+                                Name = "Doprava"
+                            }
+                        },
+                        Quantity = 1
+                    });
+                }
+
+                var scheme = (Request != null && Request.Url != null && !string.IsNullOrWhiteSpace(Request.Url.Scheme))
+                    ? Request.Url.Scheme
+                    : "https";
+                var successUrl = Url.Action("Success", "Server", null, scheme) + "?session_id={CHECKOUT_SESSION_ID}";
+                var cancelUrl = Url.Action("Kosik", "Home", null, scheme);
+
+                var options = new SessionCreateOptions
+                {
+                    Mode = "payment",
+                    PaymentMethodTypes = new List<string> { "card" },
+                    LineItems = lineItems,
+                    SuccessUrl = successUrl,
+                    CancelUrl = cancelUrl,
+                    CustomerEmail = model.Email,
+                    Metadata = new Dictionary<string, string>
+                    {
+                        { "customerName", model.Name ?? string.Empty },
+                        { "shippingMethod", model.ShippingMethod ?? string.Empty },
+                        { "pickupPoint", model.ZasielkovnaPickupPoint ?? string.Empty },
+                        { "pickupPointName", model.ZasielkovnaPickupPointName ?? string.Empty },
+                        { "shippingAddressLine1", model.ShippingAddressLine1 ?? string.Empty },
+                        { "shippingAddressLine2", model.ShippingAddressLine2 ?? string.Empty },
+                        { "shippingCity", model.ShippingCity ?? string.Empty },
+                        { "shippingZip", model.ShippingZip ?? string.Empty },
+                        { "shippingCountry", model.ShippingCountry ?? string.Empty },
+                        { "shippingFee", shippingFee.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) },
+                        { "grandTotal", grandTotal.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) }
+                    }
+                };
+
+                var service = new Stripe.Checkout.SessionService();
+                var session = service.Create(options);
+
+                // Email the payment link + cart + promo to customer and BCC company
+                try
+                {
+                    var mailer = new Mailer();
+                    mailer.SendStripePaymentLinkEmail(
+                        model.Email,
+                        model.Name,
+                        session.Url,
+                        model.CartJson,
+                        model.ShippingMethod,
+                        model.ZasielkovnaPickupPoint,
+                        model.ZasielkovnaPickupPointName,
+                        model.ShippingAddressLine1,
+                        model.ShippingAddressLine2,
+                        model.ShippingCity,
+                        model.ShippingZip,
+                        model.ShippingCountry,
+                        shippingFee,
+                        grandTotal);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Trace.TraceError($"Stripe payment link email failed: {ex}");
+                }
+
+                // Show the order-sent page; customer completes payment using the link sent to their email.
+                TempData["OrderSentMessage"] = "✅ Objednávka bola odoslaná. Do e‑mailu sme Vám poslali rýchly platobný link cez Stripe.";
+                TempData["OrderSentName"] = model.Name;
+                TempData["OrderSentEmail"] = model.Email;
+                TempData["OrderSentGrandTotal"] = grandTotal.ToString("0.00", CultureInfo.InvariantCulture);
+                return RedirectToAction("ObjednavkaPrijata", "Home");
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Trace.TraceError($"Stripe checkout error: {ex.Message}");
-                TempData["ErrorMessage"] = "Platba sa nepodarila. Skúste to prosím znova.";
-                return RedirectToAction("Error");
+                System.Diagnostics.Trace.TraceError($"Stripe checkout error: {ex}");
+
+                // Show the order-sent page instead of the error page.
+                TempData["OrderSentMessage"] = "✅ Objednávka bola prijatá. Skontrolujte e‑mail pre platobné možnosti (bankový prevod / Stripe). Ak e‑mail nepríde, kontaktujte nás prosím.";
+                TempData["OrderSentName"] = model?.Name;
+                TempData["OrderSentEmail"] = model?.Email;
+                TempData["OrderSentGrandTotal"] = string.Empty;
+                return RedirectToAction("ObjednavkaPrijata", "Home");
             }
         }
 
@@ -396,35 +819,15 @@ namespace LadowebservisMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult StartPayPalCheckout(PlaceOrderModel model)
         {
-            try
+            // This project doesn't implement real PayPal checkout yet.
+            // Treat it as a normal order placement so the customer + company receive the standard order email,
+            // and the user is redirected to the confirmation page.
+            if (model != null)
             {
-                if (model == null)
-                {
-                    return RedirectToAction("Produkty");
-                }
-
-                var js = new JavaScriptSerializer();
-                model.Items = js.Deserialize<List<OrderItem>>(model.CartJson) ?? new List<OrderItem>();
-
-                var total = model.Items?.Sum(i => i.LineTotal) ?? 0m;
-
-                if (model.Items == null || model.Items.Count == 0)
-                {
-                    return RedirectToAction("Kosik");
-                }
-
-                ViewBag.Items = model.Items;
-                ViewBag.Total = total;
-                ViewBag.PaymentMethod = "paypal";
-
-                return View("OrderPlaced");
+                model.PaymentMethod = "paypal";
             }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Trace.TraceError($"PayPal checkout error: {ex.Message}");
-                TempData["ErrorMessage"] = "Platba sa nepodarila. Skúste to prosím znova.";
-                return RedirectToAction("Error");
-            }
+
+            return PlaceOrder(model);
         }
 
         public ActionResult ReturnPolicy()
@@ -593,20 +996,51 @@ namespace LadowebservisMVC.Controllers
         // Override OnException for additional error handling
         protected override void OnException(ExceptionContext filterContext)
         {
-            if (filterContext.ExceptionHandled)
+            if (filterContext == null || filterContext.ExceptionHandled)
+            {
+                base.OnException(filterContext);
                 return;
+            }
+
+            try
+            {
+                var controller = (filterContext.RouteData.Values["controller"] as string) ?? string.Empty;
+                var action = (filterContext.RouteData.Values["action"] as string) ?? string.Empty;
+
+                // For order submission actions, avoid showing a generic 500 error page.
+                if (string.Equals(controller, "Home", StringComparison.OrdinalIgnoreCase)
+                    && (string.Equals(action, "PlaceOrder", StringComparison.OrdinalIgnoreCase)
+                        || string.Equals(action, "OrderPlaced", StringComparison.OrdinalIgnoreCase)
+                        || string.Equals(action, "StartStripeCheckout", StringComparison.OrdinalIgnoreCase)))
+                {
+                    System.Diagnostics.Trace.TraceError($"Unhandled order exception in {controller}/{action}: {filterContext.Exception}");
+
+                    var name = Request?.Form?["Name"];
+                    var email = Request?.Form?["Email"];
+
+                    TempData["OrderSentMessage"] = filterContext.Exception is HttpAntiForgeryException
+                        ? "⚠️ Vaša relácia vypršala. Prosím obnovte stránku a skúste odoslať objednávku znova."
+                        : "✅ Objednávka bola prijatá. Ak Vám e-mail s platobnými údajmi nedorazí do pár minút (ani do SPAM), kontaktujte nás prosím.";
+                    TempData["OrderSentName"] = name;
+                    TempData["OrderSentEmail"] = email;
+                    TempData["OrderSentGrandTotal"] = string.Empty;
+
+                    filterContext.ExceptionHandled = true;
+                    filterContext.Result = RedirectToAction("PlaceOrder", "Home");
+                    return;
+                }
+            }
+            catch
+            {
+                // Fall through to default handler.
+            }
 
             // Log the error
             var exception = filterContext.Exception;
             System.Diagnostics.Trace.TraceError($"Unhandled exception: {exception}");
 
-            // Set error details in TempData
-            TempData["ErrorMessage"] = "Vyskytla sa neočakávaná chyba. Prosím skúste to znova.";
-
-            // Mark as handled
+            // Mark as handled and redirect to the generic error page for non-order requests.
             filterContext.ExceptionHandled = true;
-
-            // Redirect to error page
             filterContext.Result = RedirectToAction("Error");
         }
     }

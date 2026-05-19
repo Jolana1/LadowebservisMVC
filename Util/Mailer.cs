@@ -16,6 +16,82 @@ namespace LadowebservisMVC.Util
 
     public class Mailer
     {
+        private static bool TrySendSmtp(MailMessage mail, string smtpHost, int smtpPort, bool smtpUseSsl, string smtpUser, string smtpPass, out Exception error)
+        {
+            error = null;
+            try
+            {
+                // Ensure modern TLS where supported (important for some SMTP providers).
+                try { ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12; } catch { }
+
+                using (var client = new SmtpClient(smtpHost))
+                {
+                    client.EnableSsl = smtpUseSsl;
+                    client.Port = smtpPort;
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential(smtpUser, smtpPass);
+                    client.Send(mail);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                error = ex;
+                return false;
+            }
+        }
+
+        private static bool TrySendWithConfiguredSmtp(MailMessage mail)
+        {
+            var smtpHostPrimary = (System.Configuration.ConfigurationManager.AppSettings["Smtp:Host"] ?? string.Empty).Trim();
+            var smtpUserPrimary = (System.Configuration.ConfigurationManager.AppSettings["Smtp:User"] ?? string.Empty).Trim();
+            var smtpPassPrimary = (System.Configuration.ConfigurationManager.AppSettings["Smtp:Pass"] ?? string.Empty).Trim();
+            var smtpPortPrimaryStr = (System.Configuration.ConfigurationManager.AppSettings["Smtp:Port"] ?? string.Empty).Trim();
+            var smtpUseSslPrimaryStr = (System.Configuration.ConfigurationManager.AppSettings["Smtp:UseSsl"] ?? string.Empty).Trim();
+
+            var smtpHostLegacy = (System.Configuration.ConfigurationManager.AppSettings["smtpHost"] ?? "email.active24.com").Trim();
+            var smtpUserLegacy = (System.Configuration.ConfigurationManager.AppSettings["smtpUser"] ?? "info@ladowebservis.sk").Trim();
+            var smtpPassLegacy = (System.Configuration.ConfigurationManager.AppSettings["smtpPassword"] ?? string.Empty).Trim();
+            var smtpPortLegacyStr = (System.Configuration.ConfigurationManager.AppSettings["smtpPort"] ?? "587").Trim();
+            var smtpUseSslLegacyStr = (System.Configuration.ConfigurationManager.AppSettings["smtpUseSsl"] ?? "true").Trim();
+
+            // Prefer explicit Smtp:* values when they are present, otherwise fall back to legacy keys.
+            var smtpHost = !string.IsNullOrWhiteSpace(smtpHostPrimary) ? smtpHostPrimary : smtpHostLegacy;
+            var smtpUser = !string.IsNullOrWhiteSpace(smtpUserPrimary) ? smtpUserPrimary : smtpUserLegacy;
+            var smtpPass = !string.IsNullOrWhiteSpace(smtpPassPrimary) ? smtpPassPrimary : smtpPassLegacy;
+            var smtpPortStr = !string.IsNullOrWhiteSpace(smtpPortPrimaryStr) ? smtpPortPrimaryStr : smtpPortLegacyStr;
+            var smtpUseSslStr = !string.IsNullOrWhiteSpace(smtpUseSslPrimaryStr) ? smtpUseSslPrimaryStr : smtpUseSslLegacyStr;
+
+            int smtpPort;
+            if (!int.TryParse(smtpPortStr, out smtpPort)) smtpPort = 587;
+            bool smtpUseSsl;
+            if (!bool.TryParse(smtpUseSslStr, out smtpUseSsl)) smtpUseSsl = true;
+
+            // Attempt #1 using preferred credentials
+            if (!string.IsNullOrWhiteSpace(smtpHost) && !string.IsNullOrWhiteSpace(smtpUser) && !string.IsNullOrWhiteSpace(smtpPass))
+            {
+                Exception err1;
+                if (TrySendSmtp(mail, smtpHost, smtpPort, smtpUseSsl, smtpUser, smtpPass, out err1)) return true;
+                System.Diagnostics.Trace.TraceError($"SMTP send failed (primary): host={smtpHost}, port={smtpPort}, ssl={smtpUseSsl}, user={smtpUser} - {err1}");
+            }
+
+            // Attempt #2 using legacy credentials (common when Smtp:* keys are present but incorrect)
+            if (!string.IsNullOrWhiteSpace(smtpHostLegacy) && !string.IsNullOrWhiteSpace(smtpUserLegacy) && !string.IsNullOrWhiteSpace(smtpPassLegacy)
+                && (!string.Equals(smtpUserLegacy, smtpUser, StringComparison.OrdinalIgnoreCase) || !string.Equals(smtpPassLegacy, smtpPass, StringComparison.Ordinal)))
+            {
+                int port2;
+                if (!int.TryParse(smtpPortLegacyStr, out port2)) port2 = 587;
+                bool ssl2;
+                if (!bool.TryParse(smtpUseSslLegacyStr, out ssl2)) ssl2 = true;
+
+                Exception err2;
+                if (TrySendSmtp(mail, smtpHostLegacy, port2, ssl2, smtpUserLegacy, smtpPassLegacy, out err2)) return true;
+                System.Diagnostics.Trace.TraceError($"SMTP send failed (legacy): host={smtpHostLegacy}, port={port2}, ssl={ssl2}, user={smtpUserLegacy} - {err2}");
+            }
+
+            return false;
+        }
+
         // Block known spammer patterns (case-insensitive) - reject any containing 'loori'
         private static readonly string[] BannedEmailFragments = new[] { "loori", "bitcoin", "sign in", "get ", "next" };
 
@@ -49,7 +125,12 @@ namespace LadowebservisMVC.Util
             "1821977ek@gmail.com",
             "imqxswtz@tacoblastmail.com",
             "slod@unipegasobra.com",
-            "tcrepe-tech@laposte.net"
+            "tcrepe-tech@laposte.net",
+            "fbhdfgh@gmail.com",
+            "sggtrfgfg@gmail.com",
+            "jacksrenome@gmx.com",
+            "dfhfgdffg@gmail.com"
+
         };
 
         // Pattern to detect suspicious phone number patterns (e.g., +1.8...Bitcoin)
@@ -73,6 +154,620 @@ namespace LadowebservisMVC.Util
             if (string.IsNullOrWhiteSpace(customerEmail)) return string.Empty;
             var encoded = HttpUtility.UrlEncode(customerEmail);
             return $"{UnsubscribeBaseUrl}?email={encoded}&token=marketing";
+        }
+
+        private static string NormalizeShippingMethod(string shippingMethod)
+        {
+            return (shippingMethod ?? string.Empty).Trim().ToLowerInvariant();
+        }
+
+        private static string GetShippingLabel(string shippingMethod)
+        {
+            var normalizedShippingMethod = NormalizeShippingMethod(shippingMethod);
+            if (normalizedShippingMethod == "courier" || normalizedShippingMethod == "kuriér") return "Kuriér na adresu";
+            if (normalizedShippingMethod == "dpd-courier" || normalizedShippingMethod == "dpdcourier" || normalizedShippingMethod == "dpd_kurier") return "DPD kuriér na adresu";
+            if (normalizedShippingMethod == "dpd-pickup" || normalizedShippingMethod == "dpdpickup" || normalizedShippingMethod == "dpd-point" || normalizedShippingMethod == "dpdpoint") return "DPD odberné miesto";
+            if (normalizedShippingMethod == "zasielkovna" || normalizedShippingMethod == "packeta") return "Zásielkovňa / Packeta";
+            return string.IsNullOrWhiteSpace(shippingMethod) ? "Doprava" : shippingMethod.Trim();
+        }
+
+        private static bool IsCourierMethod(string shippingMethod)
+        {
+            var normalizedShippingMethod = NormalizeShippingMethod(shippingMethod);
+            return normalizedShippingMethod == "courier"
+                || normalizedShippingMethod == "kuriér"
+                || normalizedShippingMethod == "dpd-courier"
+                || normalizedShippingMethod == "dpdcourier"
+                || normalizedShippingMethod == "dpd_kurier";
+        }
+
+        private static string BuildShippingDetailsHtml(
+            string shippingMethod,
+            string pickupPointCode,
+            string pickupPointName,
+            string shippingAddressLine1,
+            string shippingAddressLine2,
+            string shippingCity,
+            string shippingZip,
+            string shippingCountry)
+        {
+            var shippingLabelSafe = HttpUtility.HtmlEncode(GetShippingLabel(shippingMethod));
+            var pickupCodeSafe = HttpUtility.HtmlEncode(string.IsNullOrWhiteSpace(pickupPointCode) ? string.Empty : pickupPointCode);
+            var pickupNameSafe = HttpUtility.HtmlEncode(string.IsNullOrWhiteSpace(pickupPointName) ? string.Empty : pickupPointName);
+            var shipAddr1Safe = HttpUtility.HtmlEncode(string.IsNullOrWhiteSpace(shippingAddressLine1) ? string.Empty : shippingAddressLine1);
+            var shipAddr2Safe = HttpUtility.HtmlEncode(string.IsNullOrWhiteSpace(shippingAddressLine2) ? string.Empty : shippingAddressLine2);
+            var shipCitySafe = HttpUtility.HtmlEncode(string.IsNullOrWhiteSpace(shippingCity) ? string.Empty : shippingCity);
+            var shipZipSafe = HttpUtility.HtmlEncode(string.IsNullOrWhiteSpace(shippingZip) ? string.Empty : shippingZip);
+            var shipCountrySafe = HttpUtility.HtmlEncode(string.IsNullOrWhiteSpace(shippingCountry) ? string.Empty : shippingCountry);
+            var normalizedShippingMethod = NormalizeShippingMethod(shippingMethod);
+
+            if (IsCourierMethod(normalizedShippingMethod))
+            {
+                return $@"<p style='margin:0;color:#555;'>Spôsob: <code>{shippingLabelSafe}</code></p>
+           <p style='margin:8px 0 0 0;color:#555;'>Adresa: <strong>{(string.IsNullOrWhiteSpace(shipAddr1Safe) ? "Bude doplnená podľa údajov zákazníka" : shipAddr1Safe)}</strong></p>
+           {(string.IsNullOrWhiteSpace(shipAddr2Safe) ? string.Empty : $"<p style='margin:4px 0 0 0;color:#555;'>{shipAddr2Safe}</p>")}
+           {(string.IsNullOrWhiteSpace(shipZipSafe) && string.IsNullOrWhiteSpace(shipCitySafe) ? string.Empty : $"<p style='margin:4px 0 0 0;color:#555;'>{shipZipSafe} {shipCitySafe}</p>")}
+           {(string.IsNullOrWhiteSpace(shipCountrySafe) ? string.Empty : $"<p style='margin:4px 0 0 0;color:#555;'>{shipCountrySafe}</p>")}";
+            }
+
+            return $@"<p style='margin:0;color:#555;'>Spôsob: <code>{shippingLabelSafe}</code></p>
+           <p style='margin:8px 0 0 0;color:#555;'>{(normalizedShippingMethod == "dpd-pickup" || normalizedShippingMethod == "dpdpickup" || normalizedShippingMethod == "dpd-point" || normalizedShippingMethod == "dpdpoint" ? "DPD odberné miesto" : "Výdajné miesto")}: <strong>{(string.IsNullOrWhiteSpace(pickupNameSafe) ? "Bude doplnené podľa výberu zákazníka" : pickupNameSafe)}</strong></p>
+           <p style='margin:4px 0 0 0;color:#777;'>Kód: <code>{(string.IsNullOrWhiteSpace(pickupCodeSafe) ? "neuvedené" : pickupCodeSafe)}</code></p>";
+        }
+
+        public bool TrySendBankTransferOrderEmail(PlaceOrderModel model, decimal shippingFee, decimal grandTotal, string stripePaymentUrl = null)
+        {
+            if (model == null) return false;
+            return TrySendBankTransferOrderEmail(
+                model.Email,
+                model.Name,
+                model.CartJson,
+                model.ShippingMethod,
+                model.ZasielkovnaPickupPoint,
+                model.ZasielkovnaPickupPointName,
+                model.ShippingAddressLine1,
+                model.ShippingAddressLine2,
+                model.ShippingCity,
+                model.ShippingZip,
+                model.ShippingCountry,
+                shippingFee,
+                grandTotal,
+                stripePaymentUrl);
+        }
+
+        public void SendBankTransferOrderEmail(string customerEmail, string customerName, string cartJson, string shippingMethod, string pickupPointCode, string pickupPointName, decimal shippingFee, decimal grandTotal, string stripePaymentUrl = null)
+        {
+            // Backwards-compatible wrapper
+            TrySendBankTransferOrderEmail(customerEmail, customerName, cartJson, shippingMethod, pickupPointCode, pickupPointName, null, null, null, null, null, shippingFee, grandTotal, stripePaymentUrl);
+        }
+
+        private bool TrySendBankTransferOrderEmail(
+            string customerEmail,
+            string customerName,
+            string cartJson,
+            string shippingMethod,
+            string pickupPointCode,
+            string pickupPointName,
+            string shippingAddressLine1,
+            string shippingAddressLine2,
+            string shippingCity,
+            string shippingZip,
+            string shippingCountry,
+            decimal shippingFee,
+            decimal grandTotal,
+            string stripePaymentUrl = null)
+        {
+            var companyEmail = (System.Configuration.ConfigurationManager.AppSettings["OrderEmail:Company"] ?? "info@ladowebservis.sk").Trim();
+            try { if (!string.IsNullOrWhiteSpace(companyEmail)) { var _ = new MailAddress(companyEmail); } } catch { companyEmail = "info@ladowebservis.sk"; }
+
+            var hasValidCustomer = false;
+            try { var _ = new MailAddress(customerEmail); hasValidCustomer = true; } catch { hasValidCustomer = false; }
+            var hasValidCompany = false;
+            try { var _ = new MailAddress(companyEmail); hasValidCompany = true; } catch { hasValidCompany = false; }
+            if (!hasValidCustomer && !hasValidCompany) return false;
+
+            try
+            {
+
+            var nameSafe = string.IsNullOrWhiteSpace(customerName) ? "" : HttpUtility.HtmlEncode(customerName).Trim();
+            var promoCode = "NOVYROK26";
+
+            var cartLines = TryBuildCartLines(cartJson) ?? new List<string>();
+            var cartItemsHtml = cartLines.Count == 0
+                ? "<tr><td colspan='2' style='padding:10px 0;color:#666;'>Košík je prázdny.</td></tr>"
+                : string.Join("", cartLines.Select(line => $"<tr><td style='padding:8px 0;'>{HttpUtility.HtmlEncode(line)}</td><td style='padding:8px 0; text-align:right;'></td></tr>"));
+
+            var unsubscribeUrl = GetUnsubscribeUrl(customerEmail);
+
+            // Bank transfer details (configurable)
+            var iban = (System.Configuration.ConfigurationManager.AppSettings["BankTransfer:IBAN"] ?? "").Trim();
+            var bic = (System.Configuration.ConfigurationManager.AppSettings["BankTransfer:BIC"] ?? "").Trim();
+            if (string.IsNullOrWhiteSpace(iban)) iban = "SK0211110000001291179008";
+            if (string.IsNullOrWhiteSpace(bic)) bic = "UNCRSKBX";
+
+            using (var mail = new MailMessage())
+            {
+                mail.From = new MailAddress("info@ladowebservis.sk", "ladowebservis.sk");
+                if (hasValidCustomer)
+                {
+                    mail.To.Add(customerEmail);
+                }
+                else if (hasValidCompany)
+                {
+                    // If customer email is invalid, still notify the company so the order isn't lost.
+                    mail.To.Add(companyEmail);
+                    if (!string.IsNullOrWhiteSpace(customerEmail))
+                    {
+                        mail.ReplyToList.Add(new MailAddress(companyEmail));
+                    }
+                }
+
+                if (hasValidCompany && hasValidCustomer && !string.Equals(companyEmail, customerEmail, StringComparison.OrdinalIgnoreCase))
+                {
+                    mail.Bcc.Add(companyEmail);
+                }
+
+                mail.Subject = "Potvrdenie objednávky + údaje k platbe (bankový prevod)";
+                mail.SubjectEncoding = Encoding.UTF8;
+                mail.BodyEncoding = Encoding.UTF8;
+                mail.IsBodyHtml = true;
+
+                var shippingDetailsHtml = BuildShippingDetailsHtml(
+                    shippingMethod,
+                    pickupPointCode,
+                    pickupPointName,
+                    shippingAddressLine1,
+                    shippingAddressLine2,
+                    shippingCity,
+                    shippingZip,
+                    shippingCountry);
+
+                mail.Body = $@"<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <style>
+    body {{ font-family: Arial, sans-serif; background:#f5f7fa; color:#333; margin:0; padding:0; }}
+    .wrap {{ padding: 18px; }}
+    .container {{ max-width: 650px; margin: 0 auto; background:#fff; border-radius: 12px; overflow:hidden; box-shadow: 0 10px 40px rgba(0,0,0,.10); }}
+    .header {{ background: linear-gradient(135deg,#17a2b8 0%,#138496 100%); color:#fff; padding: 26px 20px; text-align:center; }}
+    .header h1 {{ margin:0; font-size: 20px; line-height:1.4; }}
+    .content {{ padding: 22px 20px; }}
+    .box {{ background:#f8f9fa; border: 1px solid #e6e6e6; border-radius: 12px; padding: 16px; margin: 16px 0; }}
+    .title {{ color:#138496; font-weight: 900; font-size: 16px; margin: 0 0 10px 0; }}
+    code {{ background: #fff; border: 1px solid #eee; padding: 3px 8px; border-radius: 8px; font-weight: 800; }}
+    table {{ width:100%; border-collapse: collapse; }}
+    td {{ border-bottom:1px dashed #eaeaea; font-size:14px; }}
+    .footer {{ padding: 16px 20px; background:#fafafa; border-top:1px solid #eee; color:#777; font-size:12px; line-height:1.6; }}
+  </style>
+</head>
+<body>
+  <div class='wrap'>
+    <div class='container'>
+      <div class='header'>
+        <h1>🏦 Bankový prevod – údaje k platbe</h1>
+      </div>
+      <div class='content'>
+        <p>Dobrý deň p. {nameSafe},</p>
+        <p>Ďakujeme, Vaša objednávka bola prijatá. Pre dokončenie objednávky prosím vykonajte bankový prevod podľa údajov nižšie.</p>
+
+        <div class='box'>
+          <div class='title'>💳 Platobné údaje</div>
+          <p style='margin:0;color:#555;'>IBAN: <code>{HttpUtility.HtmlEncode(iban)}</code></p>
+          <p style='margin:8px 0 0 0;color:#555;'>BIC: <code>{HttpUtility.HtmlEncode(bic)}</code></p>
+          <p style='margin:8px 0 0 0;color:#555;'>Suma na úhradu: <strong>€{grandTotal:0.00}</strong></p>
+        </div>
+
+        <div class='box'>
+          <div class='title'>✅ Ďalšie kroky</div>
+          <p style='margin:0;color:#555;'><strong>1.</strong> Skontrolujte, či sedí súhrn objednávky a doprava.</p>
+          <p style='margin:8px 0 0 0;color:#555;'><strong>2.</strong> Vykonajte bankový prevod podľa údajov vyššie (alebo použite rýchly platobný link, ak je dostupný).</p>
+          <p style='margin:8px 0 0 0;color:#555;'><strong>3.</strong> Po prijatí platby objednávku spracujeme a odošleme.</p>
+          <p style='margin:8px 0 0 0;color:#777;'>Ak vám tento e‑mail prišiel omylom alebo máte otázky, odpíšte nám na <strong>info@ladowebservis.sk</strong>.</p>
+        </div>
+
+        {(string.IsNullOrWhiteSpace(stripePaymentUrl) ? "" : $@"<div class='box'>
+          <div class='title'>⚡ Rýchla platba</div>
+          <p style='margin:0;color:#555;'>Ak chcete zaplatiť ihneď kartou, použite tento bezpečný link cez Stripe:</p>
+          <p style='margin:10px 0 0 0;'><a href='{HttpUtility.HtmlAttributeEncode(stripePaymentUrl)}' style='display:inline-block;background:#28a745;color:#fff;text-decoration:none;font-weight:900;padding:12px 16px;border-radius:10px;'>Zaplaťte cez Stripe</a></p>
+        </div>")}
+
+        <div class='box'>
+          <div class='title'>🚚 Doprava</div>
+          {shippingDetailsHtml}
+          <p style='margin:8px 0 0 0;color:#555;'>Doprava: <strong>€{shippingFee:0.00}</strong></p>
+        </div>
+
+        <div class='box'>
+          <div class='title'>🛒 Položky</div>
+          <table role='presentation'>
+            <tbody>
+              {cartItemsHtml}
+            </tbody>
+          </table>
+          <p style='margin:10px 0 0 0;font-weight:900;font-size:18px;'>Spolu: €{grandTotal:0.00}</p>
+        </div>
+
+        <div class='box'>
+          <div class='title'>🐣 Akcia na najlepšiu zľavu</div>
+          <p style='margin:0;color:#555;'>Iba pri platbe cez Stripe môžete použiť kód <code>{promoCode}</code> pre 10% zľavu na vybrané produkty.</p>
+        </div>
+
+        <p style='margin: 18px 0 0 0; font-weight: 800;'>S pozdravom,<br/>Tím ladowebservis.sk</p>
+      </div>
+      <div class='footer'>
+        Ak si neželáte dostávať ďalšie ponuky a novinky, <a href='{unsubscribeUrl}'>kliknite sem</a>.<br/>
+        Stále budete dostávať informácie o svojich objednávkach.
+      </div>
+    </div>
+  </div>
+</body>
+</html>";
+
+                return TrySendWithConfiguredSmtp(mail);
+            }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.TraceError($"TrySendBankTransferOrderEmail failed: {ex}");
+                return false;
+            }
+        }
+
+        public void SendStripePaymentLinkEmail(
+            string customerEmail,
+            string customerName,
+            string stripeSessionUrl,
+            string cartJson,
+            string shippingMethod,
+            string pickupPointCode,
+            string pickupPointName,
+            string shippingAddressLine1,
+            string shippingAddressLine2,
+            string shippingCity,
+            string shippingZip,
+            string shippingCountry,
+            decimal shippingFee,
+            decimal grandTotal)
+        {
+            if (string.IsNullOrWhiteSpace(customerEmail) || string.IsNullOrWhiteSpace(stripeSessionUrl)) return;
+            try { var _ = new MailAddress(customerEmail); } catch { return; }
+
+            try
+            {
+
+            var nameSafe = string.IsNullOrWhiteSpace(customerName) ? "" : HttpUtility.HtmlEncode(customerName).Trim();
+            var promoCode = "NOVYROK26";
+            var cartUrl = "https://ladowebservis.sk/Home/Kosik";
+            var unsubscribeUrl = GetUnsubscribeUrl(customerEmail);
+
+            var companyEmail = (System.Configuration.ConfigurationManager.AppSettings["OrderEmail:Company"] ?? "info@ladowebservis.sk").Trim();
+            try { if (!string.IsNullOrWhiteSpace(companyEmail)) { var _ = new MailAddress(companyEmail); } } catch { companyEmail = "info@ladowebservis.sk"; }
+
+            var cartLines = TryBuildCartLines(cartJson) ?? new List<string>();
+            string cartHtml;
+            if (cartLines.Count == 0)
+            {
+                cartHtml = "<p style='margin:0;color:#666;'>🛒 V košíku momentálne nemáte žiadne položky.</p>";
+            }
+            else
+            {
+                var cartItemsHtml = string.Join("<br/>", cartLines.Select(HttpUtility.HtmlEncode));
+                cartHtml = "<p style='margin:0 0 10px 0;color:#333;font-weight:800;'>🛒 Máte v košíku:</p>" +
+                           "<div style='background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:12px;'>" +
+                           "<div style='color:#333;font-size:14px;line-height:1.7;'>" + cartItemsHtml + "</div>" +
+                           "</div>";
+            }
+
+            var shippingDetailsHtml = BuildShippingDetailsHtml(
+                shippingMethod,
+                pickupPointCode,
+                pickupPointName,
+                shippingAddressLine1,
+                shippingAddressLine2,
+                shippingCity,
+                shippingZip,
+                shippingCountry);
+
+            using (var mail = new MailMessage())
+            {
+                mail.From = new MailAddress("info@ladowebservis.sk", "ladowebservis.sk");
+                mail.To.Add(customerEmail);
+                if (!string.IsNullOrWhiteSpace(companyEmail) && !string.Equals(companyEmail, customerEmail, StringComparison.OrdinalIgnoreCase))
+                {
+                    mail.Bcc.Add(companyEmail);
+                }
+                mail.Subject = "💳 Platba objednávky – kliknite na tlačidlo a zaplaťte cez Stripe";
+                mail.SubjectEncoding = Encoding.UTF8;
+                mail.BodyEncoding = Encoding.UTF8;
+                mail.IsBodyHtml = true;
+
+                mail.Body = $@"<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <style>
+    body {{ font-family: Arial, sans-serif; background:#f5f7fa; color:#333; margin:0; padding:0; }}
+    .wrap {{ padding: 18px; }}
+    .container {{ max-width: 650px; margin: 0 auto; background:#fff; border-radius: 12px; overflow:hidden; box-shadow: 0 10px 40px rgba(0,0,0,.10); }}
+    .header {{ background: linear-gradient(135deg,#5d33fb 0%,#4a2fb5 100%); color:#fff; padding: 24px 20px; text-align:center; }}
+    .header h1 {{ margin:0; font-size: 20px; line-height:1.4; }}
+    .content {{ padding: 22px 20px; }}
+    .box {{ background:#f8f9fa; border: 1px solid #e6e6e6; border-radius: 12px; padding: 16px; margin: 16px 0; }}
+    .title {{ color:#5d33fb; font-weight: 900; font-size: 16px; margin: 0 0 10px 0; }}
+    .btn {{ display:inline-block; text-decoration:none; font-weight: 900; padding: 12px 16px; border-radius: 10px; margin-top: 10px; }}
+    .btn-pay {{ background: #28a745; color:#fff !important; }}
+    .btn-cart {{ background: #17a2b8; color:#fff !important; margin-left:8px; }}
+    code {{ background: #fff; border: 1px solid #eee; padding: 3px 8px; border-radius: 8px; font-weight: 800; }}
+    .footer {{ padding: 16px 20px; background:#fafafa; border-top:1px solid #eee; color:#777; font-size:12px; line-height:1.6; }}
+  </style>
+</head>
+<body>
+  <div class='wrap'>
+    <div class='container'>
+      <div class='header'>
+        <h1>💳 Dokončite platbu objednávky</h1>
+      </div>
+      <div class='content'>
+        <p>Dobrý deň {nameSafe},</p>
+        <p>Pre zaplatenie Vašej objednávky kliknite na tlačidlo nižšie. Platba prebehne bezpečne cez Stripe.</p>
+
+        <div class='box'>
+          <div class='title'>🧾 Súhrn</div>
+          <p style='margin:0;color:#555;'>Doprava: <strong>€{shippingFee:0.00}</strong></p>
+          <p style='margin:8px 0 0 0;font-weight:900;font-size:18px;'>Spolu na úhradu: €{grandTotal:0.00}</p>
+          <a class='btn btn-pay' href='{HttpUtility.HtmlAttributeEncode(stripeSessionUrl)}'>✅ Zaplatiť cez Stripe</a>
+          <a class='btn btn-cart' href='{cartUrl}'>🛒 Košík</a>
+        </div>
+
+        <div class='box'>
+          <div class='title'>✅ Ďalšie kroky</div>
+          <p style='margin:0;color:#555;'><strong>1.</strong> Kliknite na tlačidlo <strong>„Zaplatiť cez Stripe“</strong> a dokončite platbu.</p>
+          <p style='margin:8px 0 0 0;color:#555;'><strong>2.</strong> Po prijatí platby vám pošleme potvrdenie a objednávku spracujeme.</p>
+          <p style='margin:8px 0 0 0;color:#777;'>Ak máte otázky, odpíšte na tento e‑mail alebo nás kontaktujte na <strong>info@ladowebservis.sk</strong>.</p>
+        </div>
+
+        <div class='box'>
+          <div class='title'>🚚 Doprava</div>
+          {shippingDetailsHtml}
+        </div>
+
+        <div class='box'>
+          <div class='title'>🛒 Košík</div>
+          {cartHtml}
+        </div>
+
+        <div class='box'>
+          <div class='title'>🐣 Akcia</div>
+          <p style='margin:0;color:#555;'>Pri platbe použite kód <code>{promoCode}</code> a získate 10% zľavu na vybrané produkty.</p>
+        </div>
+
+        <p style='margin: 18px 0 0 0; font-weight: 800;'>S pozdravom,<br/>Tím ladowebservis.sk 💚</p>
+      </div>
+      <div class='footer'>
+        Ak si neželáte dostávať ďalšie ponuky a novinky, <a href='{unsubscribeUrl}'>kliknite sem</a>.<br/>
+        Stále budete dostávať informácie o svojich objednávkach.
+      </div>
+    </div>
+  </div>
+</body>
+</html>";
+
+                TrySendWithConfiguredSmtp(mail);
+            }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.TraceError($"SendStripePaymentLinkEmail failed: {ex}");
+            }
+        }
+
+        public void SendOrderPaidEmail(Session session, string customerEmail, string customerName, string shippingMethod, string pickupPointCode, string pickupPointName, string shippingAddressLine1, string shippingAddressLine2, string shippingCity, string shippingZip, string shippingCountry, decimal shippingFee, decimal grandTotal)
+        {
+            if (string.IsNullOrWhiteSpace(customerEmail) || session == null) return;
+            try { var _ = new MailAddress(customerEmail); } catch { return; }
+
+            var nameSafe = string.IsNullOrWhiteSpace(customerName) ? "" : HttpUtility.HtmlEncode(customerName).Trim();
+            var shippingDetailsHtml = BuildShippingDetailsHtml(
+                shippingMethod,
+                pickupPointCode,
+                pickupPointName,
+                shippingAddressLine1,
+                shippingAddressLine2,
+                shippingCity,
+                shippingZip,
+                shippingCountry);
+
+            var unsubscribeUrl = GetUnsubscribeUrl(customerEmail);
+            var productsUrl = "https://ladowebservis.sk/Home/Produkty";
+            var cartUrl = "https://ladowebservis.sk/Home/Kosik";
+
+            using (var mail = new MailMessage())
+            {
+                mail.From = new MailAddress("info@ladowebservis.sk", "ladowebservis.sk");
+                mail.To.Add(customerEmail);
+                mail.Bcc.Add("info@ladowebservis.sk");
+                mail.Subject = "✅ Objednávka bola odoslaná (platba prijatá)";
+                mail.SubjectEncoding = Encoding.UTF8;
+                mail.BodyEncoding = Encoding.UTF8;
+                mail.IsBodyHtml = true;
+
+                mail.Body = $@"<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <style>
+    body {{ font-family: Arial, sans-serif; background:#f5f7fa; color:#333; margin:0; padding:0; }}
+    .wrap {{ padding: 18px; }}
+    .container {{ max-width: 650px; margin: 0 auto; background:#fff; border-radius: 12px; overflow:hidden; box-shadow: 0 10px 40px rgba(0,0,0,.10); }}
+    .header {{ background: linear-gradient(135deg,#28a745 0%,#20c997 100%); color:#fff; padding: 26px 20px; text-align:center; }}
+    .header h1 {{ margin:0; font-size: 22px; line-height:1.4; }}
+    .content {{ padding: 22px 20px; }}
+    .box {{ background:#f8f9fa; border: 1px solid #e6e6e6; border-radius: 12px; padding: 16px; margin: 16px 0; }}
+    .title {{ color:#28a745; font-weight: 900; font-size: 16px; margin: 0 0 10px 0; }}
+    code {{ background: #fff; border: 1px solid #eee; padding: 3px 8px; border-radius: 8px; font-weight: 800; }}
+    .btn {{ display:inline-block; text-decoration:none; font-weight: 800; padding: 12px 16px; border-radius: 10px; margin-right: 10px; margin-top: 10px; }}
+    .btn-primary {{ background: #5d33fb; color:#fff !important; }}
+    .btn-secondary {{ background: #17a2b8; color:#fff !important; }}
+    .footer {{ padding: 16px 20px; background:#fafafa; border-top:1px solid #eee; color:#777; font-size:12px; line-height:1.6; }}
+  </style>
+</head>
+<body>
+  <div class='wrap'>
+    <div class='container'>
+      <div class='header'>
+        <h1>✅ Platba prijatá – objednávka odoslaná</h1>
+      </div>
+      <div class='content'>
+        <p>Dobrý deň {nameSafe},</p>
+        <p>Ďakujeme – platba bola prijatá a objednávka bola odoslaná na spracovanie.</p>
+
+        <div class='box'>
+          <div class='title'>🧾 Platba</div>
+          <p style='margin:0; color:#555;'>Stripe session: <code>{HttpUtility.HtmlEncode(session.Id)}</code></p>
+          <p style='margin:8px 0 0 0; color:#555;'>Doprava: <strong>€{shippingFee:0.00}</strong></p>
+          <p style='margin:8px 0 0 0; font-weight:900; font-size:18px;'>Spolu: €{grandTotal:0.00}</p>
+        </div>
+
+        <div class='box'>
+          <div class='title'>🚚 Doprava</div>
+          {shippingDetailsHtml}
+        </div>
+
+        <a class='btn btn-secondary' href='{productsUrl}'>🛍️ Produkty</a>
+        <a class='btn btn-primary' href='{cartUrl}'>🛒 Košík</a>
+
+        <p style='margin: 18px 0 0 0; font-weight: 800;'>S pozdravom,<br/>Tím ladowebservis.sk 💚</p>
+      </div>
+      <div class='footer'>
+        Ak si neželáte dostávať ďalšie ponuky a novinky, <a href='{unsubscribeUrl}'>kliknite sem</a>.<br/>
+        Stále budete dostávať informácie o svojich objednávkach.
+      </div>
+    </div>
+  </div>
+</body>
+</html>";
+
+                using (var client = new SmtpClient("email.active24.com"))
+                {
+                    client.EnableSsl = true;
+                    client.Port = 587;
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential("info@ladowebservis.sk", "a98HdiBMYNRH");
+                    client.Send(mail);
+                }
+            }
+        }
+
+        // LadowebservisMVC\Util\Mailer.cs
+
+        public void SendOrderConfirmationEmail(string customerEmail, string customerName, string cartJson, string shippingMethod, string pickupPointCode, string pickupPointName, string shippingAddressLine1, string shippingAddressLine2, string shippingCity, string shippingZip, string shippingCountry, decimal shippingFee, decimal grandTotal)
+        {
+            if (string.IsNullOrWhiteSpace(customerEmail)) return;
+            try { var _ = new MailAddress(customerEmail); } catch { return; }
+
+            var nameSafe = string.IsNullOrWhiteSpace(customerName) ? "" : HttpUtility.HtmlEncode(customerName).Trim();
+
+            var cartLines = TryBuildCartLines(cartJson) ?? new List<string>();
+            var cartItemsHtml = cartLines.Count == 0
+                ? "<tr><td colspan='2' style='padding:10px 0;color:#666;'>Košík je prázdny.</td></tr>"
+                : string.Join("", cartLines.Select(line => $"<tr><td style='padding:8px 0;'>{HttpUtility.HtmlEncode(line)}</td><td style='padding:8px 0; text-align:right;'></td></tr>"));
+
+            var shippingDetailsHtml = BuildShippingDetailsHtml(
+                shippingMethod,
+                pickupPointCode,
+                pickupPointName,
+                shippingAddressLine1,
+                shippingAddressLine2,
+                shippingCity,
+                shippingZip,
+                shippingCountry);
+            var unsubscribeUrl = GetUnsubscribeUrl(customerEmail);
+
+            using (var mail = new MailMessage())
+            {
+                mail.From = new MailAddress("info@ladowebservis.sk", "ladowebservis.sk");
+                mail.To.Add(customerEmail);
+                mail.Bcc.Add("info@ladowebservis.sk");
+                mail.Subject = "✅ Potvrdenie objednávky – doprava";
+                mail.SubjectEncoding = Encoding.UTF8;
+                mail.BodyEncoding = Encoding.UTF8;
+                mail.IsBodyHtml = true;
+
+                mail.Body = $@"<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <style>
+    body {{ font-family: Arial, sans-serif; background:#f5f7fa; color:#333; margin:0; padding:0; }}
+    .wrap {{ padding: 18px; }}
+    .container {{ max-width: 650px; margin: 0 auto; background:#fff; border-radius: 12px; overflow:hidden; box-shadow: 0 10px 40px rgba(0,0,0,.10); }}
+    .header {{ background: linear-gradient(135deg,#5d33fb 0%,#4a2fb5 100%); color:#fff; padding: 26px 20px; text-align:center; }}
+    .header h1 {{ margin:0; font-size: 20px; line-height:1.4; }}
+    .content {{ padding: 22px 20px; }}
+    .box {{ background:#f8f9fa; border: 1px solid #e6e6e6; border-radius: 12px; padding: 16px; margin: 16px 0; }}
+    .title {{ color:#5d33fb; font-weight: 900; font-size: 16px; margin: 0 0 10px 0; }}
+    code {{ background: #fff; border: 1px solid #eee; padding: 3px 8px; border-radius: 8px; font-weight: 800; }}
+    table {{ width:100%; border-collapse: collapse; }}
+    th {{ text-align:left; padding:8px 0; border-bottom:1px solid #e0e0e0; color:#555; font-size:13px; }}
+    td {{ border-bottom:1px dashed #eaeaea; font-size:14px; }}
+    .footer {{ padding: 16px 20px; background:#fafafa; border-top:1px solid #eee; color:#777; font-size:12px; line-height:1.6; }}
+  </style>
+</head>
+<body>
+  <div class='wrap'>
+    <div class='container'>
+      <div class='header'>
+        <h1>✅ Objednávka prijatá</h1>
+      </div>
+      <div class='content'>
+        <p>Dobrý deň {nameSafe},</p>
+        <p>Ďakujeme, Vaša objednávka bola prijatá. Nižšie je zhrnutie zvolenej dopravy.</p>
+
+        <div class='box'>
+          <div class='title'>69A Doprava</div>
+          {shippingDetailsHtml}
+        </div>
+
+        <div class='box'>
+          <div class='title'>4E6 Položky</div>
+          <table role='presentation'>
+            <tbody>
+              {cartItemsHtml}
+            </tbody>
+          </table>
+        </div>
+
+        <div class='box'>
+          <div class='title'>4B0 Súhrn</div>
+          <p style='margin:0;color:#555;'>Doprava: <strong>€{shippingFee:0.00}</strong></p>
+          <p style='margin:8px 0 0 0;font-weight:900;font-size:18px;'>Spolu: €{grandTotal:0.00}</p>
+        </div>
+
+        <p style='margin: 18px 0 0 0; font-weight: 800;'>S pozdravom,<br/>Tím ladowebservis.sk 49A</p>
+      </div>
+      <div class='footer'>
+        Ak si neželáte dostávať ďalšie ponuky a novinky, <a href='{unsubscribeUrl}'>kliknite sem</a>.<br/>
+        Stále budete dostávať informácie o svojich objednávkach.
+      </div>
+    </div>
+  </div>
+</body>
+</html>";
+
+                using (var client = new SmtpClient("email.active24.com"))
+                {
+                    client.EnableSsl = true;
+                    client.Port = 587;
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential("info@ladowebservis.sk", "a98HdiBMYNRH");
+                    client.Send(mail);
+                }
+            }
         }
 
         public void SendPaymentConfirmationEmail(Session session, string customerEmail, string customerName = null)

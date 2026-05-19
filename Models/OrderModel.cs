@@ -13,8 +13,8 @@ using System.Xml;
 
 namespace LadowebservisMVC.Models
 {
-    public class OrderModel 
-{
+    public class OrderModel
+    {
         public const string EmptyImgUrl = "/Image/3kroky 2.png";
 
         [Display(Name = "Zobrazovať")]

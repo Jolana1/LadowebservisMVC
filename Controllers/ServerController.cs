@@ -139,11 +139,6 @@ namespace LadowebservisMVC.Controllers
             var stripeSecret = ConfigurationManager.AppSettings["Stripe:SecretKey"];
             StripeConfiguration.ApiKey = stripeSecret;
 
-            if (string.IsNullOrWhiteSpace(stripeSecret) || stripeSecret.StartsWith("pk_", StringComparison.OrdinalIgnoreCase) || stripeSecret.IndexOf("YOUR_SECRET", StringComparison.OrdinalIgnoreCase) >= 0)
-            {
-                return Json(new { success = false, message = "Stripe SecretKey is not configured." });
-            }
-
             var options = new SessionCreateOptions
             {
                 PaymentMethodTypes = new List<string> { "card" },
@@ -234,6 +229,32 @@ namespace LadowebservisMVC.Controllers
                             {
                                 var mailer = new Mailer();
                                 mailer.SendPaymentConfirmationEmail(full, email, name);
+
+                                // Send an additional "order sent" email incl. shipping + pickup details
+                                try
+                                {
+                                    var shippingMethod = full?.Metadata != null && full.Metadata.ContainsKey("shippingMethod") ? full.Metadata["shippingMethod"] : "";
+                                    var pickupPoint = full?.Metadata != null && full.Metadata.ContainsKey("pickupPoint") ? full.Metadata["pickupPoint"] : "";
+                                    var pickupPointName = full?.Metadata != null && full.Metadata.ContainsKey("pickupPointName") ? full.Metadata["pickupPointName"] : "";
+                                    var shippingAddressLine1 = full?.Metadata != null && full.Metadata.ContainsKey("shippingAddressLine1") ? full.Metadata["shippingAddressLine1"] : "";
+                                    var shippingAddressLine2 = full?.Metadata != null && full.Metadata.ContainsKey("shippingAddressLine2") ? full.Metadata["shippingAddressLine2"] : "";
+                                    var shippingCity = full?.Metadata != null && full.Metadata.ContainsKey("shippingCity") ? full.Metadata["shippingCity"] : "";
+                                    var shippingZip = full?.Metadata != null && full.Metadata.ContainsKey("shippingZip") ? full.Metadata["shippingZip"] : "";
+                                    var shippingCountry = full?.Metadata != null && full.Metadata.ContainsKey("shippingCountry") ? full.Metadata["shippingCountry"] : "";
+                                    var shippingFeeStr = full?.Metadata != null && full.Metadata.ContainsKey("shippingFee") ? full.Metadata["shippingFee"] : "0";
+                                    var grandTotalStr = full?.Metadata != null && full.Metadata.ContainsKey("grandTotal") ? full.Metadata["grandTotal"] : "0";
+
+                                    decimal shippingFee = 0m;
+                                    decimal grandTotal = 0m;
+                                    decimal.TryParse((shippingFeeStr ?? "0").Replace(",", "."), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out shippingFee);
+                                    decimal.TryParse((grandTotalStr ?? "0").Replace(",", "."), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out grandTotal);
+
+                                    mailer.SendOrderPaidEmail(full, email, name, shippingMethod, pickupPoint, pickupPointName, shippingAddressLine1, shippingAddressLine2, shippingCity, shippingZip, shippingCountry, shippingFee, grandTotal);
+                                }
+                                catch (Exception ex2)
+                                {
+                                    System.Diagnostics.Trace.TraceError($"Order paid email failed: {ex2}");
+                                }
                             }
                         }
                         catch (Exception ex)
