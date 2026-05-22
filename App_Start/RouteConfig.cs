@@ -37,9 +37,11 @@ namespace LadowebservisMVC
             routes.MapRoute("Obchodné podmienky", "Obchodné podmienky", new { controller = "Home", action = "ObchodnePodmienky" });
             routes.MapRoute("Error", "Error", new { controller = "Home", action = "HTTP404" });
             routes.MapRoute("DownloadEbook", "DownloadEbook", new { controller = "Home", action = "DownloadEbook" });
-            
-            
-            
+            routes.MapRoute("About", "About", new { controller = "Home", action = "About" });
+
+
+
+
 
 
 
@@ -48,7 +50,7 @@ namespace LadowebservisMVC
             routes.MapRoute(
                     name: "Default",
                     url: "{controller}/{action}/{id}",
-                    defaults: new { controller = "Home", action = "Zdravie", id = UrlParameter.Optional }
+                    defaults: new { controller = "Home", action = "About", id = UrlParameter.Optional }
                 );
             }
         }

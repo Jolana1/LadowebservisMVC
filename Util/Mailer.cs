@@ -129,7 +129,8 @@ namespace LadowebservisMVC.Util
             "fbhdfgh@gmail.com",
             "sggtrfgfg@gmail.com",
             "jacksrenome@gmx.com",
-            "dfhfgdffg@gmail.com"
+            "dfhfgdffg@gmail.com",
+            "paulauskasgintautas@gmail.com"
 
         };
 

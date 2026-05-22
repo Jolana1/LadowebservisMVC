@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\kseni\source\repos\LadowebservisMVC\Publish1</_PublishTargetUrl>
-    <History>True|2026-05-19T17:07:19.7915941Z||;True|2026-05-05T22:14:26.0808343+02:00||;True|2026-05-04T18:41:53.5102172+02:00||;False|2026-05-04T18:36:34.0808130+02:00||;True|2026-05-04T17:37:15.0904639+02:00||;True|2026-05-03T21:29:35.3913802+02:00||;True|2026-04-11T15:46:16.0620396+02:00||;True|2026-04-03T22:23:23.9636992+02:00||;True|2026-04-03T13:11:38.9562902+02:00||;</History>
+    <History>True|2026-05-19T18:08:46.1336505Z||;True|2026-05-19T19:07:19.7915941+02:00||;True|2026-05-05T22:14:26.0808343+02:00||;True|2026-05-04T18:41:53.5102172+02:00||;False|2026-05-04T18:36:34.0808130+02:00||;True|2026-05-04T17:37:15.0904639+02:00||;True|2026-05-03T21:29:35.3913802+02:00||;True|2026-04-11T15:46:16.0620396+02:00||;True|2026-04-03T22:23:23.9636992+02:00||;True|2026-04-03T13:11:38.9562902+02:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -1942,7 +1942,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/16/2026 21:32:05</publishTime>
     </File>
     <File Include="Views/Web.config">
-      <publishTime>03/24/2026 19:13:11</publishTime>
+      <publishTime>05/19/2026 20:02:53</publishTime>
     </File>
     <File Include="Views/_ViewStart.cshtml">
       <publishTime>03/16/2026 12:55:06</publishTime>
