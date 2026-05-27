@@ -4,6 +4,7 @@
 
 @{
     ViewBag.Title = "Produkty";
+    Func<decimal, int> loyaltyPoints = amount => (int)Math.Floor(amount / 10m);
 }
 
 <style>
@@ -156,6 +157,17 @@
         font-size: 12px;
         font-weight: 700;
         margin-left: 10px;
+    }
+
+    .loyalty-points-note {
+        margin-top: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #5d33fb;
+    }
+
+    .loyalty-points-note strong {
+        color: #28a745;
     }
 
     /* ========== BUTTONS ========== */
@@ -408,8 +420,8 @@
 <div class="products-container">
     <!-- Hero Header -->
     <div class="products-hero">
-        <h2>🛍️ VITAJTE! TU JE NAŠA PONUKA DOSTUPNÝCH PRODUKTOV</h2>
-        <p style="margin-top: 15px; font-size: 16px;">Keď ide o zdravie, nekompromisujte s cenami!</p>
+        <h2 style="color: white;">🛍️ VITAJTE! TU JE NAŠA PONUKA DOSTUPNÝCH PRODUKTOV</h2>
+        <p style="margin-top: 15px; font-size: 16px; color: white;">Keď ide o zdravie, nekompromisujte s cenami!</p>
     </div>
 
     <!-- Loading Spinner -->
@@ -436,15 +448,15 @@
         </div>
 
         <div class="discount-notice">
-            🎉 Použite kód <strong>NOVYROK26</strong> pri platbe a získajte 10% zľavu!
+            🎉 Použite kód <strong>LETOJETU26</strong> pri platbe a získajte 10% zľavu!
         </div>
 
         <div class="product-pricing">
             <span class="price-original">61,00€</span>
             <span class="price-current">54,90€</span>
             <span class="price-save">Ušetríte 6,10€</span>
-           
         </div>
+        <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(54.90m) bodov</strong> do vernostného programu</div>
         
         
         
@@ -489,6 +501,7 @@
         <div class="product-pricing">
             <span class="price-current">15,00€</span>
         </div>
+        <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(15.00m) bodov</strong> do vernostného programu</div>
 
         <div class="product-actions">
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
@@ -529,6 +542,7 @@
         <div class="product-pricing">
             <span class="price-current">40,00€</span>
         </div>
+        <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(40.00m) bodov</strong> do vernostného programu</div>
 
         <div class="product-actions">
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
@@ -571,7 +585,7 @@
         </div>
 
         <div class="discount-notice">
-            🎉 Použite kód <strong>NOVYROK26</strong> pri platbe a získajte 10% zľavu!
+            🎉 Použite kód <strong>LETOJETU26</strong> pri platbe a získajte 10% zľavu!
         </div>
 
         <div class="product-pricing">
@@ -579,6 +593,7 @@
             <span class="price-current">39,60€</span>
             <span class="price-save">Ušetríte 4,40€</span>
         </div>
+        <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(39.60m) bodov</strong> do vernostného programu</div>
 
         <div class="product-actions">
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
@@ -621,6 +636,7 @@
         <div class="product-pricing">
             <span class="price-current">25,00€</span>
         </div>
+        <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(25.00m) bodov</strong> do vernostného programu</div>
 
         <div class="product-actions">
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
@@ -663,7 +679,7 @@
         </div>
 
         <div class="discount-notice">
-            🎉 Použite kód <strong>NOVYROK26</strong> pri platbe a získajte 10% zľavu!
+            🎉 Použite kód <strong>LETOJETU26</strong> pri platbe a získajte 10% zľavu!
         </div>
 
         <div class="product-pricing">
@@ -671,6 +687,7 @@
             <span class="price-current">58,50€</span>
             <span class="price-save">Ušetríte 6,50€</span>
         </div>
+        <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(58.50m) bodov</strong> do vernostného programu</div>
 
         <div class="product-actions">
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
@@ -713,7 +730,7 @@
         </div>
 
         <div class="discount-notice">
-            🎉 Použite kód <strong>NOVYROK26</strong> pri platbe a získajte 10% zľavu!
+            🎉 Použite kód <strong>LETOJETU26</strong> pri platbe a získajte 10% zľavu!
         </div>
 
         <div class="product-pricing">
@@ -721,6 +738,7 @@
             <span class="price-current">175,50€</span>
             <span class="price-save">Ušetríte 19,50€</span>
         </div>
+        <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(175.50m) bodov</strong> do vernostného programu</div>
 
         <div class="product-actions">
             <a href='@Url.Action("Kontakt","Home")' class="btn-stripe">
@@ -771,7 +789,7 @@
         </div>
 
         <div class="discount-notice">
-            🎉 Použite kód <strong>NOVYROK26</strong> pri platbe a získajte 10% zľavu!
+            🎉 Použite kód <strong>LETOJETU26</strong> pri platbe a získajte 10% zľavu!
         </div>
 
         <div class="product-pricing">
@@ -779,6 +797,7 @@
             <span class="price-current">58,50€</span>
             <span class="price-save">Ušetríte 6,50€</span>
         </div>
+        <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(58.50m) bodov</strong> do vernostného programu</div>
 
         <div class="product-actions">
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
@@ -821,6 +840,7 @@
         <div class="product-pricing">
             <span class="price-current">3,00€</span>
         </div>
+        <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(3.00m) bodov</strong> do vernostného programu</div>
 
         <div class="product-actions">
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">

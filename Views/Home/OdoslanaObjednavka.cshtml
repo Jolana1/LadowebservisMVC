@@ -3,18 +3,19 @@
 
     
 
-    var msg = (ViewBag.OrderSentMessage as string) ?? "✅ Objednávka bola prijatá.";
+    var msg = (ViewBag.OrderSentMessage as string) ?? "✅ Objednavka bola prijata.";
     var name = (ViewBag.OrderSentName as string) ?? "";
     var email = (ViewBag.OrderSentEmail as string) ?? "";
     var total = (ViewBag.OrderSentGrandTotal as string) ?? "";
-    var hasSummary = !string.IsNullOrWhiteSpace(name) || !string.IsNullOrWhiteSpace(email) || !string.IsNullOrWhiteSpace(total);
+    var orderNumber = (ViewBag.OrderSentOrderNumber as string) ?? "";
+    var hasSummary = !string.IsNullOrWhiteSpace(name) || !string.IsNullOrWhiteSpace(email) || !string.IsNullOrWhiteSpace(total) || !string.IsNullOrWhiteSpace(orderNumber);
 
     var isWarning = !string.IsNullOrWhiteSpace(msg)
         && (msg.TrimStart().StartsWith("⚠️")
             || msg.IndexOf("nepodarilo", StringComparison.OrdinalIgnoreCase) >= 0
             || msg.IndexOf("chyba", StringComparison.OrdinalIgnoreCase) >= 0);
 
-    var title = isWarning ? "Objednávka bola prijatá" : "Objednávka bola prijatá";
+    var title = isWarning ? "Objednavka bola prijata" : "Objednavka bola prijata";
     var icon = isWarning ? "⚠️" : "✅";
 }
 
@@ -78,6 +79,22 @@
         color: #ff9800;
     }
 
+    .success-box.warning .success-subtitle {
+        color: #7a4b00;
+        background: rgba(255, 255, 255, 0.96);
+        border-color: rgba(255, 152, 0, 0.28);
+        box-shadow: 0 6px 18px rgba(255, 152, 0, 0.12);
+    }
+
+    .success-box.warning .success-message {
+        border-left-color: #ff9800;
+        box-shadow: 0 4px 12px rgba(255, 152, 0, 0.12);
+    }
+
+    .success-box.warning .success-message h4 {
+        color: #ff9800;
+    }
+
     
 
     .success-box h2 {
@@ -89,10 +106,16 @@
     }
 
     .success-subtitle {
-        color: #555;
-        font-size: 18px;
+        color: #24324a;
+        font-size: 19px;
+        font-weight: 600;
         margin: 15px 0 25px 0;
         line-height: 1.6;
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(40, 167, 69, 0.18);
+        border-radius: 10px;
+        padding: 18px 20px;
+        box-shadow: 0 6px 18px rgba(36, 50, 74, 0.08);
     }
 
     .success-message {
@@ -113,9 +136,20 @@
     }
 
     .success-message p {
-        color: #555;
+        color: #24324a;
         margin: 10px 0;
         font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .success-message a {
+        color: #5d33fb;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    .success-message strong {
+        color: #1f2937;
     }
 
     .action-buttons {
@@ -164,34 +198,38 @@
         <p class="success-subtitle">@msg</p>
 
         <div class="success-message">
-            <h4>Ďalšie kroky</h4>
-            <p><strong>1.</strong> Skontrolujte e‑mail (aj SPAM). Poslali sme vám súhrn objednávky a platobné údaje.</p>
-            <p><strong>2.</strong> Zaplaťte podľa inštrukcií v e‑maile (bankovým prevodom alebo platobným linkom, ak je dostupný).</p>
-            <p><strong>3.</strong> Po prijatí platby objednávku spracujeme a odošleme.</p>
+            <h4>Dalsie kroky</h4>
+            
+            <p><strong>1.</strong> Zaplatte podla instrukcii v e-maile (bankovym prevodom alebo platobnym linkom, ak je dostupny).</p>
+            <p><strong>2.</strong> Po prijati platby objednavku spracujeme a odosleme.</p>
 
             <p style="margin-top:15px;">
-                <strong>Neprišiel vám e‑mail?</strong>
-                Počkajte prosím 5–10 minút a skontrolujte priečinok SPAM.
-                Ak e‑mail stále nevidíte, kontaktujte nás cez <a href="@Url.Action("Kontakt", "Home")"><strong>Kontakt</strong></a>
+                <strong>Neprisiel vam e-mail?</strong>
+                Pockajte prosim 5-10 minut a skontrolujte priecinok SPAM.
+                Ak e-mail stale nevidite, kontaktujte nas cez <a href="@Url.Action("Kontakt", "Home")"><strong>Kontakt</strong></a>
                 alebo na <a href="mailto:info@ladowebservis.sk"><strong>info@ladowebservis.sk</strong></a>.
             </p>
 
             @if (hasSummary)
             {
                 <hr style="border:0;border-top:1px solid #e6e6e6;margin:18px 0;" />
-                <h4 style="margin:0 0 10px 0;">Súhrn</h4>
+                <h4 style="margin:0 0 10px 0;">Suhrn</h4>
                 <div style="display:grid;grid-template-columns: 1fr;gap:6px;">
                     @if (!string.IsNullOrWhiteSpace(name))
                     {
                         <p style="margin:0;">Meno: <strong>@name</strong></p>
                     }
+                    @if (!string.IsNullOrWhiteSpace(orderNumber))
+                    {
+                        <p style="margin:0;">Cislo objednavky: <strong>@orderNumber</strong></p>
+                    }
                     @if (!string.IsNullOrWhiteSpace(email))
                     {
-                        <p style="margin:0;">E‑mail: <strong>@email</strong></p>
+                        <p style="margin:0;">Email: <strong>@email</strong></p>
                     }
                     @if (!string.IsNullOrWhiteSpace(total))
                     {
-                        <p style="margin:0;">Suma na úhradu: <strong>€@total</strong></p>
+                        <p style="margin:0;">Suma na uhradu: <strong>€@total</strong></p>
                     }
                 </div>
             }
@@ -199,10 +237,10 @@
 
         <div class="action-buttons">
             <a class="btn-action btn-action-primary" href="@Url.Action("Produkty", "Home")">
-                <i class="fa fa-shopping-bag"></i> Pokračovať na produkty
+                <i class="fa fa-shopping-bag"></i> Pokracovat na produkty
             </a>
             <a class="btn-action btn-action-secondary" href="@Url.Action("Kosik", "Home")">
-                <i class="fa fa-shopping-cart"></i> Späť do košíka
+                <i class="fa fa-shopping-cart"></i> Spat do kosika
             </a>
         </div>
     </div>

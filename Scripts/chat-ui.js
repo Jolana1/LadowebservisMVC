@@ -33,7 +33,7 @@
 
     // ===== IMPROVED CHAT FUNCTIONALITY =====
     const autoResponses = {
-        'cena': '💰 <strong>Cenové informácie:</strong><br>Naše produkty majú konkurenčné ceny. Všetky ceny nájdete na stránke Produkty. Skúste kód NOVYROK26 pre zľavu!',
+        'cena': '💰 <strong>Cenové informácie:</strong><br>Naše produkty majú konkurenčné ceny. Všetky ceny nájdete na stránke Produkty. Skúste kód LETOJETU26 pre zľavu!',
         'doprava': '🚚 <strong>Doprava:</strong><br>• <strong>Zásielkovňa</strong> (výdajné miesto) alebo <strong>Kuriér</strong> (na adresu)<br>• Cena dopravy sa vypočíta automaticky podľa hodnoty košíka<br>• Po odoslaní objednávky vám príde e‑mail so súhrnom a ďalšími krokmi',
         'platba': '💳 <strong>Bezpečná Platba:</strong><br>Používame Stripe - bezpečnú platobnú bránu. Všetky vaše údaje sú šifrované.',
         'vratenie': '↩️ <strong>Vrátenie Tovarov:</strong><br>• ✓ 120 dní na vrátenie<br>• ✓ Bez otázok<br>• ✓ Bezplatne',
@@ -41,8 +41,8 @@
         'balanceoil': '⭐ <strong>BalanceOil:</strong><br>Prírodný Omega-3 olej. Podporuje srdce, mozog a zrak. Dostupný: 300ml.',
         'it servis': '🖥️ <strong>IT servis:</strong><br>• Diagnostika a opravy PC / notebookov<br>• Inštalácia a nastavenie Windows + programov<br>• Odvirovanie, zrýchlenie PC, zálohy<br>• Upgrade komponentov (SSD/RAM) a poradenstvo<br><br>Napíšte stručne problém (napr. „PC sa nezapne“, „je pomalý“, „vírus“) a ozveme sa vám.',
         'web': '🌐 <strong>Webové služby:</strong><br>• Návrh a tvorba webstránok<br>• Úpravy existujúcich webov, SEO základ<br>• Hosting a technická správa<br><br>Pošlite odkaz na web alebo predstavu a pripravíme návrh riešenia.',
-        'zlava': '🎁 <strong>Zľava NOVYROK26:</strong><br>10% zľava na produkty nad 50€. Použite pri checkout!',
-        'kontakt': '📞 <strong>Kontaktujte Nás:</strong><br>☎️ +421917952432<br>📧 info@ladowebservis.sk<br>⏰ Po-Pia: 9:00-17:00',
+        'zlava': '🎁 <strong>Zľava LETOJETU26:</strong><br>10% zľava na vybrané produkty nad 50€. Použite pri checkout!',
+        'kontakt': '📞 <strong>Kontaktujte Nás:</strong><br>☎️ +421917952432<br>📧 info@ladowebservis.sk<br>⏰ Po-Pia: 9:00-19:00',
         'pomoc': '❓ <strong>Ako ti pomôžem?</strong><br>Napíš: cena, doprava, platba, produkty, zľava, vratenie alebo kontakt',
         'bonusové body': '⭐ <strong>Bonusové Body:</strong><br>Za každých €10 nákupu dostaneš 1 bod. 100 bodov = €10 zľava!',
         'program': '🎯 <strong>Vernostný Program:</strong><br>Zbieraj body, získavaj zľavy a exkluzívne ponuky!'

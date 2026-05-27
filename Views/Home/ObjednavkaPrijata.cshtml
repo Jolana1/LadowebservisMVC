@@ -5,6 +5,7 @@
     var name = (ViewBag.OrderSentName as string) ?? "";
     var email = (ViewBag.OrderSentEmail as string) ?? "";
     var total = (ViewBag.OrderSentGrandTotal as string) ?? "";
+    var orderNumber = (ViewBag.OrderSentOrderNumber as string) ?? "";
 }
 
 <div class="success-container" style="max-width: 800px; margin: 60px auto; padding: 0 20px;">
@@ -19,6 +20,10 @@
             @if (!string.IsNullOrWhiteSpace(name))
             {
                 <p>Meno: <strong>@name</strong></p>
+            }
+            @if (!string.IsNullOrWhiteSpace(orderNumber))
+            {
+                <p>Cislo objednavky: <strong>@orderNumber</strong></p>
             }
             @if (!string.IsNullOrWhiteSpace(email))
             {

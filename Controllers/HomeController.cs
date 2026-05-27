@@ -17,8 +17,8 @@ namespace LadowebservisMVC.Controllers
     {
         private sealed class CartItemStorage
         {
-            public int quantity { get; set; }
-            public string image { get; set; }
+            public int Quantity { get; set; }
+            public string Image { get; set; }
         }
 
         private static List<OrderItem> ParseCartJsonToOrderItems(string cartJson)
@@ -47,7 +47,7 @@ namespace LadowebservisMVC.Controllers
                 foreach (var kv in dict)
                 {
                     var id = kv.Key;
-                    var qty = kv.Value != null ? kv.Value.quantity : 0;
+                    var qty = kv.Value != null ? kv.Value.Quantity : 0;
                     if (string.IsNullOrWhiteSpace(id) || qty <= 0) continue;
 
                     if (!ProductCatalog.TryGetById(id, out var info) || info == null) continue;
@@ -79,6 +79,11 @@ namespace LadowebservisMVC.Controllers
         {
             if (item == null) return 0m;
             return QualifiesForTenPercentDiscount(item) ? (item.UnitPrice * 0.9m) : item.UnitPrice;
+        }
+
+        private static string GenerateOrderNumber()
+        {
+            return DateTime.UtcNow.ToString("yyMMddHHmm", CultureInfo.InvariantCulture);
         }
 
         // GET: Home
@@ -164,8 +169,7 @@ namespace LadowebservisMVC.Controllers
         {
             ViewBag.PageTitle = "Member";
             // Read MemberInfoModel from session if available
-            var mi = Session["MemberInfo"] as MemberInfoModel;
-            if (mi == null) mi = new MemberInfoModel();
+            var mi = Session["MemberInfo"] is MemberInfoModel memberInfo ? memberInfo : new MemberInfoModel();
             return View(mi);
         }
 
@@ -302,6 +306,7 @@ namespace LadowebservisMVC.Controllers
             ViewBag.OrderSentName = TempData.Peek("OrderSentName") as string;
             ViewBag.OrderSentEmail = TempData.Peek("OrderSentEmail") as string;
             ViewBag.OrderSentGrandTotal = TempData.Peek("OrderSentGrandTotal") as string;
+            ViewBag.OrderSentOrderNumber = TempData.Peek("OrderSentOrderNumber") as string;
 
             return View("OdoslanaObjednavka");
         }
@@ -316,6 +321,7 @@ namespace LadowebservisMVC.Controllers
             ViewBag.OrderSentName = TempData.Peek("OrderSentName") as string;
             ViewBag.OrderSentEmail = TempData.Peek("OrderSentEmail") as string;
             ViewBag.OrderSentGrandTotal = TempData.Peek("OrderSentGrandTotal") as string;
+            ViewBag.OrderSentOrderNumber = TempData.Peek("OrderSentOrderNumber") as string;
 
             return View("ObjednavkaPrijata");
         }
@@ -329,6 +335,7 @@ namespace LadowebservisMVC.Controllers
             ViewBag.OrderSentName = TempData.Peek("OrderSentName") as string;
             ViewBag.OrderSentEmail = TempData.Peek("OrderSentEmail") as string;
             ViewBag.OrderSentGrandTotal = TempData.Peek("OrderSentGrandTotal") as string;
+            ViewBag.OrderSentOrderNumber = TempData.Peek("OrderSentOrderNumber") as string;
 
             return View();
         }
@@ -359,6 +366,7 @@ namespace LadowebservisMVC.Controllers
         public ActionResult Unsubscribe(string email, string token)
         {
             ViewBag.PageTitle = "Odhlásenie z odberu";
+            _ = token;
             
             // Validate email and token
             if (string.IsNullOrWhiteSpace(email))
@@ -483,7 +491,7 @@ namespace LadowebservisMVC.Controllers
                     }
                 }
 
-                total = total - discount;
+                total -= discount;
 
                 // Shipping fee (based on configured price list)
                 var shippingFee = 0m;
@@ -494,6 +502,7 @@ namespace LadowebservisMVC.Controllers
                 catch { shippingFee = 0m; }
 
                 var grandTotal = total + shippingFee;
+                var orderNumber = GenerateOrderNumber();
 
                 if (!ModelState.IsValid)
                 {
@@ -503,6 +512,7 @@ namespace LadowebservisMVC.Controllers
                     TempData["OrderSentName"] = model.Name;
                     TempData["OrderSentEmail"] = model.Email;
                     TempData["OrderSentGrandTotal"] = string.Empty;
+                    TempData["OrderSentOrderNumber"] = string.Empty;
                     return RedirectToAction("PlaceOrder", "Home");
                 }
 
@@ -580,7 +590,8 @@ namespace LadowebservisMVC.Controllers
                                     { "pickupPoint", model.ZasielkovnaPickupPoint ?? string.Empty },
                                     { "pickupPointName", model.ZasielkovnaPickupPointName ?? string.Empty },
                                     { "shippingFee", shippingFee.ToString("0.00", CultureInfo.InvariantCulture) },
-                                    { "grandTotal", grandTotal.ToString("0.00", CultureInfo.InvariantCulture) }
+                                    { "grandTotal", grandTotal.ToString("0.00", CultureInfo.InvariantCulture) },
+                                    { "orderNumber", orderNumber }
                                 }
                             };
 
@@ -595,7 +606,7 @@ namespace LadowebservisMVC.Controllers
                     }
 
                     var mailer = new Mailer();
-                    emailSent = mailer.TrySendBankTransferOrderEmail(model, shippingFee, grandTotal, stripeUrl);
+                    emailSent = mailer.TrySendBankTransferOrderEmail(model, shippingFee, grandTotal, orderNumber);
                 }
                 catch (Exception ex)
                 {
@@ -608,6 +619,7 @@ namespace LadowebservisMVC.Controllers
                 TempData["OrderSentName"] = model.Name;
                 TempData["OrderSentEmail"] = model.Email;
                 TempData["OrderSentGrandTotal"] = grandTotal.ToString("0.00", CultureInfo.InvariantCulture);
+                TempData["OrderSentOrderNumber"] = orderNumber;
 
                 return RedirectToAction("PlaceOrder", "Home");
             }
@@ -621,6 +633,7 @@ namespace LadowebservisMVC.Controllers
                 TempData["OrderSentName"] = model?.Name;
                 TempData["OrderSentEmail"] = model?.Email;
                 TempData["OrderSentGrandTotal"] = string.Empty;
+                TempData["OrderSentOrderNumber"] = string.Empty;
                 return RedirectToAction("PlaceOrder", "Home");
             }
         }
@@ -661,6 +674,7 @@ namespace LadowebservisMVC.Controllers
                 var shippingFee = 0m;
                 try { shippingFee = ShippingUtil.GetShippingFee(model.ShippingMethod, total); } catch { shippingFee = 0m; }
                 var grandTotal = total + shippingFee;
+                var orderNumber = GenerateOrderNumber();
 
                 if (!ModelState.IsValid)
                 {
@@ -684,7 +698,8 @@ namespace LadowebservisMVC.Controllers
                             model.ZasielkovnaPickupPoint,
                             model.ZasielkovnaPickupPointName,
                             shippingFee,
-                            grandTotal);
+                            grandTotal,
+                            orderNumber);
                     }
                     catch (Exception ex)
                     {
@@ -695,6 +710,7 @@ namespace LadowebservisMVC.Controllers
                     TempData["OrderSentName"] = model.Name;
                     TempData["OrderSentEmail"] = model.Email;
                     TempData["OrderSentGrandTotal"] = grandTotal.ToString("0.00", CultureInfo.InvariantCulture);
+                    TempData["OrderSentOrderNumber"] = orderNumber;
                     return RedirectToAction("ObjednavkaPrijata", "Home");
                 }
 
@@ -762,7 +778,8 @@ namespace LadowebservisMVC.Controllers
                         { "shippingZip", model.ShippingZip ?? string.Empty },
                         { "shippingCountry", model.ShippingCountry ?? string.Empty },
                         { "shippingFee", shippingFee.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) },
-                        { "grandTotal", grandTotal.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) }
+                        { "grandTotal", grandTotal.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) },
+                        { "orderNumber", orderNumber }
                     }
                 };
 
@@ -787,7 +804,8 @@ namespace LadowebservisMVC.Controllers
                         model.ShippingZip,
                         model.ShippingCountry,
                         shippingFee,
-                        grandTotal);
+                        grandTotal,
+                        orderNumber);
                 }
                 catch (Exception ex)
                 {
@@ -799,6 +817,7 @@ namespace LadowebservisMVC.Controllers
                 TempData["OrderSentName"] = model.Name;
                 TempData["OrderSentEmail"] = model.Email;
                 TempData["OrderSentGrandTotal"] = grandTotal.ToString("0.00", CultureInfo.InvariantCulture);
+                TempData["OrderSentOrderNumber"] = orderNumber;
                 return RedirectToAction("ObjednavkaPrijata", "Home");
             }
             catch (Exception ex)
@@ -810,6 +829,7 @@ namespace LadowebservisMVC.Controllers
                 TempData["OrderSentName"] = model?.Name;
                 TempData["OrderSentEmail"] = model?.Email;
                 TempData["OrderSentGrandTotal"] = string.Empty;
+                TempData["OrderSentOrderNumber"] = string.Empty;
                 return RedirectToAction("ObjednavkaPrijata", "Home");
             }
         }

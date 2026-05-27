@@ -21,15 +21,58 @@
 
     const SHIPPING_METHODS = {
         zasielkovna: {
-            label: 'Zásielkovňa / Packeta (výdajné miesto)',
-            // fallback tiers (EUR) if server/appSettings not mirrored on client
+            label: 'Zásielkovňa / Packeta',
             tiers: [
                 { minTotal: 0, price: 3.90 },
                 { minTotal: 50, price: 2.90 },
                 { minTotal: 80, price: 0.00 }
             ]
+        },
+        packeta: {
+            label: 'Zásielkovňa / Packeta',
+            tiers: [
+                { minTotal: 0, price: 3.90 },
+                { minTotal: 50, price: 2.90 },
+                { minTotal: 80, price: 0.00 }
+            ]
+        },
+        courier: {
+            label: 'Kuriér na adresu',
+            tiers: [
+                { minTotal: 0, price: 4.90 },
+                { minTotal: 70, price: 2.90 },
+                { minTotal: 100, price: 0.00 }
+            ]
+        },
+        'dpd-courier': {
+            label: 'DPD kuriér',
+            tiers: [
+                { minTotal: 0, price: 4.60 },
+                { minTotal: 70, price: 3.20 },
+                { minTotal: 100, price: 0.00 }
+            ]
+        },
+        'dpd-pickup': {
+            label: 'DPD odberné miesto',
+            tiers: [
+                { minTotal: 0, price: 3.60 },
+                { minTotal: 70, price: 2.40 },
+                { minTotal: 100, price: 0.00 }
+            ]
         }
     };
+
+    function shippingLabel(method) {
+        return (SHIPPING_METHODS[method] && SHIPPING_METHODS[method].label) || 'Doprava';
+    }
+
+    function isPickupMethod(method) {
+        return method === 'dpd-pickup';
+    }
+
+    function isCourierMethod(method) {
+        return method === 'courier' || method === 'dpd-courier';
+    }
 
     function loadShipping() {
         try {
@@ -285,9 +328,11 @@
             const qualifiesForDiscount = qualifiesForTenPercentDiscount(key, lineBase, catalog);
 
             var baseLine = lineBase;
-            var lineTotal = qualifiesForDiscount
-                ? (baseLine * 0.9).toFixed(2)
-                : baseLine.toFixed(2);
+            var lineTotalValue = qualifiesForDiscount
+                ? (baseLine * 0.9)
+                : baseLine;
+            var lineTotal = lineTotalValue.toFixed(2);
+            var loyaltyPoints = Math.floor(lineTotalValue / 10);
 
             const nameSpan = document.createElement('span');
             nameSpan.innerHTML = displayName + ' ';
@@ -334,7 +379,8 @@
             priceSpan.style.textAlign = 'right';
 
             var baseLine = unitPrice * (item.quantity || 0);
-            var lineTotal = qualifiesForDiscount ? (baseLine * 0.9).toFixed(2) : baseLine.toFixed(2);
+            var lineTotalValue = qualifiesForDiscount ? (baseLine * 0.9) : baseLine;
+            var lineTotal = lineTotalValue.toFixed(2);
 
             if (qualifiesForDiscount) {
                 priceSpan.innerHTML = '<span style="text-decoration:line-through;color:#999;margin-right:.4rem;font-size:11px;">€' + baseLine.toFixed(2) + '</span><span>€' + lineTotal + '</span>';
@@ -399,6 +445,15 @@
 
             leftContent.appendChild(topRow);
 
+            const pointsNote = document.createElement('div');
+            pointsNote.style.fontSize = '11px';
+            pointsNote.style.color = '#777';
+            pointsNote.style.marginTop = '4px';
+            pointsNote.style.lineHeight = '1.3';
+            pointsNote.textContent = 'Body po zaplatení: ' + loyaltyPoints;
+
+            leftContent.appendChild(pointsNote);
+
             li.appendChild(img);
             li.appendChild(leftContent);
             li.appendChild(priceSpan);
@@ -446,15 +501,26 @@
         try {
             const ship = loadShipping();
             if (pickupSummaryEl) {
-                if (ship && ship.method === 'zasielkovna' && ship.pickupPointName) {
-                    pickupSummaryEl.textContent = ship.pickupPointName + (ship.pickupPoint ? (' (' + ship.pickupPoint + ')') : '');
+                if (typeof window.lwsRefreshShippingSummary === 'function') {
+                    window.lwsRefreshShippingSummary();
+                } else if (ship && isPickupMethod(ship.method)) {
+                    pickupSummaryEl.innerHTML = '<strong>' + shippingLabel(ship.method) + ':</strong> '
+                        + ((ship.pickupPointName || ship.pickupPoint)
+                            ? ((ship.pickupPointName || '-') + (ship.pickupPoint ? (' (' + ship.pickupPoint + ')') : ''))
+                            : 'Nevybrané odberné miesto');
+                } else if (ship && isCourierMethod(ship.method)) {
+                    const line = [ship.addressLine1, ship.addressLine2].filter(Boolean).join(', ');
+                    const place = [ship.zip, ship.city].filter(Boolean).join(' ');
+                    const full = [line, place, ship.country].filter(Boolean).join(', ');
+                    pickupSummaryEl.innerHTML = '<strong>' + shippingLabel(ship.method) + ':</strong> '
+                        + (full || 'Nevyplnená doručovacia adresa');
                 } else {
                     pickupSummaryEl.textContent = '';
                 }
             }
             if (pickBtn) {
-                pickBtn.disabled = !(ship && ship.method === 'zasielkovna');
-                pickBtn.title = pickBtn.disabled ? 'Najprv vyberte dopravu Zásielkovňa/Packeta' : 'Prejdite na košík pre výber výdajného miesta';
+                pickBtn.disabled = true;
+                pickBtn.title = 'Widget dopravy nie je dostupný';
             }
         } catch (e) { }
 
@@ -746,6 +812,8 @@
     // Expose render function for header and ensure cart page can set its own renderer
     window.lwsRenderCartHeader = renderCart;
     window.lwsRenderFavorites = renderFavorites;
+    window.lwsLoadCart = loadCart;
+    window.lwsGetCartTotals = getCartTotals;
     if (!window.lwsRenderCartPage) window.lwsRenderCartPage = null;
 
     // Expose add-to-cart for layout mini products
