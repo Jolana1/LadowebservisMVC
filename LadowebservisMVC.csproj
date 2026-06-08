@@ -604,8 +604,6 @@
     <Compile Include="Util\TextTemplateParam.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\DB.sql" />
-    <Content Include="App_Data\_dbEshop.sql" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -803,7 +801,6 @@
     <Content Include="Image\Pikatec 4.png" />
     <Content Include="Image\Pikatec.png" />
     <Content Include="Image\polyfill.min.js" />
-    <Content Include="Image\Postup platby.png" />
     <Content Include="Image\Prianie26.png" />
     <Content Include="Image\profile-pic 2.jpg" />
     <Content Include="Image\profile-pic.jpg" />
@@ -833,6 +830,7 @@
     <Content Include="Image\skusenosti – kópia.jpg" />
     <Content Include="Image\skusenosti.jpg" />
     <Content Include="Image\Snímka obrazovky 2023-06-10 161035.png" />
+    <Content Include="Image\Stripe Postup platby pomocka.jpg" />
     <Content Include="Image\style%281%29.css" />
     <Content Include="Image\style.min%281%29.css" />
     <Content Include="Image\tall ship under sails 2.jpg" />

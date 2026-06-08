@@ -10,32 +10,27 @@
 
     // Show/hide button based on scroll position
     window.addEventListener('scroll', function () {
+        if (!goTopBtn) return;
         if (window.pageYOffset > 300) {
             goTopBtn.classList.add('show');
         } else {
             goTopBtn.classList.remove('show');
         }
-    });
+    }, { passive: true });
 
     // Smooth scroll to top function
     window.scrollToTop = function () {
-        const scrollDuration = 500; // milliseconds
-        const scrollStep = window.pageYOffset / (scrollDuration / 15);
-
-        const scrollInterval = setInterval(function () {
-            if (window.pageYOffset > 0) {
-                window.scrollBy(0, -scrollStep);
-            } else {
-                clearInterval(scrollInterval);
-            }
-        }, 15);
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     };
 
     // ===== IMPROVED CHAT FUNCTIONALITY =====
     const autoResponses = {
-        'cena': '💰 <strong>Cenové informácie:</strong><br>Naše produkty majú konkurenčné ceny. Všetky ceny nájdete na stránke Produkty. Skúste kód LETOJETU26 pre zľavu!',
-        'doprava': '🚚 <strong>Doprava:</strong><br>• <strong>Zásielkovňa</strong> (výdajné miesto) alebo <strong>Kuriér</strong> (na adresu)<br>• Cena dopravy sa vypočíta automaticky podľa hodnoty košíka<br>• Po odoslaní objednávky vám príde e‑mail so súhrnom a ďalšími krokmi',
-        'platba': '💳 <strong>Bezpečná Platba:</strong><br>Používame Stripe - bezpečnú platobnú bránu. Všetky vaše údaje sú šifrované.',
+        'cena': '💰 <strong>Cenové informácie:</strong><br>Naše produkty majú bezkonkurenčné ceny. Všetky ceny nájdete na stránke Produkty. Použite na stránke Stripe kód LETOJETU26 pre 10% zľavu!',
+        'doprava': '🚚 <strong>Doprava:</strong><br>• <strong>Kurier na adresu</strong><br>• <strong>GLS kurier</strong>, <strong>GLS ParcelShop</strong> a <strong>GLS Box</strong><br>• <strong>AlzaBox</strong><br>• <strong>DPD kurier</strong> a <strong>DPD odberne miesto</strong> na Slovensku<br>• <strong>Packeta Z-BOX</strong> a Packeta odberne miesta na Slovensku<br>• Cena dopravy sa vypocita automaticky podla zvolenej sluzby a hodnoty kosika<br>• Po odoslani objednavky vam pride e-mail so suhrnom a dalsimi krokmi',
+        'platba': '💳 <strong>Bezpečná Platba:</strong><br>Používame platby cez Stripe alebo odoslať objednávku cez bankový prevod na stránke košíka.',
         'vratenie': '↩️ <strong>Vrátenie Tovarov:</strong><br>• ✓ 120 dní na vrátenie<br>• ✓ Bez otázok<br>• ✓ Bezplatne',
         'produkty': '🛍️ <strong>Naša Ponuka:</strong><br>BalanceOil | Zinobiotic | CollagenBoozt | Vitamin D Test',
         'balanceoil': '⭐ <strong>BalanceOil:</strong><br>Prírodný Omega-3 olej. Podporuje srdce, mozog a zrak. Dostupný: 300ml.',
@@ -46,6 +41,7 @@
         'pomoc': '❓ <strong>Ako ti pomôžem?</strong><br>Napíš: cena, doprava, platba, produkty, zľava, vratenie alebo kontakt',
         'bonusové body': '⭐ <strong>Bonusové Body:</strong><br>Za každých €10 nákupu dostaneš 1 bod. 100 bodov = €10 zľava!',
         'program': '🎯 <strong>Vernostný Program:</strong><br>Zbieraj body, získavaj zľavy a exkluzívne ponuky!'
+
     };
 
     // Generate products grid for side cart - REMOVED

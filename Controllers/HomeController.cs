@@ -9,6 +9,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Stripe.Checkout;
 using System.Globalization;
+using System.ComponentModel.DataAnnotations;
 
 namespace LadowebservisMVC.Controllers
 {
@@ -97,6 +98,39 @@ namespace LadowebservisMVC.Controllers
         {
             ViewBag.PageTitle = "itservis";
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SubscribeEmail(string email)
+        {
+            var normalizedEmail = (email ?? string.Empty).Trim();
+
+            if (string.IsNullOrWhiteSpace(normalizedEmail) || !new EmailAddressAttribute().IsValid(normalizedEmail))
+            {
+                TempData["SubscribeEmailStatus"] = "error";
+                TempData["SubscribeEmailMessage"] = "Zadajte platnu emailovu adresu pre odber noviniek.";
+                return Redirect(Request != null && Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Zdravie", "Home"));
+            }
+
+            try
+            {
+                var mailer = new Mailer();
+                var sent = mailer.TrySendSubscriptionEmail(normalizedEmail);
+
+                TempData["SubscribeEmailStatus"] = sent ? "success" : "error";
+                TempData["SubscribeEmailMessage"] = sent
+                    ? "Dakujeme. Vasa emailova adresa bola pridana do odberu noviniek."
+                    : "Odber sa nepodarilo potvrdit emailom. Skuste to prosim znova neskor.";
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.TraceError($"SubscribeEmail failed: {ex}");
+                TempData["SubscribeEmailStatus"] = "error";
+                TempData["SubscribeEmailMessage"] = "Odber sa nepodarilo spracovat. Skuste to prosim znova.";
+            }
+
+            return Redirect(Request != null && Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Zdravie", "Home"));
         }
 
         public ActionResult Login(LoginModel model)

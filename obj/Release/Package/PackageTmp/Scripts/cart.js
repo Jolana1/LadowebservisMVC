@@ -44,6 +44,38 @@
                 { minTotal: 100, price: 0.00 }
             ]
         },
+        'gls-courier': {
+            label: 'GLS kuriér',
+            tiers: [
+                { minTotal: 0, price: 4.90 },
+                { minTotal: 70, price: 2.90 },
+                { minTotal: 100, price: 0.00 }
+            ]
+        },
+        'gls-parcelshop': {
+            label: 'GLS ParcelShop',
+            tiers: [
+                { minTotal: 0, price: 3.90 },
+                { minTotal: 50, price: 2.90 },
+                { minTotal: 80, price: 0.00 }
+            ]
+        },
+        'gls-box': {
+            label: 'GLS Box',
+            tiers: [
+                { minTotal: 0, price: 3.60 },
+                { minTotal: 70, price: 2.40 },
+                { minTotal: 100, price: 0.00 }
+            ]
+        },
+        alzabox: {
+            label: 'AlzaBox',
+            tiers: [
+                { minTotal: 0, price: 3.60 },
+                { minTotal: 70, price: 2.40 },
+                { minTotal: 100, price: 0.00 }
+            ]
+        },
         'dpd-courier': {
             label: 'DPD kuriér',
             tiers: [
@@ -59,6 +91,14 @@
                 { minTotal: 70, price: 2.40 },
                 { minTotal: 100, price: 0.00 }
             ]
+        },
+        'packeta-zbox': {
+            label: 'Packeta Z-BOX',
+            tiers: [
+                { minTotal: 0, price: 3.60 },
+                { minTotal: 70, price: 2.40 },
+                { minTotal: 100, price: 0.00 }
+            ]
         }
     };
 
@@ -67,11 +107,17 @@
     }
 
     function isPickupMethod(method) {
-        return method === 'dpd-pickup';
+        return method === 'dpd-pickup'
+            || method === 'gls-parcelshop'
+            || method === 'gls-box'
+            || method === 'alzabox'
+            || method === 'packeta-zbox'
+            || method === 'zasielkovna'
+            || method === 'packeta';
     }
 
     function isCourierMethod(method) {
-        return method === 'courier' || method === 'dpd-courier';
+        return method === 'courier' || method === 'dpd-courier' || method === 'gls-courier';
     }
 
     function loadShipping() {

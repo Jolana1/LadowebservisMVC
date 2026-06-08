@@ -29,6 +29,26 @@ namespace LadowebservisMVC.Util
                 return GetTieredFee("Shipping:Courier:RatesJson", cartTotal);
             }
 
+            if (method == "gls-courier" || method == "glscourier")
+            {
+                return GetTieredFee("Shipping:GlsCourier:RatesJson", cartTotal);
+            }
+
+            if (method == "gls-parcelshop" || method == "glsparcelshop" || method == "gls-pickup")
+            {
+                return GetTieredFee("Shipping:GlsParcelShop:RatesJson", cartTotal);
+            }
+
+            if (method == "gls-box" || method == "glsbox")
+            {
+                return GetTieredFee("Shipping:GlsBox:RatesJson", cartTotal);
+            }
+
+            if (method == "alzabox" || method == "alza-box")
+            {
+                return GetTieredFee("Shipping:AlzaBox:RatesJson", cartTotal);
+            }
+
             if (method == "dpd-courier" || method == "dpdcourier" || method == "dpd_kurier")
             {
                 return GetTieredFee("Shipping:DpdCourier:RatesJson", cartTotal);
@@ -37,6 +57,11 @@ namespace LadowebservisMVC.Util
             if (method == "dpd-pickup" || method == "dpdpickup" || method == "dpd-point" || method == "dpdpoint")
             {
                 return GetTieredFee("Shipping:DpdPickup:RatesJson", cartTotal);
+            }
+
+            if (method == "packeta-zbox" || method == "packetazbox" || method == "z-box" || method == "zbox")
+            {
+                return GetTieredFee("Shipping:PacketaZBox:RatesJson", cartTotal);
             }
 
             return 0m;

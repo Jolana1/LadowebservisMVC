@@ -117,6 +117,37 @@
         flex-wrap: wrap;
     }
 
+    .offer-pack-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-bottom: 15px;
+    }
+
+    .offer-pack-item {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        border: 1px solid rgba(93, 51, 251, 0.12);
+        border-radius: 12px;
+        padding: 12px;
+        text-align: center;
+        box-shadow: 0 8px 18px rgba(36, 50, 74, 0.08);
+    }
+
+    .offer-pack-item img {
+        max-width: 100%;
+        height: 110px;
+        object-fit: contain;
+        margin-bottom: 8px;
+    }
+
+    .offer-pack-item span {
+        display: block;
+        color: #5d33fb;
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 1.35;
+    }
+
     .hero-section {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: #fff;
@@ -1069,7 +1100,24 @@
                 <div class="row align-items-center">
                     <div class="col-md-6 text-center mb-4 mb-md-0">
                         <div style="background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                            <img src="~/Image/BalanceOil.png" alt="Balance Oil" class="img-fluid" style="max-width: 200px; border-radius: 8px; margin-bottom: 15px;">
+                            <div class="offer-pack-grid">
+                                <div class="offer-pack-item">
+                                    <img src="~/Image/BalanceOil.png" alt="Balance Oil" class="img-fluid">
+                                    <span>Balance Oil</span>
+                                </div>
+                                <div class="offer-pack-item">
+                                    <img src="~/Image/Zinobiotic2025.png" alt="Zinobiotic" class="img-fluid">
+                                    <span>Zinobiotic</span>
+                                </div>
+                                <div class="offer-pack-item">
+                                    <img src="~/Image/ZinzinoXtend.png" alt="ZinzinoXtend" class="img-fluid">
+                                    <span>ZinzinoXtend</span>
+                                </div>
+                                <div class="offer-pack-item">
+                                    <img src="~/Image/CollagenBoozt.png" alt="CollagenBoozt" class="img-fluid">
+                                    <span>CollagenBoozt</span>
+                                </div>
+                            </div>
                             <h4 style="color: #ff9800; font-weight: 700;">Balance Oil + Zinobiotic + ZinzinoXtend + CollagenBoozt</h4>
                             <p style="color: #d97706; font-size: 14px; font-weight: 600;">Limitovaná edícia - Platnosť do 30.6.2026</p>
                         </div>
