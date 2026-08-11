@@ -796,7 +796,7 @@
             Returns all of the AuthenticationTokens contained in the properties.
             </summary>
             <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/> properties.</param>
-            <returns>The authentication tokens.</returns>
+            <returns>The authentication toekns.</returns>
         </member>
         <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationTokenExtensions.GetTokenAsync(Microsoft.AspNetCore.Authentication.IAuthenticationService,Microsoft.AspNetCore.Http.HttpContext,System.String)">
             <summary>

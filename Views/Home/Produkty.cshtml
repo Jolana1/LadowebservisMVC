@@ -252,6 +252,41 @@
         color: #fff;
     }
 
+    .btn-google-pay {
+        flex: 1;
+        background: linear-gradient(135deg, #111827 0%, #000000 100%);
+        color: #fff;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-width: 200px;
+        box-shadow: 0 8px 18px rgba(17, 24, 39, 0.24);
+    }
+
+    .btn-google-pay:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 24px rgba(17, 24, 39, 0.32);
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .btn-google-pay small {
+        display: block;
+        font-size: 11px;
+        font-weight: 500;
+        opacity: 0.82;
+        line-height: 1.2;
+    }
+
     /* ========== PRODUCT IMAGE ========== */
     .product-image-container {
         text-align: center;
@@ -330,7 +365,9 @@
         }
 
         .btn-stripe,
-        .btn-add-cart {
+        .btn-add-cart,
+        .btn-google-pay,
+        .btn-view-cart {
             width: 100%;
             min-width: auto;
         }
@@ -464,6 +501,9 @@
                 <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
                     <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
                 </a>
+                <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
+                    <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
+                </a>
                 <button type="button" class="btn-add-cart add-to-cart" data-id="1">
                     <i class="fa fa-shopping-cart"></i> Pridať do košíka
                 </button>
@@ -507,6 +547,9 @@
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
                 <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
             </a>
+            <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
+                <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
+            </a>
             <button type="button" class="btn-add-cart add-to-cart" data-id="6">
                 <i class="fa fa-shopping-cart"></i> Pridať do košíka
             </button>
@@ -547,6 +590,9 @@
         <div class="product-actions">
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
                 <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
+            </a>
+            <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
+                <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
             </a>
             <button type="button" class="btn-add-cart add-to-cart" data-id="2">
                 <i class="fa fa-shopping-cart"></i> Pridať do košíka
@@ -599,6 +645,9 @@
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
                 <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
             </a>
+            <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
+                <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
+            </a>
             <button type="button" class="btn-add-cart add-to-cart" data-id="3">
                 <i class="fa fa-shopping-cart"></i> Pridať do košíka
             </button>
@@ -641,6 +690,9 @@
         <div class="product-actions">
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
                 <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
+            </a>
+            <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
+                <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
             </a>
             <button type="button" class="btn-add-cart add-to-cart" data-id="4">
                 <i class="fa fa-shopping-cart"></i> Pridať do košíka
@@ -692,6 +744,9 @@
         <div class="product-actions">
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
                 <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
+            </a>
+            <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
+                <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
             </a>
             <button type="button" class="btn-add-cart add-to-cart" data-id="5">
                 <i class="fa fa-shopping-cart"></i> Pridať do košíka
@@ -803,6 +858,9 @@
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
                 <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
             </a>
+            <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
+                <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
+            </a>
             <button type="button" class="btn-add-cart add-to-cart" data-id="8">
                 <i class="fa fa-shopping-cart"></i> Pridať do košíka
             </button>
@@ -845,6 +903,9 @@
         <div class="product-actions">
             <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
                 <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
+            </a>
+            <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
+                <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
             </a>
             <button type="button" class="btn-add-cart add-to-cart" data-id="7">
                 <i class="fa fa-shopping-cart"></i> Pridať do košíka

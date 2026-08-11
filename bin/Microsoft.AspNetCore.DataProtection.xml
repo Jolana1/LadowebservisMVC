@@ -1616,17 +1616,6 @@
             A type which allows reading policy from the system registry.
             </summary>
         </member>
-        <member name="M:Microsoft.AspNetCore.DataProtection.Repositories.DefaultKeyStorageDirectories.GetKeyStorageDirectory">
-            <summary>
-            The default key storage directory.
-            On Windows, this currently corresponds to "Environment.SpecialFolder.LocalApplication/ASP.NET/DataProtection-Keys".
-            On Linux and macOS, this currently corresponds to "$HOME/.aspnet/DataProtection-Keys".
-            </summary>
-            <remarks>
-            This property can return null if no suitable default key storage directory can
-            be found, such as the case when the user profile is unavailable.
-            </remarks>
-        </member>
         <member name="T:Microsoft.AspNetCore.DataProtection.Repositories.EphemeralXmlRepository">
             <summary>
             An ephemeral XML repository backed by process memory. This class must not be used for
@@ -1659,11 +1648,6 @@
         <member name="P:Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.Directory">
             <summary>
             The directory into which key material will be written.
-            </summary>
-        </member>
-        <member name="T:Microsoft.AspNetCore.DataProtection.Repositories.IDefaultKeyStorageDirectories">
-            <summary>
-            This interface enables overridding the default storage location of keys on disk
             </summary>
         </member>
         <member name="T:Microsoft.AspNetCore.DataProtection.Repositories.IXmlRepository">
@@ -2185,6 +2169,11 @@
         <member name="T:Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlKeyDecryptionOptions">
             <summary>
             Specifies settings for how to decrypt XML keys.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.DataProtection.XmlEncryption.XmlKeyDecryptionOptions.KeyDecryptionCertificates">
+            <summary>
+            A mapping of key thumbprint to the X509Certificate2
             </summary>
         </member>
         <member name="T:Microsoft.AspNetCore.DataProtection.XmlExtensions">

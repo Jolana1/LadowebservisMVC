@@ -4,32 +4,6 @@
         <name>Microsoft.AspNetCore.Authorization.Policy</name>
     </assembly>
     <members>
-        <member name="T:Microsoft.Extensions.Internal.SecurityHelper">
-            <summary>
-            Helper code used when implementing authentication middleware
-            </summary>
-        </member>
-        <member name="M:Microsoft.Extensions.Internal.SecurityHelper.MergeUserPrincipal(System.Security.Claims.ClaimsPrincipal,System.Security.Claims.ClaimsPrincipal)">
-            <summary>
-            Add all ClaimsIdentities from an additional ClaimPrincipal to the ClaimsPrincipal
-            Merges a new claims principal, placing all new identities first, and eliminating
-            any empty unauthenticated identities from context.User
-            </summary>
-            <param name="existingPrincipal">The <see cref="T:System.Security.Claims.ClaimsPrincipal"/> containing existing <see cref="T:System.Security.Claims.ClaimsIdentity"/>.</param>
-            <param name="additionalPrincipal">The <see cref="T:System.Security.Claims.ClaimsPrincipal"/> containing <see cref="T:System.Security.Claims.ClaimsIdentity"/> to be added.</param>
-        </member>
-        <member name="T:Microsoft.Extensions.DependencyInjection.PolicyServiceCollectionExtensions">
-            <summary>
-            Extension methods for setting up authorization services in an <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.PolicyServiceCollectionExtensions.AddAuthorizationPolicyEvaluator(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            <summary>
-            Adds authorization policy services to the specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />. 
-            </summary>
-            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" /> to add services to.</param>
-            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> so that additional calls can be chained.</returns>
-        </member>
         <member name="T:Microsoft.AspNetCore.Authorization.Policy.IPolicyEvaluator">
             <summary>
             Base class for authorization handlers that need to be called for a specific requirement type.
@@ -103,6 +77,32 @@
             <returns>Returns <see cref="M:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult.Success"/> if authorization succeeds.
             Otherwise returns <see cref="M:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult.Forbid"/> if <see cref="P:Microsoft.AspNetCore.Authentication.AuthenticateResult.Succeeded"/>, otherwise
             returns  <see cref="M:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult.Challenge"/></returns>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.PolicyServiceCollectionExtensions">
+            <summary>
+            Extension methods for setting up authorization services in an <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.PolicyServiceCollectionExtensions.AddAuthorizationPolicyEvaluator(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds authorization policy services to the specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />. 
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" /> to add services to.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> so that additional calls can be chained.</returns>
+        </member>
+        <member name="T:Microsoft.Extensions.Internal.SecurityHelper">
+            <summary>
+            Helper code used when implementing authentication middleware
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.SecurityHelper.MergeUserPrincipal(System.Security.Claims.ClaimsPrincipal,System.Security.Claims.ClaimsPrincipal)">
+            <summary>
+            Add all ClaimsIdentities from an additional ClaimPrincipal to the ClaimsPrincipal
+            Merges a new claims principal, placing all new identities first, and eliminating
+            any empty unauthenticated identities from context.User
+            </summary>
+            <param name="existingPrincipal">The <see cref="T:System.Security.Claims.ClaimsPrincipal"/> containing existing <see cref="T:System.Security.Claims.ClaimsIdentity"/>.</param>
+            <param name="additionalPrincipal">The <see cref="T:System.Security.Claims.ClaimsPrincipal"/> containing <see cref="T:System.Security.Claims.ClaimsIdentity"/> to be added.</param>
         </member>
     </members>
 </doc>

@@ -119,7 +119,7 @@
             <summary>
             Returns the scheme that will be used by default for <see cref="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.SignOutAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)"/>.
             This is typically specified via <see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultSignOutScheme"/>.
-            Otherwise this will fallback to <see cref="M:Microsoft.AspNetCore.Authentication.AuthenticationSchemeProvider.GetDefaultSignInSchemeAsync"/> if that supports sign out.
+            Otherwise this will fallback to <see cref="M:Microsoft.AspNetCore.Authentication.AuthenticationSchemeProvider.GetDefaultSignInSchemeAsync"/> if that supoorts sign out.
             </summary>
             <returns>The scheme that will be used by default for <see cref="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.SignOutAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)"/>.</returns>
         </member>
