@@ -245,3 +245,22 @@
         </div>
     </div>
 </div>
+
+@if (!string.IsNullOrWhiteSpace(total) && !string.IsNullOrWhiteSpace(orderNumber))
+{
+    <script>
+        // Track Google Ads conversion for successful order
+        if (typeof trackGoogleAdsConversion === 'function') {
+            try {
+                var orderValue = parseFloat('@total'.replace(',', '.'));
+                var orderId = '@orderNumber';
+                if (!isNaN(orderValue) && orderId) {
+                    trackGoogleAdsConversion(orderId, orderValue, 'EUR');
+                    console.log('Google Ads conversion tracked: Order #' + orderId + ', Value: €' + orderValue);
+                }
+            } catch (e) {
+                console.error('Error tracking Google Ads conversion:', e);
+            }
+        }
+    </script>
+}

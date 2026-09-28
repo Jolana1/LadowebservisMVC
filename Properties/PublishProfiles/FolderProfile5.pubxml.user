@@ -5,18 +5,18 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\kseni\source\repos\LadowebservisMVC\Publish2</_PublishTargetUrl>
-    <History>True|2026-07-30T19:57:22.1280410Z||;True|2026-07-05T22:24:40.6881373+02:00||;False|2026-07-05T22:23:11.8289585+02:00||;True|2026-06-24T18:35:23.2269094+02:00||;True|2026-06-19T20:30:56.0404881+02:00||;True|2026-06-16T21:14:09.4079367+02:00||;True|2026-06-08T22:14:00.3696859+02:00||;True|2026-06-04T19:06:08.4494524+02:00||;True|2026-06-04T18:43:39.1544651+02:00||;True|2026-06-04T17:51:26.1175127+02:00||;True|2026-06-04T17:19:08.3565244+02:00||;True|2026-06-03T15:22:13.7282332+02:00||;False|2026-06-03T15:19:47.1931210+02:00||;True|2026-06-02T18:27:27.4959245+02:00||;True|2026-06-02T17:59:23.0554942+02:00||;True|2026-06-02T17:32:32.5229604+02:00||;True|2026-05-28T00:41:06.8023307+02:00||;True|2026-05-27T23:20:19.4442392+02:00||;True|2026-05-27T22:23:18.8107827+02:00||;True|2026-05-22T14:05:50.5145411+02:00||;True|2026-05-19T20:08:46.1336505+02:00||;True|2026-05-19T19:07:19.7915941+02:00||;True|2026-05-05T22:14:26.0808343+02:00||;True|2026-05-04T18:41:53.5102172+02:00||;False|2026-05-04T18:36:34.0808130+02:00||;True|2026-05-04T17:37:15.0904639+02:00||;True|2026-05-03T21:29:35.3913802+02:00||;True|2026-04-11T15:46:16.0620396+02:00||;True|2026-04-03T22:23:23.9636992+02:00||;True|2026-04-03T13:11:38.9562902+02:00||;</History>
+    <History>True|2026-09-28T17:09:26.9664017Z||;True|2026-09-28T17:40:07.4400046+02:00||;True|2026-09-28T16:10:26.7280056+02:00||;True|2026-09-25T20:29:58.0286564+02:00||;False|2026-09-25T20:29:43.9511118+02:00||;True|2026-09-24T17:23:50.5584666+02:00||;True|2026-09-22T21:54:45.3990153+02:00||;False|2026-09-22T21:54:21.8793564+02:00||;False|2026-09-04T19:40:50.6501545+02:00||;True|2026-08-25T22:03:53.0033049+02:00||;True|2026-08-24T20:44:46.2371524+02:00||;True|2026-08-24T20:38:29.0925664+02:00||;True|2026-08-24T20:28:26.0449771+02:00||;False|2026-08-24T20:27:49.1950384+02:00||;True|2026-08-18T22:09:26.3916138+02:00||;True|2026-08-12T22:07:57.1612631+02:00||;True|2026-08-12T22:01:53.7774967+02:00||;True|2026-08-12T21:25:22.0040037+02:00||;True|2026-08-11T21:41:50.9096721+02:00||;True|2026-08-11T21:34:27.3951632+02:00||;True|2026-07-30T21:57:22.1280410+02:00||;True|2026-07-05T22:24:40.6881373+02:00||;False|2026-07-05T22:23:11.8289585+02:00||;True|2026-06-24T18:35:23.2269094+02:00||;True|2026-06-19T20:30:56.0404881+02:00||;True|2026-06-16T21:14:09.4079367+02:00||;True|2026-06-08T22:14:00.3696859+02:00||;True|2026-06-04T19:06:08.4494524+02:00||;True|2026-06-04T18:43:39.1544651+02:00||;True|2026-06-04T17:51:26.1175127+02:00||;True|2026-06-04T17:19:08.3565244+02:00||;True|2026-06-03T15:22:13.7282332+02:00||;False|2026-06-03T15:19:47.1931210+02:00||;True|2026-06-02T18:27:27.4959245+02:00||;True|2026-06-02T17:59:23.0554942+02:00||;True|2026-06-02T17:32:32.5229604+02:00||;True|2026-05-28T00:41:06.8023307+02:00||;True|2026-05-27T23:20:19.4442392+02:00||;True|2026-05-27T22:23:18.8107827+02:00||;True|2026-05-22T14:05:50.5145411+02:00||;True|2026-05-19T20:08:46.1336505+02:00||;True|2026-05-19T19:07:19.7915941+02:00||;True|2026-05-05T22:14:26.0808343+02:00||;True|2026-05-04T18:41:53.5102172+02:00||;False|2026-05-04T18:36:34.0808130+02:00||;True|2026-05-04T17:37:15.0904639+02:00||;True|2026-05-03T21:29:35.3913802+02:00||;True|2026-04-11T15:46:16.0620396+02:00||;True|2026-04-03T22:23:23.9636992+02:00||;True|2026-04-03T13:11:38.9562902+02:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
     <File Include="App_Data/DB.sql">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="App_Data/MailAttachment.pdf">
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="App_Data/_dbEshop.sql">
-      <publishTime>05/29/2026 13:01:24</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>09/10/2013 17:29:20</publishTime>
@@ -37,10 +37,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/29/2024 18:47:24</publishTime>
     </File>
     <File Include="bin/LadowebservisMVC.dll">
-      <publishTime>07/30/2026 21:57:17</publishTime>
+      <publishTime>09/28/2026 19:09:23</publishTime>
     </File>
     <File Include="bin/LadowebservisMVC.pdb">
-      <publishTime>07/30/2026 21:57:17</publishTime>
+      <publishTime>09/28/2026 19:09:23</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Antiforgery.dll">
       <publishTime>05/21/2026 23:35:22</publishTime>
@@ -481,7 +481,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/19/2020 11:05:18</publishTime>
     </File>
     <File Include="bin/System.ValueTuple.dll">
-      <publishTime>05/15/2018 15:29:52</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>10/20/2023 22:33:58</publishTime>
@@ -791,6 +791,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="Image/Balanceoilaqua.webp">
       <publishTime>03/16/2026 12:55:06</publishTime>
+    </File>
+    <File Include="Image/Balancepack4v1.png">
+      <publishTime>09/26/2026 12:52:48</publishTime>
     </File>
     <File Include="Image/BalanceTest.png">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1126,13 +1129,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Image/Mydlo a piling na ruky%29Milk and Honey 2.jpg">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Image/Mydlo a piling na ruky%29Milk and Honey 3.jpg">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Image/Mydlo a piling na ruky%29Milk and Honey 4.jpg">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Image/Mydlo a piling na ruky%29Milk and Honey.jpg">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1141,16 +1144,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Image/Nanesenie teplovodivej pasty 3.JPG">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Image/Nanesenie teplovodivej pasty 5.JPG">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Image/Nanesenie teplovodivej pasty 6.JPG">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Image/Nanesenie teplovodivej pasty.JPG">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Image/nature-3151869_1920 2.jpg">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1279,7 +1282,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Image/Postup platby.png">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Image/Premium.webp">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1307,6 +1310,12 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="Image/qr_7sI6qmgiGaAS9CU8wz.png">
       <publishTime>03/16/2026 12:55:06</publishTime>
+    </File>
+    <File Include="Image/repropred.jpg">
+      <publishTime>08/11/2026 20:41:20</publishTime>
+    </File>
+    <File Include="Image/reprovymenene.jpg">
+      <publishTime>08/11/2026 20:41:20</publishTime>
     </File>
     <File Include="Image/screencapture-zinzino-logo 2.png">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1557,6 +1566,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Image/Vyhody predplatného Zinzino.webp">
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
+    <File Include="Image/vymenatp.jpg">
+      <publishTime>08/11/2026 20:41:20</publishTime>
+    </File>
     <File Include="Image/Výmena grafickej karty 2.JPG">
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
@@ -1750,10 +1762,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Scripts/cart.js">
-      <publishTime>07/29/2026 22:12:53</publishTime>
+      <publishTime>09/24/2026 15:39:32</publishTime>
     </File>
     <File Include="Scripts/chat-ui.js">
-      <publishTime>07/29/2026 21:35:21</publishTime>
+      <publishTime>09/24/2026 14:19:10</publishTime>
     </File>
     <File Include="Scripts/checkout.js">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1873,7 +1885,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Views/Home/Gdpr.cshtml">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>08/25/2026 21:57:08</publishTime>
     </File>
     <File Include="Views/Home/HTTP 404.cshtml">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1882,19 +1894,19 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Views/Home/ITservis.cshtml">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/02/2026 20:30:31</publishTime>
     </File>
     <File Include="Views/Home/Kontakt.cshtml">
-      <publishTime>05/27/2026 16:26:58</publishTime>
+      <publishTime>09/22/2026 08:34:52</publishTime>
     </File>
     <File Include="Views/Home/Kosik.cshtml">
-      <publishTime>06/04/2026 17:47:07</publishTime>
+      <publishTime>09/28/2026 16:31:17</publishTime>
     </File>
     <File Include="Views/Home/Login.cshtml">
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Views/Home/Member.cshtml">
-      <publishTime>05/27/2026 16:26:58</publishTime>
+      <publishTime>09/22/2026 08:34:30</publishTime>
     </File>
     <File Include="Views/Home/Memberinfo.cshtml">
       <publishTime>04/03/2026 12:03:58</publishTime>
@@ -1909,7 +1921,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Views/Home/OdoslanaObjednavka.cshtml">
-      <publishTime>06/03/2026 14:21:36</publishTime>
+      <publishTime>08/25/2026 21:11:40</publishTime>
     </File>
     <File Include="Views/Home/OdoslanieReg.cshtml">
       <publishTime>03/29/2026 14:08:31</publishTime>
@@ -1918,10 +1930,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/05/2026 20:25:17</publishTime>
     </File>
     <File Include="Views/Home/OrderPlaced.cshtml">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Views/Home/Produkty.cshtml">
-      <publishTime>07/30/2026 21:31:48</publishTime>
+      <publishTime>09/28/2026 15:16:00</publishTime>
     </File>
     <File Include="Views/Home/Registracia.cshtml">
       <publishTime>03/23/2026 19:16:48</publishTime>
@@ -1935,11 +1947,14 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Views/Home/Status.cshtml">
       <publishTime>05/03/2026 18:39:36</publishTime>
     </File>
+    <File Include="Views/Home/Subscribe.cshtml">
+      <publishTime>09/02/2026 21:34:25</publishTime>
+    </File>
     <File Include="Views/Home/Unsubscribe.cshtml">
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Views/Home/Zdravie.cshtml">
-      <publishTime>05/29/2026 14:01:15</publishTime>
+      <publishTime>09/28/2026 16:54:17</publishTime>
     </File>
     <File Include="Views/Server/Cancel.cshtml">
       <publishTime>04/28/2026 17:48:12</publishTime>
@@ -1948,7 +1963,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/28/2026 17:48:12</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>07/29/2026 22:24:28</publishTime>
+      <publishTime>09/24/2026 16:59:57</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>07/29/2026 20:17:05</publishTime>

@@ -28,16 +28,16 @@
 
     // ===== IMPROVED CHAT FUNCTIONALITY =====
     const autoResponses = {
-        'cena': '💰 <strong>Cenové informácie:</strong><br>Naše produkty majú bezkonkurenčné ceny. Všetky ceny nájdete na stránke Produkty. Použite na stránke Stripe kód LETOJETU26 pre 10% zľavu!',
+        'cena': '💰 <strong>Cenové informácie:</strong><br>Naše produkty majú bezkonkurenčné ceny. Všetky ceny nájdete na stránke Produkty. Použite na stránke Stripe kód Jesenjetu26 pre 10% zľavu!',
         'doprava': '🚚 <strong>Doprava:</strong><br>• <strong>Kurier na adresu</strong><br>• <strong>GLS kurier</strong>, <strong>GLS ParcelShop</strong> a <strong>GLS Box</strong><br>• <strong>AlzaBox</strong><br>• <strong>DPD kurier</strong> a <strong>DPD odberne miesto</strong> na Slovensku<br>• <strong>Packeta Z-BOX</strong> a Packeta odberne miesta na Slovensku<br>• Cena dopravy sa vypocita automaticky podla zvolenej sluzby a hodnoty kosika<br>• Po odoslani objednavky vam pride e-mail so suhrnom a dalsimi krokmi',
         'platba': '💳 <strong>Bezpečná Platba:</strong><br>Používame platby cez Stripe alebo odoslať objednávku cez bankový prevod na stránke košíka.',
-        'vratenie': '↩️ <strong>Vrátenie Tovarov:</strong><br>• ✓ 120 dní na vrátenie<br>• ✓ Bez otázok<br>• ✓ Bezplatne',
+        'vratenie': '↩️ <strong>Vrátenie Tovarov:</strong><br>• ✓ 30 dní na vrátenie<br>• ✓ Bez otázok<br>• ✓ Bezplatne',
         'produkty': '🛍️ <strong>Naša Ponuka:</strong><br>BalanceOil | Zinobiotic | CollagenBoozt | Vitamin D Test',
         'balanceoil': '⭐ <strong>BalanceOil:</strong><br>Prírodný Omega-3 olej. Podporuje srdce, mozog a zrak. Dostupný: 300ml.',
         'it servis': '🖥️ <strong>IT servis:</strong><br>• Diagnostika a opravy PC / notebookov<br>• Inštalácia a nastavenie Windows + programov<br>• Odvirovanie, zrýchlenie PC, zálohy<br>• Upgrade komponentov (SSD/RAM) a poradenstvo<br><br>Napíšte stručne problém (napr. „PC sa nezapne“, „je pomalý“, „vírus“) a ozveme sa vám.',
         'web': '🌐 <strong>Webové služby:</strong><br>• Návrh a tvorba webstránok<br>• Úpravy existujúcich webov, SEO základ<br>• Hosting a technická správa<br><br>Pošlite odkaz na web alebo predstavu a pripravíme návrh riešenia.',
-        'zlava': '🎁 <strong>Zľava LETOJETU26:</strong><br>10% zľava na vybrané produkty nad 50€. Použite pri checkout!',
-        'kontakt': '📞 <strong>Kontaktujte Nás:</strong><br>☎️ +421917952432<br>📧 info@ladowebservis.sk<br>⏰ Po-Pia: 9:00-19:00',
+        'zlava': '🎁 <strong>Zľava Jesenjetu26:</strong><br>10% zľava na vybrané produkty nad 50€. Použite pri checkout!',
+        'kontakt': '📞 <strong>Kontaktujte Nás:</strong><br>☎️ +421907151293<br>📧 info@ladowebservis.sk<br>⏰ Po-Pia: 24 hodín víkendy do 16hod',
         'pomoc': '❓ <strong>Ako ti pomôžem?</strong><br>Napíš: cena, doprava, platba, produkty, zľava, vratenie alebo kontakt',
         'bonusové body': '⭐ <strong>Bonusové Body:</strong><br>Za každých €10 nákupu dostaneš 1 bod. 100 bodov = €10 zľava!',
         'program': '🎯 <strong>Vernostný Program:</strong><br>Zbieraj body, získavaj zľavy a exkluzívne ponuky!'

@@ -20,6 +20,27 @@
         fbq('track', 'PageView');
     </script>
     <!-- End Meta Pixel Code -->
+
+    <!-- Google Ads Conversion Tracking -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-759-669-4442"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+gtag('js', new Date());
+        gtag('config', 'AW-759-669-4442'); // Replace with your Google Ads ID
+
+        // Function to track conversions - call this after successful order
+        function trackGoogleAdsConversion(transactionId, value, currency) {
+            gtag('event', 'conversion', {
+                'send_to': 'AW-759-669-4442/CONVERSION_LABEL', // Replace with your conversion label
+                'transaction_id': transactionId,
+                'value': value,
+                'currency': currency || 'EUR'
+            });
+        }
+    </script>
+    <!-- End Google Ads Conversion Tracking -->
+
     <!-- Cookie Consent by TermsFeed https://www.TermsFeed.com -->
     <script type="text/javascript" src="//www.termsfeed.com/public/cookie-consent/4.2.0/cookie-consent.js" charset="UTF-8"></script>
     <script type="text/javascript" charset="UTF-8">
@@ -287,6 +308,7 @@
             transition: all 0.3s ease;
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
+            overflow: visible;
         }
 
             .navbar::after {
@@ -316,6 +338,22 @@
             height: 70px;
             color: var(--lws-nav-text) !important;
             transition: all 0.3s ease;
+            gap: 12px;
+        }
+
+        .navbar-brand::after {
+            content: 'Health • Beauty • IT';
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.72);
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            white-space: nowrap;
         }
 
             .navbar-brand img {
@@ -338,42 +376,32 @@
                 padding: 14px 12px !important;
                 font-size: 14px;
                 font-weight: 500;
-                transition: all 0.3s ease;
                 position: relative;
                 height: 70px;
                 display: flex;
                 align-items: center;
-                color: var(--lws-nav-text-soft) !important;
+                color: #ffffff !important;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
             }
 
-                .navbar-nav > li > a::after {
-                    content: '';
-                    position: absolute;
-                    bottom: 12px;
-                    left: 12px;
-                    right: 12px;
-                    height: 2px;
-                    background: rgba(255, 255, 255, 0.95);
-                    transform: scaleX(0);
-                    transition: transform 0.3s ease;
-                }
-
-                .navbar-nav > li > a:hover::after {
-                    transform: scaleX(1);
-                }
-
                 .navbar-nav > li > a:hover {
-                    color: var(--lws-nav-text) !important;
-                    background: rgba(255, 255, 255, 0.12);
-                    transform: translateY(-2px);
+                    color: #ffffff !important;
+                    background: rgba(255, 255, 255, 0.1);
+                    border-radius: 8px;
                 }
 
                 .navbar-nav > li > a:focus,
                 .navbar-nav > li.open > a,
                 .navbar-nav > li.open > a:focus,
                 .navbar-nav > li.open > a:hover {
-                    color: var(--lws-nav-text) !important;
-                    background: rgba(255, 255, 255, 0.14) !important;
+                    color: #ffffff !important;
+                }
+
+                /* Active/current page styling */
+                .navbar-nav > li.active > a,
+                .navbar-nav > li.active > a:hover,
+                .navbar-nav > li.active > a:focus {
+                    color: #ffffff !important;
                 }
 
         .navbar-right {
@@ -398,6 +426,10 @@
         .nav-main-links > .nav-item > a {
             border-radius: 12px;
             font-weight: 700 !important;
+        }
+
+        .nav-segment-dropdown > a {
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
         }
 
         .nav-segment-dropdown > a .fa,
@@ -464,6 +496,19 @@
             font-weight: 600;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+        }
+
+        .navbar .dropdown-menu > li > a {
+            border-radius: 10px;
+            margin: 2px 10px;
+            padding: 10px 14px;
+        }
+
+        .navbar .dropdown-menu > li > a:hover,
+        .navbar .dropdown-menu > li > a:focus {
+            background: rgba(255,255,255,0.12);
+            color: #fff !important;
+            transform: translateX(3px);
         }
 
             .cart-toggle-btn:hover {
@@ -1556,11 +1601,11 @@
 
         /* ===== FOOTER STYLING - PROFESSIONAL & RESPONSIVE ===== */
         .site-footer {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-top: 3px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 -4px 20px rgba(102, 126, 234, 0.25);
+            background: linear-gradient(135deg, #1f2a44 0%, #2d3f68 48%, #5d33fb 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 0 -12px 34px rgba(25, 36, 60, 0.24);
             color: #fff;
-            padding: 30px 20px 15px;
+            padding: 34px 20px 18px;
             margin-top: 60px;
             font-size: 13px;
             line-height: 1.6;
@@ -1585,8 +1630,16 @@
             color: #fff;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.18);
             padding-bottom: 8px;
+        }
+
+        .site-footer-section {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 18px;
+            padding: 18px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
         }
 
         .site-footer-section ul {
@@ -1623,8 +1676,8 @@
         }
 
         .payment-icon {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
             padding: 6px 10px;
             display: flex;
             align-items: center;
@@ -2197,7 +2250,9 @@
                 <li class="nav-item nav-translate-item">
                     <div id="google_translate_element" class="image-container img-rounded" title="Preklad jazyka"></div>
                 </li>
-
+                <li class="nav-item urgency-timer">
+                    <a class="image-container img-rounded glyphicon glyphicon-shopping-cart" href="/Home/Produkty" title="Aktuálne ponuky produktov">Aktuálna ponuka</a>
+                </li>
                 <li class="dropdown nav-segment-dropdown">
                     <a class="dropdown-toggle img-rounded" data-toggle="dropdown" href="#BeautySegment" title="Kozmetika a zdravie">
                         <span class="fa fa-leaf"></span>Kozmetika &amp; zdravie
@@ -2207,7 +2262,7 @@
                             <a class="w3-hover-white" href="/Home/Zdravie" title="Úvod pre kozmetiku a zdravie"><span class="fa fa-home"></span>Domov pre zdravie</a>
                         </li>
                         <li>
-                            <a class="w3-hover-white" href="/Home/Produkty" title="Produkty a kozmetika"><span class="fa fa-heart"></span>Produkty a kozmetika</a>
+                            <a class="w3-hover-white" href="/Home/DownloadEbook" title="E-book zdarma"><span class="fa fa-heart"></span>E-book zdarma</a>
                         </li>
                         <li>
                             <a class="w3-hover-white" href="/Home/Kosik" title="Košík a objednávka"><span class="fa fa-shopping-cart"></span>Košík a objednávka</a>
@@ -2239,9 +2294,7 @@
                     <a class="image-container img-rounded glyphicon glyphicon-envelope" href="/Home/Kontakt" title="Kontakt a podpora">Kontakt</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="image-container img-rounded glyphicon glyphicon-book" href="/Home/DownloadEbook" title="Ebook zdarma">Ebook zdarma</a>
-                </li>
+                
             </ul>
         </div>
 
@@ -2272,35 +2325,25 @@
 
             <!-- Cart Summary -->
             <div id="cart-summary">
-                <strong>💰 Celková Suma:</strong>
+                <strong>💰 Súhrn košíka:</strong>
+                <div style="font-size: 13px; color: #666; margin: 6px 0;">
+                    Medzisúčet: €<span id="total-amount">0.00</span>
+                </div>
+                <div style="font-size: 13px; color: #666; margin: 6px 0;">
+                    Doprava: €<span id="shipping-amount">0.00</span>
+                </div>
                 <div style="font-size: 16px; color: #28a745; font-weight: 700; margin: 8px 0;">
-                    €<span id="total-amount">0.00</span>
+                    Celkom (s DPH): €<span id="grand-total-amount">0.00</span>
                 </div>
                 <div id="total-discount" style="font-size: 12px; color: #5d33fb; margin-top: 6px;"></div>
-
-                <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #eaeaea;">
-                    <div style="display:flex; justify-content:space-between; font-size: 12px; color:#555;">
-                        <span>🚚 Doprava</span>
-                        <span>€<span id="shipping-amount">0.00</span></span>
-                    </div>
-                    <div style="display:flex; justify-content:space-between; font-size: 13px; font-weight:800; margin-top: 6px;">
-                        <span>Spolu</span>
-                        <span>€<span id="grand-total-amount">0.00</span></span>
-                    </div>
-                </div>
             </div>
 
-            <!-- Shipping / pickup location (side cart) -->
-            <div class="card" style="border:1px solid #e6e6e6; border-radius:8px; padding:12px; margin-bottom:12px;">
-                <div style="font-weight:800; color:#5d33fb; margin-bottom: 8px; font-size: 13px;">🚚 Doprava a objednávka</div>
+            <!-- Simple Shipping and Customer Info -->
+            <div style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                <!-- Name and email removed from side cart by request -->
 
-                <!-- Customer Details for Checkout -->
                 <div style="margin-bottom: 10px;">
-                    <input id="sidecart-customer-name" type="text" class="form-control" placeholder="Vaše Meno" style="margin-bottom: 8px;" />
-                    <input id="sidecart-customer-email" type="email" class="form-control" placeholder="E-mail" />
-                </div>
-
-                <div class="form-group" style="margin-bottom:10px;">
+                    <label for="sidecart-shipping-method" style="font-size: 12px; font-weight: 600; color: #5d33fb; display: block; margin-bottom: 4px;">Doprava</label>
                     <select id="sidecart-shipping-method" class="form-control" onchange="window.lwsSetShippingMethod(this.value)">
                         <option value="">Vyberte dopravu…</option>
                         <option value="courier">Kuriér na adresu</option>
@@ -2312,80 +2355,27 @@
                         <option value="dpd-pickup">DPD odberné miesto</option>
                         <option value="packeta-zbox">Packeta Z-BOX</option>
                     </select>
-                    <small id="sidecart-shipping-help" class="text-muted">Cena dopravy sa prepočíta podľa košíka.</small>
                 </div>
-
-                <div id="sidecart-pickup-panel" style="display:none; margin-top:10px;">
-                    <label id="sidecart-pickup-label" for="sidecart-pickup-code" style="font-size:12px; font-weight:700; color:#5d33fb; display:block; margin-bottom:6px;">Odberne miesto / box</label>
-                    <select id="sidecart-pickup-suggestions" class="form-control" style="margin-bottom:8px; display:none;">
-                        <option value="">Vyberte ulozene odberne miesto...</option>
-                    </select>
-                    <input id="sidecart-pickup-code" type="text" class="form-control" placeholder="Kód odberného / výdajného miesta" style="margin-bottom:8px;" />
-                    <input id="sidecart-pickup-name" type="text" class="form-control" placeholder="Názov alebo adresa odberného miesta" />
-                    <small id="sidecart-pickup-help" class="text-muted" style="display:block; margin-top:6px;">Zadajte kod a nazov odberneho miesta alebo boxu. Platne udaje najdete na webe zvoleneho dopravcu.</small>
-                </div>
-
-                <div id="sidecart-courier-panel" style="display:none; margin-top:10px;">
-                    <label style="font-size:12px; font-weight:700; color:#5d33fb; display:block; margin-bottom:6px;">Doručovacia adresa</label>
-                    <input id="sidecart-address-line1" type="text" class="form-control" placeholder="Ulica a číslo" style="margin-bottom:8px;" />
-                    <input id="sidecart-address-line2" type="text" class="form-control" placeholder="Byt / poschodie / poznámka (voliteľné)" style="margin-bottom:8px;" />
-                    <div class="row">
-                        <div class="col-xs-7" style="margin-bottom:8px;">
-                            <input id="sidecart-address-city" type="text" class="form-control" placeholder="Mesto" />
-                        </div>
-                        <div class="col-xs-5" style="margin-bottom:8px;">
-                            <input id="sidecart-address-zip" type="text" class="form-control" placeholder="PSČ" />
-                        </div>
-                    </div>
-                    <input id="sidecart-address-country" type="text" class="form-control" placeholder="Krajina" />
-                </div>
-
-                <div id="shipping-pickup-summary" style="margin-top:8px; font-size:12px; color:#555;"></div>
             </div>
-
-            <!-- Action Buttons -->
-            <div id="sidecart-action-buttons" style="display: flex; gap: 8px; margin-bottom: 12px; flex-direction: column;">
-                <button id="sidecart-placeorder-btn" type="button" class="btn btn-outline-primary" onclick="window.lwsPlaceOrderFromSidecart()" style="padding: 10px; font-size: 13px; font-weight: 600; border-color: #5d33fb; color: #5d33fb; text-align: center;">
-                    ✓ Odoslať objednávku (bankový prevod)
-                </button>
-                <a class="btn btn-outline-secondary" href='@Url.Action("Produkty","Home")' style="padding: 10px; font-size: 13px; font-weight: 600; border-color: #17a2b8; color: #17a2b8; text-align: center;">
-                    🔍 Pozrieť Všetky Produkty
-                </a>
-            </div>
-
-            @* Hidden place-order form for sidecart quick submit *@
-            @using (Html.BeginForm("PlaceOrder", "Home", FormMethod.Post, new { id = "sidecartPlaceOrderForm", style = "display:none;" }))
-            {
-                @Html.AntiForgeryToken()
-                <input type="hidden" name="CartJson" id="sidecart_cartJsonInputPlaceOrder" value="" />
-                <input type="hidden" name="PaymentMethod" id="sidecart_PaymentMethod" value="bank" />
-                <input type="hidden" name="ShippingMethod" id="sidecart_shippingMethodInput" value="" />
-                <input type="hidden" name="ZasielkovnaPickupPoint" id="sidecart_zasielkovnaPickupInput" value="" />
-                <input type="hidden" name="ZasielkovnaPickupPointName" id="sidecart_zasielkovnaPickupNameInput" value="" />
-                <input type="hidden" name="PickupPointDetailsJson" id="sidecart_pickupPointDetailsJsonInput" value="" />
-                <input type="hidden" name="ZasielkovnaPickupPointJson" id="sidecart_zasielkovnaPickupJsonInput" value="" />
-                <input type="hidden" name="ShippingAddressLine1" id="sidecart_shippingAddressLine1Input" value="" />
-                <input type="hidden" name="ShippingAddressLine2" id="sidecart_shippingAddressLine2Input" value="" />
-                <input type="hidden" name="ShippingCity" id="sidecart_shippingCityInput" value="" />
-                <input type="hidden" name="ShippingZip" id="sidecart_shippingZipInput" value="" />
-                <input type="hidden" name="ShippingCountry" id="sidecart_shippingCountryInput" value="" />
-                <input type="hidden" name="Name" id="sidecart_name_input" value="" />
-                <input type="hidden" name="Email" id="sidecart_email_input" value="" />
-            }
 
             <!-- Stripe Buy Button -->
             <div id="sidecart-stripe-panel" style="padding:10px; border-radius:12px; margin-bottom:12px;">
-            <div style="margin:0 0 8px 0; font-size:11px; color:#666; text-align:center; line-height:1.4;">
-                Platbu môžete dokončiť tu cez tlačítko <strong>Prejsť k platbe(Stripe)</strong> alebo odoslať objednávku pre bankový prevod cez tlačítko <strong>Odoslať objednávku pre bankový prevod</strong>alebo priamo na stránke košíka <strong>Skontrolovať a dokončiť objednávku</strong>
-            </div>
-            <script async src="https://js.stripe.com/v3/buy-button.js"></script>
-            <div style="display:flex; justify-content:center; width:100%; max-width:100%; overflow:hidden; margin-bottom:12px;">
-                <stripe-buy-button buy-button-id="buy_btn_1SgujHHrPMzQ1ua8771vUUL4"
-                                   publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3"
-                                   style="display:block; max-width:100%;">
-                </stripe-buy-button>
-            </div>
-
+                <div style="margin:0 0 8px 0; font-size:11px; color:#666; text-align:center; line-height:1.4;">
+                    Platbu môžete dokončiť tu cez tlačítko <strong>Prejsť k platbe (Stripe)</strong> alebo odoslať objednávku pre bankový prevod cez tlačítko <strong>Odoslať objednávku pre bankový prevod</strong>
+                </div>
+                <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+                <div style="display:flex; justify-content:center; width:100%; max-width:100%; overflow:hidden; margin-bottom:12px;">
+                    <stripe-buy-button buy-button-id="buy_btn_1SgujHHrPMzQ1ua8771vUUL4"
+                                       publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3"
+                                       style="display:block; max-width:100%;">
+                    </stripe-buy-button>
+                </div>
+                <!-- Action Buttons -->
+                <div id="sidecart-action-buttons" style="display: flex; gap: 8px; margin: 15px 0; flex-direction: column;">
+                    <a id="sidecart-checkout-link" class="btn btn-primary" href="/Home/Kosik?checkout=1" style="padding: 12px; font-size: 14px; font-weight: 600; background: #5d33fb; border-color: #5d33fb; color: #fff; text-align: center;">
+                        ✓ Odoslať objednávku pre bankový prevod
+                    </a>
+                </div>
             </div>
 
             <!-- Chat Section -->
@@ -2406,9 +2396,9 @@
 
             <!-- Quick Contact Info -->
             <div style="margin-top: 12px; padding: 10px; background: #f0f0f0; border-radius: 6px; font-size: 11px; color: #666; line-height: 1.4;">
-                <p style="margin: 0 0 4px 0;"><strong>📞 Tel:</strong> +421917952432</p>
+                <p style="margin: 0 0 4px 0;"><strong>📞 Tel:</strong> +421907151293</p>
                 <p style="margin: 0 0 4px 0;"><strong>📧 Email:</strong> <a href="mailto:info@ladowebservis.sk" style="color: #5d33fb; text-decoration: none;">info@ladowebservis.sk</a></p>
-                
+                <p style="margin: 0 0 4px 0;"><strong>🕒 Otvorené 24 hodín:</strong> Víkendy: 10:00-16:00</p>
             </div>
 
         </div>
@@ -2485,44 +2475,44 @@
             function getPickupMethodMeta(method) {
                 if (method === 'dpd-pickup') {
                     return {
-                        label: 'DPD odberne miesto',
-                        help: 'DPD funguje iba ako rucne zadanie odberneho miesta. Platne udaje najdete v <a href="https://www.dpd.com/sk/sk/odberne-miesta/" target="_blank" rel="noopener">zozname DPD odbernych miest</a>. Zadajte kod z DPD a nazov alebo adresu konkretneho miesta.',
-                        placeholderOption: 'Vyberte ulozene DPD odberne miesto...'
+                        label: 'DPD odberné miesto',
+                        help: 'DPD funguje iba ako ručne zadanie odberného miesta. Platné údaje nájdete v <a href="https://www.dpd.com/sk/sk/odberne-miesta/" target="_blank" rel="noopener">zozname DPD odborných miest</a>. Zadajte kód z DPD a názov alebo adresu konkrétneho miesta.',
+                        placeholderOption: 'Vyberte uložené DPD odberné miesto...'
                     };
                 }
                 if (method === 'gls-parcelshop') {
                     return {
                         label: 'GLS ParcelShop',
-                        help: 'GLS ParcelShop funguje ako rucne zadanie odberneho miesta. Platne udaje najdete na <a href="https://gls-group.com/SK/sk/depa-a-parcel-shopy/" target="_blank" rel="noopener">stranke GLS Slovensko</a>. Zadajte kod a nazov parcelshopu.',
-                        placeholderOption: 'Vyberte ulozene GLS ParcelShop miesto...'
+                        help: 'GLS ParcelShop funguje ako ručne zadanie odberného miesta. Platné údaje nájdete na <a href="https://gls-group.com/SK/sk/depa-a-parcel-shopy/" target="_blank" rel="noopener">stránke GLS Slovensko</a>. Zadajte kód a názov parcelshopu.',
+                        placeholderOption: 'Vyberte uložené GLS ParcelShop miesto...'
                     };
                 }
                 if (method === 'gls-box') {
                     return {
                         label: 'GLS Box',
-                        help: 'GLS Box funguje ako rucne zadanie boxu. Platne udaje najdete na <a href="https://gls-group.com/SK/sk/depa-a-parcel-shopy/" target="_blank" rel="noopener">stranke GLS Slovensko</a>. Zadajte kod a nazov GLS Boxu.',
-                        placeholderOption: 'Vyberte ulozeny GLS Box...'
+                        help: 'GLS Box funguje ako ručne zadanie boxu. Platné údaje nájdete na <a href="https://gls-group.com/SK/sk/depa-a-parcel-shopy/" target="_blank" rel="noopener">stránke GLS Slovensko</a>. Zadajte kód a názov GLS Boxu.',
+                        placeholderOption: 'Vyberte uložený GLS Box...'
                     };
                 }
                 if (method === 'alzabox') {
                     return {
                         label: 'AlzaBox',
-                        help: 'AlzaBox funguje ako rucne zadanie boxu. Platne udaje najdete na <a href="https://www.alza.sk/alzaboxy" target="_blank" rel="noopener">stranke AlzaBox</a>. Zadajte kod alebo nazov AlzaBoxu.',
-                        placeholderOption: 'Vyberte ulozeny AlzaBox...'
+                        help: 'AlzaBox funguje ako ručne zadanie boxu. Platné údaje nájdete na <a href="https://www.alza.sk/alzaboxy" target="_blank" rel="noopener">stránke AlzaBox</a>. Zadajte kód alebo názov AlzaBoxu.',
+                        placeholderOption: 'Vyberte uložený AlzaBox...'
                     };
                 }
                 if (method === 'packeta-zbox' || method === 'packeta' || method === 'zasielkovna') {
                     return {
                         label: 'Packeta Z-BOX',
-                        help: 'Packeta Z-BOX funguje ako rucne zadanie vydajneho boxu. Platne udaje najdete na <a href="https://www.packeta.sk/pobocky" target="_blank" rel="noopener">stranke Packeta Slovensko</a>. Zadajte kod a nazov Z-BOXu alebo vydajneho miesta.',
-                        placeholderOption: 'Vyberte ulozeny Packeta Z-BOX...'
+                        help: 'Packeta Z-BOX funguje ako ručne zadanie výdajného boxu. Platné údaje nájdete na <a href="https://www.packeta.sk/pobocky" target="_blank" rel="noopener">stránke Packeta Slovensko</a>. Zadajte kód a názov Z-BOXu alebo výdajného miesta.',
+                        placeholderOption: 'Vyberte uložený Packeta Z-BOX...'
                     };
                 }
 
                 return {
-                    label: 'Odberne miesto / box',
-                    help: 'Zadajte kod a nazov odberneho miesta alebo boxu. Platne udaje najdete na webe zvoleneho dopravcu.',
-                    placeholderOption: 'Vyberte ulozene odberne miesto...'
+                    label: 'Odberné miesto / box',
+                    help: 'Zadajte kód a názov odberného miesta alebo boxu. Platné údaje nájdete na webe zvoleného dopravcu.',
+                    placeholderOption: 'Vyberte uložené odberné miesto...'
                 };
             }
 
@@ -2759,40 +2749,78 @@
                 } catch (e) { }
             };
 
-            // Place order from sidecart (bank transfer)
-            window.lwsPlaceOrderFromSidecart = function () {
-                try {
-                    var cartJson = localStorage.getItem('lws_cart_v1') || '{}';
-                    var ship = loadShipping ? loadShipping() : {};
+            window.lwsStartComgateCheckout = function () {
+                var cartJson = localStorage.getItem('lws_cart_v1');
+                if (!cartJson || cartJson === '{}' || cartJson === '[]') {
+                    alert('Váš košík je prázdny.');
+                    return;
+                }
 
-                    // hydrate hidden form inputs
-                    var setVal = function (id, val) { var el = document.getElementById(id); if (el) el.value = val || ''; };
-                    setVal('sidecart_cartJsonInputPlaceOrder', cartJson);
-                    setVal('sidecart_shippingMethodInput', ship.method || '');
-                    setVal('sidecart_zasielkovnaPickupInput', ship.pickupPoint || '');
-                    setVal('sidecart_zasielkovnaPickupNameInput', ship.pickupPointName || '');
-                    setVal('sidecart_pickupPointDetailsJsonInput', ship.pickupPointJson || '');
-                    setVal('sidecart_zasielkovnaPickupJsonInput', ship.pickupPointJson || '');
-                    setVal('sidecart_shippingAddressLine1Input', ship.addressLine1 || '');
-                    setVal('sidecart_shippingAddressLine2Input', ship.addressLine2 || '');
-                    setVal('sidecart_shippingCityInput', ship.city || '');
-                    setVal('sidecart_shippingZipInput', ship.zip || '');
-                    setVal('sidecart_shippingCountryInput', ship.country || '');
+                // Customer name and email inputs removed from side cart; skip validation here
 
-                    var name = document.getElementById('sidecart-customer-name') ? document.getElementById('sidecart-customer-name').value.trim() : '';
-                    var email = document.getElementById('sidecart-customer-email') ? document.getElementById('sidecart-customer-email').value.trim() : '';
-                    if (!name || !email) {
-                        alert('Prosím zadajte meno a email pred odoslaním objednávky.');
+                var ship = loadShipping();
+                var shippingMethod = ship.method || '';
+                if (!shippingMethod) {
+                    alert('Prosím vyberte typ dopravy.');
+                    document.getElementById('sidecart-shipping-method').focus();
+                    return;
+                }
+
+                // Check physical or pickup address fields if courier or pickup
+                if (isCourierMethod(shippingMethod)) {
+                    var addrLine1 = document.getElementById('sidecart-address-line1') ? document.getElementById('sidecart-address-line1').value.trim() : '';
+                    var addrCity = document.getElementById('sidecart-address-city') ? document.getElementById('sidecart-address-city').value.trim() : '';
+                    var addrZip = document.getElementById('sidecart-address-zip') ? document.getElementById('sidecart-address-zip').value.trim() : '';
+                    if (!addrLine1 || !addrCity || !addrZip) {
+                        alert('Prosím doplňte doručovaciu adresu pre kuriéra.');
                         return;
                     }
-                    setVal('sidecart_name_input', name);
-                    setVal('sidecart_email_input', email);
-
-                    var form = document.getElementById('sidecartPlaceOrderForm');
-                    if (form) {
-                        form.submit();
+                } else if (isPickupMethod(shippingMethod)) {
+                    var pCode = document.getElementById('sidecart-pickup-code') ? document.getElementById('sidecart-pickup-code').value.trim() : '';
+                    if (!pCode) {
+                        alert('Prosím zadajte kód odberného miesta alebo výdajného boxu.');
+                        return;
                     }
-                } catch (e) { console.error(e); alert('Chyba pri odoslaní objednávky. Skúste to prosím znova.'); }
+                }
+
+                // Create a helper hidden form to submit Comgate POST Checkout request
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/Home/StartComgateCheckout';
+
+                // Add CSRF verification token if present. Grab first available verification input
+                var tokenInput = document.querySelector('input[name="__RequestVerificationToken"]');
+                if (tokenInput) {
+                    var tokenClone = tokenInput.cloneNode(true);
+                    form.appendChild(tokenClone);
+                }
+
+                var appendField = function (name, val) {
+                    var inp = document.createElement('input');
+                    inp.type = 'hidden';
+                    inp.name = name;
+                    inp.value = val || '';
+                    form.appendChild(inp);
+                };
+
+                // Name/Email not provided in side cart (inputs removed); server may collect them later
+                appendField('CartJson', cartJson);
+                appendField('ShippingMethod', shippingMethod);
+                appendField('PaymentMethod', 'comgate');
+
+                if (isCourierMethod(shippingMethod)) {
+                    appendField('ShippingAddressLine1', document.getElementById('sidecart-address-line1').value.trim());
+                    appendField('ShippingAddressLine2', document.getElementById('sidecart-address-line2').value.trim());
+                    appendField('ShippingCity', document.getElementById('sidecart-address-city').value.trim());
+                    appendField('ShippingZip', document.getElementById('sidecart-address-zip').value.trim());
+                    appendField('ShippingCountry', document.getElementById('sidecart-address-country').value.trim());
+                } else {
+                    appendField('ZasielkovnaPickupPoint', document.getElementById('sidecart-pickup-code').value.trim());
+                    appendField('ZasielkovnaPickupPointName', document.getElementById('sidecart-pickup-name').value.trim());
+                }
+
+                document.body.appendChild(form);
+                form.submit();
             };
         })();
     </script>
@@ -2878,7 +2906,7 @@
                 <div class="item">
                     <img src="~/Image/photo-1461722936851-13a79b294a5d.jpeg" alt="Špeciálna Ponuka" style="width:2560px;height:539px;" title="10% zľava s promo kódom">
                     <div class="carousel-caption">
-                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">🎁 Použite pri platbe cez Stripe kód LETOJETU26 a máte 10% zľavu!</p>
+                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">🎁 Použite pri platbe cez Stripe kód Jesenjetu26 a máte 10% zľavu!</p>
                     </div>
                 </div>
 
@@ -2960,7 +2988,7 @@
                         </div>
                         <div class="contact-info-item">
                             <i class="fa fa-clock-o"></i>
-                            <span>Po-Pia: 9:00-17:00</span>
+                            <span>Víkendy: 10:00-16:00 cez pracovné dni nonstop</span>
                         </div>
                     </div>
 
@@ -3002,7 +3030,7 @@
                                 <i class="fa fa-envelope"></i> Prihlásiť sa k odberu
                             </button>
                         }
-                        <p class="footer-subscribe-note">Ak zákazník zadá svoj email do tohto poľa, môže sa prihlásiť k odberu noviniek na celom webe.</p>
+                        <p class="footer-subscribe-note">Po zadaní emailu pošleme potvrdzovací odkaz. Odber noviniek sa aktivuje až po kliknutí na potvrdenie, čo chráni proti podvodným alebo cudzím emailovým adresám.</p>
                     </div>
                 </div>
 

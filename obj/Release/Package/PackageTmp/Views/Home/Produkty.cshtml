@@ -8,501 +8,615 @@
 }
 
 <style>
-    /* ========== MAIN CONTAINER ========== */
+    /* ===== MODERN E-SHOP ===== */
     .products-container {
-        max-width: 1400px;
+        max-width: 1320px;
         margin: 0 auto;
-        padding: 20px;
+        padding: 24px 20px 50px;
+        background: #f7f8fc;
     }
 
-    /* ========== HERO HEADER ========== */
     .products-hero {
-        background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
-        color: #fff;
-        padding: 40px 20px;
-        border-radius: 12px;
-        text-align: center;
-        margin-bottom: 30px;
-        box-shadow: 0 10px 30px rgba(93, 51, 251, 0.3);
-    }
-
-    .products-hero h2 {
-        font-size: 28px;
-        font-weight: 700;
-        margin: 0;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    /* ========== PRODUCT CARDS ========== */
-    .product-card {
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        padding: 30px;
-        margin-bottom: 30px;
-        transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
+        background: linear-gradient(135deg, #24134f 0%, #5d33fb 55%, #7c5cff 100%);
+        color: #fff;
+        padding: 42px 28px;
+        border-radius: 24px;
+        text-align: center;
+        margin-bottom: 22px;
+        box-shadow: 0 18px 45px rgba(71, 45, 160, .22);
     }
 
-    .product-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        .products-hero::before,
+        .products-hero::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,.08);
+            pointer-events: none;
+        }
+
+        .products-hero::before {
+            width: 260px;
+            height: 260px;
+            top: -150px;
+            left: -80px;
+        }
+
+        .products-hero::after {
+            width: 330px;
+            height: 330px;
+            right: -140px;
+            bottom: -190px;
+        }
+
+        .products-hero h2 {
+            position: relative;
+            z-index: 1;
+            font-size: clamp(24px, 3vw, 34px);
+            line-height: 1.2;
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: -.5px;
+            text-shadow: none;
+        }
+
+        .products-hero p {
+            position: relative;
+            z-index: 1;
+            max-width: 760px;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
+    .shop-toolbar {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 16px;
+        background: #fff;
+        border: 1px solid #e9eaf2;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(30, 35, 60, .06);
+        margin-bottom: 22px;
     }
 
-    .product-card.is-favorited {
-        border: 2px solid #ff6b6b;
+    .shop-search {
+        flex: 1;
+        position: relative;
+    }
+
+        .shop-search i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8b8fa3;
+            pointer-events: none;
+        }
+
+        .shop-search input {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #e1e3ec;
+            border-radius: 12px;
+            padding: 12px 15px 12px 42px;
+            font-size: 14px;
+            outline: none;
+            background: #fafbfe;
+            transition: .2s ease;
+        }
+
+            .shop-search input:focus {
+                border-color: #7658ff;
+                background: #fff;
+                box-shadow: 0 0 0 4px rgba(93,51,251,.10);
+            }
+
+    .shop-toolbar-note {
+        color: #6d7183;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+    }
+
+    .product-card {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+        background: #fff;
+        border: 1px solid #e8e9f0;
+        border-radius: 20px;
+        padding: 18px;
+        margin: 0;
+        box-shadow: 0 8px 25px rgba(31, 35, 58, .07);
+        transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: #d9d4ff;
+            box-shadow: 0 16px 38px rgba(31, 35, 58, .12);
+        }
+
+        .product-card.is-favorited {
+            border-color: #ffb8c2;
+        }
+
+    .product-image-container {
+        order: -1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 220px;
+        margin: -2px -2px 10px;
+        border-radius: 15px;
+        background: linear-gradient(180deg, #fafaff 0%, #f4f5fb 100%);
+        overflow: hidden;
+        position: relative;
+    }
+
+        .product-image-container a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .product-image-container img {
+            display: block;
+            max-width: 88%;
+            max-height: 200px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: none;
+            transition: transform .3s ease;
+        }
+
+    .product-card:hover .product-image-container img {
+        transform: scale(1.045);
     }
 
     .product-heart-btn {
         position: absolute;
-        top: 20px;
-        left: 20px;
-        background: none;
-        border: none;
-        font-size: 28px;
+        top: 27px;
+        right: 27px;
+        left: auto;
+        width: 38px;
+        height: 38px;
+        padding: 0;
+        border: 1px solid #e6e7ef;
+        border-radius: 50%;
+        background: rgba(255,255,255,.94);
+        box-shadow: 0 5px 15px rgba(0,0,0,.08);
+        font-size: 17px;
         cursor: pointer;
-        transition: all 0.3s ease;
-        padding: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 15;
+        transition: transform .2s ease, box-shadow .2s ease;
     }
 
-    .product-heart-btn:hover {
-        transform: scale(1.2);
-    }
-
-    .product-heart-btn.favorited {
-        animation: heartBeat 0.3s ease;
-    }
-
-    @@keyframes heartBeat {
-        0% { transform: scale(1); }
-        25% { transform: scale(1.3); }
-        50% { transform: scale(1.1); }
-        100% { transform: scale(1.2); }
-    }
+        .product-heart-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 7px 18px rgba(0,0,0,.13);
+        }
 
     .product-badge {
         position: absolute;
-        top: 20px;
-        right: 20px;
-        background: #ff4444;
+        top: 27px;
+        left: 27px;
+        right: auto;
+        background: #ff4f64;
         color: #fff;
-        padding: 8px 16px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: 700;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: .3px;
         text-transform: uppercase;
         z-index: 10;
+        box-shadow: 0 5px 12px rgba(255,79,100,.22);
     }
 
-    .product-badge.discount {
-        background: #28a745;
-    }
+        .product-badge.discount {
+            background: #17a673;
+        }
 
-    .product-badge.new {
-        background: #ff9800;
-    }
+        .product-badge.new {
+            background: #ff8a00;
+        }
 
     .product-header {
-        text-align: center;
-        margin-bottom: 20px;
+        text-align: left;
+        margin: 0 0 8px;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
     }
 
-    .product-header h2 {
-        color: #5d33fb;
-        font-size: 24px;
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
+        .product-header h2 {
+            color: #20233a;
+            font-size: 19px;
+            line-height: 1.3;
+            font-weight: 750;
+            margin: 0;
+            letter-spacing: -.2px;
+        }
 
     .product-description {
-        background: #e7f3ff;
-        border-left: 4px solid #5d33fb;
-        padding: 15px;
-        margin: 20px 0;
-        border-radius: 4px;
-        font-size: 14px;
-        color: #2c3e50;
+        background: transparent;
+        border: 0;
+        padding: 0;
+        margin: 0 0 12px;
+        min-height: 42px;
+        font-size: 13px;
+        line-height: 1.55;
+        color: #686c7c;
     }
 
-    /* ========== PRICING ========== */
+    .discount-notice {
+        background: #fff7df;
+        color: #765800;
+        padding: 8px 10px;
+        border: 1px solid #f7e5a9;
+        border-radius: 10px;
+        text-align: left;
+        margin: 0 0 12px;
+        font-size: 12px;
+        line-height: 1.4;
+        font-weight: 600;
+        box-shadow: none;
+    }
+
     .product-pricing {
-        text-align: center;
-        margin: 25px 0;
+        text-align: left;
+        margin: 4px 0 4px;
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 7px;
     }
 
     .price-original {
-        font-size: 18px;
-        color: #999;
+        font-size: 14px;
+        color: #999eaf;
         text-decoration: line-through;
-        margin-right: 10px;
+        margin-right: 0;
     }
 
     .price-current {
-        font-size: 32px;
-        color: #28a745;
-        font-weight: 700;
+        font-size: 27px;
+        color: #20233a;
+        font-weight: 800;
+        letter-spacing: -.5px;
     }
 
     .price-save {
         display: inline-block;
-        background: #ffeb3b;
-        color: #2c3e50;
-        padding: 4px 12px;
-        border-radius: 12px;
-        font-size: 12px;
-        font-weight: 700;
-        margin-left: 10px;
+        background: #e7f8ef;
+        color: #16845d;
+        padding: 4px 8px;
+        border-radius: 7px;
+        font-size: 10px;
+        font-weight: 800;
+        margin-left: 0;
     }
 
     .loyalty-points-note {
-        margin-top: 10px;
-        font-size: 14px;
+        margin-top: 4px;
+        font-size: 11px;
         font-weight: 600;
-        color: #5d33fb;
+        color: #777b8d;
     }
 
-    .loyalty-points-note strong {
-        color: #28a745;
-    }
+        .loyalty-points-note strong {
+            color: #5d33fb;
+        }
 
-    /* ========== BUTTONS ========== */
     .product-actions {
-        display: flex;
-        gap: 15px;
-        margin: 25px 0;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin: 14px 0 0;
+        margin-top: auto;
+        padding-top: 14px;
+    }
+
+    .btn-stripe,
+    .btn-add-cart,
+    .btn-google-pay,
+    .btn-view-cart {
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        min-height: 42px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: 750;
+        cursor: pointer;
+        transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        text-decoration: none;
     }
 
     .btn-stripe {
-        flex: 1;
-        background: linear-gradient(135deg, #635bff 0%, #5469d4 100%);
+        background: #635bff;
         color: #fff;
-        padding: 15px 30px;
-        border: none;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        min-width: 200px;
+        border: 1px solid #635bff;
+        box-shadow: 0 5px 14px rgba(99,91,255,.20);
     }
 
-    .btn-stripe:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(99, 91, 255, 0.4);
-        color: #fff;
-    }
+        .btn-stripe:hover {
+            background: #5148e8;
+            color: #fff;
+            transform: translateY(-1px);
+        }
 
     .btn-add-cart {
-        flex: 1;
-        background: #5d33fb;
+        background: #20233a;
         color: #fff;
-        padding: 15px 30px;
-        border: none;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        min-width: 200px;
+        border: 1px solid #20233a;
     }
 
-    .btn-add-cart:hover {
-        background: #4a2fb5;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(93, 51, 251, 0.4);
+        .btn-add-cart:hover {
+            background: #111325;
+            transform: translateY(-1px);
+        }
+
+    .btn-google-pay {
+        background: #f5f6fa;
+        color: #3d4050;
+        border: 1px solid #e2e4ec;
+        box-shadow: none;
     }
+
+        .btn-google-pay:hover,
+        .btn-view-cart:hover {
+            background: #eceef5;
+            color: #20233a;
+            transform: translateY(-1px);
+            box-shadow: none;
+        }
+
+        .btn-google-pay small {
+            display: inline;
+            font-size: 9px;
+            font-weight: 500;
+            opacity: .7;
+            line-height: 1;
+        }
 
     .btn-view-cart {
-        flex: 1;
-        background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
-        color: #fff;
-        padding: 15px 30px;
-        border: none;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        min-width: 200px;
-    }
-
-    .btn-view-cart:hover {
-        background: linear-gradient(135deg, #138496 0%, #0e6674 100%);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(23, 162, 184, 0.4);
-        color: #fff;
-    }
-
-    /* Google Pay like button */
-    .btn-googlepay {
-        flex: 1;
         background: #fff;
-        color: #202124;
-        padding: 12px 20px;
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-        font-size: 15px;
-        font-weight: 700;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        min-width: 200px;
-    }
-
-    .btn-googlepay:hover {
-        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        transform: translateY(-2px);
-    }
-
-    /* ========== PRODUCT IMAGE ========== */
-    .product-image-container {
-        text-align: center;
-        margin: 25px 0;
-        position: relative;
-    }
-
-
-    .product-image-container img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
-    }
-
-    .product-image-container:hover img {
-        transform: scale(1.02);
-    }
-
-    /* ========== PRODUCT DETAILS ========== */
-    .product-details {
-        margin-top: 20px;
-    }
-
-    .product-details summary {
-        background: #f5f5f5;
-        padding: 15px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: 600;
         color: #5d33fb;
-        transition: background 0.3s ease;
+        border: 1px solid #dcd7ff;
     }
 
-    .product-details summary:hover {
-        background: #e8e8e8;
+    .product-details {
+        margin-top: 12px;
+        border-top: 1px solid #ececf2;
+        padding-top: 10px;
     }
 
-    .product-details p {
-        padding: 20px;
-        line-height: 1.8;
-        color: #555;
-        background: #fafafa;
-        border-radius: 0 0 8px 8px;
-        margin-top: -8px;
-    }
-
-    /* ========== DISCOUNT NOTICE ========== */
-    .discount-notice {
-        background: linear-gradient(135deg, #ffeb3b 0%, #ffc107 100%);
-        color: #2c3e50;
-        padding: 15px;
-        border-radius: 8px;
-        text-align: center;
-        margin: 20px 0;
-        font-weight: 600;
-        box-shadow: 0 4px 12px rgba(255,193,7,0.3);
-    }
-
-    /* ========== RESPONSIVE ========== */
-    @@media (max-width: 768px) {
-        .products-hero h2 {
-            font-size: 20px;
+        .product-details summary {
+            background: transparent;
+            padding: 4px 0;
+            border-radius: 0;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+            color: #6861bd;
+            transition: color .2s ease;
         }
 
-        .product-card {
-            padding: 20px;
+            .product-details summary:hover {
+                color: #4b3de0;
+            }
+
+        .product-details p {
+            padding: 10px 0 0;
+            line-height: 1.6;
+            color: #6b6e7d;
+            background: transparent;
+            border-radius: 0;
+            margin: 0;
+            font-size: 12px;
         }
 
-        .product-header h2 {
-            font-size: 20px;
-        }
-
-        .product-actions {
-            flex-direction: column;
-        }
-
-        .btn-stripe,
-        .btn-add-cart {
-            width: 100%;
-            min-width: auto;
-        }
-
-        .price-current {
-            font-size: 24px;
-        }
-
-        .product-badge {
-            top: 10px;
-            right: 10px;
-            font-size: 10px;
-            padding: 6px 12px;
-        }
-    }
-
-    /* ========== SEARCH STATES ========== */
     .product-match {
         outline: 3px solid #5d33fb;
-        box-shadow: 0 0 0 4px rgba(93,51,251,0.18);
+        box-shadow: 0 0 0 5px rgba(93,51,251,.12), 0 16px 38px rgba(31,35,58,.12);
     }
 
     .product-hidden {
         display: none !important;
     }
 
-    /* ========== LOADING SPINNER ========== */
     .search-spinner-overlay {
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.3);
+        inset: 0;
+        background: rgba(17, 19, 37, .35);
+        backdrop-filter: blur(3px);
         display: none;
         justify-content: center;
         align-items: center;
         z-index: 9999;
         opacity: 0;
-        transition: opacity 0.3s ease;
+        transition: opacity .25s ease;
     }
 
-    .search-spinner-overlay.show {
-        display: flex;
-        opacity: 1;
-    }
+        .search-spinner-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
 
     .spinner-container {
         background: #fff;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        padding: 26px;
+        border-radius: 16px;
+        box-shadow: 0 15px 45px rgba(0,0,0,.18);
         text-align: center;
         max-width: 300px;
     }
 
     .spinner {
-        border: 4px solid #f0f0f0;
+        border: 4px solid #ececf4;
         border-top: 4px solid #5d33fb;
         border-radius: 50%;
-        width: 50px;
-        height: 50px;
+        width: 42px;
+        height: 42px;
         animation: spin 1s linear infinite;
-        margin: 0 auto 16px;
+        margin: 0 auto 14px;
     }
 
     @@keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
     }
 
     .spinner-text {
         font-size: 14px;
         color: #555;
-        font-weight: 500;
+        font-weight: 600;
         margin: 0;
     }
 
-    .spinner-text.sub {
+        .spinner-text.sub {
+            font-size: 12px;
+            color: #999;
+            margin-top: 7px;
+            font-weight: normal;
+        }
+
+    @@media (max-width: 900px) {
+        .products-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .product-card {
+            max-width: 680px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    @@media (max-width: 600px) {
+        .products-container {
+            padding: 12px 10px 35px;
+        }
+
+        .products-hero {
+            padding: 30px 17px;
+            border-radius: 18px;
+        }
+
+            .products-hero h2 {
+                font-size: 23px;
+            }
+
+            .products-hero p {
+                font-size: 13px !important;
+            }
+
+        .shop-toolbar {
+            padding: 10px;
+        }
+
+        .shop-toolbar-note {
+            display: none;
+        }
+
+        .product-card {
+            padding: 14px;
+            border-radius: 17px;
+        }
+
+        .product-image-container {
+            height: 190px;
+        }
+
+            .product-image-container img {
+                max-height: 175px;
+            }
+
+        .product-header {
+            min-height: auto;
+        }
+
+            .product-header h2 {
+                font-size: 18px;
+            }
+
+        .product-actions {
+            grid-template-columns: 1fr;
+        }
+
+        .price-current {
+            font-size: 25px;
+        }
+
+        .product-badge {
+            top: 21px;
+            left: 21px;
+        }
+
+        .product-heart-btn {
+            top: 21px;
+            right: 21px;
+        }
+    }
+
+    .product-image-container {
+        position: relative;
+    }
+
+    .image-discount-badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        z-index: 3;
+        display: inline-flex;
+        align-items: center;
+        padding: 7px 11px;
+        border-radius: 999px;
+        background: #e53935;
+        color: #fff;
         font-size: 12px;
-        color: #999;
-        margin-top: 8px;
-        font-weight: normal;
+        font-weight: 800;
+        letter-spacing: .2px;
+        box-shadow: 0 5px 14px rgba(0,0,0,.16);
     }
 </style>
 
 <div class="products-container">
     <!-- Hero Header -->
     <div class="products-hero">
-        <h2 style="color: white;">🛍️ VITAJTE! TU JE NAŠA PONUKA DOSTUPNÝCH PRODUKTOV</h2>
-        <p style="margin-top: 15px; font-size: 16px; color: white;">Keď ide o zdravie, nekompromisujte s cenami!</p>
+        <h2 style="color: white;">🛍️ VITAJTE! POZRITE SI NAŠU AKTUÁLNU PONUKU</h2>
+        <p style="margin-top: 15px; font-size: 16px; color: white;">Vyberte si z našej ponuky produktov pre každodennú starostlivos o zdravie, energiu a imunitu.</p>
+        <p style="margin-top: 12px; font-size: 14px; color: white;">🍂 Jesenna ponuka: na vybrane produkty ziskate 10 % zlavu s kodom <strong>Jesenjetu26</strong>.</p>
     </div>
-
-            <script>
-                // One-click: build minimal cart and POST to StartStripeCheckout for server-side Stripe session creation
-                window.lwsGooglePayQuickBuy = function (productId) {
-                    try {
-                        var catalog = window.__lws_products || {};
-                        var prod = catalog[productId] || null;
-                        if (!prod) { alert('Produkt sa nenasiel'); return; }
-
-                        // Build minimal cart JSON expected by server: { "<id>": { "Quantity": 1, "Image": "..." } }
-                        var cartObj = {};
-                        cartObj[productId.toString()] = { Quantity: 1, Image: (prod.Image || '') };
-                        var cartJson = JSON.stringify(cartObj);
-
-                        // prepare shipping info from local storage if available
-                        var ship = {};
-                        try { ship = (typeof loadShipping === 'function') ? loadShipping() : JSON.parse(localStorage.getItem('lws_shipping_v1') || '{}'); } catch (e) { ship = {}; }
-
-                        // Name/email may be collected in sidecart fields if present
-                        var name = document.getElementById('sidecart-customer-name') ? document.getElementById('sidecart-customer-name').value.trim() : '';
-                        var email = document.getElementById('sidecart-customer-email') ? document.getElementById('sidecart-customer-email').value.trim() : '';
-
-                        // Create hidden form
-                        var form = document.createElement('form');
-                        form.method = 'POST';
-                        form.action = '/Home/StartStripeCheckout';
-
-                        // anti-forgery token clone if present
-                        var tokenInput = document.querySelector('input[name="__RequestVerificationToken"]');
-                        if (tokenInput) form.appendChild(tokenInput.cloneNode(true));
-
-                        function append(name, val) {
-                            var i = document.createElement('input');
-                            i.type = 'hidden'; i.name = name; i.value = val || ''; form.appendChild(i);
-                        }
-
-                        append('CartJson', cartJson);
-                        append('PaymentMethod', 'stripe');
-                        append('ShippingMethod', ship.method || '');
-                        append('ZasielkovnaPickupPoint', ship.pickupPoint || '');
-                        append('ZasielkovnaPickupPointName', ship.pickupPointName || '');
-                        append('PickupPointDetailsJson', ship.pickupPointJson || '');
-                        append('ZasielkovnaPickupPointJson', ship.pickupPointJson || '');
-                        append('ShippingAddressLine1', ship.addressLine1 || '');
-                        append('ShippingAddressLine2', ship.addressLine2 || '');
-                        append('ShippingCity', ship.city || '');
-                        append('ShippingZip', ship.zip || '');
-                        append('ShippingCountry', ship.country || '');
-                        append('Name', name || '');
-                        append('Email', email || '');
-
-                        document.body.appendChild(form);
-                        form.submit();
-                    } catch (e) { console.error(e); alert('Chyba pri spusteni platby. Skúste to prosím znova.'); }
-                };
-            </script>
 
     <!-- Loading Spinner -->
     <div id="searchSpinnerOverlay" class="search-spinner-overlay">
@@ -513,446 +627,560 @@
         </div>
     </div>
 
-    <!-- Product 1: BalanceOil+ Orange 300ml (55€ → 49.50€) -->
-    <section class="product-card products" id="product-1" data-product-id="1" data-product-name="BalanceOil" data-product-aliases="balance oil,balanceoil,balance oil orange,orange" data-product-image='@Url.Content("~/Image/BalanceOil.png")'>
-        <button class="product-heart-btn" onclick="toggleProductFavorite(event, '1', 'BalanceOil', '@Url.Content("~/Image/BalanceOil.png")', 54.90)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+    <!-- Modern shop toolbar -->
+    <div class="shop-toolbar">
+        <form class="shop-search" method="get" action="@Url.Action("Produkty","Home")">
+            <i class="fa fa-search"></i>
+            <input type="search" name="q" value="@Request.QueryString["q"]" placeholder="Hľadať produkt, napr. BalanceOil, kolagén, vitamín D..." aria-label="Hľadať produkt">
+        </form>
+        <div class="shop-toolbar-note"><i class="fa fa-shield"></i> Bezpečný nákup &nbsp;•&nbsp; <i class="fa fa-star"></i> Vernostné body</div>
+    </div>
 
-        <span class="product-badge discount">-10% ZĽAVA</span>
+    <div class="products-grid">
+        <!-- Product 1: BalanceOil+ Orange 300ml (54.90€ → 49.41€) -->
+        <section class="product-card products" id="product-1" data-product-id="1" data-product-name="BalanceOil" data-product-aliases="balance oil,balanceoil,balance oil orange,orange" data-product-image='@Url.Content("~/Image/BalanceOil.png")'>
+            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '1', 'BalanceOil', '@Url.Content("~/Image/BalanceOil.png")', 54.90)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
 
-        <div class="product-header">
-            <h2>💊 BalanceOil+ Orange 300ml</h2>
-        </div>
+            <span class="product-badge discount">-10 % ZĽAVA</span>
 
-        <div class="product-description">
-            Náš bestseller! Prémiový Omega-3 olej s extra panenským olivovým olejom.
-        </div>
+            <div class="product-header">
+                <h2>💊 BalanceOil+ Orange 300ml</h2>
+            </div>
 
-        <div class="discount-notice">
-            🎉 Použite kód <strong>LETOJETU26</strong> pri platbe a získajte 10% zľavu!
-        </div>
+            <div class="product-description">
+                Náš bestseller! Prémiový Omega-3 olej s extra panenským olivovým olejom.
+            </div>
 
-        <div class="product-pricing">
-            <span class="price-original">61,00€</span>
-            <span class="price-current">54,90€</span>
-            <span class="price-save">Ušetríte 6,10€</span>
-        </div>
-        <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(54.90m) bodov</strong> do vernostného programu</div>
-        
-        
-        
+            <div class="discount-notice">
+                🍂 Použite kod <strong>Jesenjetu26</strong> pri platbe a ziskajte 10 % zlavu.
+            </div>
+
+            <div class="product-pricing">
+                <span class="price-original">54,90€</span>
+                <span class="price-current">49,41€</span>
+                <span class="price-save">Ušetríte 5,49€</span>
+            </div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(49.41m) bodov</strong> do vernostného programu</div>
+
+
+
             <div class="product-actions">
-                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
-                    <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
+                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-credit-card"></i> Kúpiť
                 </a>
-                <button type="button" class="btn-googlepay" onclick="window.lwsGooglePayQuickBuy('1')">
-                    <img src="https://www.gstatic.com/devrel-devsite/prod/v0d3ba93926ab9dd98ec6053b457769278e41b1a086e404f96cace35cf1aaba3a/google_pay_logo.svg" alt="Google Pay" style="height:20px;" />
-                    Kúpiť cez Google Pay
-                </button>
+                <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
+                    <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
+                </a>
                 <button type="button" class="btn-add-cart add-to-cart" data-id="1">
                     <i class="fa fa-shopping-cart"></i> Pridať do košíka
                 </button>
-                <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať položky v košíku">
+                <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať obsah košíka">
                     <i class="fa fa-eye"></i> Košík
                 </button>
             </div>
 
-        <div class="product-image-container">
-            <a data-fancybox="gallery" href='@Url.Content("~/Image/BalanceOil.png")'>
-                <img src='@Url.Content("~/Image/BalanceOil.png")' alt="BalanceOil">
-            </a>
-        </div>
+            <div class="product-image-container">
+                <a data-fancybox="gallery" href='@Url.Content("~/Image/BalanceOil.png")'>
+                    <img src='@Url.Content("~/Image/BalanceOil.png")' alt="BalanceOil">
 
-        <details class="product-details">
-            <summary>📋 Zobraziť podrobnosti o produkte</summary>
-            <p>
-                Podporuje normálne hladiny triglyceridov v krvi, normálny krvný tlak a normálne hladiny vápnika v krvi. Prispieva k normálnej funkcii mozgu (700 mg DHA). Prispieva k normálnemu imunitnému systému (20 µg vitamínu D3). Pomáha udržiavať dostatočné hladiny EPA a DHA vo vašom tele.
-            </p>
-        </details>
-    </section>
+                </a>
+            </div>
 
-    <!-- Product 6: Dávkovacie poháre (15€) -->
-    <section class="product-card products" id="product-6" data-product-id="6" data-product-name="Davkovacie pohare" data-product-aliases="dávkovacie poháre,davkovacie pohare,pohare,pohár,pohare 10ks" data-product-image='@Url.Content("~/Image/Davkovacie pohare.png")'>
-        <button class="product-heart-btn" onclick="toggleProductFavorite(event, '6', 'Davkovacie pohare', '@Url.Content("~/Image/Davkovacie pohare.png")', 15.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+            <details class="product-details">
+                <summary>📋 Podrobnosti o produkte</summary>
+                <p>
+                    Podporuje normálne hladiny triglyceridov v krvi, normálny krvný tlak a normálne hladiny vápnika v krvi. Prispieva k normálnej funkcii mozgu (700 mg DHA). Prispieva k normálnemu imunitnému systému (20 µg vitamínu D3). Pomáha udržiavať dostatočné hladiny EPA a DHA vo vašom tele.
+                </p>
+            </details>
+        </section>
 
-        <div class="product-header">
-            <h2>🥤 Dávkovacie poháre (10ks)</h2>
-        </div>
+        <!-- Product 6: Dávkovacie poháre (15€) -->
+        <section class="product-card products" id="product-6" data-product-id="6" data-product-name="Davkovacie pohare" data-product-aliases="dávkovacie poháre,davkovacie pohare,pohare,pohár,pohare 10ks" data-product-image='@Url.Content("~/Image/Davkovacie pohare.png")'>
+            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '6', 'Davkovacie pohare', '@Url.Content("~/Image/Davkovacie pohare.png")', 15.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
 
-        <div class="product-description">
-            Plastové dávkovacie poháre vhodné do umývačky riadov s mierkou v ml.
-        </div>
+            <div class="product-header">
+                <h2>🥤 Dávkovacie poháre (10ks)</h2>
+            </div>
 
-        <div class="product-pricing">
-            <span class="price-current">15,00€</span>
-        </div>
-        <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(15.00m) bodov</strong> do vernostného programu</div>
+            <div class="product-description">
+                Plastové dávkovacie poháre vhodné do umývačky riadov s mierkou v ml.
+            </div>
 
-        <div class="product-actions">
-            <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
-                <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
-            </a>
-            <button type="button" class="btn-add-cart add-to-cart" data-id="6">
-                <i class="fa fa-shopping-cart"></i> Pridať do košíka
+            <div class="product-pricing">
+                <span class="price-current">15,00€</span>
+            </div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(15.00m) bodov</strong> do vernostného programu</div>
+
+            <div class="product-actions">
+                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-credit-card"></i> Kúpiť
+                </a>
+                <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
+                    <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
+                </a>
+                <button type="button" class="btn-add-cart add-to-cart" data-id="6">
+                    <i class="fa fa-shopping-cart"></i> Pridať do košíka
+                </button>
+                <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať obsah košíka">
+                    <i class="fa fa-eye"></i> Košík
+                </button>
+            </div>
+
+            <div class="product-image-container">
+                <a data-fancybox="gallery" href='@Url.Content("~/Image/Davkovacie pohare.png")'>
+                    <img src='@Url.Content("~/Image/Davkovacie pohare.png")' alt="Dávkovacie poháre">
+
+                </a>
+            </div>
+
+            <details class="product-details">
+                <summary>📋 Podrobnosti o produkte</summary>
+                <p>Plastové dávkovacie poháre (10ks) vhodné do umývačky riadov s mierkou v ml a tsp (kávová lyžička).</p>
+            </details>
+        </section>
+
+        <!-- Product 2: Zinobiotic (40€ → 36€) -->
+        <section class="product-card products" id="product-2" data-product-id="2" data-product-name="Zinobiotic" data-product-aliases="zinobiotic,probiotika,probiotiká" data-product-image='@Url.Content("~/Image/Zinobiotic2025.png")'>
+            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '2', 'Zinobiotic', '@Url.Content("~/Image/Zinobiotic2025.png")', 36.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+            <span class="product-badge discount">-10 % ZĽAVA</span>
+            <div class="product-header">
+                <h2>🦠 Zinobiotic+</h2>
+            </div>
+
+            <div class="product-description">
+                Nie je to len doplnok – je to systém pre vaše zdravie. Podpora zdravého črevného mikrobiómu.
+            </div>
+            <div class="discount-notice">
+                🍂 Použite kód <strong>Jesenjetu26</strong> pri platbe a získajte 10 % zľavu.
+            </div>
+
+            <div class="product-pricing">
+                <span class="price-original">40,00€</span>
+                <span class="price-current">36,00€</span>
+                <span class="price-save">Ušetríte 4,00€</span>
+            </div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(36.00m) bodov</strong> do vernostného programu</div>
+
+
+
+            <div class="product-actions">
+                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-credit-card"></i> Kúpiť
+                </a>
+                <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
+                    <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
+                </a>
+                <button type="button" class="btn-add-cart add-to-cart" data-id="2">
+                    <i class="fa fa-shopping-cart"></i> Pridať do košíka
+                </button>
+                <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať obsah košíka">
+                    <i class="fa fa-eye"></i> Košík
+                </button>
+            </div>
+
+            <div class="product-image-container">
+                <a data-fancybox="gallery" href='@Url.Content("~/Image/Zinobiotic2025.png")'>
+                    <img src='@Url.Content("~/Image/Zinobiotic2025.png")' alt="Zinobiotic">
+
+                </a>
+            </div>
+
+            <details class="product-details">
+                <summary>📋 Podrobnosti o produkte</summary>
+                <p>
+                    Črevá sa už dlho označujú za druhý mozog, ale až v posledných rokoch si začíname uvedomovať, aké dôležité sú črevá pre naše zdravie a duševnú pohodu. Pomáha udržiavať optimálnu hladinu cholesterolu vo vašom tele.
+                </p>
+            </details>
+        </section>
+
+        <!-- Product 3: ZinzinoXtend (39.60€ -10%) -->
+        <section class="product-card products" id="product-3" data-product-id="3" data-product-name="ZinzinoXtend" data-product-aliases="zinzino xtend,xtend,imunita" data-product-image='@Url.Content("~/Image/ZinzinoXtend.png")'>
+            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '3', 'ZinzinoXtend', '@Url.Content("~/Image/ZinzinoXtend.png")', 39.60)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+
+            <span class="product-badge discount">-10 % ZĽAVA</span>
+
+            <div class="product-header">
+                <h2>💪 Zinzino Xtend</h2>
+            </div>
+
+            <div class="product-description">
+                Výživový doplnok s 23 vitamínmi a minerálmi, vhodný ako súčasť každodennej starostlivosti o organizmus.
+            </div>
+
+            <div class="discount-notice">
+                🍂 Použite kód <strong>Jesenjetu26</strong> pri platbe a získajte 10 % zľavu.
+            </div>
+
+            <div class="product-pricing">
+                <span class="price-original">39,60€</span>
+                <span class="price-current">35,64€</span>
+                <span class="price-save">Ušetríte 3,96€</span>
+            </div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(35.64m) bodov</strong> do vernostného programu</div>
+
+            <div class="product-actions">
+                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-credit-card"></i> Kúpiť
+                </a>
+                <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
+                    <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
+                </a>
+                <button type="button" class="btn-add-cart add-to-cart" data-id="3">
+                    <i class="fa fa-shopping-cart"></i> Pridať do košíka
+                </button>
+                <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať obsah košíka">
+                    <i class="fa fa-eye"></i> Košík
+                </button>
+            </div>
+
+            <div class="product-image-container">
+                <a data-fancybox="gallery" href='@Url.Content("~/Image/ZinzinoXtend.png")'>
+                    <img src='@Url.Content("~/Image/ZinzinoXtend.png")' alt="ZinzinoXtend">
+                    @*<span class="image-discount-badge">-10 % ZĽAVA</span>*@
+                </a>
+            </div>
+
+            <details class="product-details">
+                <summary>📋 Podrobnosti o produkte</summary>
+                <p>
+                    Xtend je vynikajúcim zdrojom mikro- a fytonutrientov, ktorý obsahuje 23 základných vitamínov a minerálov. Ideálny doplnok k prípravkom BalanceOil a ZinoBiotic.
+                </p>
+            </details>
+        </section>
+
+        <!-- Product 4: BalanceOil 100ml (18€) -->
+        <section class="product-card products" id="product-4" data-product-id="4" data-product-name="BalanceOil orange 100ml" data-product-aliases="balance oil 100ml,balanceoil 100ml,100ml,orange 100ml" data-product-image='@Url.Content("~/Image/BalanceOil orange 100ml.png")'>
+            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '4', 'BalanceOil orange 100ml', '@Url.Content("~/Image/BalanceOil orange 100ml.png")', 25.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+
+            <div class="product-header">
+                <h2>💊 BalanceOil+ Orange 100ml</h2>
+            </div>
+
+            <div class="product-description">
+                Menšie balenie nášho bestselleru – ideálne na vyskúšanie.
+            </div>
+
+            <div class="product-pricing">
+                <span class="price-current">18,00€</span>
+            </div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(18.00m) bodov</strong> do vernostného programu</div>
+
+            <div class="product-actions">
+                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-credit-card"></i> Kúpiť
+                </a>
+                <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
+                    <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
+                </a>
+                <button type="button" class="btn-add-cart add-to-cart" data-id="4">
+                    <i class="fa fa-shopping-cart"></i> Pridať do košíka
+                </button>
+                <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať obsah košíka">
+                    <i class="fa fa-eye"></i> Košík
+                </button>
+            </div>
+
+            <div class="product-image-container">
+                <a data-fancybox="gallery" href='@Url.Content("~/Image/BalanceOil orange 100ml.png")'>
+                    <img src='@Url.Content("~/Image/BalanceOil orange 100ml.png")' alt="BalanceOil 100ml">
+                    @*<span class="image-discount-badge">-10 % ZĽAVA</span>*@
+                </a>
+            </div>
+
+            <details class="product-details">
+                <summary>📋 Podrobnosti o produkte</summary>
+                <p>
+                    BalanceOil+ poskytuje veľké množstvo polyfenolov na účinnú absorpciu. Bezpečne zvyšuje a udržiava hladiny omega-3 mastných kyselín.
+                </p>
+            </details>
+        </section>
+
+        <!-- Product 5: Vitamin D Test (58.5€ → 52.65€) -->
+        <section class="product-card products" id="product-5" data-product-id="5" data-product-name="Vitamin D Test" data-product-aliases="vitamin d,vitamin d test,vitamind,test" data-product-image='@Url.Content("~/Image/VitaminDTest.png")'>
+            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '5', 'Vitamin D Test', '@Url.Content("~/Image/VitaminDTest.png")', 58.50)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+
+            <span class="product-badge discount">-10 % ZĽAVA</span>
+
+            <div class="product-header">
+                <h2>🧪 Vitamin D Test</h2>
+            </div>
+
+            <div class="product-description">
+                Laboratórne analyzovaný test na zistenie aktuálneho stavu vitamínu D.
+            </div>
+
+            <div class="discount-notice">
+                🍂 Použite kód <strong>Jesenjetu26</strong> pri platbe a získajte 10 % zľavu.
+            </div>
+
+            <div class="product-pricing">
+                <span class="price-original">58,50€</span>
+                <span class="price-current">52,65€</span>
+                <span class="price-save">Ušetríte 5,85€</span>
+            </div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(52.65m) bodov</strong> do vernostného programu</div>
+
+            <div class="product-actions">
+                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-credit-card"></i> Kúpiť
+                </a>
+                <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
+                    <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
+                </a>
+                <button type="button" class="btn-add-cart add-to-cart" data-id="5">
+                    <i class="fa fa-shopping-cart"></i> Pridať do košíka
+                </button>
+                <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať obsah košíka">
+                    <i class="fa fa-eye"></i> Košík
+                </button>
+            </div>
+
+            <div class="product-image-container">
+                <a data-fancybox="gallery" href='@Url.Content("~/Image/VitaminDTest.png")'>
+                    <img src='@Url.Content("~/Image/VitaminDTest.png")' alt="Test">
+                    @*<span class="image-discount-badge">-10 % ZĽAVA</span>*@
+                </a>
+            </div>
+
+            <details class="product-details">
+                <summary>📋 Podrobnosti o produkte</summary>
+                <p>
+                    VitaminD Test je dôverný test suchej kvapky krvi, ktorý odhalí aktuálny stav. Výsledok je zosumarizovaný v ľahko pochopiteľnej grafike. Test sa odporúča vykonať každých 120 dní.
+                </p>
+            </details>
+        </section>
+
+        <!-- Product 0: BalanceTest (175.50€ → 157.95€) -->
+        <section class="product-card products" id="product-0" data-product-id="0" data-product-name="BalanceTest" data-product-aliases="balancetest,balance test,test" data-product-image='@Url.Content("~/Image/BalanceTest.png")'>
+            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '0', 'BalanceTest', '@Url.Content("~/Image/BalanceTest.png")', 175.50)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+
+            <span class="product-badge discount">-10 % ZĽAVA</span>
+
+            <div class="product-header">
+                <h2>🎓 BalanceTest – Prémiový Produkt</h2>
+            </div>
+
+            <div class="product-description">
+                Komplexný test pomeru Omega-3 a Omega-6 mastných kyselín.
+            </div>
+
+            <div class="discount-notice">
+                🍂 Použite kód <strong>Jesenjetu26</strong> pri platbe a získajte 10 % zľavu.
+            </div>
+
+            <div class="product-pricing">
+                <span class="price-original">175,50€</span>
+                <span class="price-current">157,95€</span>
+                <span class="price-save">Ušetríte 17,55€</span>
+            </div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(157.95m) bodov</strong> do vernostného programu</div>
+
+            <div class="product-actions">
+                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-credit-card"></i> Kúpiť
+                </a>
+                <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
+                    <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
+                </a>
+                <button type="button" class="btn-add-cart add-to-cart" data-id="0">
+                    <i class="fa fa-shopping-cart"></i> Pridať do košíka
+                </button>
+                <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať obsah košíka">
+                    <i class="fa fa-eye"></i> Košík
+                </button>
+            </div>
+
+            <div class="product-image-container">
+                <a data-fancybox="gallery" href='@Url.Content("~/Image/BalanceTest.png")'>
+                    <img src='@Url.Content("~/Image/BalanceTest.png")' alt="BalanceTest">
+                    @*<span class="image-discount-badge">-10 % ZĽAVA</span>*@
+                </a>
+            </div>
+
+            <details class="product-details">
+                <summary>📋 Podrobnosti o produkte</summary>
+                <p>
+                    👉 Všetko prebieha anonymne, bezpečne a v pohodlí domova.<br>
+                    🧩 1. Otestujte sa doma – jednoduchý krvný test (1 kvapka)<br>
+                    📊 2. Získajte výsledky online – detailná správa<br>
+                    💊 3. Upravte výživu – personalizované odporúčania<br>
+                    🎓 4. BalanceTest – náš prémiový produkt
+                </p>
+            </details>
+        </section>
+
+        <!-- Product 8: CollagenBoozt (58.50€ → 52.65€) -->
+        <section class="product-card products" id="product-8" data-product-id="8" data-product-name="CollagenBoozt" data-product-aliases="collagen,kolagen,collaboozt" data-product-image='@Url.Content("~/Image/CollagenBoozt.png")'>
+            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '8', 'CollagenBoozt', '@Url.Content("~/Image/CollagenBoozt.png")', 52.65)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+
+            <span class="product-badge new">🔥 NOVINKA!</span><br>
+            <span class="product-badge discount" style="top: 60px;">-10 % ZĽAVA</span>
+
+            <div class="product-header">
+                <h2>✨ CollagenBoozt (10x46ml)</h2>
+            </div>
+
+            <div class="product-description">
+                Tekutý morský kolagén s príchuťou čerešne. Praktická 10-dňová kúra s morským kolagénom a ďalšími zložkami pre každodennú starostlivosť.
+            </div>
+
+            <div class="discount-notice">
+                🍂 Použite kód <strong>Jesenjetu26</strong> pri platbe a získajte 10 % zľavu.
+            </div>
+
+            <div class="product-pricing">
+                <span class="price-original">58,50€</span>
+                <span class="price-current">52,65€</span>
+                <span class="price-save">Ušetríte 5,85€</span>
+            </div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(52.65m) bodov</strong> do vernostného programu</div>
+
+            <div class="product-actions">
+                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-credit-card"></i> Kúpiť
+                </a>
+                <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
+                    <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
+                </a>
+                <button type="button" class="btn-add-cart add-to-cart" data-id="8">
+                    <i class="fa fa-shopping-cart"></i> Pridať do košíka
+                </button>
+                <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať obsah košíka">
+                    <i class="fa fa-eye"></i> Košík
+                </button>
+            </div>
+
+            <div class="product-image-container">
+                <a data-fancybox="gallery" href='@Url.Content("~/Image/CollagenBoozt.png")'>
+                    <img src='@Url.Content("~/Image/CollagenBoozt.png")' alt="CollagenBoozt">
+                    @*<span class="image-discount-badge">-10 % ZĽAVA</span>*@
+                </a>
+            </div>
+
+            <details class="product-details">
+                <summary>📋 Podrobnosti o produkte</summary>
+                <p>
+                    Collagen Boozt obsahuje morský kolagén a kyselinu hyalurónovú. Morský kolagén zlepšuje štruktúru a pružnosť pokožky. Kyselina hyalurónová udržiava vlhkosť. 10-dňová rutina pre optimálne výsledky. Vitamín C prispieva k správnej tvorbe kolagénu. Biotín a zinok prispievajú k zdravej pokožke.
+                </p>
+            </details>
+        </section>
+
+        <!-- Product 7: Balzam (3€) -->
+        <section class="product-card products" id="product-7" data-product-id="7" data-product-name="Balzam" data-product-aliases="balzam,balm,oriflame balzam,balsam" data-product-image='@Url.Content("~/Image/Balzam.png")'>
+            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '7', 'Balzam', '@Url.Content("~/Image/Balzam.png")', 3.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+
+            <div class="product-header">
+                <h2>💄 Balzam na pery</h2>
+            </div>
+
+            <div class="product-description">
+                Praktický balzam na pery s príjemnou príchuťou.
+            </div>
+
+            <div class="product-pricing">
+                <span class="price-current">3,00€</span>
+            </div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(3.00m) bodov</strong> do vernostného programu</div>
+
+            <div class="product-actions">
+                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-credit-card"></i> Kúpiť
+                </a>
+                <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
+                    <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
+                </a>
+                <button type="button" class="btn-add-cart add-to-cart" data-id="7">
+                    <i class="fa fa-shopping-cart"></i> Pridať do košíka
+                </button>
+                <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať obsah košíka">
+                    <i class="fa fa-eye"></i> Košík
+                </button>
+            </div>
+
+            <div class="product-image-container">
+                <a data-fancybox="gallery" href='@Url.Content("~/Image/Balzam.png")'>
+                    <img src='@Url.Content("~/Image/Balzam.png")' alt="Balzam">
+                    <span class="image-discount-badge">-10 % ZĽAVA</span>
+                </a>
+            </div>
+
+            <details class="product-details">
+                <summary>📋 Podrobnosti o produkte</summary>
+                <p>
+                    Balzam na pery – prírodný hojivý zázrak. Teraz dostupný v príchuti Malina/Slivka. Perfektný darček pre niekoho špeciálneho.
+                </p>
+            </details>
+        </section>
+
+
+
+
+        <!-- Product 9: BalancePack 4-in-1 -->
+        <section class="product-card products" id="product-9" data-product-id="9"
+                 data-product-name="BalancePack4v1"
+                 data-product-aliases="balance pack,balancepack,balance pack 4 in 1,balancepack4in1"
+                 data-product-image='@Url.Content("~/Image/BalancePack4v1.png")'>
+            <button class="product-heart-btn"
+                    onclick="toggleProductFavorite(event, '9', 'BalancePack4v1', '@Url.Content("~/Image/BalancePack4v1.png")', 15.95 )"
+                    title="Pridať do obľúbených" aria-label="Pridať do obľúbených">
+                🤍
             </button>
-            <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať položky v košíku">
-                <i class="fa fa-eye"></i> Košík
-            </button>
-        </div>
 
-        <div class="product-image-container">
-            <a data-fancybox="gallery" href='@Url.Content("~/Image/Davkovacie pohare.png")'>
-                <img src='@Url.Content("~/Image/Davkovacie pohare.png")' alt="Dávkovacie poháre">
-            </a>
-        </div>
+            <span class="product-badge new">🎁 BALÍK</span><br>
+            @*<span class="product-badge discount image-discount">-10 % ZĽAVA</span>*@
+            <span class="product-badge discount">-10 % ZĽAVA</span>
+            <div class="product-header">
+                <h2>🎁 BalancePack 4-in-1</h2>
+            </div>
 
-        <details class="product-details">
-            <summary>📋 Zobraziť podrobnosti o produkte</summary>
-            <p>Plastové dávkovacie poháre (10ks) vhodné do umývačky riadov s mierkou v ml a tsp (kávová lyžička).</p>
-        </details>
-    </section>
+            <div class="product-description">
+                Kompletný balík pre každodennú starostlivosť o zdravie: BalanceOil, Zinobiotic, Zinzino Xtend a CollagenBoozt. Praktická 120-dňová kúra s morským kolagénom a ďalšími produktami pre každodennú starostlivosť.
+            </div>
 
-    <!-- Product 2: Zinobiotic (40€) -->
-    <section class="product-card products" id="product-2" data-product-id="2" data-product-name="Zinobiotic" data-product-aliases="zinobiotic,probiotika,probiotiká" data-product-image='@Url.Content("~/Image/Zinobiotic2025.png")'>
-        <button class="product-heart-btn" onclick="toggleProductFavorite(event, '2', 'Zinobiotic', '@Url.Content("~/Image/Zinobiotic2025.png")', 40.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+            <div class="discount-notice">
+                🍂 Použite kód <strong>Jesenjetu26</strong> pri platbe a získajte 10 % zľavu.
+            </div>
 
-        <div class="product-header">
-            <h2>🦠 Zinobiotic+</h2>
-        </div>
+            <div class="product-pricing">
+                <span class="price-original">173,70€</span>
+                <span class="price-current">156,33€</span>
+                <span class="price-save">Ušetríte 17,37€</span>
+            </div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(156.33m) bodov</strong> do vernostného programu</div>
+                    
+            <div class="product-actions">
+                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-credit-card"></i> Kúpiť
+                </a>
+                <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
+                    <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
+                </a>
+                <button type="button" class="btn-add-cart add-to-cart" data-id="9">
+                    <i class="fa fa-shopping-cart"></i> Pridať do košíka
+                </button>
+                <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať obsah košíka">
+                    <i class="fa fa-eye"></i> Košík
+                </button>
+            </div>
 
-        <div class="product-description">
-            Nie je to len doplnok – je to systém pre vaše zdravie. Podpora zdravého črevného mikrobiómu.
-        </div>
+            <div class="product-image-container">
+                <a data-fancybox="gallery" href='@Url.Content("~/Image/BalancePack4v1.png")'>
+                    <img src='@Url.Content("~/Image/BalancePack4v1.png")' alt="BalancePack 4-in-1">
+                    @*<span class="image-discount-badge">-10 % ZĽAVA</span>*@
+                </a>
+            </div>
 
-        <div class="product-pricing">
-            <span class="price-current">40,00€</span>
-        </div>
-        <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(40.00m) bodov</strong> do vernostného programu</div>
-
-        <div class="product-actions">
-            <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
-                <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
-            </a>
-            <button type="button" class="btn-add-cart add-to-cart" data-id="2">
-                <i class="fa fa-shopping-cart"></i> Pridať do košíka
-            </button>
-            <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať položky v košíku">
-                <i class="fa fa-eye"></i> Košík
-            </button>
-        </div>
-
-        <div class="product-image-container">
-            <a data-fancybox="gallery" href='@Url.Content("~/Image/Zinobiotic2025.png")'>
-                <img src='@Url.Content("~/Image/Zinobiotic2025.png")' alt="Zinobiotic">
-            </a>
-        </div>
-
-        <details class="product-details">
-            <summary>📋 Zobraziť podrobnosti o produkte</summary>
-            <p>
-                Črevá sa už dlho označujú za druhý mozog, ale až v posledných rokoch si začíname uvedomovať, aké dôležité sú črevá pre naše zdravie a duševnú pohodu. Pomáha udržiavať optimálnu hladinu cholesterolu vo vašom tele.
-            </p>
-        </details>
-    </section>
-
-    <!-- Product 3: ZinzinoXtend (44€) -->
-    <section class="product-card products" id="product-3" data-product-id="3" data-product-name="ZinzinoXtend" data-product-aliases="zinzino xtend,xtend,imunita" data-product-image='@Url.Content("~/Image/ZinzinoXtend.png")'>
-        <button class="product-heart-btn" onclick="toggleProductFavorite(event, '3', 'ZinzinoXtend', '@Url.Content("~/Image/ZinzinoXtend.png")', 39.60)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
-
-        <span class="product-badge discount">-10% ZĽAVA</span>
-
-        <div class="product-header">
-            <h2>💪 Zinzino Xtend</h2>
-        </div>
-
-        <div class="product-description">
-            Najpokročilejší imunitný a výživový doplnok s 23 vitamínmi a minerálmi.
-        </div>
-
-        <div class="discount-notice">
-            🎉 Použite kód <strong>LETOJETU26</strong> pri platbe a získajte 10% zľavu!
-        </div>
-
-        <div class="product-pricing">
-            <span class="price-original">44,00€</span>
-            <span class="price-current">39,60€</span>
-            <span class="price-save">Ušetríte 4,40€</span>
-        </div>
-        <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(39.60m) bodov</strong> do vernostného programu</div>
-
-        <div class="product-actions">
-            <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
-                <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
-            </a>
-            <button type="button" class="btn-add-cart add-to-cart" data-id="3">
-                <i class="fa fa-shopping-cart"></i> Pridať do košíka
-            </button>
-            <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať položky v košíku">
-                <i class="fa fa-eye"></i> Košík
-            </button>
-        </div>
-
-        <div class="product-image-container">
-            <a data-fancybox="gallery" href='@Url.Content("~/Image/ZinzinoXtend.png")'>
-                <img src='@Url.Content("~/Image/ZinzinoXtend.png")' alt="ZinzinoXtend">
-            </a>
-        </div>
-
-        <details class="product-details">
-            <summary>📋 Zobraziť podrobnosti o produkte</summary>
-            <p>
-                Xtend je vynikajúcim zdrojom mikro- a fytonutrientov, ktorý obsahuje 23 základných vitamínov a minerálov. Ideálny doplnok k prípravkom BalanceOil a ZinoBiotic.
-            </p>
-        </details>
-    </section>
-
-    <!-- Product 4: BalanceOil 100ml (25€) -->
-    <section class="product-card products" id="product-4" data-product-id="4" data-product-name="BalanceOil orange 100ml" data-product-aliases="balance oil 100ml,balanceoil 100ml,100ml,orange 100ml" data-product-image='@Url.Content("~/Image/BalanceOil orange 100ml.png")'>
-        <button class="product-heart-btn" onclick="toggleProductFavorite(event, '4', 'BalanceOil orange 100ml', '@Url.Content("~/Image/BalanceOil orange 100ml.png")', 25.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
-
-        <div class="product-header">
-            <h2>💊 BalanceOil+ Orange 100ml</h2>
-        </div>
-
-        <div class="product-description">
-            Menšie balenie nášho bestselleru – ideálne na vyskúšanie.
-        </div>
-
-        <div class="product-pricing">
-            <span class="price-current">25,00€</span>
-        </div>
-        <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(25.00m) bodov</strong> do vernostného programu</div>
-
-        <div class="product-actions">
-            <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
-                <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
-            </a>
-            <button type="button" class="btn-add-cart add-to-cart" data-id="4">
-                <i class="fa fa-shopping-cart"></i> Pridať do košíka
-            </button>
-            <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať položky v košíku">
-                <i class="fa fa-eye"></i> Košík
-            </button>
-        </div>
-
-        <div class="product-image-container">
-            <a data-fancybox="gallery" href='@Url.Content("~/Image/BalanceOil orange 100ml.png")'>
-                <img src='@Url.Content("~/Image/BalanceOil orange 100ml.png")' alt="BalanceOil 100ml">
-            </a>
-        </div>
-
-        <details class="product-details">
-            <summary>📋 Zobraziť podrobnosti o produkte</summary>
-            <p>
-                BalanceOil+ poskytuje veľké množstvo polyfenolov na účinnú absorpciu. Bezpečne zvyšuje a udržiava hladiny omega-3 mastných kyselín.
-            </p>
-        </details>
-    </section>
-
-    <!-- Product 5: Vitamin D Test (65€ → 58.50€) -->
-    <section class="product-card products" id="product-5" data-product-id="5" data-product-name="Vitamin D Test" data-product-aliases="vitamin d,vitamin d test,vitamind,test" data-product-image='@Url.Content("~/Image/VitaminDTest.png")'>
-        <button class="product-heart-btn" onclick="toggleProductFavorite(event, '5', 'Vitamin D Test', '@Url.Content("~/Image/VitaminDTest.png")', 58.50)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
-
-        <span class="product-badge discount">-10% ZĽAVA</span>
-        
-        <div class="product-header">
-            <h2>🧪 Vitamin D Test</h2>
-        </div>
-
-        <div class="product-description">
-            Laboratórne analyzovaný test na zistenie aktuálneho stavu vitamínu D.
-        </div>
-
-        <div class="discount-notice">
-            🎉 Použite kód <strong>LETOJETU26</strong> pri platbe a získajte 10% zľavu!
-        </div>
-
-        <div class="product-pricing">
-            <span class="price-original">65,00€</span>
-            <span class="price-current">58,50€</span>
-            <span class="price-save">Ušetríte 6,50€</span>
-        </div>
-        <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(58.50m) bodov</strong> do vernostného programu</div>
-
-        <div class="product-actions">
-            <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
-                <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
-            </a>
-            <button type="button" class="btn-add-cart add-to-cart" data-id="5">
-                <i class="fa fa-shopping-cart"></i> Pridať do košíka
-            </button>
-            <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať položky v košíku">
-                <i class="fa fa-eye"></i> Košík
-            </button>
-        </div>
-
-        <div class="product-image-container">
-            <a data-fancybox="gallery" href='@Url.Content("~/Image/VitaminDTest.png")'>
-                <img src='@Url.Content("~/Image/VitaminDTest.png")' alt="Test">
-            </a>
-        </div>
-
-        <details class="product-details">
-            <summary>📋 Zobraziť podrobnosti o produkte</summary>
-            <p>
-                VitaminD Test je dôverný test suchej kvapky krvi, ktorý odhalí aktuálny stav. Výsledok je zosumarizovaný v ľahko pochopiteľnej grafike. Test sa odporúča vykonať každých 120 dní.
-            </p>
-        </details>
-    </section>
-
-    <!-- Product 0: BalanceTest (195€ → 175.50€) -->
-    <section class="product-card products" id="product-0" data-product-id="0" data-product-name="BalanceTest" data-product-aliases="balancetest,balance test,test" data-product-image='@Url.Content("~/Image/BalanceTest.png")'>
-        <button class="product-heart-btn" onclick="toggleProductFavorite(event, '0', 'BalanceTest', '@Url.Content("~/Image/BalanceTest.png")', 175.50)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
-
-        <span class="product-badge discount">-10% ZĽAVA</span>
-        
-        <div class="product-header">
-            <h2>🎓 BalanceTest – Prémiový Produkt</h2>
-        </div>
-
-        <div class="product-description">
-            Komplexný test pomeru Omega-3 a Omega-6 mastných kyselín.
-        </div>
-
-        <div class="discount-notice">
-            🎉 Použite kód <strong>LETOJETU26</strong> pri platbe a získajte 10% zľavu!
-        </div>
-
-        <div class="product-pricing">
-            <span class="price-original">195,00€</span>
-            <span class="price-current">175,50€</span>
-            <span class="price-save">Ušetríte 19,50€</span>
-        </div>
-        <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(175.50m) bodov</strong> do vernostného programu</div>
-
-        <div class="product-actions">
-            <a href='@Url.Action("Kontakt","Home")' class="btn-stripe">
-                <i class="fa fa-envelope"></i> Zistiť viac informácií
-            </a>
-            <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
-                <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
-            </a>
-            <button type="button" class="btn-add-cart add-to-cart" data-id="0">
-                <i class="fa fa-shopping-cart"></i> Pridať do košíka
-            </button>
-            <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať položky v košíku">
-                <i class="fa fa-eye"></i> Košík
-            </button>
-        </div>
-
-        <div class="product-image-container">
-            <a data-fancybox="gallery" href='@Url.Content("~/Image/BalanceTest.png")'>
-                <img src='@Url.Content("~/Image/BalanceTest.png")' alt="BalanceTest">
-            </a>
-        </div>
-
-        <details class="product-details">
-            <summary>📋 Zobraziť podrobnosti o produkte</summary>
-            <p>
-                👉 Všetko prebieha anonymne, bezpečne a v pohodlí domova.<br>
-                🧩 1. Otestujte sa doma – jednoduchý krvný test (1 kvapka)<br>
-                📊 2. Získajte výsledky online – detailná správa<br>
-                💊 3. Upravte výživu – personalizované odporúčania<br>
-                🎓 4. BalanceTest – náš prémiový produkt
-            </p>
-        </details>
-    </section>
-
-    <!-- Product 8: CollagenBoozt (85€ → 76.50€) -->
-    <section class="product-card products" id="product-8" data-product-id="8" data-product-name="CollagenBoozt" data-product-aliases="collagen,kolagen,collaboozt" data-product-image='@Url.Content("~/Image/CollagenBoozt.png")'>
-        <button class="product-heart-btn" onclick="toggleProductFavorite(event, '8', 'CollagenBoozt', '@Url.Content("~/Image/CollagenBoozt.png")', 58.50)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
-
-        <span class="product-badge new">🔥 NOVINKA!</span>
-        <span class="product-badge discount" style="top: 60px;">-10% ZĽAVA</span>
-        
-        <div class="product-header">
-            <h2>✨ CollagenBoozt (10x46ml)</h2>
-        </div>
-
-        <div class="product-description">
-            Tekutý morský kolagén s príchuťou čerešne. Nová generácia kolagénových doplnkov!
-        </div>
-
-        <div class="discount-notice">
-            🎉 Použite kód <strong>LETOJETU26</strong> pri platbe a získajte 10% zľavu!
-        </div>
-
-        <div class="product-pricing">
-            <span class="price-original">65,00€</span>
-            <span class="price-current">58,50€</span>
-            <span class="price-save">Ušetríte 6,50€</span>
-        </div>
-        <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(58.50m) bodov</strong> do vernostného programu</div>
-
-        <div class="product-actions">
-            <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
-                <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
-            </a>
-            <button type="button" class="btn-add-cart add-to-cart" data-id="8">
-                <i class="fa fa-shopping-cart"></i> Pridať do košíka
-            </button>
-            <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať položky v košíku">
-                <i class="fa fa-eye"></i> Košík
-            </button>
-        </div>
-
-        <div class="product-image-container">
-            <a data-fancybox="gallery" href='@Url.Content("~/Image/CollagenBoozt.png")'>
-                <img src='@Url.Content("~/Image/CollagenBoozt.png")' alt="CollagenBoozt">
-            </a>
-        </div>
-
-        <details class="product-details">
-            <summary>📋 Zobraziť podrobnosti o produkte</summary>
-            <p>
-                Collagen Boozt obsahuje morský kolagén a kyselinu hyalurónovú. Morský kolagén zlepšuje štruktúru a pružnosť pokožky. Kyselina hyalurónová udržiava vlhkosť. 10-dňová rutina pre optimálne výsledky. Vitamín C prispieva k správnej tvorbe kolagénu. Biotín a zinok prispievajú k zdravej pokožke.
-            </p>
-        </details>
-    </section>
-
-    <!-- Product 7: Balzam (3€) -->
-    <section class="product-card products" id="product-7" data-product-id="7" data-product-name="Balzam" data-product-aliases="balzam,balm,oriflame balzam,balsam" data-product-image='@Url.Content("~/Image/Balzam.png")'>
-        <button class="product-heart-btn" onclick="toggleProductFavorite(event, '7', 'Balzam', '@Url.Content("~/Image/Balzam.png")', 3.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
-
-        <div class="product-header">
-            <h2>💄 Balzam na pery</h2>
-        </div>
-
-        <div class="product-description">
-            Ikonický produkt z Oriflamu – prírodný hojivý zázrak. Príchuť malina.
-        </div>
-
-        <div class="product-pricing">
-            <span class="price-current">3,00€</span>
-        </div>
-        <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(3.00m) bodov</strong> do vernostného programu</div>
-
-        <div class="product-actions">
-            <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
-                <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
-            </a>
-            <button type="button" class="btn-add-cart add-to-cart" data-id="7">
-                <i class="fa fa-shopping-cart"></i> Pridať do košíka
-            </button>
-            <button type="button" class="btn-view-cart" onclick="openSideCart()" title="Skontrolovať položky v košíku">
-                <i class="fa fa-eye"></i> Košík
-            </button>
-        </div>
-
-        <div class="product-image-container">
-            <a data-fancybox="gallery" href='@Url.Content("~/Image/Balzam.png")'>
-                <img src='@Url.Content("~/Image/Balzam.png")' alt="Balzam">
-            </a>
-        </div>
-
-        <details class="product-details">
-            <summary>📋 Zobraziť podrobnosti o produkte</summary>
-            <p>
-                Balzam na pery – prírodný hojivý zázrak. Teraz dostupný v príchuti Malina/Slivka. Perfektný darček pre niekoho špeciálneho.
-            </p>
-        </details>
-    </section>
-
-    <!-- Footer Notice -->
+            <details class="product-details">
+                <summary>📋 Podrobnosti o produkte</summary>
+                <p>
+                    BalancePack 4-in-1 obsahuje BalanceOil, Zinobiotic, Zinzino Xtend a CollagenBoozt.
+                    Balík je určený na podporu vyváženej výživy, trávenia, imunity, pokožky a kĺbov.
+                    Collagen Boozt obsahuje morský kolagén a kyselinu hyalurónovú. Morský kolagén zlepšuje štruktúru a pružnosť pokožky. Kyselina hyalurónová udržiava vlhkosť. 120-dňová rutina pre optimálne výsledky. Vitamín C prispieva k správnej tvorbe kolagénu. Biotín a zinok prispievajú k zdravej pokožke.
+                </p>
+            </details>
+        </section>
+    </div>
+        <!-- Footer Notice -->
     <div style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 30px; border-radius: 12px; text-align: center; margin-top: 40px;">
         <h3 style="color: #5d33fb; margin-bottom: 15px;">📦 Táto sekcia sa neustále rozširuje</h3>
         <p style="color: #555; margin-bottom: 20px;">Ďakujeme za pochopenie a dôveru v naše produkty!</p>
@@ -1123,9 +1351,9 @@
                         if (!isMatch) {
                             var tokens = q.split(' ');
                             for (var t = 0; t < tokens.length; t++) {
-                                if (tokens[t] && hay.indexOf(tokens[t]) >= 0) { 
-                                    isMatch = true; 
-                                    break; 
+                                if (tokens[t] && hay.indexOf(tokens[t]) >= 0) {
+                                    isMatch = true;
+                                    break;
                                 }
                             }
                         }
@@ -1159,7 +1387,27 @@
                 applySearch(initialQuery);
             }
         })();
+
     </script>
+
+    <script>
+        // Ensure side-cart sees the same updated price for Zinobiotic as Kosik page
+        (function () {
+            try {
+                if (window.__lws_products && window.__lws_products['2']) {
+                    window.__lws_products['2'].Price = 36.00;
+                }
+                if (window.__lws_products && window.__lws_products['Zinobiotic']) {
+                    window.__lws_products['Zinobiotic'].Price = 36.00;
+                }
+                // Re-render header/side cart if available
+                if (typeof window.lwsRenderCartHeader === 'function') window.lwsRenderCartHeader();
+                if (typeof window.lwsRenderCartPage === 'function') window.lwsRenderCartPage();
+            } catch (e) { }
+        })();
+    </script>
+
 }
+
 
 

@@ -175,6 +175,71 @@
         flex: 1;
     }
 
+    /* ===== REPAIR GALLERY ===== */
+    .repair-gallery {
+        margin-bottom: 50px;
+    }
+
+    .repair-sample-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        border-top: 4px solid #5d33fb;
+        height: 100%;
+    }
+
+    .repair-sample-card h3 {
+        color: #5d33fb;
+        font-weight: 700;
+        margin-bottom: 12px;
+        font-size: 22px;
+    }
+
+    .repair-sample-card p {
+        color: #666;
+        line-height: 1.7;
+        margin-bottom: 18px;
+    }
+
+    .repair-sample-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 18px;
+    }
+
+    .repair-photo-item {
+        background: linear-gradient(135deg, #f8fbff 0%, #eef3fb 100%);
+        border-radius: 12px;
+        padding: 14px;
+        text-align: center;
+        border: 1px solid rgba(93, 51, 251, 0.10);
+    }
+
+    .repair-photo-item img {
+        width: 100%;
+        max-height: 240px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+        margin-bottom: 10px;
+    }
+
+    .repair-photo-item strong {
+        display: block;
+        color: #333;
+        font-size: 15px;
+        margin-bottom: 4px;
+    }
+
+    .repair-photo-item span {
+        display: block;
+        color: #777;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
     /* ===== PROCESS CARD ===== */
     .process-card {
         background: #fff;
@@ -526,6 +591,10 @@
                     <div class="service-icon">🖥️</div>
                     <h3>Oprava Počítačov</h3>
                     <p>Profesionálna diagnostika a oprava všetkých typov porúch. Od výmeny hardvéru až po softvérové problémy.</p>
+                    <div style="margin-top:12px;">
+                        <button type="button" class="btn btn-sm btn-add-cart add-to-cart" data-id="102">Pridať do košíka</button>
+                        <a href="@Url.Action("Kontakt","Home")" class="btn btn-sm btn-secondary" style="margin-left:8px;">Kontaktovať</a>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4">
@@ -533,6 +602,10 @@
                     <div class="service-icon">⚙️</div>
                     <h3>Optimalizácia</h3>
                     <p>Vyčistenie systému, zrýchlenie chodu, odstránenie zbytočných programov a nadbytočných súborov.</p>
+                    <div style="margin-top:12px;">
+                        <button type="button" class="btn btn-sm btn-add-cart add-to-cart" data-id="103">Pridať do košíka</button>
+                        <a href="@Url.Action("Kontakt","Home")" class="btn btn-sm btn-secondary" style="margin-left:8px;">Kontaktovať</a>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4">
@@ -540,6 +613,10 @@
                     <div class="service-icon">🔒</div>
                     <h3>Bezpečnosť</h3>
                     <p>Ochrana pred malvérom, vírusmi a kyberutokmi. Aktualizácie bezpečnosti a správa hesiel.</p>
+                    <div style="margin-top:12px;">
+                        <button type="button" class="btn btn-sm btn-add-cart add-to-cart" data-id="104">Pridať do košíka</button>
+                        <a href="@Url.Action("Kontakt","Home")" class="btn btn-sm btn-secondary" style="margin-left:8px;">Kontaktovať</a>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4">
@@ -547,6 +624,10 @@
                     <div class="service-icon">📱</div>
                     <h3>Smartfóny & Tablety</h3>
                     <p>Opravy a nastavenia pre iOS a Android zariadenia. Obnova dát a optimalizácia výkonu.</p>
+                    <div style="margin-top:12px;">
+                        <button type="button" class="btn btn-sm btn-add-cart add-to-cart" data-id="102">Pridať do košíka</button>
+                        <a href="@Url.Action("Kontakt","Home")" class="btn btn-sm btn-secondary" style="margin-left:8px;">Kontaktovať</a>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4">
@@ -554,6 +635,10 @@
                     <div class="service-icon">🌐</div>
                     <h3>Sieťové Služby</h3>
                     <p>Nastavenie Wi‑Fi, správa routerov, domáce siete a bezpečné pripojenia.</p>
+                    <div style="margin-top:12px;">
+                        <button type="button" class="btn btn-sm btn-add-cart add-to-cart" data-id="104">Pridať do košíka</button>
+                        <a href="@Url.Action("Kontakt","Home")" class="btn btn-sm btn-secondary" style="margin-left:8px;">Kontaktovať</a>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4">
@@ -561,6 +646,53 @@
                     <div class="service-icon">💾</div>
                     <h3>Zálohy & Obnova</h3>
                     <p>Bezpečné zálohovanie údajov a obnova stratených súborov z rôznych zdrojov.</p>
+                    <div style="margin-top:12px;">
+                        <button type="button" class="btn btn-sm btn-add-cart add-to-cart" data-id="104">Pridať do košíka</button>
+                        <a href="@Url.Action("Kontakt","Home")" class="btn btn-sm btn-secondary" style="margin-left:8px;">Kontaktovať</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="repair-gallery">
+            <h2 class="section-title">📸 Ukážky našej práce</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="repair-sample-card">
+                        <h3>🔊 Oprava starých poškodených reproduktorov v notebooku</h3>
+                        <p>Ukážka našej práce pri servise notebooku, kde sme pôvodne poškodené reproduktory vymenili za nové funkčné diely.</p>
+                        <div class="repair-sample-grid">
+                            <div class="repair-photo-item">
+                                <a data-fancybox="itservis-speaker" href='@Url.Content("~/Image/repropred.jpg")'>
+                                    <img src='@Url.Content("~/Image/repropred.jpg")' alt="Speaker before" />
+                                </a>
+                                <strong>Pred opravou</strong>
+                                <span>Poškodené pôvodné reproduktory pred výmenou.</span>
+                            </div>
+                            <div class="repair-photo-item">
+                                <a data-fancybox="itservis-speaker" href='@Url.Content("~/Image/reprovymenene.jpg")'>
+                                    <img src='@Url.Content("~/Image/reprovymenene.jpg")' alt="Speaker replacement" />
+                                </a>
+                                <strong>Po výmene</strong>
+                                <span>Nové reproduktory po úspešnej oprave notebooku.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="repair-sample-card">
+                        <h3>🖱️ Výmena touchpadu ako ďalšia ukážka servisu</h3>
+                        <p>Ďalšia ukážka našej práce pri výmene touchpadu v notebooku, keď pôvodný diel už nefungoval správne alebo bol mechanicky poškodený.</p>
+                        <div class="repair-sample-grid">
+                            <div class="repair-photo-item">
+                                <a data-fancybox="itservis-touchpad" href='@Url.Content("~/Image/vymenatp.jpg")'>
+                                    <img src='@Url.Content("~/Image/vymenatp.jpg")' alt="Touchpad replacement" />
+                                </a>
+                                <strong>Výmena touchpadu</strong>
+                                <span>Ukážka precíznej výmeny touchpadu pri oprave notebooku.</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

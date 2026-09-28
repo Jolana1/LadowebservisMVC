@@ -1,0 +1,371 @@
+@{
+    ViewBag.Title = "Subscribe";
+}
+
+<style>
+    /* ========== SUBSCRIBE PAGE STYLES ========== */
+    .subscribe-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        min-height: calc(100vh - 200px);
+    }
+
+    /* ========== HERO SECTION ========== */
+    .subscribe-hero {
+        background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+        color: #fff;
+        padding: 50px 30px;
+        border-radius: 12px;
+        text-align: center;
+        margin-bottom: 40px;
+        box-shadow: 0 10px 30px rgba(93, 51, 251, 0.3);
+    }
+
+    .subscribe-hero i {
+        font-size: 64px;
+        margin-bottom: 20px;
+        opacity: 0.9;
+    }
+
+    .subscribe-hero h1 {
+        font-size: 36px;
+        font-weight: 700;
+        margin: 0 0 15px 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .subscribe-hero p {
+        font-size: 18px;
+        opacity: 0.95;
+        margin: 0;
+    }
+
+    /* ========== CONTENT CARD ========== */
+    .subscribe-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        margin-bottom: 30px;
+    }
+
+    .subscribe-card h2 {
+        color: #5d33fb;
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0 0 20px 0;
+    }
+
+    .subscribe-card p {
+        color: #555;
+        font-size: 16px;
+        line-height: 1.8;
+        margin-bottom: 20px;
+    }
+
+    /* ========== STATUS MESSAGES ========== */
+    .status-success {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: #fff;
+        padding: 25px;
+        border-radius: 8px;
+        text-align: center;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+    }
+
+    .status-success i {
+        font-size: 48px;
+        margin-bottom: 15px;
+    }
+
+    .status-success h3 {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0 0 10px 0;
+    }
+
+    .status-success p {
+        font-size: 16px;
+        margin: 0;
+        opacity: 0.95;
+    }
+
+    .status-error {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        color: #fff;
+        padding: 25px;
+        border-radius: 8px;
+        text-align: center;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+    }
+
+    .status-error i {
+        font-size: 48px;
+        margin-bottom: 15px;
+    }
+
+    .status-error h3 {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0 0 10px 0;
+    }
+
+    .status-error p {
+        font-size: 16px;
+        margin: 0;
+        opacity: 0.95;
+    }
+
+    /* ========== INFO BOXES ========== */
+    .info-box {
+        background: #f8f9fa;
+        border-left: 4px solid #5d33fb;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .info-box h4 {
+        color: #5d33fb;
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0 0 10px 0;
+    }
+
+    .info-box ul {
+        margin: 0;
+        padding-left: 20px;
+    }
+
+    .info-box ul li {
+        color: #555;
+        padding: 5px 0;
+    }
+
+    /* ========== BUTTONS ========== */
+    .btn-primary-custom {
+        background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
+        color: #fff;
+        padding: 15px 40px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(93, 51, 251, 0.3);
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-primary-custom:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(93, 51, 251, 0.4);
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .btn-secondary-custom {
+        background: #f8f9fa;
+        color: #5d33fb;
+        padding: 15px 40px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        border: 2px solid #5d33fb;
+    }
+
+    .btn-secondary-custom:hover {
+        background: #5d33fb;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .button-group {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @@media (max-width: 768px) {
+        .subscribe-container {
+            padding: 15px;
+        }
+
+        .subscribe-hero {
+            padding: 35px 20px;
+        }
+
+        .subscribe-hero h1 {
+            font-size: 28px;
+        }
+
+        .subscribe-hero i {
+            font-size: 48px;
+        }
+
+        .subscribe-card {
+            padding: 25px 20px;
+        }
+
+        .button-group {
+            flex-direction: column;
+        }
+
+        .btn-primary-custom,
+        .btn-secondary-custom {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="subscribe-container">
+    @{
+        var status = TempData["SubscribeEmailStatus"] as string ?? "";
+        var message = TempData["SubscribeEmailMessage"] as string ?? "";
+        var isSuccess = string.Equals(status, "success", StringComparison.OrdinalIgnoreCase);
+        var hasMessage = !string.IsNullOrWhiteSpace(message);
+    }
+
+    <!-- Hero Section -->
+    <div class="subscribe-hero">
+        <i class="fa @(isSuccess ? "fa-check-circle" : "fa-envelope")"></i>
+        <h1>Odber noviniek</h1>
+        <p>Vitajte v nasej newslettrovej komunite</p>
+    </div>
+
+    @if (hasMessage)
+    {
+        if (isSuccess)
+        {
+            <!-- Success Message -->
+            <div class="status-success">
+                <i class="fa fa-check-circle"></i>
+                <h3>✅ Uspesne potvrdene!</h3>
+                <p>@message</p>
+            </div>
+        }
+        else
+        {
+            <!-- Error Message -->
+            <div class="status-error">
+                <i class="fa fa-exclamation-circle"></i>
+                <h3>❌ Chyba</h3>
+                <p>@message</p>
+            </div>
+        }
+    }
+
+    @if (isSuccess)
+    {
+        <!-- Success Content Card -->
+        <div class="subscribe-card">
+            <h2>📧 Co teraz dostanete?</h2>
+
+            <p>
+                Dakujeme za potvrdenie odberu nasich noviniek! Odteraz budete informovani o aktualnych udalostiach a ponukach.
+            </p>
+
+            <!-- What You'll Receive -->
+            <div class="info-box">
+                <h4>✅ Od tejto chvile budete dostavat:</h4>
+                <ul>
+                    <li><strong>Pravidelne novinky</strong> - informacie o novych produktoch a sluzbach</li>
+                    <li><strong>Exkluzivne akcie</strong> - specialne ponuky len pre odberatelov</li>
+                    <li><strong>Zaujimave clanky</strong> - tipy pre zdravie a web/IT sluzby</li>
+                    <li><strong>Informacie o doprave a platbach</strong> - novinky o moznostiach nakupu</li>
+                </ul>
+            </div>
+
+            <p>
+                Ak si budete zelat odber neskor zrusit, kazdy email bude obsahovat odkaz na odhlasenie.
+            </p>
+
+            <!-- Call to Action Buttons -->
+            <div class="button-group">
+                <a href="@Url.Action("Zdravie", "Home")" class="btn-primary-custom">
+                    <i class="fa fa-heart"></i> Prehliadnut produkty Zdravie
+                </a>
+                <a href="@Url.Action("ITservis", "Home")" class="btn-secondary-custom">
+                    <i class="fa fa-laptop"></i> Web/IT sluzby
+                </a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <!-- Default/Error Content Card -->
+        <div class="subscribe-card">
+            <h2>📧 Odber noviniek</h2>
+
+            @if (hasMessage)
+            {
+                <p>
+                    Vyskytol sa problem pri potvrdeni odberu. Prosim, skuste to znova alebo kontaktujte naseho supportu.
+                </p>
+
+                <div class="info-box">
+                    <h4>🔍 Co mozete skusit:</h4>
+                    <ul>
+                        <li>Skontrolujte, ci ste pouzili spravny potvrdzovaci odkaz z emailu</li>
+                        <li>Potvrdzovaci odkaz moze byt platny len obmedzen dobu</li>
+                        <li>Skuste sa prihlasit k odberu znova</li>
+                        <li>Ak problem pretrva, kontaktujte nas na info@ladowebservis.sk</li>
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <p>
+                    Pre prihlasenie k odberu noviniek navstivte nasu hlavnu stranku a zadajte svoj email v paticke stranky.
+                </p>
+
+                <p>
+                    Po zadani emailu vam pride potvrdzovaci email s odkazom na aktivaciu odberu.
+                </p>
+
+                <div class="info-box">
+                    <h4>✅ Co vam prinasame:</h4>
+                    <ul>
+                        <li><strong>Pravidelne novinky</strong> - informacie o novych produktoch a sluzbach</li>
+                        <li><strong>Exkluzivne akcie</strong> - specialne ponuky len pre odberatelov</li>
+                        <li><strong>Zaujimave clanky</strong> - tipy pre zdravie a web/IT sluzby</li>
+                        <li><strong>Informacie o doprave a platbach</strong> - novinky o moznostiach nakupu</li>
+                    </ul>
+                </div>
+            }
+
+            <!-- Call to Action Buttons -->
+            <div class="button-group">
+                <a href="@Url.Action("Zdravie", "Home")" class="btn-primary-custom">
+                    <i class="fa fa-home"></i> Prejst na hlavnu stranku
+                </a>
+                <a href="@Url.Action("Kontakt", "Home")" class="btn-secondary-custom">
+                    <i class="fa fa-envelope"></i> Kontaktujte nas
+                </a>
+            </div>
+        </div>
+    }
+
+    <!-- Privacy Info -->
+    <div class="subscribe-card">
+        <h2>🔒 Ochrana osobnych udajov</h2>
+        <p>
+            Vase osobne udaje chranime podla GDPR. Vase emailove adresy pouzivame len na zaslanie noviniek
+            a nikdy ich neposkytujeme tretim stranam. Kazdy email obsahuje moznost odhlasenia z odberu.
+        </p>
+        <p>
+            Viac informacii najdete v nasich <a href="@Url.Action("Gdpr", "Home")" style="color: #5d33fb; font-weight: 600;">Zasadach ochrany osobnych udajov</a>.
+        </p>
+    </div>
+</div>

@@ -676,6 +676,7 @@
     <Content Include="Image\Balance oil orange.jpg" />
     <Content Include="Image\BalanceOil.png" />
     <Content Include="Image\Balanceoilaqua.png" />
+    <Content Include="Image\BalancePack4v1.png" />
     <Content Include="Image\BalanceTest.png" />
     <Content Include="Image\Balzam.png" />
     <Content Include="Image\basic%281%29.css" />
@@ -1054,7 +1055,6 @@
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Home\Favorites.cshtml" />
     <Content Include="Views\Home\ReturnPolicy.cshtml" />
-    <Content Include="Views\Home\Gdpr.cshtml" />
     <Content Include="Views\Home\Unsubscribe.cshtml" />
     <Content Include="Views\Home\DownloadEbook.cshtml" />
     <Content Include="Views\Server\Cancel.cshtml" />
@@ -1062,6 +1062,8 @@
     <Content Include="Views\Home\Status.cshtml" />
     <Content Include="Views\Home\ObjednavkaPrijata.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Subscribe.cshtml" />
+    <Content Include="Views\Home\Gdpr.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Image\corepack\dist\lib\" />

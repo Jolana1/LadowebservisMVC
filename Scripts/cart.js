@@ -5,7 +5,7 @@
     const productPrices = new Map([
         ['BalanceTest', 195.00],
         ['BalanceOil', 55.00],
-        ['Zinobiotic', 40.00],
+        ['Zinobiotic', 36.00],
         ['ZinzinoXtend', 44.00],
         ['CollagenBoozt', 65.00],
 
@@ -370,6 +370,18 @@
             if (catalog && catalog[key] && catalog[key].Price) unitPrice = parseFloat(catalog[key].Price) || 0;
             else unitPrice = (productPrices && productPrices.get) ? productPrices.get(key) || 0 : 0;
 
+            // original unit price (to show crossed-out old price when applicable)
+            var originalUnitPrice = unitPrice;
+            try {
+                if (catalog && catalog[key] && catalog[key].OriginalPrice) originalUnitPrice = parseFloat(catalog[key].OriginalPrice) || originalUnitPrice;
+            } catch (e) { }
+            // fallback map for legacy cases
+            if (originalUnitPrice === unitPrice) {
+                // define a small inline map for known legacy original prices
+                const originalPrices = new Map([['Zinobiotic', 40.00]]);
+                if (originalPrices.has(key)) originalUnitPrice = originalPrices.get(key);
+            }
+
             const lineBase = unitPrice * (item.quantity || 0);
             const qualifiesForDiscount = qualifiesForTenPercentDiscount(key, lineBase, catalog);
 
@@ -428,7 +440,11 @@
             var lineTotalValue = qualifiesForDiscount ? (baseLine * 0.9) : baseLine;
             var lineTotal = lineTotalValue.toFixed(2);
 
-            if (qualifiesForDiscount) {
+            // If there is a legacy/original price higher than current, show it crossed out
+            if (originalUnitPrice > unitPrice) {
+                var origLine = (originalUnitPrice * (item.quantity || 0)).toFixed(2);
+                priceSpan.innerHTML = '<span style="text-decoration:line-through;color:#999;margin-right:.4rem;font-size:11px;">€' + origLine + '</span><span>€' + lineTotal + '</span>';
+            } else if (qualifiesForDiscount) {
                 priceSpan.innerHTML = '<span style="text-decoration:line-through;color:#999;margin-right:.4rem;font-size:11px;">€' + baseLine.toFixed(2) + '</span><span>€' + lineTotal + '</span>';
             } else {
                 priceSpan.innerHTML = '<span>€' + lineTotal + '</span>';

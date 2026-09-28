@@ -1,8 +1,11 @@
-﻿﻿@{
+﻿@{
     ViewBag.Title = "Zdravie v rovnováhe";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@{
+    ViewBag.Title = "Zdravie";
+    Func<decimal, int> loyaltyPoints = amount => (int)Math.Floor(amount / 10m);
+}
 <style>
     /* Sales Page Styles */
     body {
@@ -16,15 +19,15 @@
         margin-top: 12px;
     }
 
-    .zdravie-container section,
-    .zdravie-container .row,
-    .zdravie-container .special-offer-box,
-    .zdravie-container .it-callout,
-    .zdravie-container .urgency-banner,
-    .zdravie-container .guarantee-box,
-    .zdravie-container .trust-badges {
-        margin-bottom: 32px;
-    }
+        .zdravie-container section,
+        .zdravie-container .row,
+        .zdravie-container .special-offer-box,
+        .zdravie-container .it-callout,
+        .zdravie-container .urgency-banner,
+        .zdravie-container .guarantee-box,
+        .zdravie-container .trust-badges {
+            margin-bottom: 32px;
+        }
 
     .cta-tertiary {
         background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
@@ -59,19 +62,19 @@
         margin: 35px 0 45px 0;
     }
 
-    .it-callout h2 {
-        margin-top: 0;
-        color: #17a2b8;
-        font-weight: 800;
-        font-size: 28px;
-    }
+        .it-callout h2 {
+            margin-top: 0;
+            color: #17a2b8;
+            font-weight: 800;
+            font-size: 28px;
+        }
 
-    .it-callout p {
-        color: #5f6f86;
-        margin: 10px 0 0 0;
-        line-height: 1.75;
-        font-size: 15px;
-    }
+        .it-callout p {
+            color: #5f6f86;
+            margin: 10px 0 0 0;
+            line-height: 1.75;
+            font-size: 15px;
+        }
 
     .it-cards {
         display: grid;
@@ -96,19 +99,19 @@
             box-shadow: 0 10px 30px rgba(23, 162, 184, 0.18);
         }
 
-    .it-card h4 {
-        margin-top: 0;
-        color: #2c3e50;
-        font-weight: 800;
-        font-size: 16px;
-    }
+        .it-card h4 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-weight: 800;
+            font-size: 16px;
+        }
 
-    .it-card .it-icon {
-        font-size: 30px;
-        margin-bottom: 10px;
-        display: inline-block;
-        color: #17a2b8;
-    }
+        .it-card .it-icon {
+            font-size: 30px;
+            margin-bottom: 10px;
+            display: inline-block;
+            color: #17a2b8;
+        }
 
     .it-actions {
         margin-top: 22px;
@@ -133,20 +136,20 @@
         box-shadow: 0 8px 18px rgba(36, 50, 74, 0.08);
     }
 
-    .offer-pack-item img {
-        max-width: 100%;
-        height: 110px;
-        object-fit: contain;
-        margin-bottom: 8px;
-    }
+        .offer-pack-item img {
+            max-width: 100%;
+            height: 110px;
+            object-fit: contain;
+            margin-bottom: 8px;
+        }
 
-    .offer-pack-item span {
-        display: block;
-        color: #5d33fb;
-        font-size: 13px;
-        font-weight: 700;
-        line-height: 1.35;
-    }
+        .offer-pack-item span {
+            display: block;
+            color: #5d33fb;
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.35;
+        }
 
     .hero-section {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -1025,10 +1028,10 @@
         </div>
 
         <div class="urgency-timer">
-            ⏱️ Ponuka platná: do 30.6.2026 alebo do vyčerpania zásob
+            ⏱️ Ponuka platná: do vyčerpania zásob
         </div>
     </div>
-     <!-- ===== VIDEO ===== -->
+    <!-- ===== VIDEO ===== -->
     <div class="row mb-5">
         <div class="col-12">
             <h2 class="section-title">📺 Pozrite Si Video</h2>
@@ -1040,7 +1043,7 @@
             </div>
         </div>
     </div>
-    <!-- ===== IT SERVICES CALLOUT>
+
     <div class="it-callout">
         <h2>💻 Potrebujete aj IT služby?</h2>
         <p>
@@ -1070,19 +1073,18 @@
             <a class="btn btn-primary" href="@Url.Action("ITservis", "Home")">Pozrieť IT služby</a>
             <a class="btn btn-default" href="@Url.Action("Kontakt", "Home")">Napíšte nám</a>
         </div>
-    </div ===== -->
-
+    </div>
     <!-- ===== URGENCY BANNER ===== -->
     <div class="urgency-banner">
         <strong>⚠️ LIMITOVANÁ PONUKA!</strong>
-        <div style="font-size: 16px; margin: 10px 0;">
-            Iba prvých 50 zákazníkov dostane:
-            <br>✅ 10% ZĽAVU na Balance balík
-            <br>✅ BALZAM ZDARMA
-            <br>✅ DOPRAVU CEZ PACKETA ZDARMA v SR IBA NA BALANCE BALÍK
-        </div>
+        @*<div style="font-size: 16px; margin: 10px 0;">
+                Iba prvých 10 zákazníkov dostane:
+                <br>✅ 10% ZĽAVU na Balance balík
+                <br>✅ BALZAM ZDARMA
+                <br>✅ DOPRAVU CEZ PACKETA ZDARMA v SR IBA NA BALANCE BALÍK
+            </div>*@
         <div class="urgency-subtext">
-            Stav zásob: <strong id="stockCounter">5ks balíkov</strong> - Rýchlo sa vypredáva! ⚡
+            Stav zásob: <strong id="stockCounter">50ks balíkov</strong> - Rýchlo sa vypredáva! ⚡
         </div>
     </div>
 
@@ -1119,17 +1121,17 @@
                                 </div>
                             </div>
                             <h4 style="color: #ff9800; font-weight: 700;">Balance Oil + Zinobiotic + ZinzinoXtend + CollagenBoozt</h4>
-                            <p style="color: #d97706; font-size: 14px; font-weight: 600;">Limitovaná edícia - Platnosť do 30.6.2026</p>
+                            <p style="color: #d97706; font-size: 14px; font-weight: 600;">Limitovaná edícia</p>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <ul class="product-feature-list" style="text-align: left;">
-                            <li>✅ <strong>Balance Oil 300ml</strong> - Omega 3 (Pôvodná hodnota: 61€ teraz 54,90€)</li>
+                            <li>✅ <strong>Balance Oil 300ml</strong> - Omega 3 (Pôvodná hodnota: 54,90€ teraz 49,41€)</li>
                             <li>✅ <strong>Zinobiotic</strong> - Probiotiká (Pôvodná hodnota: 40€ teraz 36€)</li>
-                            <li>✅ <strong>ZinzinoXtend</strong> - Imunita + výživa (Pôvodná hodnota: 44€ teraz 39,60€)</li>
-                            <li>✅ <strong>CollagenBoozt</strong> - Pleť + kĺby (Pôvodná hodnota: 65€ teraz 58,50€)</li>
+                            <li>✅ <strong>ZinzinoXtend</strong> - Imunita + výživa (Pôvodná hodnota: 39,60€ teraz 35,64€)</li>
+                            <li>✅ <strong>CollagenBoozt</strong> - Pleť + kĺby (Pôvodná hodnota: 58.50€ teraz 52,65€)</li>
                             <li style="color: #28a745; font-weight: 700; font-size: 16px;">🎁 <strong>BONUS: Balzam ZDARMA</strong> (Hodnota: 3€)</li>
-                            <li style="color: #28a745; font-weight: 700;">🚚 <strong>Doprava na adresu alebo CEZ DPD ZDARMA</strong> v SR IBA NA BALANCE BALÍK</li>
+                            <li style="color: #28a745; font-weight: 700;">🚚 <strong>Doprava na Vašu adresu ZDARMA</strong> v SR a IBA NA BALANCE BALÍK 4in1</li>
                             <li style="color: #5d33fb; font-weight: 700;">👤 <strong>Zarábajte body za</strong> každý úspešný nákup = Body do Vášho reg.konta!Príklad: Pri nákupe za 210€ získate 21€ v bodoch</li>
 
                         </ul>
@@ -1138,22 +1140,22 @@
 
                 <div class="text-center mt-4" style="padding: 30px; background: rgba(255,255,255,0.6); border-radius: 8px;">
                     <div style="margin-bottom: 20px;">
-                        <span class="price-badge">PROMO KÓD: LETOJETU26 = 10% ZĽAVA</span>
+                        <span class="price-badge">PROMO KÓD: Jesenjetu26 = 10% ZĽAVA</span>
                     </div>
 
                     <div style="margin-bottom: 20px;">
                         <h3 style="color: #ff9800; margin: 15px 0; font-weight: 700;">
-                            CELKOVÁ HODNOTA BALÍKA: <span style="font-size: 28px;">213€</span>
+                            CELKOVÁ HODNOTA BALÍKA: <span style="font-size: 28px;">173,70€</span>
                         </h3>
                         <p style="color: #d97706; font-size: 16px; font-weight: 600;">
-                            Vaša cena: <span style="font-size: 24px; color: #28a745;">210€</span> (Ušetríte 3€)
+                            Vaša cena: <span style="font-size: 24px; color: #28a745;">156,33€</span> (Ušetríte 17,37€)
                         </p>
                     </div>
 
                     <div style="margin-bottom: 25px; padding: 15px; background: rgba(40, 167, 69, 0.1); border-radius: 6px; border: 2px dashed #28a745;">
                         <p style="color: #28a745; font-weight: 700; margin: 0; font-size: 16px;">
-                            ✅ Plus 10% ZĽAVA kódom <strong>LETOJETU26</strong> = Ušetríte dodatočne 21,00€!<br>
-                            <strong style="font-size: 18px; color: #ff6b6b;">Finálna cena: 189,00€</strong>
+                            ✅ Plus 10% ZĽAVA kódom <strong>Jesenjetu26</strong> = Ušetríte dodatočne spolu aj s balzamom zadarmo až 20,37€!<br>
+                            <strong style="font-size: 18px; color: #ff6b6b;">Finálna cena: 156,33€</strong>
                         </p>
                     </div>
 
@@ -1163,7 +1165,7 @@
                         <i class="fa fa-credit-card"></i>🚀 ÁNO! CHCEM BALANCE BALÍK S BONUSOM - KÚPIŤ TERAZ
                     </a>
                     <p style="color: #666; font-size: 13px; margin-top: 15px;">
-                        ✅ 30-dňová záruka vrátenia peňazí | 🚚 Doprava ako si zvolíte v SR | 📧 Osobná podpora
+                        ✅ 14-dňová záruka vrátenia peňazí | 🚚 Doprava ako si zvolíte v SR | 📧 Osobná podpora
                     </p>
                 </div>
             </div>
@@ -1195,17 +1197,17 @@
                         </ul>
                         <div class="mt-4">
                             <p style="font-size: 20px; margin-bottom: 10px;">
-                                <span style="text-decoration: line-through; color: #999;">Pôvodná cena: 44,00€</span>
+                                <span style="text-decoration: line-through; color: #999;">Pôvodná cena:39,60€</span>
                             </p>
                             <p style="font-size: 28px; color: #28a745; font-weight: 700; margin-bottom: 15px;">
-                                Akciová cena s kódom LETOJETU26: 39,60€ <span style="font-size: 18px; color: #ff9800;">(ušetríte 4,40€)</span>
+                                Akciová cena s kódom Jesenjetu26: 35,64€ <span style="font-size: 18px; color: #ff9800;">(ušetríte 3,96€)</span>
                             </p>
                             <a href='@Url.Action("Produkty","Home", new { q = "xtend" })' class="cta-primary" style="background: #28a745;">
                                 🛒 Chcem ZinzinoXtend
                             </a>
                         </div>
                         <p style="font-size: 13px; color: #666; margin-top: 15px;">
-                            ✅ 30-dňová záruka vrátenia | 🚚 Doprava ako si zvolíte v SR | 📧 Osobná podpora
+                            ✅ 14-dňová záruka vrátenia | 🚚 Doprava ako si zvolíte v SR | 📧 Osobná podpora
                         </p>
                     </div>
                 </div>
@@ -1238,17 +1240,17 @@
                         </ul>
                         <div class="mt-4">
                             <p style="font-size: 20px; margin-bottom: 10px;">
-                                <span style="text-decoration: line-through; color: #999;">Pôvodná cena: 65,00€</span>
+                                <span style="text-decoration: line-through; color: #999;">Pôvodná cena: 58,50€</span>
                             </p>
                             <p style="font-size: 28px; color: #28a745; font-weight: 700; margin-bottom: 15px;">
-                                Akciová cena: 58,50€ <span style="font-size: 18px;color:#ff9800;">(ušetríte 6,50€)</span>
+                                Akciová cena: 52,65€ <span style="font-size: 18px;color:#ff9800;">(ušetríte 5,85€)</span>
                             </p>
                             <a href='@Url.Action("Produkty","Home", new { q = "collagen" })' class="cta-primary" style="background: #ff9800;">
                                 🛒 Chcem iba CollagenBoozt
                             </a>
                         </div>
                         <p style="font-size: 13px; color: #666; margin-top: 15px;">
-                            ✅ 30-dňová záruka vrátenia | 🚚 Doprava ako si zvolíte v SR | 📧 Osobná podpora
+                            ✅ 14-dňová záruka vrátenia | 🚚 Doprava ako si zvolíte v SR | 📧 Osobná podpora
                         </p>
                     </div>
                 </div>
@@ -1405,7 +1407,7 @@
         </div>
     </div>
 
-   
+
     <!-- ===== SOCIAL PROOF ===== -->
     <div class="row mb-5">
         <div class="col-12">
@@ -1469,7 +1471,7 @@
         <div class="col-md-6 mb-3">
             <div class="faq-item">
                 <h4>Ako funguje doprava?</h4>
-                <p>Cez Packeta v rámci SR. Doručíme do 3-7 pracovných dní.</p>
+                <p>Cez doporučených poskytovateľov v rámci SR. Doručíme do 3- max 10 pracovných dní.</p>
             </div>
         </div>
     </div>
@@ -1480,8 +1482,8 @@
             <div class="guarantee-box">
                 <h3 style="color: #5d33fb; font-weight: 700; margin-bottom: 20px;">🛡️ 100% Záruka Spokojnosti</h3>
                 <p style="font-size: 18px; margin-bottom: 20px;">
-                    Ak nebudete spokojní s výsledkami do 120 dní,<br>
-                    <strong>vrátime Vám peniaze. Bez otázok.</strong>
+                    Ak nebudete spokojní s výsledkami,<br>
+                    <strong>vrátime Vám peniaze. Pozrite zásady vrátenia tovaru.</strong>
                 </p>
                 <div style="font-size: 16px; color: #666;">
                     ✓ Bezpečná platba cez Stripe<br>
@@ -1502,7 +1504,7 @@
                     s našimi vedecky overenými produktami
                 </p>
                 <p style="font-size: 16px; opacity: 0.9; margin-bottom: 25px;">
-                    ⏰ Ponuka platná: do 30.6.2026 alebo do vyčerpania zásob.
+                    ⏰ Ponuka platná: do vyčerpania zásob.
                 </p>
                 <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" target="_blank" class="cta-primary">
                     🛒 ÁNO, CHCEM BALANCE BALÍK TERAZ!

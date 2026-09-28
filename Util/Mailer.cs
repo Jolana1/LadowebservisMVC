@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -129,7 +130,8 @@ namespace LadowebservisMVC.Util
             "paulauskasgintautas@gmail.com",
             "uzibiupz@young-williams.biz",
             "610dv@ro.ru",
-            "ozjtforz@allen.com"
+            "ozjtforz@allen.com",
+            "anaissa.kimly@gmail.com"
 
         };
 
@@ -147,6 +149,7 @@ namespace LadowebservisMVC.Util
 
         // Unsubscribe endpoint base URL - change to match your domain
         private static readonly string UnsubscribeBaseUrl = "https://ladowebservis.sk/Home/Unsubscribe";
+        private static readonly string NewsletterConfirmBaseUrl = "https://ladowebservis.sk/Home/ConfirmNewsletter";
 
         // Helper to build unsubscribe URL
         private static string GetUnsubscribeUrl(string customerEmail)
@@ -154,6 +157,43 @@ namespace LadowebservisMVC.Util
             if (string.IsNullOrWhiteSpace(customerEmail)) return string.Empty;
             var encoded = HttpUtility.UrlEncode(customerEmail);
             return $"{UnsubscribeBaseUrl}?email={encoded}&token=marketing";
+        }
+
+        public static bool IsSuspiciousNewsletterEmail(string customerEmail)
+        {
+            if (string.IsNullOrWhiteSpace(customerEmail)) return true;
+
+            var email = customerEmail.Trim();
+            var lower = email.ToLowerInvariant();
+
+            if (BannedEmails.Any(x => string.Equals(x, lower, StringComparison.OrdinalIgnoreCase))) return true;
+            if (BannedDomains.Any(x => lower.EndsWith(x, StringComparison.OrdinalIgnoreCase))) return true;
+            if (BannedEmailFragments.Any(x => lower.Contains(x))) return true;
+            if (SuspiciousPatterns.Any(x => lower.Contains(x.ToLowerInvariant()))) return true;
+
+            return false;
+        }
+
+        public static string BuildNewsletterConfirmationToken(string customerEmail)
+        {
+            if (string.IsNullOrWhiteSpace(customerEmail)) return string.Empty;
+
+            var secret = (System.Configuration.ConfigurationManager.AppSettings["smtpPassword"] ?? "ladowebservis-newsletter").Trim();
+            var normalized = customerEmail.Trim().ToLowerInvariant();
+
+            using (var sha = SHA256.Create())
+            {
+                var bytes = Encoding.UTF8.GetBytes(normalized + "|newsletter|" + secret);
+                return BitConverter.ToString(sha.ComputeHash(bytes)).Replace("-", string.Empty).ToLowerInvariant();
+            }
+        }
+
+        private static string GetNewsletterConfirmUrl(string customerEmail)
+        {
+            if (string.IsNullOrWhiteSpace(customerEmail)) return string.Empty;
+            var encoded = HttpUtility.UrlEncode(customerEmail.Trim());
+            var token = HttpUtility.UrlEncode(BuildNewsletterConfirmationToken(customerEmail));
+            return $"{NewsletterConfirmBaseUrl}?email={encoded}&token={token}";
         }
 
         private static string GetOrderNumber(Session session)
@@ -481,7 +521,7 @@ namespace LadowebservisMVC.Util
             {
 
                 var nameSafe = string.IsNullOrWhiteSpace(customerName) ? "" : HttpUtility.HtmlEncode(customerName).Trim();
-                var promoCode = "LETOJETU26";
+                var promoCode = "Jesenjetu26";
                 var cartUrl = "https://ladowebservis.sk/Home/Kosik";
                 var unsubscribeUrl = GetUnsubscribeUrl(customerEmail);
                 var orderNumberHtml = BuildOrderNumberHtml(orderNumber);
@@ -701,14 +741,8 @@ namespace LadowebservisMVC.Util
 </body>
 </html>";
 
-                using (var client = new SmtpClient("smtp.websupport.cz"))
-                {
-                    client.EnableSsl = true;
-                    client.Port = 587;
-                    client.UseDefaultCredentials = false;
-                    client.Credentials = new NetworkCredential("info@ladowebservis.sk", "a98HdiBMYNRH");
-                    client.Send(mail);
-                }
+                // Send using configured SMTP settings (host/port/user/pass) from Web.config or app settings.
+                TrySendWithConfiguredSmtp(mail);
             }
         }
 
@@ -809,14 +843,8 @@ namespace LadowebservisMVC.Util
 </body>
 </html>";
 
-                using (var client = new SmtpClient("smtp.websupport.cz"))
-                {
-                    client.EnableSsl = true;
-                    client.Port = 587;
-                    client.UseDefaultCredentials = false;
-                    client.Credentials = new NetworkCredential("info@ladowebservis.sk", "a98HdiBMYNRH");
-                    client.Send(mail);
-                }
+                // Send using configured SMTP settings (host/port/user/pass) from Web.config or app settings.
+                TrySendWithConfiguredSmtp(mail);
             }
         }
 
@@ -968,14 +996,8 @@ namespace LadowebservisMVC.Util
 </body>
 </html>";
 
-                using (var client = new SmtpClient("smtp.websupport.cz"))
-                {
-                    client.EnableSsl = true;
-                    client.Port = 587;
-                    client.UseDefaultCredentials = false;
-                    client.Credentials = new NetworkCredential("info@ladowebservis.sk", "a98HdiBMYNRH");
-                    client.Send(mail);
-                }
+                // Send using configured SMTP settings (host/port/user/pass) from Web.config or app settings.
+                TrySendWithConfiguredSmtp(mail);
             }
         }
 
@@ -1036,12 +1058,12 @@ namespace LadowebservisMVC.Util
                 }
             }
 
-            // Send a separate, nice Easter promo email to the customer (if they provided an email)
+            // Send a separate, nice autumn promo email to the customer (if they provided an email)
             try
             {
                 if (!string.IsNullOrWhiteSpace(model?.Email))
                 {
-                    SendEasterPromoEmail(model.Email, model.Name, model.CartJson);
+                    SendAutumnPromoEmail(model.Email, model.Name, model.CartJson);
                 }
             }
             catch
@@ -1099,7 +1121,7 @@ namespace LadowebservisMVC.Util
             return result;
         }
 
-        private void SendEasterPromoEmail(string customerEmail, string customerName, string cartJson)
+        private void SendAutumnPromoEmail(string customerEmail, string customerName, string cartJson)
         {
             if (string.IsNullOrWhiteSpace(customerEmail)) return;
 
@@ -1107,7 +1129,7 @@ namespace LadowebservisMVC.Util
             try { var _ = new MailAddress(customerEmail); } catch { return; }
 
             var nameSafe = string.IsNullOrWhiteSpace(customerName) ? "" : HttpUtility.HtmlEncode(customerName).Trim();
-            var promoCode = "LETOJETU26";
+            var promoCode = "Jesenjetu26";
             var memberCode = "REGZAK26";
 
             var cartLines = TryBuildCartLines(cartJson) ?? new List<string>();
@@ -1130,7 +1152,7 @@ namespace LadowebservisMVC.Util
                 mail.From = new MailAddress("info@ladowebservis.sk", "ladowebservis.sk");
                 mail.To.Add(customerEmail);
                 mail.Bcc.Add("info@ladowebservis.sk");
-                mail.Subject = "💚Hurá leto je tu! Letná ponuka pre zdravie a energiu (kódy " + promoCode + "/" + memberCode + ")";
+                mail.Subject = "🍂 Jesenná ponuka pre zdravie, imunitu a energiu – zľava 10 %";
                 mail.SubjectEncoding = Encoding.UTF8;
                 mail.BodyEncoding = Encoding.UTF8;
                 mail.IsBodyHtml = true;
@@ -1164,7 +1186,6 @@ namespace LadowebservisMVC.Util
     code {{ background: #fff; border: 1px solid #eee; padding: 3px 8px; border-radius: 8px; font-weight: 800; }}
     .footer {{ padding: 16px 20px; background:#fafafa; border-top:1px solid #eee; }}
 
-    /* Email-friendly product grid */
     .prod-table {{ width:100%; border-collapse:collapse; margin-top: 10px; }}
     .prod-td {{ width:50%; vertical-align:top; padding:10px; }}
     .prod-card {{ background:#fff; border:1px solid #e6e6e6; border-radius:12px; padding:12px; }}
@@ -1178,66 +1199,117 @@ namespace LadowebservisMVC.Util
   <div class='wrap'>
     <div class='container'>
       <div class='header'>
-<h1>💚 Letná ponuka pre zdravie a energiu</h1>
+        <h1>🍂 Jesenná ponuka pre zdravie, imunitu a energiu</h1>
       </div>
+
       <div class='content'>
         <p>Dobrý deň {nameSafe},</p>
 
-        <p>Leto je ideálny čas dopriať si viac energie, vitality a pohody. Či už sa chystáte na dovolenku, víkendové výlety alebo si chcete naplno užiť každý bežný deň, správna starostlivosť o telo vám môže pomôcť cítiť sa lepšie a mať viac síl.</p>
+        <p>
+          Leto je za nami a prichádza farebná jeseň. Po dovolenkách, oddychu
+          a letných zážitkoch sa postupne vraciame do bežného pracovného
+          a školského režimu.
+        </p>
 
-        <p>Pripravili sme pre vás letný výber obľúbených produktov, ktoré podporujú imunitu, regeneráciu, zdravú rovnováhu organizmu aj každodenný komfort. Nájdete u nás riešenia pre zdravie, krásu aj praktické služby, ktoré sa vám počas leta môžu hodiť.</p>
+        <p>
+          Kratšie dni, chladnejšie rána a premenlivé počasie však dávajú
+          nášmu organizmu poriadne zabrať. Práve preto je jeseň ideálnym
+          obdobím venovať viac pozornosti svojmu zdraviu, imunite, energii
+          a celkovej vitalite.
+        </p>
 
-        <p>Ak si chcete urobiť radosť alebo vybrať darček pre blízkych, teraz je na to vhodná chvíľa. Pri objednávke môžete využiť aj letný zľavový kód a získať výhodnejší nákup.</p>
+        <p>
+          Pripravili sme pre vás výber obľúbených produktov, ktoré sa hodia
+          na jesenné obdobie – pre podporu imunity, každodennej vitality,
+          regenerácie a celkovej pohody.
+        </p>
 
-        <div style='text-align:center; margin: 14px 0 4px 0;'>
-          <span class='pill'>👉 Navštívte náš e-shop a pripravte sa na leto plné energie a pohody.🎁 10% zľava – použite kód <code>{promoCode}</code></span>
+        <p>
+          Či už ste sa vrátili do práce, pripravujete deti na nový školský
+          rok alebo si jednoducho chcete užiť jeseň v dobrej kondícii,
+          nezabúdajte na dostatok oddychu, pohybu a kvalitnej starostlivosti
+          o svoje telo.
+        </p>
+
+        <div style='text-align:center; margin: 18px 0 8px 0;'>
+          <span class='pill'>
+            🍁 Pripravte sa na jeseň plní energie a pohody.
+            🎁 10% zľava – použite kód <code>{promoCode}</code>
+          </span>
         </div>
+
         <p style='text-align:center; margin: 10px 0 0 0; color:#555;'>
-          Registrovaní členovia môžu použiť aj kód <code>{memberCode}</code> (6 mesiacov).
+          Registrovaní členovia môžu použiť aj kód
+          <code>{memberCode}</code> (6 mesiacov).
         </p>
 
         <div class='box'>
           <div class='title'>🌿 Tipy na top produkty a IT služby</div>
-          <p style='margin:0 0 10px 0;color:#555;'>Vybrali sme pre vás produkty, ktoré sa hodia na leto a podporia zdravie, energiu aj celkovú pohodu.</p>
+
+          <p style='margin:0 0 10px 0;color:#555;'>
+            Vybrali sme pre vás produkty, ktoré sa hodia na jeseň
+            a môžu byť vaším pomocníkom pri starostlivosti o zdravie,
+            energiu a celkovú pohodu.
+          </p>
 
           <table class='prod-table' role='presentation'>
             <tr>
               <td class='prod-td'>
                 <div class='prod-card'>
-                  <img class='prod-img' src='https://ladowebservis.sk/Image/BalanceOil.png' alt='BalanceOil+' />
+                  <img class='prod-img'
+                       src='https://ladowebservis.sk/Image/BalanceOil.png'
+                       alt='BalanceOil+' />
                   <div class='prod-name'>💊 BalanceOil+</div>
-                  <p class='prod-note'>Omega‑3 + vitamín D3 pre srdce, mozog a imunitu.</p>
+                  <p class='prod-note'>
+                    Omega-3 + vitamín D3 pre srdce, mozog a imunitu.
+                  </p>
                 </div>
               </td>
+
               <td class='prod-td'>
                 <div class='prod-card'>
-                  <img class='prod-img' src='https://ladowebservis.sk/Image/Zinobiotic2025.png' alt='Zinobiotic+' />
+                  <img class='prod-img'
+                       src='https://ladowebservis.sk/Image/Zinobiotic2025.png'
+                       alt='Zinobiotic+' />
                   <div class='prod-name'>🦠 Zinobiotic+</div>
-                  <p class='prod-note'>Podpora črevného mikrobiómu a rovnováhy.</p>
+                  <p class='prod-note'>
+                    Podpora črevného mikrobiómu a rovnováhy.
+                  </p>
                 </div>
               </td>
             </tr>
+
             <tr>
               <td class='prod-td'>
                 <div class='prod-card'>
-                  <img class='prod-img' src='https://ladowebservis.sk/Image/ZinzinoXtend.png' alt='ZinzinoXtend' />
+                  <img class='prod-img'
+                       src='https://ladowebservis.sk/Image/ZinzinoXtend.png'
+                       alt='ZinzinoXtend' />
                   <div class='prod-name'>💪 ZinzinoXtend</div>
-                  <p class='prod-note'>23 vitamínov a minerálov pre energiu a imunitu.</p>
+                  <p class='prod-note'>
+                    23 vitamínov a minerálov pre energiu a imunitu.
+                  </p>
                 </div>
               </td>
+
               <td class='prod-td'>
                 <div class='prod-card'>
-                  <img class='prod-img' src='https://ladowebservis.sk/Image/CollagenBoozt.png' alt='CollagenBoozt' />
+                  <img class='prod-img'
+                       src='https://ladowebservis.sk/Image/CollagenBoozt.png'
+                       alt='CollagenBoozt' />
                   <div class='prod-name'>✨ CollagenBoozt</div>
-                  <p class='prod-note'>Kolagén pre pleť, vlasy a kĺby (10‑dňová rutina).</p>
+                  <p class='prod-note'>
+                    Kolagén pre pleť, vlasy a kĺby (10-dňová rutina).
+                  </p>
                 </div>
               </td>
             </tr>
           </table>
 
-          <a class='btn btn-primary' href='{productsUrl}'>📦 Pozrieť produkty</a>
+          <a class='btn btn-primary' href='{productsUrl}'>
+            📦 Pozrieť produkty
+          </a>
         </div>
-
         <div class='box'>
           <div class='title'>⚡ Stripe Rýchla platba</div>
           <p style='margin:0;color:#555;'>Ak si chcete vybrať z našich produktov a zaplatiť ich, použite jednoducho tento bezpečný link cez Stripe.</p>
@@ -1259,7 +1331,7 @@ namespace LadowebservisMVC.Util
             <li>🌐 Web / e‑shop – úpravy a správa</li>
             <li>🧩 Inštalácia softvéru, odstránenie vírusov</li>
           </ul>
-          <p style='margin:10px 0 0 0;color:#555;'><strong>Kontakt:</strong> <a href='mailto:podpora@ladowebservis.sk'>podpora@ladowebservis.sk</a> alebo +421917952432</p>
+          <p style='margin:10px 0 0 0;color:#555;'><strong>Kontakt:</strong> <a href='mailto:podpora@ladowebservis.sk'>podpora@ladowebservis.sk</a> alebo +421907151293</p>
         </div>
 
         <div class='box'>
@@ -1288,14 +1360,8 @@ namespace LadowebservisMVC.Util
 </body>
 </html>";
 
-                using (var client = new SmtpClient("smtp.websupport.cz"))
-                {
-                    client.EnableSsl = true;
-                    client.Port = 587;
-                    client.UseDefaultCredentials = false;
-                    client.Credentials = new NetworkCredential("info@ladowebservis.sk", "a98HdiBMYNRH");
-                    client.Send(mail);
-                }
+                // Send using configured SMTP settings (host/port/user/pass) from Web.config or app settings.
+                TrySendWithConfiguredSmtp(mail);
             }
         }
 
@@ -1489,7 +1555,7 @@ namespace LadowebservisMVC.Util
 
                 var nameSafe = string.IsNullOrWhiteSpace(customerName) ? "" : HttpUtility.HtmlEncode(customerName).Trim();
                 // Current promo code used across the site
-                var promoCode = "LETOJETU26";
+                var promoCode = "Jesenjetu26";
 
                 using (var mail = new MailMessage())
                 {
@@ -1863,8 +1929,49 @@ namespace LadowebservisMVC.Util
                 {
                     customerMail.From = new MailAddress("info@ladowebservis.sk", "Ladowebservis");
                     customerMail.To.Add(customerEmail);
+                    customerMail.Subject = "Potvrďte odber noviniek - Ladowebservis";
+                    customerMail.SubjectEncoding = Encoding.UTF8;
+                    customerMail.BodyEncoding = Encoding.UTF8;
+                    customerMail.IsBodyHtml = true;
+
+                    var confirmUrl = GetNewsletterConfirmUrl(customerEmail);
+                    var customerEmailSafe = HttpUtility.HtmlEncode(customerEmail);
+                    customerMail.Body = $@"
+<div style='font-family:Arial,sans-serif;color:#24324a;line-height:1.6;'>
+    <h2 style='color:#5d33fb;'>Potvrďte svoj odber noviniek</h2>
+    <p>Na adresu <strong>{customerEmailSafe}</strong> prišla žiadosť o odber noviniek Ladowebservis.</p>
+    <p>Aby sme ochránili odber proti podvodným alebo cudzím emailom, aktivácia prebehne až po potvrdení cez tlačidlo nižšie.</p>
+    <p style='margin:20px 0;'><a href='{confirmUrl}' style='display:inline-block;background:#5d33fb;color:#fff !important;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;'>Potvrdiť odber noviniek</a></p>
+    <p>Ak ste o odber nežiadali, tento email ignorujte. Váš email nebude zaradený bez potvrdenia.</p>
+    <p style='margin-top:24px;'>S pozdravom,<br><strong>Tím Ladowebservis</strong></p>
+</div>";
+
+                    if (!TrySendWithConfiguredSmtp(customerMail)) return false;
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.TraceError($"TrySendSubscriptionEmail failed: {ex}");
+                return false;
+            }
+        }
+
+        public bool TrySendConfirmedSubscriptionEmail(string customerEmail)
+        {
+            if (string.IsNullOrWhiteSpace(customerEmail)) return false;
+
+            try
+            {
+                try { var _ = new MailAddress(customerEmail); } catch { return false; }
+
+                using (var customerMail = new MailMessage())
+                {
+                    customerMail.From = new MailAddress("info@ladowebservis.sk", "Ladowebservis");
+                    customerMail.To.Add(customerEmail);
                     customerMail.Bcc.Add("info@ladowebservis.sk");
-                    customerMail.Subject = "Potvrdenie odberu noviniek - Ladowebservis";
+                    customerMail.Subject = "Odber noviniek je aktívny - Ladowebservis";
                     customerMail.SubjectEncoding = Encoding.UTF8;
                     customerMail.BodyEncoding = Encoding.UTF8;
                     customerMail.IsBodyHtml = true;
@@ -1873,10 +1980,10 @@ namespace LadowebservisMVC.Util
                     var customerEmailSafe = HttpUtility.HtmlEncode(customerEmail);
                     customerMail.Body = $@"
 <div style='font-family:Arial,sans-serif;color:#24324a;line-height:1.6;'>
-    <h2 style='color:#5d33fb;'>Dakujeme za prihlasenie k odberu noviniek</h2>
-    <p>Email <strong>{customerEmailSafe}</strong> sme zaradili do zoznamu noviniek Ladowebservis.</p>
-    <p>Budeme vam posielat novinky o produktoch, doprave, platbach, akciach a odporucaniach pre zdravie aj web/IT sluzby.</p>
-    <p>Ak si budete zelat odber zrusit, pouzite <a href='{unsubscribeUrl}'>odhlasovaci odkaz</a>.</p>
+    <h2 style='color:#5d33fb;'>Ďakujeme za potvrdenie odberu</h2>
+    <p>Email <strong>{customerEmailSafe}</strong> je teraz aktívne prihlásený k odberu noviniek Ladowebservis.</p>
+    <p>Budeme vám posielať novinky o produktoch, akciách, doprave, platbách a odporúčaniach pre zdravie aj web/IT služby.</p>
+    <p>Ak si budete želať odber neskôr zrušiť, použite <a href='{unsubscribeUrl}'>odhlasovací odkaz</a>.</p>
     <p style='margin-top:24px;'>S pozdravom,<br><strong>Tím Ladowebservis</strong></p>
 </div>";
 
@@ -1887,18 +1994,18 @@ namespace LadowebservisMVC.Util
                 {
                     adminMail.From = new MailAddress("info@ladowebservis.sk", "Ladowebservis");
                     adminMail.To.Add("info@ladowebservis.sk");
-                    adminMail.Subject = "Novy odber noviniek na webe";
+                    adminMail.Subject = "Nový potvrdený odber noviniek na webe";
                     adminMail.SubjectEncoding = Encoding.UTF8;
                     adminMail.BodyEncoding = Encoding.UTF8;
                     adminMail.IsBodyHtml = false;
-                    adminMail.Body = "Na webe sa prihlasil novy odberatel noviniek:\r\n\r\n" + customerEmail + "\r\n\r\nDatum: " + DateTime.Now.ToString("dd.MM.yyyy HH:mm");
+                    adminMail.Body = "Na webe potvrdil odber nový odberateľ noviniek:\r\n\r\n" + customerEmail + "\r\n\r\nDátum: " + DateTime.Now.ToString("dd.MM.yyyy HH:mm");
 
                     return TrySendWithConfiguredSmtp(adminMail);
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Trace.TraceError($"TrySendSubscriptionEmail failed: {ex}");
+                System.Diagnostics.Trace.TraceError($"TrySendConfirmedSubscriptionEmail failed: {ex}");
                 return false;
             }
         }

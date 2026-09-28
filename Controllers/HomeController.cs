@@ -109,8 +109,8 @@ namespace LadowebservisMVC.Controllers
             if (string.IsNullOrWhiteSpace(normalizedEmail) || !new EmailAddressAttribute().IsValid(normalizedEmail))
             {
                 TempData["SubscribeEmailStatus"] = "error";
-                TempData["SubscribeEmailMessage"] = "Zadajte platnu emailovu adresu pre odber noviniek.";
-                return Redirect(Request != null && Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Zdravie", "Home"));
+                TempData["SubscribeEmailMessage"] = "Zadajte platnú emailovú adresu pre odber noviniek.";
+                return RedirectToAction("Subscribe", "Home");
             }
 
             try
@@ -120,17 +120,17 @@ namespace LadowebservisMVC.Controllers
 
                 TempData["SubscribeEmailStatus"] = sent ? "success" : "error";
                 TempData["SubscribeEmailMessage"] = sent
-                    ? "Dakujeme. Vasa emailova adresa bola pridana do odberu noviniek."
-                    : "Odber sa nepodarilo potvrdit emailom. Skuste to prosim znova neskor.";
+                    ? "Ďakujeme. Vašej emailovej adrese sme poslali potvrdenie odberu noviniek. Skontrolujte si prosím svoju emailovú schránku a kliknite na potvrdzovaciu linku."
+                    : "Odber sa nepodarilo potvrdiť emailom. Skúste to prosím znova neskôr.";
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Trace.TraceError($"SubscribeEmail failed: {ex}");
                 TempData["SubscribeEmailStatus"] = "error";
-                TempData["SubscribeEmailMessage"] = "Odber sa nepodarilo spracovat. Skuste to prosim znova.";
+                TempData["SubscribeEmailMessage"] = "Odber sa nepodarilo spracovať. Skúste to prosím znova.";
             }
 
-            return Redirect(Request != null && Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Zdravie", "Home"));
+            return RedirectToAction("Subscribe", "Home");
         }
 
         public ActionResult Login(LoginModel model)
@@ -392,6 +392,62 @@ namespace LadowebservisMVC.Controllers
         public ActionResult Favorites()
         {
             ViewBag.PageTitle = "Obľúbené produkty";
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ConfirmNewsletter(string email, string token)
+        {
+            var normalizedEmail = (email ?? string.Empty).Trim();
+            var normalizedToken = (token ?? string.Empty).Trim();
+
+            if (string.IsNullOrWhiteSpace(normalizedEmail) || string.IsNullOrWhiteSpace(normalizedToken))
+            {
+                TempData["SubscribeEmailStatus"] = "error";
+                TempData["SubscribeEmailMessage"] = "Potvrdzovací odkaz je neplatný.";
+                return RedirectToAction("Subscribe", "Home");
+            }
+
+            if (!new EmailAddressAttribute().IsValid(normalizedEmail) || Mailer.IsSuspiciousNewsletterEmail(normalizedEmail))
+            {
+                TempData["SubscribeEmailStatus"] = "error";
+                TempData["SubscribeEmailMessage"] = "Túto emailovú adresu nie je možné použiť pre odber noviniek.";
+                return RedirectToAction("Subscribe", "Home");
+            }
+
+            var expectedToken = Mailer.BuildNewsletterConfirmationToken(normalizedEmail);
+            if (!string.Equals(expectedToken, normalizedToken, StringComparison.OrdinalIgnoreCase))
+            {
+                TempData["SubscribeEmailStatus"] = "error";
+                TempData["SubscribeEmailMessage"] = "Potvrdzovací odkaz je neplatný alebo bol zmenený.";
+                return RedirectToAction("Subscribe", "Home");
+            }
+
+            try
+            {
+                var mailer = new Mailer();
+                var sent = mailer.TrySendConfirmedSubscriptionEmail(normalizedEmail);
+
+                TempData["SubscribeEmailStatus"] = sent ? "success" : "error";
+                TempData["SubscribeEmailMessage"] = sent
+                    ? "Ďakujeme. Váš odber noviniek bol potvrdený a aktivovaný."
+                    : "Odber sa nepodarilo dokončiť. Skúste potvrdenie zopakovať neskôr.";
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.TraceError($"ConfirmNewsletter failed: {ex}");
+                TempData["SubscribeEmailStatus"] = "error";
+                TempData["SubscribeEmailMessage"] = "Potvrdenie odberu sa nepodarilo sp racovať.";
+            }
+
+            return RedirectToAction("Subscribe", "Home");
+        }
+
+        // Newsletter subscription confirmation page
+        [HttpGet]
+        public ActionResult Subscribe()
+        {
+            ViewBag.PageTitle = "Odber noviniek";
             return View();
         }
 
