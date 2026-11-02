@@ -2,10 +2,6 @@
     ViewBag.Title = "Zdravie v rovnováhe";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@{
-    ViewBag.Title = "Zdravie";
-    Func<decimal, int> loyaltyPoints = amount => (int)Math.Floor(amount / 10m);
-}
 <style>
     /* Sales Page Styles */
     body {
@@ -1002,267 +998,367 @@
             margin-top: 15px;
         }
     }
+
+    /* Modern health-page sections and new products */
+    .health-kicker {
+        color: #17745f;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: .14em;
+        line-height: 1.4;
+        margin: 0 auto 12px;
+        text-transform: uppercase;
+    }
+
+    .hero-section .hero-kicker {
+        display: table;
+        padding: 8px 13px;
+        border: 1px solid rgba(255,255,255,.34);
+        border-radius: 999px;
+        background: rgba(255,255,255,.12);
+        color: #fff;
+    }
+
+    .health-hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 28px;
+    }
+
+        .health-hero-actions .cta-primary,
+        .health-hero-actions .cta-secondary,
+        .health-hero-actions .cta-tertiary {
+            margin: 0;
+        }
+
+    .health-values-section,
+    .health-new-products {
+        padding: clamp(24px, 5vw, 56px);
+        border: 1px solid #e2eee9;
+        border-radius: 26px;
+        background: linear-gradient(145deg, #f6fbf8 0%, #fff 56%, #f5f8ff 100%);
+        box-shadow: 0 18px 48px rgba(31, 67, 58, .08);
+    }
+
+    .health-section-heading {
+        max-width: 760px;
+        margin: 0 auto 30px;
+        text-align: center;
+    }
+
+        .health-section-heading h2 {
+            margin: 0 0 12px;
+            color: #203b35;
+            font-size: clamp(26px, 3.2vw, 38px);
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .health-section-heading p {
+            margin: 0;
+            color: #65766f;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+    .health-value-grid,
+    .health-product-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .health-value-card {
+        height: 100%;
+        padding: 24px;
+        border: 1px solid #e5eee9;
+        border-radius: 18px;
+        background: rgba(255,255,255,.92);
+        box-shadow: 0 10px 26px rgba(33, 56, 49, .055);
+    }
+
+    .health-value-icon {
+        display: inline-grid;
+        width: 46px;
+        height: 46px;
+        margin-bottom: 14px;
+        place-items: center;
+        border-radius: 15px;
+        background: #e8f6ef;
+        font-size: 23px;
+    }
+
+    .health-value-card h3 {
+        margin: 0 0 8px;
+        color: #203b35;
+        font-size: 18px;
+        font-weight: 800;
+    }
+
+    .health-value-card p {
+        margin: 0;
+        color: #65766f;
+        font-size: 14px;
+        line-height: 1.65;
+    }
+
+    .health-trust-strip {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px 28px;
+        margin: 4px 0 34px;
+        padding: 16px 20px;
+        border: 1px solid #e2eee9;
+        border-radius: 16px;
+        background: #f7fbf9;
+        color: #36534b;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+        .health-trust-strip i {
+            margin-right: 7px;
+            color: #17745f;
+        }
+
+    .health-product-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        align-items: stretch;
+    }
+
+    .health-product-card {
+        position: relative;
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        overflow: hidden;
+        padding: 18px;
+        border: 1px solid #e6eee9;
+        border-radius: 20px;
+        background: #fff;
+        box-shadow: 0 12px 30px rgba(31, 67, 58, .07);
+        transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+
+        .health-product-card:hover {
+            transform: translateY(-5px);
+            border-color: #b9d9ca;
+            box-shadow: 0 20px 42px rgba(31, 67, 58, .14);
+        }
+
+    .health-product-label {
+        align-self: flex-start;
+        margin-bottom: 12px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: #edf7f1;
+        color: #27644e;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+    }
+
+    .health-product-image {
+        display: grid;
+        min-height: 200px;
+        margin: 0 -2px 16px;
+        place-items: center;
+        border-radius: 15px;
+        background: radial-gradient(circle at 50% 45%, #fff 0%, #f5f8f6 72%);
+    }
+
+        .health-product-image img {
+            width: 100%;
+            height: 190px;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+
+    .health-product-copy {
+        flex: 1;
+    }
+
+        .health-product-copy h3 {
+            margin: 0 0 8px;
+            color: #203b35;
+            font-size: 18px;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+
+        .health-product-copy p {
+            margin: 0;
+            color: #65766f;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+    .health-product-price {
+        margin: 18px 0 14px;
+        color: #174c3b;
+        font-size: 24px;
+        font-weight: 900;
+    }
+
+    .health-product-actions {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .health-add-btn {
+        min-height: 44px;
+        border: 0;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #17745f, #23906e);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 800;
+        transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+        .health-add-btn:hover,
+        .health-add-btn:focus {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 18px rgba(23, 116, 95, .22);
+            color: #fff;
+        }
+
+    .health-detail-link {
+        padding: 10px 8px;
+        color: #27644e;
+        font-size: 13px;
+        font-weight: 800;
+        text-decoration: none;
+    }
+
+        .health-detail-link:hover,
+        .health-detail-link:focus {
+            color: #174c3b;
+            text-decoration: underline;
+        }
+
+    .health-product-heart {
+        position: absolute;
+        z-index: 2;
+        top: 58px;
+        right: 17px;
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border: 1px solid #e6eee9;
+        border-radius: 50%;
+        background: #fff;
+        color: #577168;
+        font-size: 17px;
+        box-shadow: 0 4px 12px rgba(0,0,0,.07);
+    }
+
+        .health-product-heart.favorited,
+        .health-product-heart.is-favorite {
+            color: #dc5271;
+        }
+
+    @@media (max-width: 1050px) {
+        .health-product-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @@media (max-width: 720px) {
+        .health-value-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .health-product-grid {
+            gap: 12px;
+        }
+
+        .health-product-card {
+            padding: 14px;
+        }
+
+        .health-product-image {
+            min-height: 155px;
+        }
+
+            .health-product-image img {
+                height: 150px;
+            }
+    }
+
+    @@media (max-width: 480px) {
+        .health-product-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .health-product-image,
+        .health-product-image img {
+            height: auto;
+            min-height: 210px;
+        }
+
+            .health-product-image img {
+                height: 200px;
+            }
+
+        .health-hero-actions .cta-primary,
+        .health-hero-actions .cta-secondary,
+        .health-hero-actions .cta-tertiary {
+            width: 100%;
+        }
+    }
 </style>
 
 <div class="zdravie-container">
     <!-- ===== HERO SECTION ===== -->
     <div class="hero-section mb-5">
-        <h1>🚀 Zdravie vo Vašich rukách</h1>
-        <p class="hero-subtitle">Vedecky Overené Riešenie s 90% Úspešnosťou</p>
-        <p class="hero-tagline">"Obnovte Prirodzenú Rovnováhu Vášho Tela Bez Nebezpečnej Chémie"</p>
+        <p class="health-kicker hero-kicker">Pohoda začína dobrým výberom</p>
+        <h1>Zdravie a starostlivosť podľa vašich potrieb</h1>
+        <p class="hero-subtitle">Objavte produkty pre každodennú rovnováhu, výživu aj starostlivosť o pleť.</p>
+        <p class="hero-tagline">Prehľadný výber, aktuálne ceny a jednoduché objednanie na jednom mieste.</p>
 
         <div class="hero-offer-highlight">
-            ✨ <strong>BALANCE BALÍK</strong> - Komplexné 120-dňové riešenie pre zdravie
+            ✨ <strong>BALANCEPACK 4-in-1</strong><br />
+            Štyri obľúbené produkty v jednom balení
         </div>
 
-        <div>
-            <a href="@Url.Action("Produkty","Home")" class="cta-primary">
-                <i class="fa fa-shopping-cart"></i> ZAČNITE TERAZ - 10% ZĽAVA
+        <div class="health-hero-actions">
+            <a href="#nove-produkty" class="cta-primary">
+                <i class="fa fa-shopping-bag"></i> Objaviť nové produkty
             </a>
             <a href="#special-offer" class="cta-secondary">
-                <i class="fa fa-info-circle"></i> Zásady Ponuky
+                <i class="fa fa-gift"></i> Pozrieť BalancePack
             </a>
             <a href="@Url.Action("ITservis","Home")" class="cta-tertiary">
                 <i class="fa fa-laptop"></i> IT služby
             </a>
         </div>
-
-        <div class="urgency-timer">
-            ⏱️ Ponuka platná: do vyčerpania zásob
-        </div>
     </div>
     <!-- ===== VIDEO ===== -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <h2 class="section-title">📺 Pozrite Si Video</h2>
-            <p class="text-center lead" style="color: #666; margin-bottom: 30px;">Ako si zlepšiť zdravie so Zinzinom</p>
-        </div>
-        <div class="col-12">
-            <div style="max-width: 800px; margin: 0 auto; border-radius: 10px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.15);">
-                <iframe style="width: 100%; height: 500px;" src="https://videos.sproutvideo.com/embed/d390d3b31911ecc15a/eeb65011d6e6ae23?autoplay=0" title="Video Zinzino" frameborder="0" allowfullscreen></iframe>
+    @*<div class="row mb-5">
+            <div class="col-12">
+                <h2 class="section-title">📺 Pozrite Si Video</h2>
+                <p class="text-center lead" style="color: #666; margin-bottom: 30px;">Ako si zlepšiť zdravie so Zinzinom</p>
             </div>
-        </div>
-    </div>
-
-    <div class="it-callout">
-        <h2>💻 Potrebujete aj IT služby?</h2>
-        <p>
-            Okrem produktov pre zdravie poskytujeme aj praktické IT služby – web, e‑shop, opravy a poradenstvo.
-            Vyberte si, čo potrebujete, a ozvite sa nám.
-        </p>
-
-        <div class="it-cards">
-            <div class="it-card">
-                <div class="it-icon"><i class="fa fa-globe"></i></div>
-                <h4>Webstránky a e‑shopy</h4>
-                <p>Moderný web, úpravy, rýchlosť, SEO základ, bezpečnosť, nasadenie.</p>
-            </div>
-            <div class="it-card">
-                <div class="it-icon"><i class="fa fa-shield"></i></div>
-                <h4>Bezpečnosť a údržba</h4>
-                <p>Zálohy, aktualizácie, monitoring, odstránenie problémov a incidentov.</p>
-            </div>
-            <div class="it-card">
-                <div class="it-icon"><i class="fa fa-wrench"></i></div>
-                <h4>Servis a poradenstvo</h4>
-                <p>Diagnostika, opravy, nastavenia a odporúčania pre efektívnejší chod.</p>
-            </div>
-        </div>
-
-        <div class="it-actions">
-            <a class="btn btn-primary" href="@Url.Action("ITservis", "Home")">Pozrieť IT služby</a>
-            <a class="btn btn-default" href="@Url.Action("Kontakt", "Home")">Napíšte nám</a>
-        </div>
-    </div>
-    <!-- ===== URGENCY BANNER ===== -->
-    <div class="urgency-banner">
-        <strong>⚠️ LIMITOVANÁ PONUKA!</strong>
-        @*<div style="font-size: 16px; margin: 10px 0;">
-                Iba prvých 10 zákazníkov dostane:
-                <br>✅ 10% ZĽAVU na Balance balík
-                <br>✅ BALZAM ZDARMA
-                <br>✅ DOPRAVU CEZ PACKETA ZDARMA v SR IBA NA BALANCE BALÍK
-            </div>*@
-        <div class="urgency-subtext">
-            Stav zásob: <strong id="stockCounter">50ks balíkov</strong> - Rýchlo sa vypredáva! ⚡
-        </div>
-    </div>
-
-    <!-- ===== MAIN OFFER ===== -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <div class="special-offer-box" id="special-offer">
-                <h2 class="offer-header text-center">
-                    🎁 BALANCE BALÍK - KOMPLEXNÉ RIEŠENIE PRE ZDRAVIE
-                </h2>
-                <p class="offer-subtitle text-center">
-                    ✅ Všetko čo potrebujete na 120 dní komplexnej starostlivosti o zdravie
-                </p>
-
-                <div class="row align-items-center">
-                    <div class="col-md-6 text-center mb-4 mb-md-0">
-                        <div style="background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                            <div class="offer-pack-grid">
-                                <div class="offer-pack-item">
-                                    <img src="~/Image/BalanceOil.png" alt="Balance Oil" class="img-fluid">
-                                    <span>Balance Oil</span>
-                                </div>
-                                <div class="offer-pack-item">
-                                    <img src="~/Image/Zinobiotic2025.png" alt="Zinobiotic" class="img-fluid">
-                                    <span>Zinobiotic</span>
-                                </div>
-                                <div class="offer-pack-item">
-                                    <img src="~/Image/ZinzinoXtend.png" alt="ZinzinoXtend" class="img-fluid">
-                                    <span>ZinzinoXtend</span>
-                                </div>
-                                <div class="offer-pack-item">
-                                    <img src="~/Image/CollagenBoozt.png" alt="CollagenBoozt" class="img-fluid">
-                                    <span>CollagenBoozt</span>
-                                </div>
-                            </div>
-                            <h4 style="color: #ff9800; font-weight: 700;">Balance Oil + Zinobiotic + ZinzinoXtend + CollagenBoozt</h4>
-                            <p style="color: #d97706; font-size: 14px; font-weight: 600;">Limitovaná edícia</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <ul class="product-feature-list" style="text-align: left;">
-                            <li>✅ <strong>Balance Oil 300ml</strong> - Omega 3 (Pôvodná hodnota: 54,90€ teraz 49,41€)</li>
-                            <li>✅ <strong>Zinobiotic</strong> - Probiotiká (Pôvodná hodnota: 40€ teraz 36€)</li>
-                            <li>✅ <strong>ZinzinoXtend</strong> - Imunita + výživa (Pôvodná hodnota: 39,60€ teraz 35,64€)</li>
-                            <li>✅ <strong>CollagenBoozt</strong> - Pleť + kĺby (Pôvodná hodnota: 58.50€ teraz 52,65€)</li>
-                            <li style="color: #28a745; font-weight: 700; font-size: 16px;">🎁 <strong>BONUS: Balzam ZDARMA</strong> (Hodnota: 3€)</li>
-                            <li style="color: #28a745; font-weight: 700;">🚚 <strong>Doprava na Vašu adresu ZDARMA</strong> v SR a IBA NA BALANCE BALÍK 4in1</li>
-                            <li style="color: #5d33fb; font-weight: 700;">👤 <strong>Zarábajte body za</strong> každý úspešný nákup = Body do Vášho reg.konta!Príklad: Pri nákupe za 210€ získate 21€ v bodoch</li>
-
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="text-center mt-4" style="padding: 30px; background: rgba(255,255,255,0.6); border-radius: 8px;">
-                    <div style="margin-bottom: 20px;">
-                        <span class="price-badge">PROMO KÓD: Jesenjetu26 = 10% ZĽAVA</span>
-                    </div>
-
-                    <div style="margin-bottom: 20px;">
-                        <h3 style="color: #ff9800; margin: 15px 0; font-weight: 700;">
-                            CELKOVÁ HODNOTA BALÍKA: <span style="font-size: 28px;">173,70€</span>
-                        </h3>
-                        <p style="color: #d97706; font-size: 16px; font-weight: 600;">
-                            Vaša cena: <span style="font-size: 24px; color: #28a745;">156,33€</span> (Ušetríte 17,37€)
-                        </p>
-                    </div>
-
-                    <div style="margin-bottom: 25px; padding: 15px; background: rgba(40, 167, 69, 0.1); border-radius: 6px; border: 2px dashed #28a745;">
-                        <p style="color: #28a745; font-weight: 700; margin: 0; font-size: 16px;">
-                            ✅ Plus 10% ZĽAVA kódom <strong>Jesenjetu26</strong> = Ušetríte dodatočne spolu aj s balzamom zadarmo až 20,37€!<br>
-                            <strong style="font-size: 18px; color: #ff6b6b;">Finálna cena: 156,33€</strong>
-                        </p>
-                    </div>
-
-
-
-                    <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank">
-                        <i class="fa fa-credit-card"></i>🚀 ÁNO! CHCEM BALANCE BALÍK S BONUSOM - KÚPIŤ TERAZ
-                    </a>
-                    <p style="color: #666; font-size: 13px; margin-top: 15px;">
-                        ✅ 14-dňová záruka vrátenia peňazí | 🚚 Doprava ako si zvolíte v SR | 📧 Osobná podpora
-                    </p>
+            <div class="col-12">
+                <div style="max-width: 800px; margin: 0 auto; border-radius: 10px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.15);">
+                    <iframe style="width: 100%; height: 500px;" src="https://videos.sproutvideo.com/embed/d390d3b31911ecc15a/eeb65011d6e6ae23?autoplay=0" title="Video Zinzino" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- ===== FEATURED PRODUCT: ZinzinoXtend ===== -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <h2 class="section-title">💪 Imunita & Výživa: ZinzinoXtend</h2>
-        </div>
-        <div class="col-12">
-            <div class="special-offer-box" style="background: linear-gradient(135deg, #f0fff4 0%, #e8f5e9 100%); border-color: #28a745;">
-                <div class="row align-items-center">
-                    <div class="col-lg-5 col-md-6 text-center mb-4 mb-md-0">
-                        <img src="~/Image/ZinzinoXtend.png" alt="ZinzinoXtend" class="img-fluid" style="max-width: 250px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.15);">
-                    </div>
-                    <div class="col-lg-7 col-md-6">
-                        <h3 style="color: #28a745; font-weight: 700;">💊 ZinzinoXtend</h3>
-                        <p style="font-size: 18px; color: #2c3e50; margin-bottom: 20px;">
-                            Kompletný imunitný a výživový doplnok s <strong>23 vitamínmi a minerálmi</strong> pre silnú imunitu a zdravie.
-                        </p>
-                        <ul style="font-size: 16px; color: #2c3e50; line-height: 1.8; list-style: none; padding-left: 0;">
-                            <li>🛡️ <strong>23 Vitamínov & Minerálov</strong> pre silnú imunitu</li>
-                            <li>🌿 <strong>Prírodné Ingrediencie</strong> z organických zdrojov</li>
-                            <li>⚡ <strong>Energia & Vitalita</strong> po celý deň</li>
-                            <li>🧠 <strong>Kognitívna Funkcia</strong> - podpora mozgu</li>
-                            <li>🦴 <strong>Silné Kosti</strong> - vápnik a vitamín D</li>
-                        </ul>
-                        <div class="mt-4">
-                            <p style="font-size: 20px; margin-bottom: 10px;">
-                                <span style="text-decoration: line-through; color: #999;">Pôvodná cena:39,60€</span>
-                            </p>
-                            <p style="font-size: 28px; color: #28a745; font-weight: 700; margin-bottom: 15px;">
-                                Akciová cena s kódom Jesenjetu26: 35,64€ <span style="font-size: 18px; color: #ff9800;">(ušetríte 3,96€)</span>
-                            </p>
-                            <a href='@Url.Action("Produkty","Home", new { q = "xtend" })' class="cta-primary" style="background: #28a745;">
-                                🛒 Chcem ZinzinoXtend
-                            </a>
-                        </div>
-                        <p style="font-size: 13px; color: #666; margin-top: 15px;">
-                            ✅ 14-dňová záruka vrátenia | 🚚 Doprava ako si zvolíte v SR | 📧 Osobná podpora
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===== FEATURED PRODUCT: CollagenBoozt ===== -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <h2 class="section-title">💎 Naša Novinka: CollagenBoozt</h2>
-        </div>
-        <div class="col-12">
-            <div class="special-offer-box" style="background: linear-gradient(135deg, #fff5e6 0%, #ffe0b2 100%);border-color: #ff9800;">
-                <div class="row align-items-center">
-                    <div class="col-md-5 text-center mb-4 mb-md-0">
-                        <img src="~/Image/CollagenBoozt.png" alt="CollagenBoozt" class="img-fluid" style="max-width: 250px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.15);">
-                    </div>
-                    <div class="col-md-7">
-                        <h3 style="color: #ff9800; font-weight: 700;">✨ CollagenBoozt</h3>
-                        <p style="font-size: 18px; color: #2c3e50; margin-bottom: 20px;">
-                            Prémiový kolagénový nápoj s vitamínmi a minerálmi pre zdravú pleť, silné vlasy a pružné kĺby.
-                        </p>
-                        <ul style="font-size: 16px; color: #2c3e50; line-height: 1.8; list-style: none; padding-left: 0;">
-                            <li>💎 <strong>5000mg morského kolagénu</strong> na porciu</li>
-                            <li>🌟 <strong>Vitamín C + Zinok</strong> pre tvorbu kolagénu</li>
-                            <li>🧬 <strong>Hyalurónová kyselina</strong> pre hydratáciu</li>
-                            <li>⚡ <strong>Biotín + Selén</strong> pre vlasy a nechty</li>
-                            <li>🦴 <strong>Podpora kĺbov</strong> a pohyblivosti</li>
-                        </ul>
-                        <div class="mt-4">
-                            <p style="font-size: 20px; margin-bottom: 10px;">
-                                <span style="text-decoration: line-through; color: #999;">Pôvodná cena: 58,50€</span>
-                            </p>
-                            <p style="font-size: 28px; color: #28a745; font-weight: 700; margin-bottom: 15px;">
-                                Akciová cena: 52,65€ <span style="font-size: 18px;color:#ff9800;">(ušetríte 5,85€)</span>
-                            </p>
-                            <a href='@Url.Action("Produkty","Home", new { q = "collagen" })' class="cta-primary" style="background: #ff9800;">
-                                🛒 Chcem iba CollagenBoozt
-                            </a>
-                        </div>
-                        <p style="font-size: 13px; color: #666; margin-top: 15px;">
-                            ✅ 14-dňová záruka vrátenia | 🚚 Doprava ako si zvolíte v SR | 📧 Osobná podpora
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+        </div>*@
     <!-- ===== PROBLEM SECTION ===== -->
     <div class="row mb-5">
         <div class="col-12">
             <h2 class="section-title">🤔 Cítite Sa Takto?</h2>
-            <p class="text-center lead" style="color: #666; margin-bottom: 30px;">Nie ste sami - 85% Slovákov trpí podobnými problémami</p>
+            <p class="text-center lead" style="color: #666; margin-bottom: 30px;">Každý má iné potreby. Zoznámte sa s možnosťami, ktoré ponúkame.</p>
         </div>
     </div>
 
@@ -1314,8 +1410,8 @@
                 <strong>Priemerný človek má pomer 15:1</strong> (zlý)<br>
                 <strong>Ideálny je 3:1</strong> (zdravý)
             </p>
-            <p style="font-size: 18px; color: #28a745; font-weight: 700; margin-top: 15px;">
-                ✅ 95% zákazníkov vidí viditeľné zlepšenie
+            <p style="font-size: 16px; color: #28a745; font-weight: 700; margin-top: 15px;">
+                Výsledok testu vám poskytne prehľad o nameranom pomere mastných kyselín.
             </p>
         </div>
         <div class="col-md-6 text-center">
@@ -1344,8 +1440,8 @@
             <p>Presný pomer Omega-3/6 a personalizované odporúčania.</p>
         </div>
         <div class="step-item">
-            <strong>4️⃣ Začnite Liečbu</strong>
-            <p>Užívajte Balance Oil a sledujte zlepšenie po 120 dňoch.</p>
+            <strong>4️⃣ Zvoľte si ďalší postup</strong>
+            <p>Prečítajte si výsledky a odporúčania, ktoré dostanete spolu s testom.</p>
         </div>
     </div>
 
@@ -1408,39 +1504,31 @@
     </div>
 
 
-    <!-- ===== SOCIAL PROOF ===== -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <h2 class="section-title">💬 Čo Hovoria Naši Zákazníci</h2>
+    <!-- ===== CUSTOMER VALUE ===== -->
+    <section class="health-values-section mb-5" aria-labelledby="health-values-title">
+        <div class="health-section-heading">
+            <span class="health-kicker">Jednoduchý výber</span>
+            <h2 id="health-values-title">Všetko dôležité pred objednávkou</h2>
+            <p>Vyberte si podľa toho, čo hľadáte — informácie o produkte aj cenu nájdete priamo pri ponuke.</p>
         </div>
-    </div>
-
-    <div class="row mb-5">
-        <div class="col-md-6 mb-3">
-            <div class="testimonial-card">
-                <p><strong>Jana K., Trnava ⭐⭐⭐⭐⭐</strong></p>
-                <p>"Po 60 dňoch s BalanceOil som mala VIAC ENERGIE a lepší spánok. Test to potvrdil - môj pomer sa zlepšil z 15:1 na 4:1!"</p>
-            </div>
+        <div class="health-value-grid">
+            <article class="health-value-card">
+                <span class="health-value-icon" aria-hidden="true">🌿</span>
+                <h3>Premyslený výber</h3>
+                <p>Výživové doplnky, testy aj produkty na každodennú starostlivosť o pleť.</p>
+            </article>
+            <article class="health-value-card">
+                <span class="health-value-icon" aria-hidden="true">🧾</span>
+                <h3>Prehľadné ceny</h3>
+                <p>Aktuálnu cenu a dostupnosť si môžete pozrieť pred vložením do košíka.</p>
+            </article>
+            <article class="health-value-card">
+                <span class="health-value-icon" aria-hidden="true">🤝</span>
+                <h3>Pomoc pri výbere</h3>
+                <p>Ak si nie ste istí, napíšte nám cez kontaktný formulár — radi vám pomôžeme s orientáciou v ponuke.</p>
+            </article>
         </div>
-        <div class="col-md-6 mb-3">
-            <div class="testimonial-card">
-                <p><strong>Juraj J., Košice ⭐⭐⭐⭐⭐</strong></p>
-                <p>"Konečne viem, čo môjmu telu chýbalo. Kĺbové bolesti zmizli a cítim sa o 10 rokov mladší!"</p>
-            </div>
-        </div>
-        <div class="col-md-6 mb-3">
-            <div class="testimonial-card">
-                <p><strong>Peter M., Bratislava ⭐⭐⭐⭐⭐</strong></p>
-                <p>"Skeptický som bol, ale výsledky ma presvedčili. Už žiadne zimné choroby a energiu mám ako za mladých čias."</p>
-            </div>
-        </div>
-        <div class="col-md-6 mb-3">
-            <div class="testimonial-card">
-                <p><strong>Martina S., Žilina ⭐⭐⭐⭐⭐</strong></p>
-                <p>"Najlepšia investícia do môjho zdravia. Test mi ukázal presne, kde mám problém a Balance Oil to vyriešil."</p>
-            </div>
-        </div>
-    </div>
+    </section>
 
     <!-- ===== FAQ ===== -->
     <div class="row mb-5">
@@ -1452,43 +1540,319 @@
     <div class="row mb-5">
         <div class="col-md-6 mb-3">
             <div class="faq-item">
-                <h4>Je to bezpečné?</h4>
-                <p>Áno! Balance Oil je certifikovaný, chránený patentmi a klinicky testovaný. Viac ako 1 milión spokojných zákazníkov.</p>
+                <h4>Kde nájdem zloženie a dávkovanie?</h4>
+                <p>Podrobnosti a pokyny k používaniu nájdete pri konkrétnom produkte. Pri zdravotných ťažkostiach alebo užívaní liekov sa poraďte s lekárom alebo lekárnikom.</p>
             </div>
         </div>
         <div class="col-md-6 mb-3">
             <div class="faq-item">
-                <h4>Ako dlho trvá, kým uvidím výsledky?</h4>
-                <p>Väčšina zákazníkov cíti zlepšenie po 30-60 dňach. Test po 120 dňoch ukáže presné výsledky.</p>
+                <h4>Kedy môžem očakávať zmenu?</h4>
+                <p>Skúsenosti sa líšia a výsledok nemožno vopred zaručiť. Pri BalanceTeste postupujte podľa pokynov laboratória.</p>
             </div>
         </div>
         <div class="col-md-6 mb-3">
             <div class="faq-item">
-                <h4>Je to pre mňa?</h4>
-                <p>Ak máte únavu, slabú imunitu, kĺbové bolesti alebo chcete zlepšiť zdravie - určite áno!</p>
+                <h4>Ako si vybrať produkt?</h4>
+                <p>Prezrite si informácie pri produkte. Ak potrebujete poradiť s ponukou alebo objednávkou, <a href="@Url.Action("Kontakt", "Home")">napíšte nám</a>.</p>
             </div>
         </div>
         <div class="col-md-6 mb-3">
             <div class="faq-item">
-                <h4>Ako funguje doprava?</h4>
-                <p>Cez doporučených poskytovateľov v rámci SR. Doručíme do 3- max 10 pracovných dní.</p>
+                <h4>Ako zistím cenu dopravy?</h4>
+                <p>Dostupné spôsoby dopravy a ich cenu uvidíte pri dokončení objednávky.</p>
             </div>
         </div>
     </div>
 
+    @*<div class="it-callout">
+            <h2>💻 Potrebujete aj IT služby?</h2>
+            <p>
+                Okrem produktov pre zdravie poskytujeme aj praktické IT služby – web, e‑shop, opravy a poradenstvo.
+                Vyberte si, čo potrebujete, a ozvite sa nám.
+            </p>
+
+            <div class="it-cards">
+                <div class="it-card">
+                    <div class="it-icon"><i class="fa fa-globe"></i></div>
+                    <h4>Webstránky a e‑shopy</h4>
+                    <p>Moderný web, úpravy, rýchlosť, SEO základ, bezpečnosť, nasadenie.</p>
+                </div>
+                <div class="it-card">
+                    <div class="it-icon"><i class="fa fa-shield"></i></div>
+                    <h4>Bezpečnosť a údržba</h4>
+                    <p>Zálohy, aktualizácie, monitoring, odstránenie problémov a incidentov.</p>
+                </div>
+                <div class="it-card">
+                    <div class="it-icon"><i class="fa fa-wrench"></i></div>
+                    <h4>Servis a poradenstvo</h4>
+                    <p>Diagnostika, opravy, nastavenia a odporúčania pre efektívnejší chod.</p>
+                </div>
+            </div>
+
+            <div class="it-actions">
+                <a class="btn btn-primary" href="@Url.Action("ITservis", "Home")">Pozrieť IT služby</a>
+                <a class="btn btn-default" href="@Url.Action("Kontakt", "Home")">Napíšte nám</a>
+            </div>
+        </div>*@
+    <!-- Practical trust strip replaces the simulated stock countdown. -->
+    <div class="health-trust-strip" role="list" aria-label="Informácie o nákupe">
+        <span role="listitem"><i class="fa fa-lock" aria-hidden="true"></i> Platba cez Stripe</span>
+        <span role="listitem"><i class="fa fa-truck" aria-hidden="true"></i> Možnosti dopravy pri objednávke</span>
+        <span role="listitem"><i class="fa fa-comments" aria-hidden="true"></i> Podpora pri výbere</span>
+    </div>
+
+    <!-- ===== MAIN OFFER ===== -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="special-offer-box" id="special-offer">
+                <h2 class="offer-header text-center">
+                    🎁 BALANCE BALÍK - KOMPLEXNÉ RIEŠENIE PRE ZDRAVIE
+                </h2>
+                <p class="offer-subtitle text-center">
+                    ✅ Všetko čo potrebujete na 120 dní komplexnej starostlivosti o zdravie
+                </p>
+
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center mb-4 mb-md-0">
+                        <div style="background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                            <div class="offer-pack-grid">
+                                <div class="offer-pack-item">
+                                    <img src="~/Image/BalanceOil.png" alt="Balance Oil" class="img-fluid">
+                                    <span>Balance Oil</span>
+                                </div>
+                                <div class="offer-pack-item">
+                                    <img src="~/Image/Zinobiotic2025.png" alt="Zinobiotic" class="img-fluid">
+                                    <span>Zinobiotic</span>
+                                </div>
+                                <div class="offer-pack-item">
+                                    <img src="~/Image/ZinzinoXtend.png" alt="ZinzinoXtend" class="img-fluid">
+                                    <span>ZinzinoXtend</span>
+                                </div>
+                                <div class="offer-pack-item">
+                                    <img src="~/Image/CollagenBoozt.png" alt="CollagenBoozt" class="img-fluid">
+                                    <span>CollagenBoozt</span>
+                                </div>
+                            </div>
+                            <h4 style="color: #ff9800; font-weight: 700;">Balance Oil + Zinobiotic + ZinzinoXtend + CollagenBoozt</h4>
+                            <p style="color: #d97706; font-size: 14px; font-weight: 600;">Limitovaná edícia</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="product-feature-list" style="text-align: left;">
+                            <li>✅ <strong>Balance Oil 300ml</strong> - Omega 3 (Pôvodná hodnota: 61,00€ teraz 54,90€)</li>
+                            <li>✅ <strong>Zinobiotic</strong> - Probiotiká (Pôvodná hodnota: 47,00€ teraz 42,30€)</li>
+                            <li>✅ <strong>ZinzinoXtend</strong> - Imunita + výživa (Pôvodná hodnota: 47,00€ teraz 42,30€)</li>
+                            <li>✅ <strong>CollagenBoozt</strong> - Pleť + kĺby (Pôvodná hodnota: 80,00€ teraz 72,00€)</li>
+                            <li style="color: #5d33fb; font-weight: 700;">👤 Vernostné body sa pripisujú podľa pravidiel vášho zákazníckeho účtu.</li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4" style="padding: 30px; background: rgba(255,255,255,0.6); border-radius: 8px;">
+                    <div style="margin-bottom: 20px;">
+                        <span class="price-badge">10 % zľava na BalancePack sa vypočíta v košíku</span>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: #ff9800; margin: 15px 0; font-weight: 700;">
+                            CELKOVÁ HODNOTA BALÍKA: <span style="font-size: 28px;">235,00€</span>
+                        </h3>
+                        @*<p style="color: #d97706; font-size: 16px; font-weight: 600;">
+                                Cena po 10 % zľave: <span style="font-size: 24px; color: #28a745;">211,50 €</span>
+                            </p>*@
+                    </div>
+
+                    <div style="margin-bottom: 25px; padding: 15px; background: rgba(40, 167, 69, 0.1); border-radius: 6px; border: 2px dashed #28a745;">
+                        <p style="color: #28a745; font-weight: 700; margin: 0; font-size: 16px;">
+                            Konečná suma sa vypočíta v košíku podľa aktuálnych pravidiel zliav.<br>
+                            <strong style="font-size: 18px; color: #ff6b6b;">Cena BalancePacku po 10 % zľave: 211,50 €</strong>
+                        </p>
+                    </div>
+
+
+
+                    <a href="https://buy.stripe.com/8x24gz43I9YS9pifgO4wM08?locale=sk&amp;__embed_source=buy_btn_1UNGpXHrPMzQ1ua8z41z9K5Z" class="btn-stripe" target="_blank" rel="noopener">
+                        <i class="fa fa-credit-card"></i>🚀 ÁNO! CHCEM BALANCE BALÍK S BONUSOM - KÚPIŤ TERAZ
+                    </a>
+                    <p style="color: #666; font-size: 13px; margin-top: 15px;">
+                        ✅ Aktuálne podmienky nákupu | 🚚 Výber dopravy pri objednávke | 📧 Osobná podpora
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FEATURED PRODUCT: ZinzinoXtend ===== -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="section-title">💪 Imunita & Výživa: ZinzinoXtend</h2>
+        </div>
+        <div class="col-12">
+            <div class="special-offer-box" style="background: linear-gradient(135deg, #f0fff4 0%, #e8f5e9 100%); border-color: #28a745;">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 col-md-6 text-center mb-4 mb-md-0">
+                        <img src="~/Image/ZinzinoXtend.png" alt="ZinzinoXtend" class="img-fluid" style="max-width: 250px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.15);">
+                    </div>
+                    <div class="col-lg-7 col-md-6">
+                        <h3 style="color: #28a745; font-weight: 700;">💊 ZinzinoXtend</h3>
+                        <p style="font-size: 18px; color: #2c3e50; margin-bottom: 20px;">
+                            Kompletný imunitný a výživový doplnok s <strong>23 vitamínmi a minerálmi</strong> pre silnú imunitu a zdravie.
+                        </p>
+                        <ul style="font-size: 16px; color: #2c3e50; line-height: 1.8; list-style: none; padding-left: 0;">
+                            <li>🛡️ <strong>23 Vitamínov & Minerálov</strong> pre silnú imunitu</li>
+                            <li>🌿 <strong>Prírodné Ingrediencie</strong> z organických zdrojov</li>
+                            <li>⚡ <strong>Energia & Vitalita</strong> po celý deň</li>
+                            <li>🧠 <strong>Kognitívna Funkcia</strong> - podpora mozgu</li>
+                            <li>🦴 <strong>Silné Kosti</strong> - vápnik a vitamín D</li>
+                        </ul>
+                        <div class="mt-4">
+                            <p style="font-size: 20px; margin-bottom: 10px;">
+                                <span style="text-decoration: line-through; color: #999;">Cena bez zľavy: 47,00 €</span>
+                            </p>
+                            <p style="font-size: 28px; color: #28a745; font-weight: 700; margin-bottom: 15px;">
+                                Cena v košíku po 10 % zľave: 42,30 € <span style="font-size: 18px; color: #ff9800;">(úspora 4,70 €)</span>
+                            </p>
+                            <a href='@Url.Action("Produkty","Home", new { q = "xtend" })' class="cta-primary" style="background: #28a745;">
+                                🛒 Chcem ZinzinoXtend
+                            </a>
+                        </div>
+                        <p style="font-size: 13px; color: #666; margin-top: 15px;">
+                            ✅ 14-dňová záruka vrátenia | 🚚 Doprava ako si zvolíte v SR | 📧 Osobná podpora
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FEATURED PRODUCT: CollagenBoozt ===== -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="section-title">💎 Naša Novinka: CollagenBoozt</h2>
+        </div>
+        <div class="col-12">
+            <div class="special-offer-box" style="background: linear-gradient(135deg, #fff5e6 0%, #ffe0b2 100%);border-color: #ff9800;">
+                <div class="row align-items-center">
+                    <div class="col-md-5 text-center mb-4 mb-md-0">
+                        <img src="~/Image/CollagenBoozt.png" alt="CollagenBoozt" class="img-fluid" style="max-width: 250px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.15);">
+                    </div>
+                    <div class="col-md-7">
+                        <h3 style="color: #ff9800; font-weight: 700;">✨ CollagenBoozt</h3>
+                        <p style="font-size: 18px; color: #2c3e50; margin-bottom: 20px;">
+                            Prémiový kolagénový nápoj s vitamínmi a minerálmi pre zdravú pleť, silné vlasy a pružné kĺby.
+                        </p>
+                        <ul style="font-size: 16px; color: #2c3e50; line-height: 1.8; list-style: none; padding-left: 0;">
+                            <li>💎 <strong>5000mg morského kolagénu</strong> na porciu</li>
+                            <li>🌟 <strong>Vitamín C + Zinok</strong> pre tvorbu kolagénu</li>
+                            <li>🧬 <strong>Hyalurónová kyselina</strong> pre hydratáciu</li>
+                            <li>⚡ <strong>Biotín + Selén</strong> pre vlasy a nechty</li>
+                            <li>🦴 <strong>Podpora kĺbov</strong> a pohyblivosti</li>
+                        </ul>
+                        <div class="mt-4">
+                            <p style="font-size: 20px; margin-bottom: 10px;">
+                                <span style="text-decoration: line-through; color: #999;">Pôvodná cena: 80,00€</span>
+                            </p>
+                            <p style="font-size: 28px; color: #28a745; font-weight: 700; margin-bottom: 15px;">
+                                Cena v košíku po 10 % zľave: 72,00 € <span style="font-size: 18px;color:#ff9800;">(úspora 8,00 €)</span>
+                            </p>
+                            <a href='@Url.Action("Produkty","Home", new { q = "collagen" })' class="cta-primary" style="background: #ff9800;">
+                                🛒 Chcem iba CollagenBoozt
+                            </a>
+                        </div>
+                        <p style="font-size: 13px; color: #666; margin-top: 15px;">
+                            ✅ 14-dňová záruka vrátenia | 🚚 Doprava ako si zvolíte v SR | 📧 Osobná podpora
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ===== NEW PRODUCTS ===== -->
+    <section class="health-new-products mb-5" id="nove-produkty" aria-labelledby="new-products-title">
+        <div class="health-section-heading">
+            <span class="health-kicker">Čerstvo v ponuke</span>
+            <h2 id="new-products-title">Novinky pre každodennú starostlivosť</h2>
+            <p>Vyberte si z nových produktov na pleť aj praktického doplnku na každý deň.</p>
+        </div>
+
+        <div class="health-product-grid">
+            <article class="health-product-card products" id="product-10" data-product-id="10" data-product-name="ENERGIZE 24H Cream" data-product-image='@Url.Content("~/Image/Energize24hcream.png")'>
+                <span class="health-product-label">Pleťová starostlivosť</span>
+                <button type="button" class="product-heart health-product-heart" data-id="10" title="Pridať do obľúbených" aria-label="Pridať ENERGIZE 24H Cream do obľúbených">♡</button>
+                <div class="health-product-image"><img src='@Url.Content("~/Image/Energize24hcream.png")' alt="ENERGIZE 24H Cream" loading="lazy" /></div>
+                <div class="health-product-copy">
+                    <h3>ENERGIZE 24H Cream</h3>
+                    <p>Pleťový krém na každodennú starostlivosť — jednoduchý krok do vašej rutiny.</p>
+                </div>
+                <div class="health-product-price">77,00 €</div>
+                <div class="health-product-actions">
+                    <button type="button" class="add-to-cart health-add-btn" data-id="10"><i class="fa fa-cart-plus" aria-hidden="true"></i> Do košíka</button>
+                    <a class="health-detail-link" href='@Url.Action("Produkty", "Home", new { q = "ENERGIZE 24H Cream" })'>Detail</a>
+                </div>
+            </article>
+
+            <article class="health-product-card products" id="product-11" data-product-id="11" data-product-name="Arize Day Cream" data-product-image='@Url.Content("~/Image/Arizedaycream.png")'>
+                <span class="health-product-label">Denný krém</span>
+                <button type="button" class="product-heart health-product-heart" data-id="11" title="Pridať do obľúbených" aria-label="Pridať Arize Day Cream do obľúbených">♡</button>
+                <div class="health-product-image"><img src='@Url.Content("~/Image/Arizedaycream.png")' alt="Arize Day Cream" loading="lazy" /></div>
+                <div class="health-product-copy">
+                    <h3>Arize Day Cream</h3>
+                    <p>Denný krém, ktorý prirodzene doplní rannú pleťovú rutinu.</p>
+                </div>
+                <div class="health-product-price">88,00 €</div>
+                <div class="health-product-actions">
+                    <button type="button" class="add-to-cart health-add-btn" data-id="11"><i class="fa fa-cart-plus" aria-hidden="true"></i> Do košíka</button>
+                    <a class="health-detail-link" href='@Url.Action("Produkty", "Home", new { q = "Arize Day Cream" })'>Detail</a>
+                </div>
+            </article>
+
+            <article class="health-product-card products" id="product-12" data-product-id="12" data-product-name="Skin Serum, 50 ml" data-product-image='@Url.Content("~/Image/SkinSerum50ml.png")'>
+                <span class="health-product-label">Pleťové sérum</span>
+                <button type="button" class="product-heart health-product-heart" data-id="12" title="Pridať do obľúbených" aria-label="Pridať Skin Serum do obľúbených">♡</button>
+                <div class="health-product-image"><img src='@Url.Content("~/Image/SkinSerum50ml.png")' alt="Skin Serum, 50 ml" loading="lazy" /></div>
+                <div class="health-product-copy">
+                    <h3>Skin Serum, 50 ml</h3>
+                    <p>Sérum na doplnenie vašej každodennej starostlivosti o pleť.</p>
+                </div>
+                <div class="health-product-price">59,00 €</div>
+                <div class="health-product-actions">
+                    <button type="button" class="add-to-cart health-add-btn" data-id="12"><i class="fa fa-cart-plus" aria-hidden="true"></i> Do košíka</button>
+                    <a class="health-detail-link" href='@Url.Action("Produkty", "Home", new { q = "Skin Serum" })'>Detail</a>
+                </div>
+            </article>
+
+            <article class="health-product-card products" id="product-13" data-product-id="13" data-product-name="ShakeBottle, 500 ml" data-product-image='@Url.Content("~/Image/Shakebottle.png")'>
+                <span class="health-product-label">Praktický doplnok</span>
+                <button type="button" class="product-heart health-product-heart" data-id="13" title="Pridať do obľúbených" aria-label="Pridať ShakeBottle do obľúbených">♡</button>
+                <div class="health-product-image"><img src='@Url.Content("~/Image/Shakebottle.png")' alt="ShakeBottle, 500 ml" loading="lazy" /></div>
+                <div class="health-product-copy">
+                    <h3>ShakeBottle, 500 ml</h3>
+                    <p>Fľaša s objemom 500 ml na vodu alebo obľúbený nápoj.</p>
+                </div>
+                <div class="health-product-price">10,00 €</div>
+                <div class="health-product-actions">
+                    <button type="button" class="add-to-cart health-add-btn" data-id="13"><i class="fa fa-cart-plus" aria-hidden="true"></i> Do košíka</button>
+                    <a class="health-detail-link" href='@Url.Action("Produkty", "Home", new { q = "ShakeBottle" })'>Detail</a>
+                </div>
+            </article>
+        </div>
+    </section>
     <!-- ===== GUARANTEE ===== -->
     <div class="row mb-5">
         <div class="col-12">
             <div class="guarantee-box">
-                <h3 style="color: #5d33fb; font-weight: 700; margin-bottom: 20px;">🛡️ 100% Záruka Spokojnosti</h3>
+                <h3 style="color: #5d33fb; font-weight: 700; margin-bottom: 20px;">🛡️ Nákup s jasnými informáciami</h3>
                 <p style="font-size: 18px; margin-bottom: 20px;">
-                    Ak nebudete spokojní s výsledkami,<br>
-                    <strong>vrátime Vám peniaze. Pozrite zásady vrátenia tovaru.</strong>
+                    Pred objednávkou si môžete overiť cenu, dostupnosť a informácie o produkte.<br>
+                    <strong><a href="@Url.Action("ReturnPolicy", "Home")">Podmienky vrátenia tovaru</a> nájdete na samostatnej stránke.</strong>
                 </p>
                 <div style="font-size: 16px; color: #666;">
-                    ✓ Bezpečná platba cez Stripe<br>
-                    ✓ Certifikované laboratórium v Nórsku<br>
-                    ✓ Vedecky overený produkt
+                    ✓ Platba cez Stripe<br>
+                    ✓ Možnosti dopravy pri objednávke<br>
+                    ✓ Podpora pri výbere produktov
                 </div>
             </div>
         </div>
@@ -1498,16 +1862,13 @@
     <div class="row mb-5">
         <div class="col-12">
             <div class="hero-section">
-                <h1>🌿 Zmeňte Svoje Zdravie Dnes</h1>
+                <h1>🌿 Začnite výberom, ktorý vám sedí</h1>
                 <p class="lead">
-                    Objavte, čo Vášmu telu chýba a obnovte prirodzenú rovnováhu<br>
-                    s našimi vedecky overenými produktami
+                    Prezrite si produkty pre výživu, testovanie aj každodennú starostlivosť.<br>
+                    Vyberte si a pohodlne ich vložte do košíka.
                 </p>
-                <p style="font-size: 16px; opacity: 0.9; margin-bottom: 25px;">
-                    ⏰ Ponuka platná: do vyčerpania zásob.
-                </p>
-                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" target="_blank" class="cta-primary">
-                    🛒 ÁNO, CHCEM BALANCE BALÍK TERAZ!
+                <a href="#nove-produkty" class="cta-primary">
+                    🛍️ Pozrieť nové produkty
                 </a>
                 <a href="@Url.Action("ITservis","Home")" class="cta-tertiary">
                     💻 Potrebujete aj IT služby?
@@ -1521,7 +1882,7 @@
         <div class="col-12">
             <div class="trust-badges">
                 <p>
-                    🔒 Bezpečná platba Stripe | 🚚 Doprava na adresu alebo cez DPD ZDARMA podľa objednavky | 💳 100% záruka vrátenia | 🏆 Oficiálny partner Zinzino
+                    🔒 Bezpečná platba cez Stripe | 🚚 Spôsob a cena dopravy sa zobrazia pri objednávke | 📩 Podpora pri výbere produktov
                 </p>
             </div>
         </div>
@@ -1529,52 +1890,16 @@
 </div>
 
 <script>
-    // Stock counter animation - simulates real-time stock depletion
     (function () {
-        var initialStock = 50;
-        var currentStock = 48;
-        var stockCounter = document.getElementById('stockCounter');
-
-        // Simulate stock depletion every few minutes
-        function updateStock() {
-            if (currentStock > 5) {
-                currentStock = Math.max(5, currentStock - Math.floor(Math.random() * 3));
-                if (stockCounter) {
-                    stockCounter.textContent = currentStock + ' balíkov';
-
-                    // Add urgency if stock is low
-                    if (currentStock <= 10) {
-                        stockCounter.style.color = '#ff6b6b';
-                        stockCounter.style.fontWeight = '700';
-                    }
-                }
-            }
-        }
-
-        // Update stock every 5-10 minutes
-        setInterval(updateStock, Math.random() * 300000 + 300000);
-
-        // Animate hero buttons on page load
-        window.addEventListener('load', function () {
-            var buttons = document.querySelectorAll('.cta-primary, .cta-secondary');
-            buttons.forEach(function (btn, index) {
-                setTimeout(function () {
-                    btn.style.animation = 'slideDown 0.5s ease';
-                }, index * 200);
+        // Keep anchor navigation smooth without interfering with product/cart controls.
+        document.querySelectorAll('a[href="#special-offer"], a[href="#nove-produkty"]').forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                var target = document.querySelector(link.getAttribute('href'));
+                if (!target) return;
+                event.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
-
-        // Smooth scroll to offer section
-        var offerLink = document.querySelector('a[href="#special-offer"]');
-        if (offerLink) {
-            offerLink.addEventListener('click', function (e) {
-                e.preventDefault();
-                var target = document.getElementById('special-offer');
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        }
     })();
 </script>
 

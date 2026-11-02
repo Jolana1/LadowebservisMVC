@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\kseni\source\repos\LadowebservisMVC\Publish2</_PublishTargetUrl>
-    <History>True|2026-09-28T17:09:26.9664017Z||;True|2026-09-28T17:40:07.4400046+02:00||;True|2026-09-28T16:10:26.7280056+02:00||;True|2026-09-25T20:29:58.0286564+02:00||;False|2026-09-25T20:29:43.9511118+02:00||;True|2026-09-24T17:23:50.5584666+02:00||;True|2026-09-22T21:54:45.3990153+02:00||;False|2026-09-22T21:54:21.8793564+02:00||;False|2026-09-04T19:40:50.6501545+02:00||;True|2026-08-25T22:03:53.0033049+02:00||;True|2026-08-24T20:44:46.2371524+02:00||;True|2026-08-24T20:38:29.0925664+02:00||;True|2026-08-24T20:28:26.0449771+02:00||;False|2026-08-24T20:27:49.1950384+02:00||;True|2026-08-18T22:09:26.3916138+02:00||;True|2026-08-12T22:07:57.1612631+02:00||;True|2026-08-12T22:01:53.7774967+02:00||;True|2026-08-12T21:25:22.0040037+02:00||;True|2026-08-11T21:41:50.9096721+02:00||;True|2026-08-11T21:34:27.3951632+02:00||;True|2026-07-30T21:57:22.1280410+02:00||;True|2026-07-05T22:24:40.6881373+02:00||;False|2026-07-05T22:23:11.8289585+02:00||;True|2026-06-24T18:35:23.2269094+02:00||;True|2026-06-19T20:30:56.0404881+02:00||;True|2026-06-16T21:14:09.4079367+02:00||;True|2026-06-08T22:14:00.3696859+02:00||;True|2026-06-04T19:06:08.4494524+02:00||;True|2026-06-04T18:43:39.1544651+02:00||;True|2026-06-04T17:51:26.1175127+02:00||;True|2026-06-04T17:19:08.3565244+02:00||;True|2026-06-03T15:22:13.7282332+02:00||;False|2026-06-03T15:19:47.1931210+02:00||;True|2026-06-02T18:27:27.4959245+02:00||;True|2026-06-02T17:59:23.0554942+02:00||;True|2026-06-02T17:32:32.5229604+02:00||;True|2026-05-28T00:41:06.8023307+02:00||;True|2026-05-27T23:20:19.4442392+02:00||;True|2026-05-27T22:23:18.8107827+02:00||;True|2026-05-22T14:05:50.5145411+02:00||;True|2026-05-19T20:08:46.1336505+02:00||;True|2026-05-19T19:07:19.7915941+02:00||;True|2026-05-05T22:14:26.0808343+02:00||;True|2026-05-04T18:41:53.5102172+02:00||;False|2026-05-04T18:36:34.0808130+02:00||;True|2026-05-04T17:37:15.0904639+02:00||;True|2026-05-03T21:29:35.3913802+02:00||;True|2026-04-11T15:46:16.0620396+02:00||;True|2026-04-03T22:23:23.9636992+02:00||;True|2026-04-03T13:11:38.9562902+02:00||;</History>
+    <History>True|2026-11-02T17:04:20.0243786Z||;True|2026-10-29T20:42:32.0291218+01:00||;True|2026-10-27T20:43:30.6747053+01:00||;True|2026-10-16T20:07:51.3672611+02:00||;True|2026-10-14T20:44:48.0550413+02:00||;True|2026-10-05T20:55:01.2754720+02:00||;True|2026-10-04T21:24:08.6089939+02:00||;True|2026-09-28T19:09:26.9664017+02:00||;True|2026-09-28T17:40:07.4400046+02:00||;True|2026-09-28T16:10:26.7280056+02:00||;True|2026-09-25T20:29:58.0286564+02:00||;False|2026-09-25T20:29:43.9511118+02:00||;True|2026-09-24T17:23:50.5584666+02:00||;True|2026-09-22T21:54:45.3990153+02:00||;False|2026-09-22T21:54:21.8793564+02:00||;False|2026-09-04T19:40:50.6501545+02:00||;True|2026-08-25T22:03:53.0033049+02:00||;True|2026-08-24T20:44:46.2371524+02:00||;True|2026-08-24T20:38:29.0925664+02:00||;True|2026-08-24T20:28:26.0449771+02:00||;False|2026-08-24T20:27:49.1950384+02:00||;True|2026-08-18T22:09:26.3916138+02:00||;True|2026-08-12T22:07:57.1612631+02:00||;True|2026-08-12T22:01:53.7774967+02:00||;True|2026-08-12T21:25:22.0040037+02:00||;True|2026-08-11T21:41:50.9096721+02:00||;True|2026-08-11T21:34:27.3951632+02:00||;True|2026-07-30T21:57:22.1280410+02:00||;True|2026-07-05T22:24:40.6881373+02:00||;False|2026-07-05T22:23:11.8289585+02:00||;True|2026-06-24T18:35:23.2269094+02:00||;True|2026-06-19T20:30:56.0404881+02:00||;True|2026-06-16T21:14:09.4079367+02:00||;True|2026-06-08T22:14:00.3696859+02:00||;True|2026-06-04T19:06:08.4494524+02:00||;True|2026-06-04T18:43:39.1544651+02:00||;True|2026-06-04T17:51:26.1175127+02:00||;True|2026-06-04T17:19:08.3565244+02:00||;True|2026-06-03T15:22:13.7282332+02:00||;False|2026-06-03T15:19:47.1931210+02:00||;True|2026-06-02T18:27:27.4959245+02:00||;True|2026-06-02T17:59:23.0554942+02:00||;True|2026-06-02T17:32:32.5229604+02:00||;True|2026-05-28T00:41:06.8023307+02:00||;True|2026-05-27T23:20:19.4442392+02:00||;True|2026-05-27T22:23:18.8107827+02:00||;True|2026-05-22T14:05:50.5145411+02:00||;True|2026-05-19T20:08:46.1336505+02:00||;True|2026-05-19T19:07:19.7915941+02:00||;True|2026-05-05T22:14:26.0808343+02:00||;True|2026-05-04T18:41:53.5102172+02:00||;False|2026-05-04T18:36:34.0808130+02:00||;True|2026-05-04T17:37:15.0904639+02:00||;True|2026-05-03T21:29:35.3913802+02:00||;True|2026-04-11T15:46:16.0620396+02:00||;True|2026-04-03T22:23:23.9636992+02:00||;True|2026-04-03T13:11:38.9562902+02:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -13,7 +13,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="App_Data/MailAttachment.pdf">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>11/02/2026 18:01:02</publishTime>
     </File>
     <File Include="App_Data/_dbEshop.sql">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -37,10 +37,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/29/2024 18:47:24</publishTime>
     </File>
     <File Include="bin/LadowebservisMVC.dll">
-      <publishTime>09/28/2026 19:09:23</publishTime>
+      <publishTime>11/02/2026 18:04:15</publishTime>
     </File>
     <File Include="bin/LadowebservisMVC.pdb">
-      <publishTime>09/28/2026 19:09:23</publishTime>
+      <publishTime>11/02/2026 18:04:15</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Antiforgery.dll">
       <publishTime>05/21/2026 23:35:22</publishTime>
@@ -166,7 +166,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/15/2025 20:03:50</publishTime>
     </File>
     <File Include="bin/Microsoft.Bcl.Cryptography.dll">
-      <publishTime>06/26/2026 21:45:48</publishTime>
+      <publishTime>10/23/2026 07:49:52</publishTime>
     </File>
     <File Include="bin/Microsoft.Bcl.TimeProvider.dll">
       <publishTime>11/30/2023 09:28:10</publishTime>
@@ -424,7 +424,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2022 06:38:42</publishTime>
     </File>
     <File Include="bin/Stripe.net.dll">
-      <publishTime>04/30/2025 21:18:04</publishTime>
+      <publishTime>08/27/2026 06:31:54</publishTime>
     </File>
     <File Include="bin/System.Buffers.dll">
       <publishTime>03/19/2025 21:55:38</publishTime>
@@ -439,7 +439,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/15/2025 20:09:54</publishTime>
     </File>
     <File Include="bin/System.Formats.Asn1.dll">
-      <publishTime>06/26/2026 21:45:28</publishTime>
+      <publishTime>10/23/2026 07:49:32</publishTime>
     </File>
     <File Include="bin/System.IO.Pipelines.dll">
       <publishTime>04/15/2025 20:12:40</publishTime>
@@ -460,7 +460,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/21/2024 18:14:56</publishTime>
     </File>
     <File Include="bin/System.Security.Cryptography.Xml.dll">
-      <publishTime>06/26/2026 21:46:24</publishTime>
+      <publishTime>10/23/2026 07:50:26</publishTime>
     </File>
     <File Include="bin/System.Security.Permissions.dll">
       <publishTime>05/15/2018 15:29:40</publishTime>
@@ -508,100 +508,100 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/23/2014 13:57:34</publishTime>
     </File>
     <File Include="Content/bootstrap-grid.css">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:21</publishTime>
     </File>
     <File Include="Content/bootstrap-grid.css.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:21</publishTime>
     </File>
     <File Include="Content/bootstrap-grid.min.css">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:21</publishTime>
     </File>
     <File Include="Content/bootstrap-grid.min.css.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:21</publishTime>
     </File>
     <File Include="Content/bootstrap-grid.rtl.css">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:21</publishTime>
     </File>
     <File Include="Content/bootstrap-grid.rtl.css.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:21</publishTime>
     </File>
     <File Include="Content/bootstrap-grid.rtl.min.css">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:21</publishTime>
     </File>
     <File Include="Content/bootstrap-grid.rtl.min.css.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:21</publishTime>
     </File>
     <File Include="Content/bootstrap-reboot.css">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:21</publishTime>
     </File>
     <File Include="Content/bootstrap-reboot.css.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:21</publishTime>
     </File>
     <File Include="Content/bootstrap-reboot.min.css">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:21</publishTime>
     </File>
     <File Include="Content/bootstrap-reboot.min.css.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:20</publishTime>
     </File>
     <File Include="Content/bootstrap-reboot.rtl.css">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:20</publishTime>
     </File>
     <File Include="Content/bootstrap-reboot.rtl.css.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:20</publishTime>
     </File>
     <File Include="Content/bootstrap-reboot.rtl.min.css">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:20</publishTime>
     </File>
     <File Include="Content/bootstrap-reboot.rtl.min.css.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:20</publishTime>
     </File>
     <File Include="Content/bootstrap-utilities.css">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:20</publishTime>
     </File>
     <File Include="Content/bootstrap-utilities.css.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:20</publishTime>
     </File>
     <File Include="Content/bootstrap-utilities.min.css">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:20</publishTime>
     </File>
     <File Include="Content/bootstrap-utilities.min.css.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:20</publishTime>
     </File>
     <File Include="Content/bootstrap-utilities.rtl.css">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:20</publishTime>
     </File>
     <File Include="Content/bootstrap-utilities.rtl.css.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:20</publishTime>
     </File>
     <File Include="Content/bootstrap-utilities.rtl.min.css">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:20</publishTime>
     </File>
     <File Include="Content/bootstrap-utilities.rtl.min.css.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:19</publishTime>
     </File>
     <File Include="Content/bootstrap.css">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:19</publishTime>
     </File>
     <File Include="Content/bootstrap.css.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:19</publishTime>
     </File>
     <File Include="Content/bootstrap.min.css">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:19</publishTime>
     </File>
     <File Include="Content/bootstrap.min.css.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:19</publishTime>
     </File>
     <File Include="Content/bootstrap.rtl.css">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:19</publishTime>
     </File>
     <File Include="Content/bootstrap.rtl.css.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:19</publishTime>
     </File>
     <File Include="Content/bootstrap.rtl.min.css">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:19</publishTime>
     </File>
     <File Include="Content/bootstrap.rtl.min.css.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:19</publishTime>
     </File>
     <File Include="Content/Site.css">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -689,6 +689,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="Image/app.js">
       <publishTime>03/16/2026 12:55:06</publishTime>
+    </File>
+    <File Include="Image/Arizedaycream.png">
+      <publishTime>10/07/2026 20:25:00</publishTime>
     </File>
     <File Include="Image/arrow-left 2.png">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -902,6 +905,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="Image/en.gif">
       <publishTime>03/16/2026 12:55:06</publishTime>
+    </File>
+    <File Include="Image/Energize24hcream.png">
+      <publishTime>10/07/2026 20:25:00</publishTime>
     </File>
     <File Include="Image/external.js">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1323,6 +1329,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Image/screencapture-zinzino-logo.png">
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
+    <File Include="Image/Shakebottle.png">
+      <publishTime>10/07/2026 20:25:00</publishTime>
+    </File>
     <File Include="Image/shopping-cart 2.png">
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
@@ -1382,6 +1391,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="Image/SkenITvKurze.png">
       <publishTime>03/16/2026 12:55:06</publishTime>
+    </File>
+    <File Include="Image/SkinSerum50ml.png">
+      <publishTime>10/07/2026 20:25:00</publishTime>
     </File>
     <File Include="Image/skusenosti 2.jpg">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1723,49 +1735,49 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>12/04/2017 18:36:44</publishTime>
     </File>
     <File Include="Scripts/bootstrap.bundle.js">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:19</publishTime>
     </File>
     <File Include="Scripts/bootstrap.bundle.js.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:19</publishTime>
     </File>
     <File Include="Scripts/bootstrap.bundle.min.js">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:19</publishTime>
     </File>
     <File Include="Scripts/bootstrap.bundle.min.js.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:19</publishTime>
     </File>
     <File Include="Scripts/bootstrap.esm.js">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:19</publishTime>
     </File>
     <File Include="Scripts/bootstrap.esm.js.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:19</publishTime>
     </File>
     <File Include="Scripts/bootstrap.esm.min.js">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:19</publishTime>
     </File>
     <File Include="Scripts/bootstrap.esm.min.js.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:19</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:18</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:18</publishTime>
     </File>
     <File Include="Scripts/bootstrap.min.js">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:18</publishTime>
     </File>
     <File Include="Scripts/bootstrap.min.js.map">
-      <publishTime>03/16/2026 12:55:06</publishTime>
+      <publishTime>09/29/2026 19:44:18</publishTime>
     </File>
     <File Include="Scripts/bundle.js">
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Scripts/cart.js">
-      <publishTime>09/24/2026 15:39:32</publishTime>
+      <publishTime>10/16/2026 18:17:11</publishTime>
     </File>
     <File Include="Scripts/chat-ui.js">
-      <publishTime>09/24/2026 14:19:10</publishTime>
+      <publishTime>10/27/2026 16:23:25</publishTime>
     </File>
     <File Include="Scripts/checkout.js">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1897,10 +1909,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/02/2026 20:30:31</publishTime>
     </File>
     <File Include="Views/Home/Kontakt.cshtml">
-      <publishTime>09/22/2026 08:34:52</publishTime>
+      <publishTime>10/29/2026 19:55:56</publishTime>
     </File>
     <File Include="Views/Home/Kosik.cshtml">
-      <publishTime>09/28/2026 16:31:17</publishTime>
+      <publishTime>10/29/2026 19:07:17</publishTime>
     </File>
     <File Include="Views/Home/Login.cshtml">
       <publishTime>03/16/2026 12:55:06</publishTime>
@@ -1933,7 +1945,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Views/Home/Produkty.cshtml">
-      <publishTime>09/28/2026 15:16:00</publishTime>
+      <publishTime>10/08/2026 19:09:19</publishTime>
     </File>
     <File Include="Views/Home/Registracia.cshtml">
       <publishTime>03/23/2026 19:16:48</publishTime>
@@ -1954,25 +1966,25 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/16/2026 12:55:06</publishTime>
     </File>
     <File Include="Views/Home/Zdravie.cshtml">
-      <publishTime>09/28/2026 16:54:17</publishTime>
+      <publishTime>10/16/2026 19:29:11</publishTime>
     </File>
     <File Include="Views/Server/Cancel.cshtml">
-      <publishTime>04/28/2026 17:48:12</publishTime>
+      <publishTime>10/04/2026 21:40:15</publishTime>
     </File>
     <File Include="Views/Server/Success.cshtml">
-      <publishTime>04/28/2026 17:48:12</publishTime>
+      <publishTime>10/04/2026 21:40:51</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>09/24/2026 16:59:57</publishTime>
+      <publishTime>10/26/2026 20:49:03</publishTime>
     </File>
     <File Include="Views/Web.config">
-      <publishTime>07/29/2026 20:17:05</publishTime>
+      <publishTime>10/29/2026 18:45:29</publishTime>
     </File>
     <File Include="Views/_ViewStart.cshtml">
       <publishTime>05/22/2026 13:26:23</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/29/2026 20:21:30</publishTime>
+      <publishTime>10/26/2026 19:35:11</publishTime>
     </File>
   </ItemGroup>
 </Project>

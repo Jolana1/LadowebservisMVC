@@ -276,8 +276,50 @@
         return false;
     }
 
+    function isExcludedFromTenPercentDiscount(key, catalog) {
+        // New products 10–13 are never discounted, regardless of line value or catalog price.
+        const excludedIds = new Set(['10', '11', '12', '13']);
+        if (excludedIds.has(String(key))) return true;
+
+        try {
+            if (catalog && catalog[key] && catalog[key].Id != null
+                && excludedIds.has(String(catalog[key].Id))) return true;
+
+            if (catalog) {
+                for (var k in catalog) {
+                    if (!Object.prototype.hasOwnProperty.call(catalog, k)) continue;
+                    var val = catalog[k];
+                    if (val && val.Id != null && excludedIds.has(String(val.Id))
+                        && (String(val.Id) === String(key) || String(val.Name) === String(key))) return true;
+                }
+            }
+        } catch (e) { }
+        return false;
+    }
+
+    function isZinobiotic(key, catalog) {
+        if (String(key) === '2' || String(key).toLowerCase() === 'zinobiotic') return true;
+        try {
+            if (catalog && catalog[key]) {
+                const item = catalog[key];
+                if (String(item.Id) === '2' || String(item.Name || '').toLowerCase() === 'zinobiotic') return true;
+            }
+            if (catalog) {
+                for (var k in catalog) {
+                    if (!Object.prototype.hasOwnProperty.call(catalog, k)) continue;
+                    var val = catalog[k];
+                    if (val && (String(val.Id) === String(key) || String(val.Name) === String(key))
+                        && (String(val.Id) === '2' || String(val.Name || '').toLowerCase() === 'zinobiotic')) return true;
+                }
+            }
+        } catch (e) { }
+        return false;
+    }
+
     function qualifiesForTenPercentDiscount(key, lineBase, catalog) {
-        // Rule: 10% discount for line totals > 50€ OR always for product ZinzinoXtend
+        // Products 10–13 are excluded; ID 2 (Zinobiotic) always receives the active 10% discount.
+        if (isExcludedFromTenPercentDiscount(key, catalog)) return false;
+        if (isZinobiotic(key, catalog)) return true;
         return (lineBase > 50) || isZinzinoXtend(key, catalog);
     }
 
@@ -375,6 +417,9 @@
             try {
                 if (catalog && catalog[key] && catalog[key].OriginalPrice) originalUnitPrice = parseFloat(catalog[key].OriginalPrice) || originalUnitPrice;
             } catch (e) { }
+            // Products 10–13 must never show crossed-out pricing.
+            if (isExcludedFromTenPercentDiscount(key, catalog)) originalUnitPrice = unitPrice;
+
             // fallback map for legacy cases
             if (originalUnitPrice === unitPrice) {
                 // define a small inline map for known legacy original prices
@@ -698,7 +743,7 @@
             priceSpan.style.marginLeft = 'auto';
             priceSpan.style.fontWeight = '600';
             const price = parseFloat(item.Price) || 0;
-            const qualifiesForDiscountFav = (price > 50) || (item && item.Name && String(item.Name).toLowerCase() === 'zinzinoxtend') || String(id).toLowerCase() === 'zinzinoxtend' || String(id) === '3';
+            const qualifiesForDiscountFav = qualifiesForTenPercentDiscount(id, price, catalog);
             let discountedPriceText;
             if (qualifiesForDiscountFav) {
                 const discountedPrice = (price * 0.9).toFixed(2);
@@ -1542,6 +1587,11 @@
 
 
 ;
+
+
+
+
+
 
 
 

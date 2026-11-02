@@ -116,7 +116,7 @@ namespace LadowebservisMVC.Controllers
             {
                 Amount = (long)(product.Price * 100),
                 Currency = "eur",
-                PaymentMethodTypes = new List<string> { "card" },
+                //PaymentMethodTypes = new List<string> { "card" },
                 Description = $"Purchase of {product.Name}"
             };
             var service = new PaymentIntentService();
@@ -128,6 +128,7 @@ namespace LadowebservisMVC.Controllers
                 clientSecret = paymentIntent.ClientSecret
             });
         }
+
 
         [HttpPost]
         public ActionResult CreateCheckoutSession(int productId)

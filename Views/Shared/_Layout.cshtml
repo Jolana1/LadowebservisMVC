@@ -20,13 +20,12 @@
         fbq('track', 'PageView');
     </script>
     <!-- End Meta Pixel Code -->
-
     <!-- Google Ads Conversion Tracking -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-759-669-4442"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
-gtag('js', new Date());
+        gtag('js', new Date());
         gtag('config', 'AW-759-669-4442'); // Replace with your Google Ads ID
 
         // Function to track conversions - call this after successful order
@@ -40,7 +39,6 @@ gtag('js', new Date());
         }
     </script>
     <!-- End Google Ads Conversion Tracking -->
-
     <!-- Cookie Consent by TermsFeed https://www.TermsFeed.com -->
     <script type="text/javascript" src="//www.termsfeed.com/public/cookie-consent/4.2.0/cookie-consent.js" charset="UTF-8"></script>
     <script type="text/javascript" charset="UTF-8">
@@ -93,6 +91,27 @@ gtag('js', new Date());
                 var it = arr[i];
                 if (it && it.Id) map[it.Id] = it;
             }
+            // Keep the four newest products available to the header/SideCart even when an older cached page is used.
+            var newProducts = {
+                '10': { Id: '10', Name: 'ENERGIZE 24H Cream', Price: 77.00, Image: '/Image/Energize24hcream.png', Stock: 1, Discount: false, discount: false },
+                '11': { Id: '11', Name: 'Arize Day Cream', Price: 88.00, Image: '/Image/Arizedaycream.png', Stock: 1, Discount: false, discount: false },
+                '12': { Id: '12', Name: 'Skin Serum, 50 ml', Price: 59.00, Image: '/Image/SkinSerum50ml.png', Stock: 1, Discount: false, discount: false },
+                '13': { Id: '13', Name: 'ShakeBottle, 500 ml', Price: 10.00, Image: '/Image/Shakebottle', Stock: 1, Discount: false, discount: false }
+            };
+            Object.keys(newProducts).forEach(function (id) {
+                if (!map[id]) map[id] = newProducts[id];
+                // IDs 10–13 are full-price products: never apply the 10% promotion to them.
+                if (map[id]) {
+                    map[id].Discount = false;
+                    map[id].discount = false;
+                    map[id].DiscountEligible = false;
+                }
+            });
+            // Shared explicit eligibility rule for cart/SideCart scripts.
+            window.lwsNoDiscountProductIds = ['10', '11', '12', '13'];
+            window.lwsIsDiscountEligible = function (productId) {
+                return window.lwsNoDiscountProductIds.indexOf(String(productId)) === -1;
+            };
             window.__lws_products = map;
         })();
     </script>
@@ -189,10 +208,10 @@ gtag('js', new Date());
             padding: 28px 20px 0;
         }
 
-        .body-content > hr {
-            border-top: 1px solid rgba(93, 51, 251, 0.10);
-            margin: 42px 0 30px;
-        }
+            .body-content > hr {
+                border-top: 1px solid rgba(93, 51, 251, 0.10);
+                margin: 42px 0 30px;
+            }
 
         .container,
         .container-fluid,
@@ -341,20 +360,20 @@ gtag('js', new Date());
             gap: 12px;
         }
 
-        .navbar-brand::after {
-            content: 'Health • Beauty • IT';
-            display: inline-block;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.72);
-            padding: 7px 12px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            white-space: nowrap;
-        }
+            .navbar-brand::after {
+                content: 'Health • Beauty • IT';
+                display: inline-block;
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                color: rgba(255, 255, 255, 0.72);
+                padding: 7px 12px;
+                border-radius: 999px;
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                white-space: nowrap;
+            }
 
             .navbar-brand img {
                 height: 50px;
@@ -397,12 +416,12 @@ gtag('js', new Date());
                     color: #ffffff !important;
                 }
 
-                /* Active/current page styling */
-                .navbar-nav > li.active > a,
-                .navbar-nav > li.active > a:hover,
-                .navbar-nav > li.active > a:focus {
-                    color: #ffffff !important;
-                }
+            /* Active/current page styling */
+            .navbar-nav > li.active > a,
+            .navbar-nav > li.active > a:hover,
+            .navbar-nav > li.active > a:focus {
+                color: #ffffff !important;
+            }
 
         .navbar-right {
             display: flex;
@@ -418,26 +437,26 @@ gtag('js', new Date());
             gap: 4px;
         }
 
-        .nav-main-links > li {
-            float: none;
-        }
+            .nav-main-links > li {
+                float: none;
+            }
 
-        .nav-segment-dropdown > a,
-        .nav-main-links > .nav-item > a {
-            border-radius: 12px;
-            font-weight: 700 !important;
-        }
+            .nav-segment-dropdown > a,
+            .nav-main-links > .nav-item > a {
+                border-radius: 12px;
+                font-weight: 700 !important;
+            }
 
         .nav-segment-dropdown > a {
             box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
         }
 
-        .nav-segment-dropdown > a .fa,
-        .nav-segment-dropdown > a .glyphicon,
-        .nav-main-links > .nav-item > a .fa,
-        .nav-main-links > .nav-item > a .glyphicon {
-            margin-right: 8px;
-        }
+            .nav-segment-dropdown > a .fa,
+            .nav-segment-dropdown > a .glyphicon,
+            .nav-main-links > .nav-item > a .fa,
+            .nav-main-links > .nav-item > a .glyphicon {
+                margin-right: 8px;
+            }
 
         .nav-translate-item {
             margin-right: 8px;
@@ -504,20 +523,20 @@ gtag('js', new Date());
             padding: 10px 14px;
         }
 
-        .navbar .dropdown-menu > li > a:hover,
-        .navbar .dropdown-menu > li > a:focus {
-            background: rgba(255,255,255,0.12);
-            color: #fff !important;
-            transform: translateX(3px);
-        }
-
-            .cart-toggle-btn:hover {
-                background: rgba(255, 255, 255, 0.18) !important;
-                border-color: rgba(255, 255, 255, 0.30) !important;
-                transform: translateY(-2px);
-                box-shadow: 0 10px 24px rgba(15, 23, 42, 0.24);
-                color: var(--lws-nav-text) !important;
+            .navbar .dropdown-menu > li > a:hover,
+            .navbar .dropdown-menu > li > a:focus {
+                background: rgba(255,255,255,0.12);
+                color: #fff !important;
+                transform: translateX(3px);
             }
+
+        .cart-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.18) !important;
+            border-color: rgba(255, 255, 255, 0.30) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.24);
+            color: var(--lws-nav-text) !important;
+        }
 
         .cart-badge {
             background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
@@ -731,36 +750,36 @@ gtag('js', new Date());
                     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
                 }
 
-                .nav-main-links > li,
-                .nav-main-links > .nav-item,
-                .nav-main-links > .dropdown {
-                    display: block;
-                    width: 100%;
+            .nav-main-links > li,
+            .nav-main-links > .nav-item,
+            .nav-main-links > .dropdown {
+                display: block;
+                width: 100%;
+            }
+
+            .navbar-nav > li:last-child {
+                border-bottom: none;
+            }
+
+            .navbar-nav > li > a {
+                padding: 12px 20px !important;
+                height: auto;
+                font-size: 14px;
+                display: flex;
+                align-items: center;
+                color: var(--lws-nav-text-soft) !important;
+            }
+
+                .navbar-nav > li > a::after {
+                    display: none;
                 }
 
-                    .navbar-nav > li:last-child {
-                        border-bottom: none;
-                    }
-
-                    .navbar-nav > li > a {
-                        padding: 12px 20px !important;
-                        height: auto;
-                        font-size: 14px;
-                        display: flex;
-                        align-items: center;
-                        color: var(--lws-nav-text-soft) !important;
-                    }
-
-                        .navbar-nav > li > a::after {
-                            display: none;
-                        }
-
-                        .navbar-nav > li > a:hover,
-                        .navbar-nav > li > a:focus {
-                            background: rgba(255, 255, 255, 0.12);
-                            padding-left: 25px !important;
-                            color: var(--lws-nav-text) !important;
-                        }
+                .navbar-nav > li > a:hover,
+                .navbar-nav > li > a:focus {
+                    background: rgba(255, 255, 255, 0.12);
+                    padding-left: 25px !important;
+                    color: var(--lws-nav-text) !important;
+                }
 
             .nav-segment-dropdown > a,
             .nav-main-links > .nav-item > a {
@@ -982,9 +1001,9 @@ gtag('js', new Date());
         /* Side cart panel */
         #side-cart {
             position: fixed;
-            right: -380px;
+            right: -330px;
             top: 70px;
-            width: 380px;
+            width: 330px;
             max-width: 95vw;
             height: calc(100% - 90px);
             background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
@@ -1008,7 +1027,7 @@ gtag('js', new Date());
         #side-cart-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #fff;
-            padding: 15px;
+            padding: 11px;
             flex-shrink: 0;
             border-bottom: 2px solid rgba(0,0,0,0.05);
             box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
@@ -1016,7 +1035,7 @@ gtag('js', new Date());
 
             #side-cart-header h4 {
                 margin: 0;
-                font-size: 18px;
+                font-size: 16px;
                 font-weight: 700;
                 display: flex;
                 align-items: center;
@@ -1027,7 +1046,7 @@ gtag('js', new Date());
         #side-cart-content {
             flex: 1;
             overflow-y: auto;
-            padding: 18px;
+            padding: 11px;
             min-width: 0;
         }
 
@@ -1061,13 +1080,13 @@ gtag('js', new Date());
 
             #cart-items-list .list-group-item {
                 display: grid;
-                grid-template-columns: 70px 1fr;
-                gap: 10px;
-                padding: 10px;
+                grid-template-columns: 58px 1fr;
+                gap: 7px;
+                padding: 7px;
                 border: none;
                 background: #fff;
                 border-radius: 12px;
-                margin-bottom: 8px;
+                margin-bottom: 6px;
                 transition: all 0.3s ease;
                 border-left: 3px solid #5d33fb;
                 align-items: start;
@@ -1081,8 +1100,8 @@ gtag('js', new Date());
 
         /* Cart Item Image */
         .cart-item-image {
-            width: 56px;
-            height: 56px;
+            width: 48px;
+            height: 48px;
             max-width: 100%;
             border-radius: 6px;
             object-fit: contain;
@@ -1102,7 +1121,7 @@ gtag('js', new Date());
         }
 
         .cart-item-name {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             color: #5d33fb;
             word-break: break-word;
@@ -1138,9 +1157,9 @@ gtag('js', new Date());
         /* Cart Summary Section */
         #cart-summary {
             background: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 7px;
+            margin-bottom: 10px;
             border: 2px solid #5d33fb;
             flex-shrink: 0;
         }
@@ -1149,7 +1168,7 @@ gtag('js', new Date());
                 font-size: 14px;
                 color: #333;
                 display: block;
-                margin-bottom: 8px;
+                margin-bottom: 6px;
             }
 
         #total-amount {
@@ -1303,7 +1322,7 @@ gtag('js', new Date());
                 background: linear-gradient(135deg, #ee5a6f 0%, #ff6b6b 100%);
                 transform: scale(1.1) rotate(90deg);
                 box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4);
-                            color: var(--lws-nav-text) !important;
+                color: var(--lws-nav-text) !important;
             }
 
             .btn-cart-close:active {
@@ -1515,7 +1534,7 @@ gtag('js', new Date());
 
             #chat-header {
                 font-size: 12px;
-                margin-bottom: 8px;
+                margin-bottom: 6px;
             }
 
             #chat-messages {
@@ -1642,15 +1661,15 @@ gtag('js', new Date());
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
         }
 
-        .site-footer-section ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+            .site-footer-section ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
 
-        .site-footer-section li {
-            margin: 6px 0;
-        }
+            .site-footer-section li {
+                margin: 6px 0;
+            }
 
         .site-footer a {
             color: rgba(255, 255, 255, 0.9);
@@ -2036,7 +2055,7 @@ gtag('js', new Date());
             gap: 8px;
             padding: 12px 16px;
             border-radius: 6px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
@@ -2294,7 +2313,7 @@ gtag('js', new Date());
                     <a class="image-container img-rounded glyphicon glyphicon-envelope" href="/Home/Kontakt" title="Kontakt a podpora">Kontakt</a>
                 </li>
 
-                
+
             </ul>
         </div>
 
@@ -2314,83 +2333,65 @@ gtag('js', new Date());
         </div>
 
         <!-- Content Area -->
-        <div id="side-cart-content">
-            <!-- Cart Items Section -->
-            <div id="cart-items-section" style="margin-bottom: 15px;">
-                <h5 style="color: #5d33fb; font-weight: 700; font-size: 13px; margin: 0 0 10px 0;">🛒 V Košíku</h5>
-                <ul id="cart-items-list" class="list-group">
-                    <!-- Cart items rendered by cart.js -->
-                </ul>
+        <div id="side-cart-content"></div>
+        <!-- Cart Items Section -->
+        <div id="cart-items-section" style="margin-bottom: 15px;">
+            <h5 style="color: #5d33fb; font-weight: 700; font-size: 13px; margin: 0 0 10px 0;">🛒 V Košíku</h5>
+            <ul id="cart-items-list" class="list-group">
+                <!-- Cart items rendered by cart.js -->
+            </ul>
+        </div>
+
+        <!-- Cart Summary -->
+        <div id="cart-summary">
+            <strong>💰 Súhrn košíka:</strong>
+            <div style="font-size: 13px; color: #666; margin: 6px 0;">
+                Medzisúčet: €<span id="total-amount">0.00</span>
             </div>
-
-            <!-- Cart Summary -->
-            <div id="cart-summary">
-                <strong>💰 Súhrn košíka:</strong>
-                <div style="font-size: 13px; color: #666; margin: 6px 0;">
-                    Medzisúčet: €<span id="total-amount">0.00</span>
-                </div>
-                <div style="font-size: 13px; color: #666; margin: 6px 0;">
-                    Doprava: €<span id="shipping-amount">0.00</span>
-                </div>
-                <div style="font-size: 16px; color: #28a745; font-weight: 700; margin: 8px 0;">
-                    Celkom (s DPH): €<span id="grand-total-amount">0.00</span>
-                </div>
-                <div id="total-discount" style="font-size: 12px; color: #5d33fb; margin-top: 6px;"></div>
+            <div style="font-size: 13px; color: #666; margin: 6px 0;">
+                Doprava: €<span id="shipping-amount">0.00</span>
             </div>
-
-            <!-- Simple Shipping and Customer Info -->
-            <div style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
-                <!-- Name and email removed from side cart by request -->
-
-                <div style="margin-bottom: 10px;">
-                    <label for="sidecart-shipping-method" style="font-size: 12px; font-weight: 600; color: #5d33fb; display: block; margin-bottom: 4px;">Doprava</label>
-                    <select id="sidecart-shipping-method" class="form-control" onchange="window.lwsSetShippingMethod(this.value)">
-                        <option value="">Vyberte dopravu…</option>
-                        <option value="courier">Kuriér na adresu</option>
-                        <option value="gls-courier">GLS kuriér</option>
-                        <option value="gls-parcelshop">GLS ParcelShop</option>
-                        <option value="gls-box">GLS Box</option>
-                        <option value="alzabox">AlzaBox</option>
-                        <option value="dpd-courier">DPD kuriér</option>
-                        <option value="dpd-pickup">DPD odberné miesto</option>
-                        <option value="packeta-zbox">Packeta Z-BOX</option>
-                    </select>
-                </div>
+            <div style="font-size: 16px; color: #28a745; font-weight: 700; margin: 8px 0;">
+                Celkom (s DPH): €<span id="grand-total-amount">0.00</span>
             </div>
+            <div id="total-discount" style="font-size: 12px; color: #5d33fb; margin-top: 6px;"></div>
+        </div>
 
-            <!-- Stripe Buy Button -->
-            <div id="sidecart-stripe-panel" style="padding:10px; border-radius:12px; margin-bottom:12px;">
-                <div style="margin:0 0 8px 0; font-size:11px; color:#666; text-align:center; line-height:1.4;">
-                    Platbu môžete dokončiť tu cez tlačítko <strong>Prejsť k platbe (Stripe)</strong> alebo odoslať objednávku pre bankový prevod cez tlačítko <strong>Odoslať objednávku pre bankový prevod</strong>
-                </div>
-                <script async src="https://js.stripe.com/v3/buy-button.js"></script>
-                <div style="display:flex; justify-content:center; width:100%; max-width:100%; overflow:hidden; margin-bottom:12px;">
-                    <stripe-buy-button buy-button-id="buy_btn_1SgujHHrPMzQ1ua8771vUUL4"
-                                       publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3"
-                                       style="display:block; max-width:100%;">
-                    </stripe-buy-button>
-                </div>
+        <!-- Simple Shipping and Customer Info -->
+        <div style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+            <!-- Name and email removed from side cart by request -->
+
+            <div style="margin-bottom: 10px;">
+                <label for="sidecart-shipping-method" style="font-size: 12px; font-weight: 600; color: #5d33fb; display: block; margin-bottom: 4px;">Doprava</label>
+                <select id="sidecart-shipping-method" class="form-control" onchange="window.lwsSetShippingMethod(this.value)">
+                    <option value="">Vyberte dopravu…</option>
+                    <option value="courier">Kuriér na adresu</option>
+                    <option value="gls-courier">GLS kuriér</option>
+                    <option value="gls-parcelshop">GLS ParcelShop</option>
+                    <option value="gls-box">GLS Box</option>
+                    <option value="alzabox">AlzaBox</option>
+                    <option value="dpd-courier">DPD kuriér</option>
+                    <option value="dpd-pickup">DPD odberné miesto</option>
+                    <option value="packeta-zbox">Packeta Z-BOX</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Stripe Buy Button -->
+        <div id="sidecart-stripe-panel" style="padding:10px; border-radius:12px; margin-bottom:12px;">
+            <div style="margin:0 0 8px 0; font-size:11px; color:#666; text-align:center; line-height:1.4;">
+                Platbu môžete dokončiť tu cez tlačítko <strong>Platba cez Stripe</strong> alebo odoslať objednávku emailom ako zaplatiť pre bankový prevod cez tlačítko <strong>Doprava a platba</strong>
+                <script async
+                        src="https://js.stripe.com/v3/buy-button.js"></script>
+
+                <stripe-buy-button buy-button-id="buy_btn_1UNGpXHrPMzQ1ua8z41z9K5Z"
+                                   publishable-key="pk_live_51P80kcHrPMzQ1ua8JUHSe4iUQ9sLHonQMmFzwyRKnq2xTpB6mhuJVc4OdBKa04BJzpsjjliSrBoNnftkBxwntFF300mePdWSx3">
+                </stripe-buy-button>
                 <!-- Action Buttons -->
                 <div id="sidecart-action-buttons" style="display: flex; gap: 8px; margin: 15px 0; flex-direction: column;">
                     <a id="sidecart-checkout-link" class="btn btn-primary" href="/Home/Kosik?checkout=1" style="padding: 12px; font-size: 14px; font-weight: 600; background: #5d33fb; border-color: #5d33fb; color: #fff; text-align: center;">
-                        ✓ Odoslať objednávku pre bankový prevod
+                        ✓ Doprava a platba (Prevod)
                     </a>
-                </div>
-            </div>
-
-            <!-- Chat Section -->
-            <div id="side-cart-chat" class="side-cart-chat">
-                <div id="chat-header">
-                    <i class="fa fa-comments"></i> Poradenstvo
-                </div>
-                <div id="chat-messages" style="background: rgba(255,255,255,0.95); border-radius: 6px; padding: 10px; height: 180px; overflow-y: auto; margin-bottom: 10px; font-size: 12px; line-height: 1.4;">
-                    <!-- Messages rendered by chat-ui.js -->
-                </div>
-                <div class="chat-input-group">
-                    <input type="text" id="chat-input" placeholder="Napíšte správu..." aria-label="Chat input" style="flex: 1; padding: 6px 8px; border: 1px solid rgba(0,0,0,0.1); border-radius: 4px; font-size: 12px; background: rgba(255,255,255,0.95); color: #333;">
-                    <button id="chat-send-btn" onclick="sendChatMessage()" style="padding: 6px 12px; background: #fff; color: #667eea; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 11px; transition: all 0.3s ease; min-width: 40px;">
-                        <i class="fa fa-send"></i>
-                    </button>
                 </div>
             </div>
 
@@ -2835,7 +2836,7 @@ gtag('js', new Date());
                     var arr = [];
                     for (var k in map) { if (Object.prototype.hasOwnProperty.call(map, k)) arr.push(map[k]); }
                     arr.sort(function (a, b) { var an = (a && a.Name) || ''; var bn = (b && b.Name) || ''; return an.localeCompare(bn); });
-                    var max = 8;
+                    var max = 12;
                     for (var i = 0; i < arr.length && i < max; i++) {
                         var p = arr[i]; if (!p) continue;
                         var li = document.createElement('li');
@@ -2854,7 +2855,7 @@ gtag('js', new Date());
         }
     </script>
 
-    @{ 
+    @{
         var __pageTitle = (ViewBag.PageTitle as string) ?? string.Empty;
         var __showCarousel = string.Equals(__pageTitle, "zdravie", System.StringComparison.OrdinalIgnoreCase);
     }
@@ -2864,73 +2865,73 @@ gtag('js', new Date());
         <!-- Carousel -->
         <div class="container-fluid-right">
             <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1" class=""></li>
-                <li data-target="#myCarousel" data-slide-to="2" class=""></li>
-                <li data-target="#myCarousel" data-slide-to="3" class=""></li>
-                <li data-target="#myCarousel" data-slide-to="4" class=""></li>
-                <li data-target="#myCarousel" data-slide-to="5" class=""></li>
-            </ol>
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner">
-                <div class="item active" data-interval="6000">
-                    <img src="~/Image/LWSGEN Logo.png" alt="Ladowebservis Logo" style="width:2560px;height:539px;" title="Vitajte na Ladowebservis - Vaša cesta k zdraviu a wellness">
-                    <div class="carousel-caption">
-                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">🎯 Vitajte!</p>
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+                    <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+                    <li data-target="#myCarousel" data-slide-to="3" class=""></li>
+                    <li data-target="#myCarousel" data-slide-to="4" class=""></li>
+                    <li data-target="#myCarousel" data-slide-to="5" class=""></li>
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    <div class="item active" data-interval="6000">
+                        <img src="~/Image/LWSGEN Logo.png" alt="Ladowebservis Logo" style="width:2560px;height:539px;" title="Vitajte na Ladowebservis - Vaša cesta k zdraviu a wellness">
+                        <div class="carousel-caption">
+                            <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">🎯 Vitajte!</p>
+                        </div>
+                    </div>
+
+                    <div class="item" data-interval="4000">
+                        <img src="~/Image/pagePiling-plugin.gif" alt="Ladowebservis Služby" style="width:2560px;height:539px;" title="Webové služby a IT podporu od Ladowebservis">
+                        <div class="carousel-caption">
+                            <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">💻 Pozrite  si našich Partnerov a ich služby - IT servis, Oriflame a ďalšie..</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="~/Image/Zinzino.jpg" alt="Zinzino Produkty" style="width:2560px;height:539px;" title="Kvalitné zdravotné produkty od Zinzino">
+                        <div class="carousel-caption">
+                            <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">🌟 Začnite svoju cestu za zdravím s produktami Zinzino.</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="~/Image/skusenosti.jpg" alt="Skúsenosti a Wellness" style="width:2560px;height:539px;" title="Wellness produkty a skúsenosti s Zinzino">
+                        <div class="carousel-caption">
+                            <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">✨ Inspire change in life - Poskytujeme prvotriedne a vedecky overené výživové doplnky, produkty na starostlivosť o pleť a výrobky pre lepší životný štýl.</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="~/Image/photo-1461722936851-13a79b294a5d.jpeg" alt="Špeciálna Ponuka" style="width:2560px;height:539px;" title="10% zľava s promo kódom">
+                        <div class="carousel-caption">
+                            <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">🎁 Použite pri platbe cez Stripe kód Jesenjetu26 a máte 10% zľavu!</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="~/Image/thong-vo-2482-unsplash 2.jpg" alt="Ďakujeme" style="width:2560px;height:539px;" title="Ďakujeme za vašu dôveru - Ladowebservis partner Zinzino">
+                        <div class="carousel-caption">
+                            <p style="font-size:18px;color:#fff;text-shadow:1px 1px 4px #000000;padding-bottom:.25em;">
+                                <img src="~/Image/pagePiling-plugin.gif" alt="Ladowebservis Logo" style="width:125px;height:42px;padding:.2em;border-radius:4px;background:rgba(255,255,255,0.1);" title="Ladowebservis - Oficiálny partner Zinzino">
+                                <br>
+                                ❤️ Ďakujeme za vašu dôveru. Vaša spokojnosť je naša priorita!
+                            </p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="item" data-interval="4000">
-                    <img src="~/Image/pagePiling-plugin.gif" alt="Ladowebservis Služby" style="width:2560px;height:539px;" title="Webové služby a IT podporu od Ladowebservis">
-                    <div class="carousel-caption">
-                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">💻 Pozrite  si našich Partnerov a ich služby - IT servis, Oriflame a ďalšie..</p>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <img src="~/Image/Zinzino.jpg" alt="Zinzino Produkty" style="width:2560px;height:539px;" title="Kvalitné zdravotné produkty od Zinzino">
-                    <div class="carousel-caption">
-                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">🌟 Začnite svoju cestu za zdravím s produktami Zinzino.</p>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <img src="~/Image/skusenosti.jpg" alt="Skúsenosti a Wellness" style="width:2560px;height:539px;" title="Wellness produkty a skúsenosti s Zinzino">
-                    <div class="carousel-caption">
-                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">✨ Inspire change in life - Poskytujeme prvotriedne a vedecky overené výživové doplnky, produkty na starostlivosť o pleť a výrobky pre lepší životný štýl.</p>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <img src="~/Image/photo-1461722936851-13a79b294a5d.jpeg" alt="Špeciálna Ponuka" style="width:2560px;height:539px;" title="10% zľava s promo kódom">
-                    <div class="carousel-caption">
-                        <p style="color:#ffffff;text-shadow:1px 1px 4px #000000;font-size:18px;">🎁 Použite pri platbe cez Stripe kód Jesenjetu26 a máte 10% zľavu!</p>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <img src="~/Image/thong-vo-2482-unsplash 2.jpg" alt="Ďakujeme" style="width:2560px;height:539px;" title="Ďakujeme za vašu dôveru - Ladowebservis partner Zinzino">
-                    <div class="carousel-caption">
-                        <p style="font-size:18px;color:#fff;text-shadow:1px 1px 4px #000000;padding-bottom:.25em;">
-                            <img src="~/Image/pagePiling-plugin.gif" alt="Ladowebservis Logo" style="width:125px;height:42px;padding:.2em;border-radius:4px;background:rgba(255,255,255,0.1);" title="Ladowebservis - Oficiálny partner Zinzino">
-                            <br>
-                            ❤️ Ďakujeme za vašu dôveru. Vaša spokojnosť je naša priorita!
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Left and right controls -->
-            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                <span class=" glyphicon glyphicon-chevron-right"></span>
-                <span class="sr-only">Next</span>
-            </a>
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                    <span class=" glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
         </div>
 
@@ -3180,6 +3181,9 @@ gtag('js', new Date());
     @RenderSection("scripts", required: false)
 
     <!-- Chat & UI Functionality Script -->
+    <script>
+        window.lwsReturnPolicyUrl = '@Url.Action("ReturnPolicy", "Home", new { area = "Ladowebservis" })';
+    </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/chat-ui.js")"></script>
 
     <style>
@@ -3190,11 +3194,11 @@ gtag('js', new Date());
             visibility: visible;
         }
 
-        .side-cart-chat.hidden-by-exit-intent {
-            opacity: 0.5;
-            pointer-events: none;
-            filter: blur(2px);
-        }
+            .side-cart-chat.hidden-by-exit-intent {
+                opacity: 0.5;
+                pointer-events: none;
+                filter: blur(2px);
+            }
     </style>
 
 </body>

@@ -215,7 +215,8 @@ namespace LadowebservisMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult OdoslanieSpravy(ContactModel_Sk model)
+        [ValidateAntiForgeryToken]
+        public ActionResult OdoslanieSpravy(ContactModel_Sk model, bool suhlasSNovinkami = false)
         {
             ViewBag.PageTitle = "OdoslanieSpravy";
             if (ModelState.IsValid)
@@ -224,7 +225,10 @@ namespace LadowebservisMVC.Controllers
                 {
                     Mailer mailer = new Mailer();
                     // Contact form should send only the user's message (no e-book attachment)
-                    mailer.OdoslanieKontaktSpravy(model);
+                    // Re-subscription requires double opt-in; do not overwrite a previous opt-out.
+                    // The customer receives the transactional copy in every case.
+                    var marketingAllowed = false; // Marketing len v potvrdeni objednavky.
+                    mailer.OdoslanieKontaktSpravy(model, marketingAllowed);
                     return View();
                 }
                 catch (Exception ex)
@@ -293,7 +297,7 @@ namespace LadowebservisMVC.Controllers
             return View();
         }
 
-        
+
 
         public ActionResult Produkty()
         {
@@ -415,8 +419,7 @@ namespace LadowebservisMVC.Controllers
                 return RedirectToAction("Subscribe", "Home");
             }
 
-            var expectedToken = Mailer.BuildNewsletterConfirmationToken(normalizedEmail);
-            if (!string.Equals(expectedToken, normalizedToken, StringComparison.OrdinalIgnoreCase))
+            if (!MarketingConsentStore.VerifyToken(normalizedEmail, "subscribe", normalizedToken))
             {
                 TempData["SubscribeEmailStatus"] = "error";
                 TempData["SubscribeEmailMessage"] = "Potvrdzovací odkaz je neplatný alebo bol zmenený.";
@@ -426,6 +429,7 @@ namespace LadowebservisMVC.Controllers
             try
             {
                 var mailer = new Mailer();
+                MarketingConsentStore.SetStatus(normalizedEmail, true, "double-opt-in");
                 var sent = mailer.TrySendConfirmedSubscriptionEmail(normalizedEmail);
 
                 TempData["SubscribeEmailStatus"] = sent ? "success" : "error";
@@ -451,40 +455,31 @@ namespace LadowebservisMVC.Controllers
             return View();
         }
 
-        // Unsubscribe from marketing emails
+        // Unsubscribe link in marketing email. Signed token prevents unsubscribing others.
         [HttpGet]
         public ActionResult Unsubscribe(string email, string token)
         {
             ViewBag.PageTitle = "Odhlásenie z odberu";
-            _ = token;
-            
-            // Validate email and token
-            if (string.IsNullOrWhiteSpace(email))
-            {
-                ViewBag.Error = "Neplatný email.";
-                return View();
-            }
-
-            // TODO: Implement actual unsubscribe logic here
-            // For now, just pass the email to the view
-            ViewBag.Email = email;
-            ViewBag.UnsubscribeSuccess = true;
-
+            ViewBag.UnsubscribeSuccess = false;
+            var normalizedEmail = (email ?? string.Empty).Trim();
             try
             {
-                // Log unsubscribe request
-                System.Diagnostics.Trace.TraceInformation($"Unsubscribe request: {email}");
-                
-                // TODO: Add email to unsubscribe list in database or file
-                // Example: UnsubscribeService.Add(email);
+                if (string.IsNullOrWhiteSpace(normalizedEmail) ||
+                    !new EmailAddressAttribute().IsValid(normalizedEmail) ||
+                    !MarketingConsentStore.VerifyToken(normalizedEmail, "unsubscribe", token))
+                {
+                    ViewBag.Error = "Odhlasovací odkaz je neplatný.";
+                    return View();
+                }
+                MarketingConsentStore.SetStatus(normalizedEmail, false, "unsubscribe-link");
+                ViewBag.UnsubscribeSuccess = true;
+                ViewBag.Email = normalizedEmail;
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Trace.TraceError($"Unsubscribe error: {ex.Message}");
-                ViewBag.Error = "Vyskytla sa chyba pri odhlasovaní.";
-                ViewBag.UnsubscribeSuccess = false;
+                System.Diagnostics.Trace.TraceError("Unsubscribe failed: " + ex);
+                ViewBag.Error = "Odhlásenie sa nepodarilo. Kontaktujte nás prosím.";
             }
-
             return View();
         }
 
@@ -498,7 +493,7 @@ namespace LadowebservisMVC.Controllers
         // Place order (bank transfer)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult PlaceOrder(PlaceOrderModel model)
+        public ActionResult PlaceOrder(PlaceOrderModel model, bool marketingConsentOrder = false)
         {
             try
             {
@@ -696,7 +691,7 @@ namespace LadowebservisMVC.Controllers
                     }
 
                     var mailer = new Mailer();
-                    emailSent = mailer.TrySendBankTransferOrderEmail(model, shippingFee, grandTotal, orderNumber);
+                    emailSent = mailer.TrySendBankTransferOrderEmail(model, shippingFee, grandTotal, orderNumber, marketingConsentOrder);
                 }
                 catch (Exception ex)
                 {
@@ -731,7 +726,7 @@ namespace LadowebservisMVC.Controllers
         // Start Stripe checkout
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult StartStripeCheckout(PlaceOrderModel model)
+        public ActionResult StartStripeCheckout(PlaceOrderModel model, bool marketingConsentOrder = false)
         {
             try
             {
@@ -780,16 +775,10 @@ namespace LadowebservisMVC.Controllers
                     try
                     {
                         var mailer = new Mailer();
-                        mailer.SendBankTransferOrderEmail(
-                            model.Email,
-                            model.Name,
-                            model.CartJson,
-                            model.ShippingMethod,
-                            model.ZasielkovnaPickupPoint,
-                            model.ZasielkovnaPickupPointName,
-                            shippingFee,
-                            grandTotal,
-                            orderNumber);
+                        var emailSentFallback = mailer.TrySendBankTransferOrderEmail(
+                            model, shippingFee, grandTotal, orderNumber, marketingConsentOrder);
+                        if (!emailSentFallback)
+                            System.Diagnostics.Trace.TraceError("Stripe fallback: bank transfer email was not sent.");
                     }
                     catch (Exception ex)
                     {
@@ -1028,7 +1017,7 @@ namespace LadowebservisMVC.Controllers
         public ActionResult Error()
         {
             ViewBag.PageTitle = "Chyba";
-            
+
             // Get error message from TempData if available
             if (TempData["ErrorMessage"] != null)
             {
@@ -1096,10 +1085,10 @@ namespace LadowebservisMVC.Controllers
             ViewBag.ErrorTitle = "Stránka nenájdená";
             ViewBag.ErrorMessage = "Požadovaná stránka neexistuje alebo bola presunutá.";
             ViewBag.StatusCode = 404;
-            
+
             Response.StatusCode = 404;
             Response.TrySkipIisCustomErrors = true;
-            
+
             return View("Error");
         }
 

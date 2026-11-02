@@ -608,6 +608,21 @@
         letter-spacing: .2px;
         box-shadow: 0 5px 14px rgba(0,0,0,.16);
     }
+
+    /* ===== EMOTIONAL / SENSORY SHOP UPGRADE ===== */
+    .lws-emotion-strip { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:-8px auto 20px; }
+    .lws-emotion-strip span { background:rgba(255,255,255,.92); border:1px solid #ece8ff; border-radius:999px; padding:8px 13px; color:#4b4668; font-size:12px; font-weight:700; box-shadow:0 6px 18px rgba(50,40,90,.06); }
+    .products-hero { padding:50px 28px 44px; }
+    .products-hero h2 { font-size:clamp(27px,3.4vw,40px); }
+    .products-hero p:first-of-type { font-size:18px !important; line-height:1.65; }
+    .products-hero::after { opacity:.65; }
+    .product-card { border-radius:22px; }
+    .product-card:hover { transform:translateY(-6px); }
+    .product-description { font-size:14px; color:#555b70; }
+    .product-description::first-letter { font-size:1.08em; }
+    .product-actions button, .product-actions a { transition:transform .18s ease, box-shadow .18s ease; }
+    .product-actions button:hover, .product-actions a:hover { transform:translateY(-2px); }
+    @*@media(max-width:700px){ .lws-emotion-strip{gap:6px}.lws-emotion-strip span{font-size:11px;padding:7px 10px}.products-hero{padding:36px 18px 32px} }*@
 </style>
 
 <div class="products-container">
@@ -617,6 +632,8 @@
         <p style="margin-top: 15px; font-size: 16px; color: white;">Vyberte si z našej ponuky produktov pre každodennú starostlivos o zdravie, energiu a imunitu.</p>
         <p style="margin-top: 12px; font-size: 14px; color: white;">🍂 Jesenna ponuka: na vybrane produkty ziskate 10 % zlavu s kodom <strong>Jesenjetu26</strong>.</p>
     </div>
+
+    <div class="lws-emotion-strip"><span>💚 Starostlivosť, ktorú cítiš každý deň</span><span>✨ Vyber si svoju rutinu</span><span>🎁 Dopraj si niečo pre seba</span></div>
 
     <!-- Loading Spinner -->
     <div id="searchSpinnerOverlay" class="search-spinner-overlay">
@@ -637,7 +654,7 @@
     </div>
 
     <div class="products-grid">
-        <!-- Product 1: BalanceOil+ Orange 300ml (54.90€ → 49.41€) -->
+        <!-- Product 1: BalanceOil+ Orange 300ml (61,00€ → 54,90€) -->
         <section class="product-card products" id="product-1" data-product-id="1" data-product-name="BalanceOil" data-product-aliases="balance oil,balanceoil,balance oil orange,orange" data-product-image='@Url.Content("~/Image/BalanceOil.png")'>
             <button class="product-heart-btn" onclick="toggleProductFavorite(event, '1', 'BalanceOil', '@Url.Content("~/Image/BalanceOil.png")', 54.90)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
 
@@ -656,17 +673,17 @@
             </div>
 
             <div class="product-pricing">
-                <span class="price-original">54,90€</span>
-                <span class="price-current">49,41€</span>
+                <span class="price-original">61,00€</span>
+                <span class="price-current">54,90€</span>
                 <span class="price-save">Ušetríte 5,49€</span>
             </div>
-            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(49.41m) bodov</strong> do vernostného programu</div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(54.90m) bodov</strong> do vernostného programu</div>
 
 
 
             <div class="product-actions">
-                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
-                    <i class="fa fa-credit-card"></i> Kúpiť
+                <a href="https://buy.stripe.com/8x24gz43I9YS9pifgO4wM08" class="btn-stripe" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
                 </a>
                 <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
                     <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
@@ -694,9 +711,9 @@
             </details>
         </section>
 
-        <!-- Product 6: Dávkovacie poháre (15€) -->
+        <!-- Product 6: Dávkovacie poháre (12,00€) -->
         <section class="product-card products" id="product-6" data-product-id="6" data-product-name="Davkovacie pohare" data-product-aliases="dávkovacie poháre,davkovacie pohare,pohare,pohár,pohare 10ks" data-product-image='@Url.Content("~/Image/Davkovacie pohare.png")'>
-            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '6', 'Davkovacie pohare', '@Url.Content("~/Image/Davkovacie pohare.png")', 15.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '6', 'Davkovacie pohare', '@Url.Content("~/Image/Davkovacie pohare.png")', 12.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
 
             <div class="product-header">
                 <h2>🥤 Dávkovacie poháre (10ks)</h2>
@@ -707,13 +724,13 @@
             </div>
 
             <div class="product-pricing">
-                <span class="price-current">15,00€</span>
+                <span class="price-current">12,00€</span>
             </div>
-            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(15.00m) bodov</strong> do vernostného programu</div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(12.00m) bodov</strong> do vernostného programu</div>
 
             <div class="product-actions">
-                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
-                    <i class="fa fa-credit-card"></i> Kúpiť
+                <a href="https://buy.stripe.com/8x24gz43I9YS9pifgO4wM08" class="btn-stripe" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
                 </a>
                 <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
                     <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
@@ -739,9 +756,9 @@
             </details>
         </section>
 
-        <!-- Product 2: Zinobiotic (40€ → 36€) -->
+        <!-- Product 2: Zinobiotic (47,00€ → 42,30€) -->
         <section class="product-card products" id="product-2" data-product-id="2" data-product-name="Zinobiotic" data-product-aliases="zinobiotic,probiotika,probiotiká" data-product-image='@Url.Content("~/Image/Zinobiotic2025.png")'>
-            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '2', 'Zinobiotic', '@Url.Content("~/Image/Zinobiotic2025.png")', 36.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '2', 'Zinobiotic', '@Url.Content("~/Image/Zinobiotic2025.png")', 42.30)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
             <span class="product-badge discount">-10 % ZĽAVA</span>
             <div class="product-header">
                 <h2>🦠 Zinobiotic+</h2>
@@ -755,17 +772,17 @@
             </div>
 
             <div class="product-pricing">
-                <span class="price-original">40,00€</span>
-                <span class="price-current">36,00€</span>
+                <span class="price-original">47,00€</span>
+                <span class="price-current">42,30€</span>
                 <span class="price-save">Ušetríte 4,00€</span>
             </div>
-            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(36.00m) bodov</strong> do vernostného programu</div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(42.30m) bodov</strong> do vernostného programu</div>
 
 
 
             <div class="product-actions">
-                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
-                    <i class="fa fa-credit-card"></i> Kúpiť
+                <a href="https://buy.stripe.com/8x24gz43I9YS9pifgO4wM08" class="btn-stripe" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
                 </a>
                 <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
                     <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
@@ -793,9 +810,9 @@
             </details>
         </section>
 
-        <!-- Product 3: ZinzinoXtend (39.60€ -10%) -->
+        <!-- Product 3: ZinzinoXtend (47,00€ -10%) -->
         <section class="product-card products" id="product-3" data-product-id="3" data-product-name="ZinzinoXtend" data-product-aliases="zinzino xtend,xtend,imunita" data-product-image='@Url.Content("~/Image/ZinzinoXtend.png")'>
-            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '3', 'ZinzinoXtend', '@Url.Content("~/Image/ZinzinoXtend.png")', 39.60)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '3', 'ZinzinoXtend', '@Url.Content("~/Image/ZinzinoXtend.png")', 42.30)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
 
             <span class="product-badge discount">-10 % ZĽAVA</span>
 
@@ -812,15 +829,15 @@
             </div>
 
             <div class="product-pricing">
-                <span class="price-original">39,60€</span>
-                <span class="price-current">35,64€</span>
+                <span class="price-original">47,00€</span>
+                <span class="price-current">42,30€</span>
                 <span class="price-save">Ušetríte 3,96€</span>
             </div>
-            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(35.64m) bodov</strong> do vernostného programu</div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(42.30m) bodov</strong> do vernostného programu</div>
 
             <div class="product-actions">
-                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
-                    <i class="fa fa-credit-card"></i> Kúpiť
+                <a href="https://buy.stripe.com/8x24gz43I9YS9pifgO4wM08" class="btn-stripe" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
                 </a>
                 <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
                     <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
@@ -848,9 +865,9 @@
             </details>
         </section>
 
-        <!-- Product 4: BalanceOil 100ml (18€) -->
+        <!-- Product 4: BalanceOil 100ml (26,00€) -->
         <section class="product-card products" id="product-4" data-product-id="4" data-product-name="BalanceOil orange 100ml" data-product-aliases="balance oil 100ml,balanceoil 100ml,100ml,orange 100ml" data-product-image='@Url.Content("~/Image/BalanceOil orange 100ml.png")'>
-            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '4', 'BalanceOil orange 100ml', '@Url.Content("~/Image/BalanceOil orange 100ml.png")', 25.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '4', 'BalanceOil orange 100ml', '@Url.Content("~/Image/BalanceOil orange 100ml.png")', 26.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
 
             <div class="product-header">
                 <h2>💊 BalanceOil+ Orange 100ml</h2>
@@ -861,13 +878,13 @@
             </div>
 
             <div class="product-pricing">
-                <span class="price-current">18,00€</span>
+                <span class="price-current">26,00€</span>
             </div>
-            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(18.00m) bodov</strong> do vernostného programu</div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(26.00m) bodov</strong> do vernostného programu</div>
 
             <div class="product-actions">
-                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
-                    <i class="fa fa-credit-card"></i> Kúpiť
+                <a href="https://buy.stripe.com/8x24gz43I9YS9pifgO4wM08" class="btn-stripe" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
                 </a>
                 <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
                     <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
@@ -895,9 +912,9 @@
             </details>
         </section>
 
-        <!-- Product 5: Vitamin D Test (58.5€ → 52.65€) -->
+        <!-- Product 5: Vitamin D Test (74,00€ → 66,60€) -->
         <section class="product-card products" id="product-5" data-product-id="5" data-product-name="Vitamin D Test" data-product-aliases="vitamin d,vitamin d test,vitamind,test" data-product-image='@Url.Content("~/Image/VitaminDTest.png")'>
-            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '5', 'Vitamin D Test', '@Url.Content("~/Image/VitaminDTest.png")', 58.50)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '5', 'Vitamin D Test', '@Url.Content("~/Image/VitaminDTest.png")', 66.60)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
 
             <span class="product-badge discount">-10 % ZĽAVA</span>
 
@@ -914,15 +931,15 @@
             </div>
 
             <div class="product-pricing">
-                <span class="price-original">58,50€</span>
-                <span class="price-current">52,65€</span>
+                <span class="price-original">74,00€</span>
+                <span class="price-current">66,60€</span>
                 <span class="price-save">Ušetríte 5,85€</span>
             </div>
-            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(52.65m) bodov</strong> do vernostného programu</div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(66.60m) bodov</strong> do vernostného programu</div>
 
             <div class="product-actions">
-                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
-                    <i class="fa fa-credit-card"></i> Kúpiť
+                <a href="https://buy.stripe.com/8x24gz43I9YS9pifgO4wM08" class="btn-stripe" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
                 </a>
                 <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
                     <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
@@ -950,9 +967,9 @@
             </details>
         </section>
 
-        <!-- Product 0: BalanceTest (175.50€ → 157.95€) -->
+        <!-- Product 0: BalanceTest (189,00€ → 170,10€) -->
         <section class="product-card products" id="product-0" data-product-id="0" data-product-name="BalanceTest" data-product-aliases="balancetest,balance test,test" data-product-image='@Url.Content("~/Image/BalanceTest.png")'>
-            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '0', 'BalanceTest', '@Url.Content("~/Image/BalanceTest.png")', 175.50)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '0', 'BalanceTest', '@Url.Content("~/Image/BalanceTest.png")', 170.10)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
 
             <span class="product-badge discount">-10 % ZĽAVA</span>
 
@@ -969,15 +986,15 @@
             </div>
 
             <div class="product-pricing">
-                <span class="price-original">175,50€</span>
-                <span class="price-current">157,95€</span>
+                <span class="price-original">189,00€</span>
+                <span class="price-current">170,10€</span>
                 <span class="price-save">Ušetríte 17,55€</span>
             </div>
-            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(157.95m) bodov</strong> do vernostného programu</div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(170.10m) bodov</strong> do vernostného programu</div>
 
             <div class="product-actions">
-                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
-                    <i class="fa fa-credit-card"></i> Kúpiť
+                <a href="https://buy.stripe.com/8x24gz43I9YS9pifgO4wM08?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
                 </a>
                 <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
                     <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
@@ -1009,9 +1026,9 @@
             </details>
         </section>
 
-        <!-- Product 8: CollagenBoozt (58.50€ → 52.65€) -->
+        <!-- Product 8: CollagenBoozt (80,00€ → 72,00€) -->
         <section class="product-card products" id="product-8" data-product-id="8" data-product-name="CollagenBoozt" data-product-aliases="collagen,kolagen,collaboozt" data-product-image='@Url.Content("~/Image/CollagenBoozt.png")'>
-            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '8', 'CollagenBoozt', '@Url.Content("~/Image/CollagenBoozt.png")', 52.65)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
+            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '8', 'CollagenBoozt', '@Url.Content("~/Image/CollagenBoozt.png")', 72.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
 
             <span class="product-badge new">🔥 NOVINKA!</span><br>
             <span class="product-badge discount" style="top: 60px;">-10 % ZĽAVA</span>
@@ -1029,15 +1046,15 @@
             </div>
 
             <div class="product-pricing">
-                <span class="price-original">58,50€</span>
-                <span class="price-current">52,65€</span>
+                <span class="price-original">80,00€</span>
+                <span class="price-current">72,00€</span>
                 <span class="price-save">Ušetríte 5,85€</span>
             </div>
-            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(52.65m) bodov</strong> do vernostného programu</div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(72.00m) bodov</strong> do vernostného programu</div>
 
             <div class="product-actions">
-                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
-                    <i class="fa fa-credit-card"></i> Kúpiť
+                <a href="https://buy.stripe.com/8x24gz43I9YS9pifgO4wM08" class="btn-stripe" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
                 </a>
                 <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
                     <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
@@ -1065,7 +1082,7 @@
             </details>
         </section>
 
-        <!-- Product 7: Balzam (3€) -->
+        <!-- Product 7: Balzam (3,00€) -->
         <section class="product-card products" id="product-7" data-product-id="7" data-product-name="Balzam" data-product-aliases="balzam,balm,oriflame balzam,balsam" data-product-image='@Url.Content("~/Image/Balzam.png")'>
             <button class="product-heart-btn" onclick="toggleProductFavorite(event, '7', 'Balzam', '@Url.Content("~/Image/Balzam.png")', 3.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">❤️</button>
 
@@ -1083,8 +1100,8 @@
             <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(3.00m) bodov</strong> do vernostného programu</div>
 
             <div class="product-actions">
-                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
-                    <i class="fa fa-credit-card"></i> Kúpiť
+                <a href="https://buy.stripe.com/8x24gz43I9YS9pifgO4wM08" class="btn-stripe" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
                 </a>
                 <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
                     <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
@@ -1115,6 +1132,78 @@
 
 
 
+        <!-- Product 10: ENERGIZE 24H Cream -->
+        <section class="product-card products" id="product-10" data-product-id="10" data-product-name="ENERGIZE 24H Cream" data-product-aliases="energize,energize 24h cream,24h cream,cream" data-product-image='@Url.Content("~/Image/Energize24hcream.png")'>
+            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '10', 'ENERGIZE 24H Cream', '@Url.Content("~/Image/Energize24hcream.png")', 77.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">🤍</button>
+            <span class="product-badge new">✨ NOVINKA</span>
+            <div class="product-header"><h2>✨ ENERGIZE 24H Cream</h2></div>
+            <div class="product-description">Denný pleťový krém ENERGIZE 24H Cream pre každodennú starostlivosť o pokožku.</div>
+            <div class="product-pricing"><span class="price-current">77,00€</span></div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(77.00m) bodov</strong> do vernostného programu</div>
+            <div class="product-actions">
+                <a href="https://buy.stripe.com/8x24gz43I9YS9pifgO4wM08" class="btn-stripe" target="_blank" rel="noopener noreferrer"><i class="fa fa-credit-card"></i> Kúpiť cez Stripe</a>
+                <a href="@Url.Action("Kosik","Home")" class="btn-google-pay"><i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small></a>
+                <button type="button" class="btn-add-cart add-to-cart" data-id="10"><i class="fa fa-shopping-cart"></i> Pridať do košíka</button>
+                <button type="button" class="btn-view-cart" onclick="openSideCart()"><i class="fa fa-eye"></i> Košík</button>
+            </div>
+            <div class="product-image-container"><a data-fancybox="gallery" href='@Url.Content("~/Image/Energize24hcream.png")'><img src='@Url.Content("~/Image/Energize24hcream.png")' alt="ENERGIZE 24H Cream"></a></div>
+            <details class="product-details"><summary>📋 Podrobnosti o produkte</summary><p>ENERGIZE 24H Cream je pleťový krém určený na každodennú starostlivosť o pokožku.</p></details>
+        </section>
+
+        <!-- Product 11: Arize Day Cream -->
+        <section class="product-card products" id="product-11" data-product-id="11" data-product-name="Arize Day Cream" data-product-aliases="arize,arize day cream,day cream,denny krem" data-product-image='@Url.Content("~/Image/Arizedaycream.png")'>
+            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '11', 'Arize Day Cream', '@Url.Content("~/Image/Arizedaycream.png")', 88.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">🤍</button>
+            <span class="product-badge new">✨ NOVINKA</span>
+            <div class="product-header"><h2>🌿 Arize Day Cream</h2></div>
+            <div class="product-description">Denný krém Arize Day Cream pre každodennú starostlivosť a hydratáciu pokožky.</div>
+            <div class="product-pricing"><span class="price-current">88,00€</span></div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(88.00m) bodov</strong> do vernostného programu</div>
+            <div class="product-actions">
+                <a href="https://buy.stripe.com/8x24gz43I9YS9pifgO4wM08?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer"><i class="fa fa-credit-card"></i> Kúpiť cez Stripe</a>
+                <a href="@Url.Action("Kosik","Home")" class="btn-google-pay"><i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small></a>
+                <button type="button" class="btn-add-cart add-to-cart" data-id="11"><i class="fa fa-shopping-cart"></i> Pridať do košíka</button>
+                <button type="button" class="btn-view-cart" onclick="openSideCart()"><i class="fa fa-eye"></i> Košík</button>
+            </div>
+            <div class="product-image-container"><a data-fancybox="gallery" href='@Url.Content("~/Image/Arizedaycream.png")'><img src='@Url.Content("~/Image/Arizedaycream.png")' alt="Arize Day Cream"></a></div>
+            <details class="product-details"><summary>📋 Podrobnosti o produkte</summary><p>Arize Day Cream je denný pleťový krém určený na každodennú starostlivosť o pokožku.</p></details>
+        </section>
+
+        <!-- Product 12: Skin Serum, 50 ml -->
+        <section class="product-card products" id="product-12" data-product-id="12" data-product-name="Skin Serum, 50 ml" data-product-aliases="skin serum,serum,skin serum 50 ml,50 ml serum" data-product-image='@Url.Content("~/Image/SkinSerum50ml.png")'>
+            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '12', 'Skin Serum, 50 ml', '@Url.Content("~/Image/SkinSerum50ml.png")', 59.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">🤍</button>
+            <span class="product-badge new">✨ NOVINKA</span>
+            <div class="product-header"><h2>💧 Skin Serum, 50 ml</h2></div>
+            <div class="product-description">Pleťové sérum Skin Serum v praktickom 50 ml balení pre každodennú starostlivosť o pokožku.</div>
+            <div class="product-pricing"><span class="price-current">59,00€</span></div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(59.00m) bodov</strong> do vernostného programu</div>
+            <div class="product-actions">
+                <a href="https://buy.stripe.com/8x24gz43I9YS9pifgO4wM08?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer"><i class="fa fa-credit-card"></i> Kúpiť cez Stripe</a>
+                <a href="@Url.Action("Kosik","Home")" class="btn-google-pay"><i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small></a>
+                <button type="button" class="btn-add-cart add-to-cart" data-id="12"><i class="fa fa-shopping-cart"></i> Pridať do košíka</button>
+                <button type="button" class="btn-view-cart" onclick="openSideCart()"><i class="fa fa-eye"></i> Košík</button>
+            </div>
+            <div class="product-image-container"><a data-fancybox="gallery" href='@Url.Content("~/Image/SkinSerum50ml.png")'><img src='@Url.Content("~/Image/SkinSerum50ml.png")' alt="Skin Serum, 50 ml"></a></div>
+            <details class="product-details"><summary>📋 Podrobnosti o produkte</summary><p>Skin Serum, 50 ml je pleťové sérum v 50 ml balení určené na každodennú starostlivosť o pokožku.</p></details>
+        </section>
+
+        <!-- Product 13: ShakeBottle, 500 ml -->
+        <section class="product-card products" id="product-13" data-product-id="13" data-product-name="ShakeBottle, 500 ml" data-product-aliases="shakebottle,shake bottle,500 ml,bottle,flasa" data-product-image='@Url.Content("~/Image/Shakebottle.png")'>
+            <button class="product-heart-btn" onclick="toggleProductFavorite(event, '13', 'ShakeBottle, 500 ml', '@Url.Content("~/Image/Shakebottle.png")', 10.00)" title="Pridať do obľúbených" aria-label="Pridať do obľúbených">🤍</button>
+            <span class="product-badge new">🎁 NOVINKA</span>
+            <div class="product-header"><h2>🥤 ShakeBottle, 500 ml</h2></div>
+            <div class="product-description">Praktická 500 ml fľaša na prípravu a prenášanie nápojov.</div>
+            <div class="product-pricing"><span class="price-current">10,00€</span></div>
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(10.00m) bodov</strong> do vernostného programu</div>
+            <div class="product-actions">
+                <a href="https://buy.stripe.com/8x24gz43I9YS9pifgO4wM08" class="btn-stripe" target="_blank" rel="noopener noreferrer"><i class="fa fa-credit-card"></i> Kúpiť cez Stripe</a>
+                <a href="@Url.Action("Kosik","Home")" class="btn-google-pay"><i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small></a>
+                <button type="button" class="btn-add-cart add-to-cart" data-id="13"><i class="fa fa-shopping-cart"></i> Pridať do košíka</button>
+                <button type="button" class="btn-view-cart" onclick="openSideCart()"><i class="fa fa-eye"></i> Košík</button>
+            </div>
+            <div class="product-image-container"><a data-fancybox="gallery" href='@Url.Content("~/Image/Shakebottle.png")'><img src='@Url.Content("~/Image/Shakebottle.png")' alt="ShakeBottle, 500 ml"></a></div>
+            <details class="product-details"><summary>📋 Podrobnosti o produkte</summary><p>Praktická ShakeBottle s objemom 500 ml na každodenné používanie.</p></details>
+        </section>
+
         <!-- Product 9: BalancePack 4-in-1 -->
         <section class="product-card products" id="product-9" data-product-id="9"
                  data-product-name="BalancePack4v1"
@@ -1142,15 +1231,15 @@
             </div>
 
             <div class="product-pricing">
-                <span class="price-original">173,70€</span>
-                <span class="price-current">156,33€</span>
+                <span class="price-original">235,00€</span>
+                <span class="price-current">211,50€</span>
                 <span class="price-save">Ušetríte 17,37€</span>
             </div>
-            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(156.33m) bodov</strong> do vernostného programu</div>
-                    
+            <div class="loyalty-points-note">⭐ Po zaplatení získate <strong>@loyaltyPoints(211.50m) bodov</strong> do vernostného programu</div>
+
             <div class="product-actions">
-                <a href="https://buy.stripe.com/bJebJ1as6gng0SM8Sq4wM04?locale=sk" class="btn-stripe" target="_blank" rel="noopener noreferrer">
-                    <i class="fa fa-credit-card"></i> Kúpiť
+                <a href="https://buy.stripe.com/8x24gz43I9YS9pifgO4wM08" class="btn-stripe" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-credit-card"></i> Kúpiť cez Stripe
                 </a>
                 <a href="@Url.Action("Kosik","Home")" class="btn-google-pay" title="Google Pay UI - pripravene pre buducu integraciu">
                     <i class="fa fa-google"></i> Google Pay <small>Pripravujeme</small>
@@ -1180,7 +1269,7 @@
             </details>
         </section>
     </div>
-        <!-- Footer Notice -->
+    <!-- Footer Notice -->
     <div style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 30px; border-radius: 12px; text-align: center; margin-top: 40px;">
         <h3 style="color: #5d33fb; margin-bottom: 15px;">📦 Táto sekcia sa neustále rozširuje</h3>
         <p style="color: #555; margin-bottom: 20px;">Ďakujeme za pochopenie a dôveru v naše produkty!</p>
@@ -1388,23 +1477,6 @@
             }
         })();
 
-    </script>
-
-    <script>
-        // Ensure side-cart sees the same updated price for Zinobiotic as Kosik page
-        (function () {
-            try {
-                if (window.__lws_products && window.__lws_products['2']) {
-                    window.__lws_products['2'].Price = 36.00;
-                }
-                if (window.__lws_products && window.__lws_products['Zinobiotic']) {
-                    window.__lws_products['Zinobiotic'].Price = 36.00;
-                }
-                // Re-render header/side cart if available
-                if (typeof window.lwsRenderCartHeader === 'function') window.lwsRenderCartHeader();
-                if (typeof window.lwsRenderCartPage === 'function') window.lwsRenderCartPage();
-            } catch (e) { }
-        })();
     </script>
 
 }
