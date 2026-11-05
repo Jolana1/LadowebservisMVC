@@ -239,6 +239,27 @@ namespace LadowebservisMVC.Controllers
             }
         }
 
+        // Explicit contact-form spam rules. Apply BEFORE sending either company or visitor email.
+        private static bool IsBlockedContactSubmission(ContactModel_Sk model)
+        {
+            if (model == null) return true;
+            var email = (model.Email ?? string.Empty).Trim();
+            var name = (model.Name ?? string.Empty).Trim();
+            var message = model.Text ?? string.Empty;
+            var combined = name + "\n" + message;
+
+            if (string.Equals(email, "bozena147@o2.pl", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(email, "buttsniffer0608@gmail.com", StringComparison.OrdinalIgnoreCase))
+                return true;
+
+            if (name.IndexOf("Pabemets", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                combined.IndexOf("Photos for my escort application", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                combined.IndexOf("tinyurl.com/", StringComparison.OrdinalIgnoreCase) >= 0)
+                return true;
+
+            return false;
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult OdoslanieSpravy(ContactModel_Sk model, bool suhlasSNovinkami = false)
@@ -246,6 +267,12 @@ namespace LadowebservisMVC.Controllers
             ViewBag.PageTitle = "OdoslanieSpravy";
             // Honeypot: ordinary users never fill these hidden fields.
             // Check on the server BEFORE sending any email.
+            // Silently drop known spam before sending any acknowledgement or admin email.
+            if (IsBlockedContactSubmission(model))
+            {
+                System.Diagnostics.Trace.TraceWarning("Contact blocked by spam rules.");
+                return View();
+            }
             var trap = Request.Form["website_check"];
             if (!string.IsNullOrWhiteSpace(trap))
             {
