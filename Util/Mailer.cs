@@ -1015,10 +1015,8 @@ namespace LadowebservisMVC.Util
             var email = (model.Email ?? string.Empty).ToLowerInvariant();
             var name = (model.Name ?? string.Empty);
 
-            if (IsEmailBlocked(email, name))
-            {
-                return;
-            }
+            // Do not silently discard contact submissions based on broad email/name
+            // substrings. Honeypot is validated in HomeController before this method.
 
             using (var mail = new MailMessage())
             {
@@ -1029,25 +1027,15 @@ namespace LadowebservisMVC.Util
                 mail.SubjectEncoding = Encoding.UTF8;
                 mail.BodyEncoding = Encoding.UTF8;
 
-                // One email: customer receives a copy; site inbox receives it as BCC.
-                // If the address is missing/invalid, deliver only to the site inbox.
-                bool validCustomerEmail = false;
-                if (!string.IsNullOrWhiteSpace(model.Email))
+                // Never send contact-form messages to unverified visitor addresses.
+                mail.To.Add("info@ladowebservis.sk");
+                // Reply in the mail client to the visitor, if the address is valid.
+                try
                 {
-                    try
-                    {
-                        var customerMailAddress = new MailAddress(model.Email);
-                        mail.To.Add(customerMailAddress);
-                        mail.Bcc.Add("info@ladowebservis.sk");
-                        validCustomerEmail = true;
-                    }
-                    catch { /* Invalid address: fallback below. */ }
+                    if (!string.IsNullOrWhiteSpace(model.Email))
+                        mail.ReplyToList.Add(new MailAddress(model.Email.Trim()));
                 }
-                if (!validCustomerEmail)
-                    mail.To.Add("info@ladowebservis.sk");
-
-                // Customer can reply to the shop, not to their own address.
-                mail.ReplyToList.Add(new MailAddress("info@ladowebservis.sk"));
+                catch (FormatException) { /* Invalid address: no Reply-To. */ }
 
                 // Potvrdenie a pôvodná správa sú vždy v JEDNOM e-maile.
                 // Newsletter sa pripája len pri výslovnom súhlase, ktorý musí odovzdať controller.
@@ -1067,6 +1055,41 @@ namespace LadowebservisMVC.Util
             }
 
             // No separate promotional email: the autumn offer is in the same message.
+        }
+
+        // Send a separate, non-promotional receipt to the visitor only after the company mail succeeds.
+        // A bad recipient must never prevent the company from receiving the contact request.
+        public bool TrySendContactConfirmation(ContactModel_Sk model)
+        {
+            if (model == null || string.IsNullOrWhiteSpace(model.Email)) return false;
+            MailAddress recipient;
+            try
+            {
+                recipient = new MailAddress(model.Email.Trim());
+                if (!string.Equals(recipient.Address, model.Email.Trim(), StringComparison.OrdinalIgnoreCase)) return false;
+            }
+            catch (FormatException) { return false; }
+
+            using (var mail = new MailMessage())
+            {
+                mail.From = new MailAddress("info@ladowebservis.sk", "LadoWebServis");
+                mail.To.Add(recipient);
+                mail.ReplyToList.Add(new MailAddress("info@ladowebservis.sk"));
+                mail.Subject = "Potvrdenie prijatia správy – LadoWebServis";
+                mail.SubjectEncoding = Encoding.UTF8;
+                mail.BodyEncoding = Encoding.UTF8;
+                mail.IsBodyHtml = true;
+                var name = HttpUtility.HtmlEncode(model.Name ?? string.Empty);
+                var content = HttpUtility.HtmlEncode(model.Text ?? string.Empty)
+                    .Replace("\r\n", "<br />").Replace("\n", "<br />");
+                mail.Body = "<div style='font-family:Arial,sans-serif;max-width:650px;margin:auto'>" +
+                    "<h2>Ďakujeme za vašu správu</h2>" +
+                    "<p>Dobrý deň, " + name + ",</p>" +
+                    "<p>Potvrdzujeme, že sme prijali vašu správu cez kontaktný formulár LadoWebServis. Odpovieme vám čo najskôr.</p>" +
+                    "<p><strong>Kópia vašej správy:</strong></p><p>" + content + "</p>" +
+                    "<p>S pozdravom,<br />LadoWebServis<br />info@ladowebservis.sk</p></div>";
+                return TrySendWithConfiguredSmtp(mail);
+            }
         }
 
         private sealed class CartItem

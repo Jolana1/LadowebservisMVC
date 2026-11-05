@@ -1,9 +1,6 @@
 ﻿using LadowebservisMVC.Util;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
-
-
 
 namespace LadowebservisMVC.Controllers.Models
 {
@@ -17,51 +14,32 @@ namespace LadowebservisMVC.Controllers.Models
         [Required(ErrorMessage = ModelUtil.requiredErrMessage_Sk)]
         [DataType(DataType.EmailAddress)]
         [EmailAddress(ErrorMessage = "Neplatný formát emailu.")]
-        [Display(Name = "Email")] 
+        [Display(Name = "Email")]
         public string Email { get; set; }
-
-        //[Required(ErrorMessage = ModelUtil.invalidPhoneErrMessage_Sk)]
-        //[RegularExpression(ModelUtil.phoneRegex)]
-        //[DataType(DataType.PhoneNumber)]
-        //[Display(Name = "Phone")]
-        //public string Phone { get; set; }
 
         [DataType(DataType.Upload)]
         [Display(Name = "File")]
         public HttpPostedFileBase File { get; set; }
-
-
-
 
         [Required(ErrorMessage = ModelUtil.requiredErrMessage_Sk)]
         [DataType(DataType.Text)]
         [Display(Name = "Text")]
         public string Text { get; set; }
 
+        // Zachované pre kompatibilitu so starším kódom; NEPOUŽÍVA sa ako honeypot.
+        // Honeypot website_check sa číta iba z Request.Form v HomeController.
         [Display(Name = "Password")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        // Optional: client-side cart snapshot (JSON from localStorage) for cart reminder emails
         public string CartJson { get; set; }
 
+        // Legacy wrapper: reálne odoslanie vykoná Mailer a pri chybe vyhodí výnimku.
         public bool TexTemplate()
         {
-            List<TextTemplateParam> paramList = new List<TextTemplateParam>
-                {
-                    new TextTemplateParam("NAME", this.Name),
-                    new TextTemplateParam("EMAIL", this.Email),
-                    new TextTemplateParam("TEXT", this.Text),
-                   // new TextTemplateParam("PHONE", this.Phone),
-                    new TextTemplateParam("PASSWORD", this.Password)
-                };
-
-            Mailer mailer = new Mailer();
-            // Contact template should send only the user's message (no e-book attachment)
+            var mailer = new Mailer();
             mailer.OdoslanieKontaktSpravy(this);
-
             return true;
         }
     }
 }
-

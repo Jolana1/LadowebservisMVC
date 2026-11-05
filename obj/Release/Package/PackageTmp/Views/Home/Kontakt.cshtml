@@ -410,11 +410,11 @@
                 @Html.ValidationMessageFor(m => m.Text, "", new { @class = "text-danger" })
             </div>
 
-            <!-- Honeypot field (hidden from users, catches bots) -->
-            <div class="api-password-group">
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control", tabindex = "-1" })
-                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            <!-- Antispam honeypot: must remain empty. Do not use type=hidden. -->
+            <div class="api-password-group" aria-hidden="true">
+                <label for="website_check">Webová stránka</label>
+                <input type="text" id="website_check" name="website_check"
+                       value="" tabindex="-1" autocomplete="off" />
             </div>
 
             <div class="form-group text-center">

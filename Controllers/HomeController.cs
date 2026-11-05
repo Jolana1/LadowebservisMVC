@@ -214,21 +214,68 @@ namespace LadowebservisMVC.Controllers
             return View(model);
         }
 
+        private static readonly object ContactRateLock = new object();
+        private static readonly Dictionary<string, List<DateTime>> ContactRate = new Dictionary<string, List<DateTime>>();
+
+        private static bool ContactRateAllowed(string ip)
+        {
+            // Use the server-observed address; never trust user-controlled forwarded headers.
+            var key = string.IsNullOrWhiteSpace(ip) ? "unknown" : ip;
+            var now = DateTime.UtcNow;
+            lock (ContactRateLock)
+            {
+                // Bound the number of stored keys even on a public endpoint.
+                if (ContactRate.Count > 10000) ContactRate.Clear();
+                List<DateTime> attempts;
+                if (!ContactRate.TryGetValue(key, out attempts))
+                {
+                    attempts = new List<DateTime>();
+                    ContactRate[key] = attempts;
+                }
+                attempts.RemoveAll(x => x < now.AddMinutes(-15));
+                if (attempts.Count >= 3) return false;
+                attempts.Add(now);
+                return true;
+            }
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult OdoslanieSpravy(ContactModel_Sk model, bool suhlasSNovinkami = false)
         {
             ViewBag.PageTitle = "OdoslanieSpravy";
+            // Honeypot: ordinary users never fill these hidden fields.
+            // Check on the server BEFORE sending any email.
+            var trap = Request.Form["website_check"];
+            if (!string.IsNullOrWhiteSpace(trap))
+            {
+                System.Diagnostics.Trace.TraceWarning("Contact honeypot rejected a submission.");
+                // Generic success page does not reveal the spam rule to bots.
+                return View();
+            }
             if (ModelState.IsValid)
             {
+                if (!ContactRateAllowed(Request.UserHostAddress))
+                {
+                    ModelState.AddModelError("", "Príliš veľa správ. Skúste to znova o 15 minút.");
+                    return View("Kontakt", model);
+                }
                 try
                 {
                     Mailer mailer = new Mailer();
-                    // Contact form should send only the user's message (no e-book attachment)
-                    // Re-subscription requires double opt-in; do not overwrite a previous opt-out.
-                    // The customer receives the transactional copy in every case.
-                    var marketingAllowed = false; // Marketing len v potvrdeni objednavky.
-                    mailer.OdoslanieKontaktSpravy(model, marketingAllowed);
+                    // First deliver the full message to the company. Do not change order emails.
+                    mailer.OdoslanieKontaktSpravy(model, false);
+                    // Only then send a separate transactional acknowledgement to the visitor.
+                    // Failure of the acknowledgement does not undo successful company delivery.
+                    try
+                    {
+                        if (!mailer.TrySendContactConfirmation(model))
+                            System.Diagnostics.Trace.TraceWarning("Contact customer confirmation SMTP failed.");
+                    }
+                    catch (Exception confirmEx)
+                    {
+                        System.Diagnostics.Trace.TraceError("Contact customer confirmation failed: " + confirmEx);
+                    }
                     return View();
                 }
                 catch (Exception ex)
@@ -237,6 +284,14 @@ namespace LadowebservisMVC.Controllers
                     ModelState.AddModelError("", "Odoslanie správy sa nepodarilo. Skúste to prosím znova.");
                     return View("Kontakt", model);
                 }
+            }
+            // Make validation failures visible instead of silently returning the form.
+            if (!ModelState.IsValid)
+            {
+                System.Diagnostics.Trace.TraceWarning("Contact form rejected by model validation: " +
+                    string.Join("; ", ModelState.Where(x => x.Value != null && x.Value.Errors.Count > 0)
+                        .Select(x => x.Key + ": " + string.Join(", ", x.Value.Errors.Select(e => e.ErrorMessage)))));
+                ModelState.AddModelError("", "Správa nebola odoslaná. Skontrolujte vyplnené údaje.");
             }
             return View("Kontakt", model);
         }
