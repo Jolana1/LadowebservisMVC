@@ -2373,6 +2373,7 @@
                     <option value="dpd-courier">DPD kuriér</option>
                     <option value="dpd-pickup">DPD odberné miesto</option>
                     <option value="packeta-zbox">Packeta Z-BOX</option>
+
                 </select>
             </div>
         </div>
@@ -2380,7 +2381,7 @@
         <!-- Stripe Buy Button -->
         <div id="sidecart-stripe-panel" style="padding:10px; border-radius:12px; margin-bottom:12px;">
             <div style="margin:0 0 8px 0; font-size:11px; color:#666; text-align:center; line-height:1.4;">
-                Platbu môžete dokončiť tu cez tlačítko <strong>Platba cez Stripe</strong> alebo odoslať objednávku emailom ako zaplatiť pre bankový prevod cez tlačítko <strong>Doprava a platba</strong>
+                Platbu môžete dokončiť tu cez tlačítko <strong>Platba cez Stripe</strong> alebo odoslať objednávku emailom a zaplatiť bankovým prevodom cez tlačítko <strong>Doprava a platba</strong>
                 <script async
                         src="https://js.stripe.com/v3/buy-button.js"></script>
 
@@ -2389,8 +2390,8 @@
                 </stripe-buy-button>
                 <!-- Action Buttons -->
                 <div id="sidecart-action-buttons" style="display: flex; gap: 8px; margin: 15px 0; flex-direction: column;">
-                    <a id="sidecart-checkout-link" class="btn btn-primary" href="/Home/Kosik?checkout=1" style="padding: 12px; font-size: 14px; font-weight: 600; background: #5d33fb; border-color: #5d33fb; color: #fff; text-align: center;">
-                        ✓ Doprava a platba (Prevod)
+                    <a id="sidecart-checkout-link" class="btn btn-primary" href="/Home/Kosik?checkout=1" title="Pre dokončenie objednávky dostanete informácie o platbe a o doprave" style="padding: 12px; font-size: 14px; font-weight: 600; background: #5d33fb; border-color: #5d33fb; color: #fff; text-align: center;">
+                        ✓ Doprava a platba (Bankový prevod)
                     </a>
                 </div>
             </div>

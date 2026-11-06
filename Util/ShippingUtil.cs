@@ -13,92 +13,60 @@ namespace LadowebservisMVC.Util
             public decimal Price { get; set; }
         }
 
+        private static readonly Dictionary<string, string> MethodKeys =
+            new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            {
+                { "courier", "Shipping:Courier:RatesJson" },
+                { "gls-courier", "Shipping:GlsCourier:RatesJson" },
+                { "gls-parcelshop", "Shipping:GlsParcelShop:RatesJson" },
+                { "gls-box", "Shipping:GlsBox:RatesJson" },
+                { "dpd-courier", "Shipping:DpdCourier:RatesJson" },
+                { "dpd-pickup", "Shipping:DpdPickup:RatesJson" },
+                { "packeta", "Shipping:Zasielkovna:RatesJson" },
+                { "packeta-zbox", "Shipping:PacketaZBox:RatesJson" }
+            };
+
         public static decimal GetShippingFee(string shippingMethod, decimal cartTotal)
         {
-            if (string.IsNullOrWhiteSpace(shippingMethod)) return 0m;
-
-            var method = shippingMethod.Trim().ToLowerInvariant();
-
-            if (method == "zasielkovna" || method == "packeta")
+            string method = (shippingMethod ?? "").Trim().ToLowerInvariant();
+            switch (method)
             {
-                return GetTieredFee("Shipping:Zasielkovna:RatesJson", cartTotal);
+                case "zasielkovna": method = "packeta"; break;
+                case "packetazbox":
+                case "z-box":
+                case "zbox": method = "packeta-zbox"; break;
+                case "glscourier": method = "gls-courier"; break;
+                case "glsparcelshop":
+                case "gls-pickup": method = "gls-parcelshop"; break;
+                case "glsbox": method = "gls-box"; break;
+                case "dpdcourier":
+                case "dpd_kurier": method = "dpd-courier"; break;
+                case "dpdpickup":
+                case "dpd-point":
+                case "dpdpoint": method = "dpd-pickup"; break;
             }
-
-            if (method == "courier")
+            string key;
+            if (!MethodKeys.TryGetValue(method, out key))
+                throw new ArgumentException("Nepodporovany sposob dopravy.", "shippingMethod");
+            var json = ConfigurationManager.AppSettings[key];
+            if (string.IsNullOrWhiteSpace(json))
+                throw new ConfigurationErrorsException("Chyba konfiguracia dopravy: " + key);
+            List<Rate> rates;
+            try { rates = new JavaScriptSerializer().Deserialize<List<Rate>>(json); }
+            catch (Exception ex) { throw new ConfigurationErrorsException("Neplatny cennik dopravy: " + key, ex); }
+            if (rates == null || rates.Count == 0)
+                throw new ConfigurationErrorsException("Prazdny cennik dopravy: " + key);
+            Rate selected = null;
+            foreach (var rate in rates)
             {
-                return GetTieredFee("Shipping:Courier:RatesJson", cartTotal);
+                if (rate == null || rate.MinTotal < 0 || rate.Price < 0)
+                    throw new ConfigurationErrorsException("Neplatna sadzba dopravy: " + key);
+                if (rate.MinTotal <= cartTotal && (selected == null || rate.MinTotal > selected.MinTotal))
+                    selected = rate;
             }
-
-            if (method == "gls-courier" || method == "glscourier")
-            {
-                return GetTieredFee("Shipping:GlsCourier:RatesJson", cartTotal);
-            }
-
-            if (method == "gls-parcelshop" || method == "glsparcelshop" || method == "gls-pickup")
-            {
-                return GetTieredFee("Shipping:GlsParcelShop:RatesJson", cartTotal);
-            }
-
-            if (method == "gls-box" || method == "glsbox")
-            {
-                return GetTieredFee("Shipping:GlsBox:RatesJson", cartTotal);
-            }
-
-            if (method == "alzabox" || method == "alza-box")
-            {
-                return GetTieredFee("Shipping:AlzaBox:RatesJson", cartTotal);
-            }
-
-            if (method == "dpd-courier" || method == "dpdcourier" || method == "dpd_kurier")
-            {
-                return GetTieredFee("Shipping:DpdCourier:RatesJson", cartTotal);
-            }
-
-            if (method == "dpd-pickup" || method == "dpdpickup" || method == "dpd-point" || method == "dpdpoint")
-            {
-                return GetTieredFee("Shipping:DpdPickup:RatesJson", cartTotal);
-            }
-
-            if (method == "packeta-zbox" || method == "packetazbox" || method == "z-box" || method == "zbox")
-            {
-                return GetTieredFee("Shipping:PacketaZBox:RatesJson", cartTotal);
-            }
-
-            return 0m;
-        }
-
-        private static decimal GetTieredFee(string appSettingKey, decimal cartTotal)
-        {
-            var json = ConfigurationManager.AppSettings[appSettingKey];
-            if (string.IsNullOrWhiteSpace(json)) return 0m;
-
-            try
-            {
-                var js = new JavaScriptSerializer();
-                var rates = js.Deserialize<List<Rate>>(json) ?? new List<Rate>();
-                if (rates.Count == 0) return 0m;
-
-                // pick the highest MinTotal <= cartTotal
-                Rate selected = null;
-                for (var i = 0; i < rates.Count; i++)
-                {
-                    var r = rates[i];
-                    if (r == null) continue;
-                    if (r.MinTotal <= cartTotal)
-                    {
-                        if (selected == null || r.MinTotal > selected.MinTotal)
-                        {
-                            selected = r;
-                        }
-                    }
-                }
-
-                return selected != null ? selected.Price : 0m;
-            }
-            catch
-            {
-                return 0m;
-            }
+            if (selected == null)
+                throw new ConfigurationErrorsException("Chyba sadzba dopravy pre kosik: " + key);
+            return selected.Price;
         }
     }
 }
