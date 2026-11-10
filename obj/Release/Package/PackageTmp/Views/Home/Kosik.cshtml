@@ -1257,6 +1257,42 @@
                 section.style.display = 'block';
             }
 
+            // Client-side stock check. Server-side ProductCatalog remains authoritative.
+            function getStockForCartId(id) {
+                var product = getCatalogProduct(id, window.__lws_products || {});
+                if (!product || product.Stock === undefined || product.Stock === null) return null;
+                var stock = Number(product.Stock);
+                return Number.isFinite(stock) ? Math.max(0, Math.floor(stock)) : null;
+            }
+
+            function validateCartStockBeforeSubmit(event) {
+                var cart = loadCart();
+                var problems = [];
+                Object.keys(cart).forEach(function (id) {
+                    var item = cart[id];
+                    if (!item) return;
+                    var qty = Number(item.quantity);
+                    var stock = getStockForCartId(id);
+                    var product = getCatalogProduct(id, window.__lws_products || {});
+                    var name = product && product.Name ? product.Name : id;
+                    if (!Number.isInteger(qty) || qty <= 0 || (stock !== null && qty > stock)) {
+                        problems.push(name + ': v košíku ' + qty + ' ks, sklad ' + (stock === null ? 'neznámy' : stock) + ' ks');
+                    }
+                });
+                if (!Object.keys(cart).length) problems.push('Košík je prázdny.');
+                if (problems.length) {
+                    if (event) { event.preventDefault(); event.stopImmediatePropagation(); }
+                    alert('Objednávku nie je možné odoslať. Upravte košík:\n' + problems.join('\n'));
+                    return false;
+                }
+                return true;
+            }
+
+            ['placeOrderForm', 'stripeCheckoutForm'].forEach(function (id) {
+                var form = document.getElementById(id);
+                if (form) form.addEventListener('submit', validateCartStockBeforeSubmit, true);
+            });
+
             function changeQuantity(id, delta) {
                 if (!id || !delta) return;
                 var cart = loadCart();
@@ -1264,6 +1300,11 @@
                 if (!item) return;
                 var current = item.quantity || 0;
                 var next = current + delta;
+                var available = getStockForCartId(id);
+                if (delta > 0 && available !== null && next > available) {
+                    alert('Nedostupné množstvo. Na sklade je ' + available + ' ks.');
+                    return;
+                }
                 if (next <= 0) {
                     delete cart[id];
                 } else {
@@ -1371,16 +1412,17 @@
                     }
 
                     // Buttons
+                    var availableStock = getStockForCartId(id);
                     html += '<div class="mt-auto d-flex gap-2 justify-content-center align-items-center flex-wrap">';
 
                     if (isInCart) {
                         html += '<div class="btn-group btn-group-sm" role="group">';
                         html += '<button type="button" class="btn btn-outline-success qty-dec-product" data-id="' + id + '" title="Znížiť množstvo">−</button>';
                         html += '<button type="button" class="btn btn-light" disabled>' + cartQty + '</button>';
-                        html += '<button type="button" class="btn btn-outline-success qty-inc-product" data-id="' + id + '" title="Zvýšiť množstvo">+</button>';
+                        html += '<button type="button" class="btn btn-outline-success qty-inc-product" data-id="' + id + '" title="Zvýšiť množstvo"' + (availableStock !== null && cartQty >= availableStock ? ' disabled' : '') + '>+</button>';
                         html += '</div>';
                     } else {
-                        html += '<button type="button" class="btn btn-sm btn-add-cart add-to-cart" data-id="' + id + '">';
+                        html += '<button type="button" class="btn btn-sm btn-add-cart add-to-cart" data-id="' + id + '"' + (availableStock === 0 ? ' disabled' : '') + '>';
                         html += '<i class="fa fa-cart-plus"></i> Do košíka';
                         html += '</button>';
                     }
@@ -1406,6 +1448,11 @@
                         var id = this.getAttribute('data-id');
                         var cart = loadCart();
                         var item = cart[id];
+                        var available = getStockForCartId(id);
+                        if (available !== null && (item ? Number(item.quantity) || 0 : 0) >= available) {
+                            alert('Produkt nie je dostupný v požadovanom množstve. Sklad: ' + available + ' ks.');
+                            return;
+                        }
                         if (!item) {
                             var prodInfo = allProducts.find(function (p) { return p.Id.toString() === id; });
                             cart[id] = { quantity: 1, image: prodInfo ? prodInfo.Image : '' };

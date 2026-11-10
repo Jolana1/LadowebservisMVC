@@ -515,6 +515,8 @@ namespace LadowebservisMVC.Controllers
                 var mailer = new Mailer();
                 MarketingConsentStore.SetStatus(normalizedEmail, true, "double-opt-in");
                 var sent = mailer.TrySendConfirmedSubscriptionEmail(normalizedEmail);
+                if (!sent)
+                    System.Diagnostics.Trace.TraceError("ConfirmNewsletter: customer confirmation email was not sent.");
 
                 TempData["SubscribeEmailStatus"] = sent ? "success" : "error";
                 TempData["SubscribeEmailMessage"] = sent
@@ -525,7 +527,7 @@ namespace LadowebservisMVC.Controllers
             {
                 System.Diagnostics.Trace.TraceError($"ConfirmNewsletter failed: {ex}");
                 TempData["SubscribeEmailStatus"] = "error";
-                TempData["SubscribeEmailMessage"] = "Potvrdenie odberu sa nepodarilo sp racovať.";
+                TempData["SubscribeEmailMessage"] = "Potvrdenie odberu sa nepodarilo spracovať.";
             }
 
             return RedirectToAction("Subscribe", "Home");
@@ -627,7 +629,7 @@ namespace LadowebservisMVC.Controllers
                         // check stock
                         if (item.Quantity <= 0 || item.Quantity > info.Stock)
                         {
-                            catalogErrors.Add($"Nesprávne množstvo pre produkt {info.Name}.");
+                            catalogErrors.Add($"Produkt {info.Name}: požadované množstvo {item.Quantity} ks, dostupné {info.Stock} ks.");
                         }
 
                         // check price
@@ -673,9 +675,15 @@ namespace LadowebservisMVC.Controllers
 
                 if (!ModelState.IsValid)
                 {
+                    // Log validation field names and messages (never log customer-entered values).
+                    var validationErrors = ModelState
+                        .Where(x => x.Value != null && x.Value.Errors.Count > 0)
+                        .Select(x => x.Key + ": " + string.Join(" | ", x.Value.Errors.Select(e =>
+                            string.IsNullOrWhiteSpace(e.ErrorMessage) ? e.Exception?.GetType().Name ?? "Neplatná hodnota" : e.ErrorMessage)));
+                    System.Diagnostics.Trace.TraceWarning("PlaceOrder validation failed: " + string.Join("; ", validationErrors));
                     // Show the same confirmation-style page, but with a readable error message.
                     // (Avoids generic 500 pages when the view is rendered via PRG.)
-                    TempData["OrderSentMessage"] = "⚠️ Objednávku sa nepodarilo odoslať. Skontrolujte košík, dopravu a skúste to znova.";
+                    TempData["OrderSentMessage"] = "Objednávku sa nepodarilo odoslať. Skontrolujte košík, dopravu a skúste to znova.";
                     TempData["OrderSentName"] = model.Name;
                     TempData["OrderSentEmail"] = model.Email;
                     TempData["OrderSentGrandTotal"] = string.Empty;
@@ -780,9 +788,10 @@ namespace LadowebservisMVC.Controllers
                     System.Diagnostics.Trace.TraceError($"Order confirmation email failed: {ex}");
                 }
 
+                if (!emailSent) System.Diagnostics.Trace.TraceError("PlaceOrder: TrySendBankTransferOrderEmail returned false. Check Mailer SMTP diagnostics.");
                 TempData["OrderSentMessage"] = emailSent
-                    ? "✅ Objednávka bola odoslaná. Skontrolujte e-mail (aj SPAM) pre údaje k platbe a ďalšie kroky."
-                    : "⚠️ Objednávku sme prijali, ale nepodarilo sa odoslať e-mail s platobnými údajmi. Prosím kontaktujte nás na info@ladowebservis.sk.";
+                    ? "Objednávka bola odoslaná. Skontrolujte e-mail (aj SPAM) pre údaje k platbe a ďalšie kroky."
+                    : "Objednávkový e-mail sa nepodarilo odoslať. Objednávka nie je potvrdená. Kontaktujte nás na info@ladowebservis.sk a neposielajte platbu bez overenia.";
                 TempData["OrderSentName"] = model.Name;
                 TempData["OrderSentEmail"] = model.Email;
                 TempData["OrderSentGrandTotal"] = grandTotal.ToString("0.00", CultureInfo.InvariantCulture);
@@ -796,7 +805,7 @@ namespace LadowebservisMVC.Controllers
 
                 // Show the order-sent page instead of the error page.
                 // (The customer should still get payment instructions by email; if email fails, they can contact support.)
-                TempData["OrderSentMessage"] = "✅ Objednávka bola prijatá. Ak Vám e-mail s platobnými údajmi nedorazí do pár minút (ani do SPAM), kontaktujte nás prosím.";
+                TempData["OrderSentMessage"] = "Objednávku sa nepodarilo potvrdiť pre chybu spracovania. Kontaktujte nás prosím; objednávku neposielajte opakovane bez overenia.";
                 TempData["OrderSentName"] = model?.Name;
                 TempData["OrderSentEmail"] = model?.Email;
                 TempData["OrderSentGrandTotal"] = string.Empty;
@@ -856,10 +865,11 @@ namespace LadowebservisMVC.Controllers
                 {
                     // Fallback to bank transfer instructions if Stripe isn't configured.
                     // Rely on SendBankTransferOrderEmail optional stripeUrl parameter default.
+                    bool emailSentFallback = false;
                     try
                     {
                         var mailer = new Mailer();
-                        var emailSentFallback = mailer.TrySendBankTransferOrderEmail(
+                        emailSentFallback = mailer.TrySendBankTransferOrderEmail(
                             model, shippingFee, grandTotal, orderNumber, marketingConsentOrder);
                         if (!emailSentFallback)
                             System.Diagnostics.Trace.TraceError("Stripe fallback: bank transfer email was not sent.");
@@ -869,7 +879,7 @@ namespace LadowebservisMVC.Controllers
                         System.Diagnostics.Trace.TraceError($"Stripe not configured; bank transfer email fallback failed: {ex}");
                     }
 
-                    TempData["OrderSentMessage"] = "✅ Objednávka bola odoslaná. Poslali sme Vám e-mail s údajmi pre bankový prevod.";
+                    TempData["OrderSentMessage"] = emailSentFallback ? "Objednávka bola odoslaná. Skontrolujte e-mail." : "Objednávkový e-mail sa nepodarilo odoslať. Kontaktujte obchod.";
                     TempData["OrderSentName"] = model.Name;
                     TempData["OrderSentEmail"] = model.Email;
                     TempData["OrderSentGrandTotal"] = grandTotal.ToString("0.00", CultureInfo.InvariantCulture);
@@ -976,7 +986,7 @@ namespace LadowebservisMVC.Controllers
                 }
 
                 // Show the order-sent page; customer completes payment using the link sent to their email.
-                TempData["OrderSentMessage"] = "✅ Objednávka bola odoslaná. Do e‑mailu sme Vám poslali rýchly platobný link cez Stripe.";
+                TempData["OrderSentMessage"] = "Platobná relácia Stripe bola vytvorená. Skontrolujte e-mail s platobným odkazom; ak neprišiel, kontaktujte obchod.";
                 TempData["OrderSentName"] = model.Name;
                 TempData["OrderSentEmail"] = model.Email;
                 TempData["OrderSentGrandTotal"] = grandTotal.ToString("0.00", CultureInfo.InvariantCulture);
@@ -988,7 +998,7 @@ namespace LadowebservisMVC.Controllers
                 System.Diagnostics.Trace.TraceError($"Stripe checkout error: {ex}");
 
                 // Show the order-sent page instead of the error page.
-                TempData["OrderSentMessage"] = "✅ Objednávka bola prijatá. Skontrolujte e‑mail pre platobné možnosti (bankový prevod / Stripe). Ak e‑mail nepríde, kontaktujte nás prosím.";
+                TempData["OrderSentMessage"] = "Platbu ani objednávku sa nepodarilo potvrdiť. Kontaktujte nás prosím pred ďalším pokusom.";
                 TempData["OrderSentName"] = model?.Name;
                 TempData["OrderSentEmail"] = model?.Email;
                 TempData["OrderSentGrandTotal"] = string.Empty;
@@ -1202,8 +1212,8 @@ namespace LadowebservisMVC.Controllers
                     var email = Request?.Form?["Email"];
 
                     TempData["OrderSentMessage"] = filterContext.Exception is HttpAntiForgeryException
-                        ? "⚠️ Vaša relácia vypršala. Prosím obnovte stránku a skúste odoslať objednávku znova."
-                        : "✅ Objednávka bola prijatá. Ak Vám e-mail s platobnými údajmi nedorazí do pár minút (ani do SPAM), kontaktujte nás prosím.";
+                        ? "Vaša relácia vypršala. Prosím obnovte stránku a skúste odoslať objednávku znova."
+                        : "Objednávku sa nepodarilo potvrdiť pre chybu spracovania. Kontaktujte nás prosím; objednávku neposielajte opakovane bez overenia.";
                     TempData["OrderSentName"] = name;
                     TempData["OrderSentEmail"] = email;
                     TempData["OrderSentGrandTotal"] = string.Empty;
@@ -1228,11 +1238,3 @@ namespace LadowebservisMVC.Controllers
         }
     }
 }
-
-
-
-
-
-
-
-

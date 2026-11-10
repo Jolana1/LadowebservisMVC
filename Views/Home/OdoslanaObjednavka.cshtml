@@ -1,266 +1,217 @@
+﻿@using System
+@using System.Globalization
 @{
-    ViewBag.Title = "OdoslanaObjednavka";
-
-    
-
-    var msg = (ViewBag.OrderSentMessage as string) ?? "✅ Objednavka bola prijata.";
+    ViewBag.Title = "Stav objednávky";
+    var msg = (ViewBag.OrderSentMessage as string) ?? "";
     var name = (ViewBag.OrderSentName as string) ?? "";
     var email = (ViewBag.OrderSentEmail as string) ?? "";
     var total = (ViewBag.OrderSentGrandTotal as string) ?? "";
     var orderNumber = (ViewBag.OrderSentOrderNumber as string) ?? "";
     var hasSummary = !string.IsNullOrWhiteSpace(name) || !string.IsNullOrWhiteSpace(email) || !string.IsNullOrWhiteSpace(total) || !string.IsNullOrWhiteSpace(orderNumber);
 
-    var isWarning = !string.IsNullOrWhiteSpace(msg)
-        && (msg.TrimStart().StartsWith("⚠️")
-            || msg.IndexOf("nepodarilo", StringComparison.OrdinalIgnoreCase) >= 0
-            || msg.IndexOf("chyba", StringComparison.OrdinalIgnoreCase) >= 0);
+    // Rozlisujeme uspesne odoslanie od upozornenia podla spravy z kontrolera.
+    var isSuccess = msg.StartsWith("Objednávka bola odoslaná.", StringComparison.OrdinalIgnoreCase)
+        || msg.StartsWith("Platobná relácia Stripe bola vytvorená.", StringComparison.OrdinalIgnoreCase);
+    var isWarning = !isSuccess;
+    var title = isSuccess ? "Objednávka bola odoslaná" : "Objednávku sa nepodarilo potvrdiť";
+    var icon = isSuccess ? "✓" : "!";
+    var displayedMessage = string.IsNullOrWhiteSpace(msg)
+        ? "Stav objednávky sa nepodarilo overiť. Kontaktujte nás, prosím."
+        : msg;
 
-    var title = isWarning ? "Objednavka bola prijata" : "Objednavka bola prijata";
-    var icon = isWarning ? "⚠️" : "✅";
+    decimal parsedTotal;
+    var validTotal = decimal.TryParse(total, NumberStyles.Number, CultureInfo.InvariantCulture, out parsedTotal)
+        || decimal.TryParse(total, NumberStyles.Number, new CultureInfo("sk-SK"), out parsedTotal);
+    var displayTotal = validTotal ? parsedTotal.ToString("N2", new CultureInfo("sk-SK")) : total;
+    var conversionValue = validTotal ? parsedTotal.ToString(CultureInfo.InvariantCulture) : "";
+    var trackConversion = isSuccess && validTotal && parsedTotal > 0 && !string.IsNullOrWhiteSpace(orderNumber);
 }
-
 <style>
-    /* Reuse success page styling pattern from OdoslanieSpravy.cshtml */
-    .success-container {
+    .order-status-container {
         max-width: 800px;
         margin: 60px auto;
         padding: 0 20px;
     }
 
-    .success-box {
-        background: linear-gradient(135deg, #f0fff4 0%, #e8f5e9 100%);
+    .order-status-box {
+        background: linear-gradient(135deg,#f0fff4,#e8f5e9);
         border: 3px solid #28a745;
         border-radius: 12px;
-        padding: 60px 40px;
+        padding: 48px 40px;
         text-align: center;
-        box-shadow: 0 15px 40px rgba(40, 167, 69, 0.2);
-        position: relative;
-        overflow: hidden;
-        animation: slideUp 0.6s ease;
+        box-shadow: 0 15px 40px rgba(40,167,69,.15);
     }
 
-    .success-box::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(circle at 20% 50%, rgba(40, 167, 69, 0.1) 0%, transparent 50%),
-                    radial-gradient(circle at 80% 80%, rgba(40, 167, 69, 0.1) 0%, transparent 50%);
-        pointer-events: none;
-    }
+        .order-status-box.warning {
+            background: linear-gradient(135deg,#fff8e1,#fff3cd);
+            border-color: #ff9800;
+            box-shadow: 0 15px 40px rgba(255,152,0,.12);
+        }
 
-    .success-box > * {
-        position: relative;
-        z-index: 1;
-    }
-
-   
-
-    .success-icon {
-        font-size: 80px;
-        color: #28a745;
-        margin-bottom: 20px;
-        display: inline-block;
-        animation: checkmark 0.8s ease;
-    }
-
-    .success-box.warning {
-        background: linear-gradient(135deg, #fff8e1 0%, #fff3cd 100%);
-        border-color: #ff9800;
-    }
-
-    .success-box.warning .success-icon {
-        color: #ff9800;
-    }
-
-    .success-box.warning h2 {
-        color: #ff9800;
-    }
-
-    .success-box.warning .success-subtitle {
-        color: #7a4b00;
-        background: rgba(255, 255, 255, 0.96);
-        border-color: rgba(255, 152, 0, 0.28);
-        box-shadow: 0 6px 18px rgba(255, 152, 0, 0.12);
-    }
-
-    .success-box.warning .success-message {
-        border-left-color: #ff9800;
-        box-shadow: 0 4px 12px rgba(255, 152, 0, 0.12);
-    }
-
-    .success-box.warning .success-message h4 {
-        color: #ff9800;
-    }
-
-    
-
-    .success-box h2 {
-        color: #28a745;
-        font-size: 36px;
+    .order-status-icon {
+        font-size: 70px;
         font-weight: 700;
-        margin: 0 0 15px 0;
+        color: #28a745;
+        line-height: 1.2;
+    }
+
+    .order-status-box.warning .order-status-icon, .order-status-box.warning h2 {
+        color: #b65c00;
+    }
+
+    .order-status-box h2 {
+        font-size: 32px;
+        color: #208b3a;
         line-height: 1.3;
+        margin: 12px 0 18px;
     }
 
-    .success-subtitle {
+    .order-status-subtitle {
         color: #24324a;
-        font-size: 19px;
+        font-size: 18px;
         font-weight: 600;
-        margin: 15px 0 25px 0;
         line-height: 1.6;
-        background: rgba(255, 255, 255, 0.92);
-        border: 1px solid rgba(40, 167, 69, 0.18);
+        background: white;
+        border: 1px solid #e5e7eb;
         border-radius: 10px;
-        padding: 18px 20px;
-        box-shadow: 0 6px 18px rgba(36, 50, 74, 0.08);
+        padding: 18px;
     }
 
-    .success-message {
-        background: #fff;
+    .order-status-details {
+        background: white;
         border-left: 4px solid #28a745;
-        padding: 25px;
         border-radius: 8px;
-        margin: 30px 0;
+        padding: 25px;
         text-align: left;
-        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.1);
+        margin: 28px 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,.07);
     }
 
-    .success-message h4 {
-        color: #28a745;
-        margin: 0 0 15px 0;
-        font-weight: 700;
-        font-size: 16px;
+    .warning .order-status-details {
+        border-left-color: #ff9800;
     }
 
-    .success-message p {
-        color: #24324a;
-        margin: 10px 0;
-        font-size: 15px;
-        line-height: 1.7;
-    }
-
-    .success-message a {
+    .order-status-details h4 {
         color: #5d33fb;
+        font-size: 17px;
         font-weight: 700;
-        text-decoration: underline;
+        margin: 0 0 15px;
     }
 
-    .success-message strong {
-        color: #1f2937;
+    .order-status-details p {
+        color: #24324a;
+        line-height: 1.7;
+        margin: 10px 0;
+        overflow-wrap: anywhere;
     }
 
-    .action-buttons {
+    .order-status-actions {
         display: flex;
         gap: 15px;
         justify-content: center;
         flex-wrap: wrap;
-        margin-top: 35px;
+        margin-top: 25px;
     }
 
-    .btn-action {
-        padding: 15px 35px;
-        border: none;
+    .order-status-btn {
+        display: inline-block;
         border-radius: 8px;
-        font-size: 16px;
+        padding: 14px 25px;
+        color: white !important;
+        text-decoration: none !important;
         font-weight: 700;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
-    .btn-action:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    .order-status-primary {
+        background: #5d33fb;
     }
 
-    .btn-action-primary {
-        background: linear-gradient(135deg, #5d33fb 0%, #4a2fb5 100%);
-        color: #fff;
+    .order-status-secondary {
+        background: #138da2;
     }
 
-    .btn-action-secondary {
-        background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
-        color: #fff;
+    @@media (max-width: 600px) {
+        .order-status-box {
+            padding: 28px 16px;
+        }
+
+            .order-status-box h2 {
+                font-size: 25px;
+            }
+
+        .order-status-actions {
+            flex-direction: column;
+        }
     }
 </style>
-
-<div class="success-container">
-    <div class="success-box @(isWarning ? "warning" : "")">
-        <div class="success-icon">@icon</div>
+<div class="order-status-container">
+    <div class="order-status-box @(isWarning ? "warning" : "")">
+        <div class="order-status-icon" aria-hidden="true">@icon</div>
         <h2>@title</h2>
-        <p class="success-subtitle">@msg</p>
-
-        <div class="success-message">
-            <h4>Dalsie kroky</h4>
-            
-            <p><strong>1.</strong> Zaplatte podla instrukcii v e-maile (bankovym prevodom alebo platobnym linkom, ak je dostupny).</p>
-            <p><strong>2.</strong> Po prijati platby objednavku spracujeme a co najskor odosleme.</p>
-
-            <p style="margin-top:15px;">
-                <strong>Neprisiel vam e-mail?</strong>
-                Pockajte prosim 5-10 minut a skontrolujte priecinok SPAM.
-                Ak e-mail stale nevidite, kontaktujte nas cez <a href="@Url.Action("Kontakt", "Home")"><strong>Kontakt</strong></a>
-                alebo na <a href="mailto:info@ladowebservis.sk"><strong>info@ladowebservis.sk</strong></a>.
-            </p>
-
+        <p class="order-status-subtitle">@displayedMessage</p>
+        <div class="order-status-details">
+            @if (isSuccess)
+            {
+                <h4>Ďalšie kroky</h4>
+                <p><strong>1.</strong> Skontrolujte e-mail s platobnými údajmi a prípadný priečinok SPAM.</p>
+                <p><strong>2.</strong> Zaplaťte podľa doručených pokynov. Po prijatí platby objednávku spracujeme.</p>
+                <p><strong>Neprišiel vám e-mail?</strong> Počkajte 5–10 minút, skontrolujte SPAM a potom nás kontaktujte.</p>
+            }
+            else
+            {
+                <h4>Čo robiť ďalej</h4>
+                <p>Objednávka nie je potvrdená. <strong>Neodosielajte platbu</strong> a nevytvárajte ďalšiu objednávku bez overenia.</p>
+                <p>Kontaktujte nás a uveďte prípadné číslo objednávky.</p>
+            }
+            <p><a href="@Url.Action("Kontakt", "Home")">Kontaktný formulár</a> alebo <a href="mailto:info@ladowebservis.sk">info@ladowebservis.sk</a></p>
             @if (hasSummary)
             {
-                <hr style="border:0;border-top:1px solid #e6e6e6;margin:18px 0;" />
-                <h4 style="margin:0 0 10px 0;">Suhrn</h4>
-                <div style="display:grid;grid-template-columns: 1fr;gap:6px;">
-                    @if (!string.IsNullOrWhiteSpace(name))
-                    {
-                        <p style="margin:0;">Meno: <strong>@name</strong></p>
-                    }
-                    @if (!string.IsNullOrWhiteSpace(orderNumber))
-                    {
-                        <p style="margin:0;">Cislo objednavky: <strong>@orderNumber</strong></p>
-                    }
-                    @if (!string.IsNullOrWhiteSpace(email))
-                    {
-                        <p style="margin:0;">Email: <strong>@email</strong></p>
-                    }
-                    @if (!string.IsNullOrWhiteSpace(total))
-                    {
-                        <p style="margin:0;">Suma na uhradu: <strong>€@total</strong></p>
-                    }
-                </div>
+                <hr />
+                <h4>Súhrn</h4>
+                if (!string.IsNullOrWhiteSpace(name))
+                {
+                    <p>Meno: <strong>@name</strong></p>
+                }
+                if (!string.IsNullOrWhiteSpace(orderNumber))
+                {
+                    <p>Číslo objednávky: <strong>@orderNumber</strong></p>
+                }
+                if (!string.IsNullOrWhiteSpace(email))
+                {
+                    <p>E-mail: <strong>@email</strong></p>
+                }
+                if (!string.IsNullOrWhiteSpace(total))
+                {
+                    <p>Suma na úhradu: <strong>@displayTotal €</strong></p>
+                }
             }
         </div>
-
-        <div class="action-buttons">
-            <a class="btn-action btn-action-primary" href="@Url.Action("Produkty", "Home")">
-                <i class="fa fa-shopping-bag"></i> Pokracovat na produkty
-            </a>
-            <a class="btn-action btn-action-secondary" href="@Url.Action("Kosik", "Home")">
-                <i class="fa fa-shopping-cart"></i> Spat do kosika
-            </a>
+        <div class="order-status-actions">
+            <a class="order-status-btn order-status-primary" href="@Url.Action("Produkty", "Home")">Pokračovať na produkty</a>
+            <a class="order-status-btn order-status-secondary" href="@Url.Action("Kosik", "Home")">Späť do košíka</a>
         </div>
     </div>
 </div>
-
-@if (!string.IsNullOrWhiteSpace(total) && !string.IsNullOrWhiteSpace(orderNumber))
+@if (trackConversion)
 {
-    <script>
-        // Track Google Ads conversion for successful order
-        if (typeof trackGoogleAdsConversion === 'function') {
+    <div id="order-conversion-data" hidden="hidden" data-order-id="@orderNumber" data-order-value="@conversionValue"></div>
+    <script type="text/javascript">
+        (function () {
+            var dataElement = document.getElementById('order-conversion-data');
+            if (!dataElement || typeof trackGoogleAdsConversion !== 'function') {
+                return;
+            }
             try {
-                var orderValue = parseFloat('@total'.replace(',', '.'));
-                var orderId = '@orderNumber';
-                if (!isNaN(orderValue) && orderId) {
+                var orderValue = Number(dataElement.getAttribute('data-order-value'));
+                var orderId = dataElement.getAttribute('data-order-id');
+                if (isFinite(orderValue) && orderValue > 0 && orderId) {
                     trackGoogleAdsConversion(orderId, orderValue, 'EUR');
-                    console.log('Google Ads conversion tracked: Order #' + orderId + ', Value: €' + orderValue);
                 }
             } catch (e) {
-                console.error('Error tracking Google Ads conversion:', e);
+                if (window.console && console.error) {
+                    console.error('Order conversion tracking failed:', e);
+                }
             }
-        }
+        }());
     </script>
 }

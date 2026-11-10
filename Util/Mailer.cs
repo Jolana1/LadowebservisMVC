@@ -1707,19 +1707,14 @@ namespace LadowebservisMVC.Util
 
                     mail.Body = htmlBody;
 
-                    using (var client = new SmtpClient("email.active24.com"))
-                    {
-                        client.EnableSsl = true;
-                        client.Port = 587;
-                        client.UseDefaultCredentials = false;
-                        client.Credentials = new NetworkCredential((System.Configuration.ConfigurationManager.AppSettings["Smtp:User"] ?? System.Configuration.ConfigurationManager.AppSettings["smtpUser"] ?? "info@ladowebservis.sk"), (System.Configuration.ConfigurationManager.AppSettings["Smtp:Pass"] ?? System.Configuration.ConfigurationManager.AppSettings["smtpPassword"] ?? string.Empty));
-                        client.Send(mail);
-                    }
+                    if (!TrySendWithConfiguredSmtp(mail))
+
+                        throw new InvalidOperationException("SMTP sending failed. Check application Trace output.");
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // ignore errors
+                System.Diagnostics.Trace.TraceError("Email send failed: " + ex);
             }
         }
 
@@ -1794,16 +1789,9 @@ namespace LadowebservisMVC.Util
                     mail.Attachments.Add(mailAttachment);
                 }
 
-                using (var client = new SmtpClient("email.active24.com"))
-                {
-                    client.EnableSsl = true;
-                    client.Port = 587;
-                    client.UseDefaultCredentials = false;
-                    client.Credentials = new NetworkCredential((System.Configuration.ConfigurationManager.AppSettings["Smtp:User"] ?? System.Configuration.ConfigurationManager.AppSettings["smtpUser"] ?? "info@ladowebservis.sk"), (System.Configuration.ConfigurationManager.AppSettings["Smtp:Pass"] ?? System.Configuration.ConfigurationManager.AppSettings["smtpPassword"] ?? string.Empty));
+                if (!TrySendWithConfiguredSmtp(mail))
 
-
-                    client.Send(mail);
-                }
+                    throw new InvalidOperationException("SMTP sending failed. Check application Trace output.");
             }
 
             // Extra: send a short promo / new products email after registration
@@ -1933,19 +1921,14 @@ namespace LadowebservisMVC.Util
 
                     // do not add HTML alternate view; send plain text only
 
-                    using (var client = new SmtpClient("email.active24.com"))
-                    {
-                        client.EnableSsl = true;
-                        client.Port = 587;
-                        client.UseDefaultCredentials = false;
-                        client.Credentials = new NetworkCredential((System.Configuration.ConfigurationManager.AppSettings["Smtp:User"] ?? System.Configuration.ConfigurationManager.AppSettings["smtpUser"] ?? "info@ladowebservis.sk"), (System.Configuration.ConfigurationManager.AppSettings["Smtp:Pass"] ?? System.Configuration.ConfigurationManager.AppSettings["smtpPassword"] ?? string.Empty));
-                        client.Send(mail);
-                    }
+                    if (!TrySendWithConfiguredSmtp(mail))
+
+                        throw new InvalidOperationException("SMTP sending failed. Check application Trace output.");
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // ignore send errors
+                System.Diagnostics.Trace.TraceError("Email send failed: " + ex);
             }
         }
 
@@ -2002,7 +1985,6 @@ namespace LadowebservisMVC.Util
                 {
                     customerMail.From = new MailAddress("info@ladowebservis.sk", "Ladowebservis");
                     customerMail.To.Add(customerEmail);
-                    customerMail.Bcc.Add("info@ladowebservis.sk");
                     customerMail.Subject = "Odber noviniek je aktívny - Ladowebservis";
                     customerMail.SubjectEncoding = Encoding.UTF8;
                     customerMail.BodyEncoding = Encoding.UTF8;
@@ -2019,25 +2001,46 @@ namespace LadowebservisMVC.Util
     <p style='margin-top:24px;'>S pozdravom,<br><strong>Tím Ladowebservis</strong></p>
 </div>";
 
-                    if (!TrySendWithConfiguredSmtp(customerMail)) return false;
+                    if (!TrySendWithConfiguredSmtp(customerMail))
+                    {
+                        System.Diagnostics.Trace.TraceError("Newsletter customer confirmation SMTP failed.");
+                        return false;
+                    }
                 }
 
-                using (var adminMail = new MailMessage())
+                // Admin notification is best-effort and must not change customer confirmation status.
+                try
                 {
-                    adminMail.From = new MailAddress("info@ladowebservis.sk", "Ladowebservis");
-                    adminMail.To.Add("info@ladowebservis.sk");
-                    adminMail.Subject = "Nový potvrdený odber noviniek na webe";
-                    adminMail.SubjectEncoding = Encoding.UTF8;
-                    adminMail.BodyEncoding = Encoding.UTF8;
-                    adminMail.IsBodyHtml = false;
-                    adminMail.Body = "Na webe potvrdil odber nový odberateľ noviniek:\r\n\r\n" + customerEmail + "\r\n\r\nDátum: " + DateTime.Now.ToString("dd.MM.yyyy HH:mm");
+                    using (var adminMail = new MailMessage())
+                    {
+                        adminMail.From = new MailAddress("info@ladowebservis.sk", "Ladowebservis - newsletter");
+                        adminMail.To.Add("info@ladowebservis.sk");
+                        adminMail.ReplyToList.Add(new MailAddress(customerEmail));
+                        adminMail.Subject = "LadoWebServis - novy potvrdeny odberatel newslettera";
+                        adminMail.SubjectEncoding = Encoding.UTF8;
+                        adminMail.BodyEncoding = Encoding.UTF8;
+                        adminMail.IsBodyHtml = false;
+                        adminMail.Body = "Nový potvrdený odber newslettera LadoWebServis.\r\n\r\n"
+                            + "E-mail odberateľa: " + customerEmail + "\r\n"
+                            + "Stav: Potvrdený\r\n"
+                            + "Dátum: " + DateTime.Now.ToString("dd.MM.yyyy HH:mm") + "\r\n";
 
-                    return TrySendWithConfiguredSmtp(adminMail);
+                        if (!TrySendWithConfiguredSmtp(adminMail))
+                            System.Diagnostics.Trace.TraceError("Newsletter admin notification SMTP failed (recipient info@ladowebservis.sk). Check SMTP logs and mailbox filtering.");
+                        else
+                            System.Diagnostics.Trace.TraceInformation("Newsletter admin notification accepted by SMTP for info@ladowebservis.sk.");
+                    }
                 }
+                catch (Exception adminEx)
+                {
+                    System.Diagnostics.Trace.TraceError("Newsletter admin notification failed: " + adminEx);
+                }
+
+                return true;
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Trace.TraceError($"TrySendConfirmedSubscriptionEmail failed: {ex}");
+                System.Diagnostics.Trace.TraceError("TrySendConfirmedSubscriptionEmail failed: " + ex);
                 return false;
             }
         }
@@ -2109,19 +2112,14 @@ namespace LadowebservisMVC.Util
 
                     mail.Body = sb.ToString();
 
-                    using (var client = new SmtpClient("email.active24.com"))
-                    {
-                        client.EnableSsl = true;
-                        client.Port = 587;
-                        client.UseDefaultCredentials = false;
-                        client.Credentials = new NetworkCredential((System.Configuration.ConfigurationManager.AppSettings["Smtp:User"] ?? System.Configuration.ConfigurationManager.AppSettings["smtpUser"] ?? "info@ladowebservis.sk"), (System.Configuration.ConfigurationManager.AppSettings["Smtp:Pass"] ?? System.Configuration.ConfigurationManager.AppSettings["smtpPassword"] ?? string.Empty));
-                        client.Send(mail);
-                    }
+                    if (!TrySendWithConfiguredSmtp(mail))
+
+                        throw new InvalidOperationException("SMTP sending failed. Check application Trace output.");
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // ignore send errors
+                System.Diagnostics.Trace.TraceError("Email send failed: " + ex);
             }
         }
 
